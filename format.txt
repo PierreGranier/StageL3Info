@@ -62,7 +62,12 @@ SEQ
 	<PREMISSE>
 </REGLE>
 
+
 seq(top(aff(top(), bot(preC(), prog(...), postC(...)))), bot(preC(), prog(...), postC(...)))
+
+
+SEQ TOP AFF 
+
 
 string res = "";
 for(int i=0; i<chaine.length(); i++)

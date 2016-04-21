@@ -1,0 +1,71 @@
+
+AFF                          AFF
+{0+x>=0}a:=0{a=0^0+x>=0}    {a=0^0+x>=0}b:=x{b=x^a=0^0+x>=0}
+SEQ
+{0+x > 0} a:= 0; b:=x {b=x ^ a = 0 ^ 0+x>=0}
+
+
+<SEQ>
+	<CONSEQUENCE>
+		<PREC>0+x>0</PREC>
+		<PROG>a:=0;b:=x</PROG>
+		<POSTC>b=x^a=0^0+x>=0</POSTC>
+	</CONSEQUENCE>
+	<PREMISSE>
+		<AFF>
+			<CONSEQUENCE>
+				<PREC>0+x>=0</PREC>
+				<PROG>a:=0</PROG>
+				<POSTC>a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</AFF>
+		<AFF>
+			<CONSEQUENCE>
+				<PREC>a=0^0+x>=0</PREC>
+				<PROG>b:=x</PROG>
+				<POSTC>b=x^a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</AFF>
+	<PREMISSE>
+</SEQ>
+
+
+<REGLE name="SEQ">
+	<CONSEQUENCE>
+		<PREC>0+x>0</PREC>
+		<PROG>a:=0;b:=x</PROG>
+		<POSTC>b=x^a=0^0+x>=0</POSTC>
+	</CONSEQUENCE>
+	<PREMISSE>
+		<REGLE name="AFF">
+			<CONSEQUENCE>
+				<PREC>0+x>=0</PREC>
+				<PROG>a:=0</PROG>
+				<POSTC>a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</REGLE>
+		<REGLE name="AFF">
+			<CONSEQUENCE>
+				<PREC>a=0^0+x>=0</PREC>
+				<PROG>b:=x</PROG>
+				<POSTC>b=x^a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</REGLE>
+	<PREMISSE>
+</REGLE>
+
+seq(top(aff(top(), bot(preC(), prog(...), postC(...)))), bot(preC(), prog(...), postC(...)))
+
+string res = "";
+for(int i=0; i<chaine.length(); i++)
+	if(chaine[i] != " " && chaine[i] != "\n")
+		res += chaine[i];
+return res;

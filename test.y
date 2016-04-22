@@ -37,49 +37,61 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
-	| Entree Regle
+	| Regle Entree
 	| FINFINALE { return 0; }
-	;
-
-Expression:
-	Expression { printf("%s", $$); }
-	;
-	
-Predicat:
-	Predicat { printf("predicat %s", $$); }
-	;
-	
-Calcul:
-	Expression AFFECTATION Expression
 	;
 	
 Regle:
 	AFF PREMISSE CONSEQUENCE PRECONDITION Predicat PROGRAMME Calcul POSTCONDITION Predicat
 			{
-				$$ = $5;
+				//$$ = $5;
 				printf("dubzam : %s\n", $$);
 			}
 	;
-  
-Op_comparaison:
-	INF_EGAL
-	| SUP_EGAL
-	| SUP 
-	| INF
-	;		
-  
+
 Predicat:
-	MOT SUP_EGAL MOT 		{}
-	| MOT INF_EGAL MOT		{}
-	| MOT SUP MOT 			{}
-	| MOT INF MOT 			{}
+	MOT INF MOT { 
+		strcat($$, $1);
+		strcat($$,"<");
+		strcat($$, $3);
+		printf("predicat -%s-", $$);
+	}
+	| MOT SUP MOT { 
+		strcat($$, $1);
+		strcat($$,">");
+		strcat($$, $3);
+		printf("predicat -%s-", $$);
+	}
+	| MOT SUP_EGAL MOT 		{ 
+		strcat($$, $1);
+		strcat($$,"[autre opérateur]");
+		strcat($$, $3);
+		printf("predicat -%s-", $$);
+	}
+	| MOT INF_EGAL MOT		{ 
+		strcat($$, $1);
+		strcat($$,"[autre opérateur]");
+		strcat($$, $3);
+		printf("predicat -%s-", $$);
+	} 
 	;
+
 	/*
 	| REGLE Expression { 	
 		printf("Val longue Expression : %s\n", $$);
 	 }*/
+	;	
+
+/*
+Calcul:
+	Expression AFFECTATION Expression
 	;
-	
+
+Expression:
+	 { printf("%s", $$); }
+	;
+*/
+
 
 %%
 

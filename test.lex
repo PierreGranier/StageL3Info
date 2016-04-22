@@ -24,19 +24,29 @@ op_comparaison [<>][=]?
 "SEQ" {	return(SEQ); }
 ":=" { return(AFFECTATION); }
 "PRECONDITION" { return(PRECONDITION); }
-"POSTCONDITION" { return(PRECONDITION); }
+"POSTCONDITION" { return(POSTCONDITION); }
 "PREMISSE" { return(PREMISSE); }
 "CONSEQUENCE" { return(CONSEQUENCE); }
 "PROGRAMME" { return(PROGRAMME); }
 		
 "<="	{
-				return(INF_EGAL);
-			}
+			return(INF_EGAL);
+		}
 
 ">="	{
-				return(SUP_EGAL);
-			}
-{mot} {
+			return(SUP_EGAL);
+		}
+
+"<"		{
+			return(INF);
+		}
+
+">"		{
+			return(SUP);
+		}
+		
+
+{mot} 	{
 			printf("\nLex : Mot (%s)\n", yytext);
 			yylval.chaine = yytext;
 			return(MOT);

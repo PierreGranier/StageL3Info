@@ -1,7 +1,9 @@
 all:
 	mkdir -p build
+	cp global.h build/global.h
 	
 	clear
+	
 	@echo Yacc
 	bison -d test.y -o build/test.tab.c
 	mv build/test.tab.h build/test.h

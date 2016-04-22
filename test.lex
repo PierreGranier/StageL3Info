@@ -18,30 +18,20 @@ op_comparaison [<>][=]?
 
 {separateurs} 	{ /* ignoré */ }
 
-"AFF" {	return(AFF); }
-"SEQ" {	return(SEQ); }
-":=" { return(AFFECTATION); }
-"PRECONDITION" { return(PRECONDITION); }
-"POSTCONDITION" { return(POSTCONDITION); }
-"PREMISSE" { return(PREMISSE); }
-"CONSEQUENCE" { return(CONSEQUENCE); }
-"PROGRAMME" { return(PROGRAMME); }
-		
-"<="	{
-			return(INF_EGAL);
-		}
-
-">="	{
-			return(SUP_EGAL);
-		}
-
-"<"		{
-			return(INF);
-		}
-
-">"		{
-			return(SUP);
-		}
+"AFF" 			{ return(AFF);  			 }
+"SEQ" 			{ return(SEQ); 				 }
+":=" 			{ return(AFFECTATION); 		 }
+"PRECONDITION" 	{ return(PRECONDITION); 	 }
+"POSTCONDITION" { return(POSTCONDITION); 	 }
+"PREMISSE" 		{ return(PREMISSE); 		 }
+"CONSEQUENCE" 	{ return(CONSEQUENCE); 		 }
+"PROGRAMME" 	{ return(PROGRAMME);   		 }
+"<="			{ return(INF_EGAL);			 }
+">="			{ return(SUP_EGAL); 		 }
+"<"				{ return(INF); 				 }
+">"				{ return(SUP); 				 }
+"{"				{ return(ACCOLADE_OUVRANTE); }
+"}"				{ return(ACCOLADE_FERMANTE); }
 		
 
 {mot} 	{

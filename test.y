@@ -36,7 +36,7 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
-	| Regle Entree
+	| Regle FIN Entree
 	| FINFINALE { return 0; }
 	;
 	

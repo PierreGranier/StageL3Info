@@ -24,6 +24,7 @@ launch_file:
 	./hoare entree.txt
 	
 clean:
+	@echo Nettoyage
 	rm -rf build/*
 	rm -rf *.tab.*
 	rm -rf *.yy.c

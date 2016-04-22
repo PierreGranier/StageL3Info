@@ -29,8 +29,12 @@ op_comparaison [<>][=]?
 "<"				{ return(INF); 				 }
 ">"				{ return(SUP); 				 }
 "{"				{ return(ACCOLADE_OUVRANTE); }
-"}"				{ return(ACCOLADE_FERMANTE); }
-{entier}		{ return (ENTIER); 			 }		
+"}"				{ return(ACCOLADE_FERMANTE); }	
+
+{entier} { 
+			printf("\nLex : Mot (%s)\n", atoi(yytext));
+			yylval.chaine = yytext;
+			return (ENTIER) 	
 
 {mot} 	{
 			printf("\nLex : Mot (%s)\n", yytext);
@@ -39,7 +43,6 @@ op_comparaison [<>][=]?
 		}
 
 %{
-
 int main(int argc, char **argv) {
 	yylex();
 	

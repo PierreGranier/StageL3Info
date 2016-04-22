@@ -35,6 +35,7 @@ op_comparaison [<>][=]?
 			printf("\nLex : Mot (%s)\n", atoi(yytext));
 			yylval.chaine = yytext;
 			return (ENTIER) 	
+		}
 
 {mot} 	{
 			printf("\nLex : Mot (%s)\n", yytext);

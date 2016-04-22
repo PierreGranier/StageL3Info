@@ -29,14 +29,12 @@ op_comparaison [<>][=]?
 "<"				{ return(INF); 				 }
 ">"				{ return(SUP); 				 }
 "{"				{ return(ACCOLADE_OUVRANTE); }
-
 "}"				{ return(ACCOLADE_FERMANTE); }
 
 {entier} { 
-			printf("\nLex : Mot (%s)\n", atoi(yytext));
-			yylval.chaine = yytext;
-			return (ENTIER) 	
-
+			printf("\nLex : Mot (%s)\n", yytext);
+			yylval.valEntiere = atoi(yytext);
+			return (ENTIER); 	
 		 }		
 
 {mot} 	{

@@ -46,7 +46,7 @@ Expression:
 	;
 	
 Predicat:
-	Predicat { printf("predicat"); }
+	Predicat { printf("predicat %s", $$); }
 	;
 	
 Calcul:

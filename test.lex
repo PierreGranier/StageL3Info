@@ -6,8 +6,6 @@
 
 #include "global.h"
 #include "test.tab.h"
-
-
 %}
 
 separateurs [ \t]

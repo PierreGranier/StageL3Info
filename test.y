@@ -80,14 +80,14 @@ Condition:
 	| MOT SUP_EGAL MOT
 		{ 
 			strcat($$, $1);
-			strcat($$,"[autre opérateur]");
+			strcat($$,">=");
 			strcat($$, $3);
 			printf("predicat -%s-", $$);
 		}
 	| MOT INF_EGAL MOT
 		{ 
 			strcat($$, $1);
-			strcat($$,"[autre opérateur]");
+			strcat($$,"<=");
 			strcat($$, $3);
 			printf("predicat -%s-", $$);
 		}

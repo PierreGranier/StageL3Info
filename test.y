@@ -24,6 +24,7 @@ extern FILE* yyin;
 %token FINFINALE
 %token INF_EGAL SUP_EGAL SUP INF
 %token<chaine> MOT
+%token FIN
 
 %type<chaine> Expression
 %type<chaine> Regle

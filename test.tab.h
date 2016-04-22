@@ -57,7 +57,8 @@ extern int yydebug;
     SUP_EGAL = 267,
     SUP = 268,
     INF = 269,
-    MOT = 270
+    MOT = 270,
+    FIN = 271
   };
 #endif
 
@@ -70,7 +71,7 @@ union YYSTYPE
 
 	char* chaine;
 
-#line 74 "test.tab.h" /* yacc.c:1909  */
+#line 75 "test.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

@@ -10,17 +10,15 @@
 
 %}
 
-%%regle AFF|SEQ|CONSEQ|WHILE|WHILET
-
 separateurs [ \t]
-Mot [A-z]+
-Op_Comparaison [<>][=]?
+mot [A-z]+
+op_comparaison [<>][=]?
 
 %%
 
 "fini"	{ return (FINFINALE); }
 
-{separateurs} 	{ /*ignoré*/ }
+{separateurs} 	{ /* ignoré */ }
 
 "AFF" {	return(AFF); }
 "SEQ" {	return(SEQ); }
@@ -32,25 +30,17 @@ Op_Comparaison [<>][=]?
 "PROGRAMME" { return(PROGRAMME); }
 		
 "<="	{
-				return(INF_EGALE);
+				return(INF_EGAL);
 			}
 
 ">="	{
-				return(SUP_EGALE);
+				return(SUP_EGAL);
 			}
-		
-{Op_Comparaison} {
-				printf("\nLex : Comp (%s)\n", yytext);
-				yylval.chaine = yytext;
-				return(OP_COMPARAISON);
-			}
-{Mot} {
+{mot} {
 			printf("\nLex : Mot (%s)\n", yytext);
 			yylval.chaine = yytext;
 			return(MOT);
-			}
-
-%%
+		}
 
 %{
 

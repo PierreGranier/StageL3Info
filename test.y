@@ -22,7 +22,11 @@ extern FILE* yyin;
 %token CONSEQUENCE
 %token PROGRAMME
 %token AFF
+%token SEQ
 %token FINFINALE
+%token INF_EGAL
+%token SUP_EGAL
+%token MOT
 
 %type<chaine> Expression
 %type<chaine> Regle
@@ -35,7 +39,7 @@ extern FILE* yyin;
 Entree:
 	/* Vide */
 	| Entree Regle
-	| FINFINALE { return 0;}
+	| FINFINALE { return 0; }
 	;
 
 Expression:
@@ -63,7 +67,7 @@ Op_comparaison:
 	| SUP_EGAL
 	;		
   
-Precondition:
+Predicat:
 	MOT SUP_EGAL MOT 		{}
 	| MOT INF_EGAL MOT	{}
 	;
@@ -80,7 +84,6 @@ int yyerror(char *s) {
 }
 
 int main(int argc, char **argv) {
-
 	if (argc == 2){
 		yyin= fopen(argv[1], "r");
 		printf("Fichier utilisé");
@@ -95,4 +98,9 @@ int main(int argc, char **argv) {
 	
 	return EXIT_SUCCESS;
 }
+
+
+
+// AFF PREMISSE CONSEQUENCE PRECONDITION azad PROGRAMME a := 1 POSTCONDITION gtrg
+
 

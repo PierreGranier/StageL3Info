@@ -26,7 +26,7 @@ Op_Comparaison [<>][=]?
 "SEQ" {	return(SEQ); }
 ":=" { return(AFFECTATION); }
 "PRECONDITION" { return(PRECONDITION); }
-"POSTCONDITION" { return(PRECONDITION); }
+"POSTCONDITION" { return(POSTCONDITION); }
 "PREMISSE" { return(PREMISSE); }
 "CONSEQUENCE" { return(CONSEQUENCE); }
 "PROGRAMME" { return(PROGRAMME); }
@@ -46,11 +46,7 @@ Op_Comparaison [<>][=]?
 				return(SUP);
 			}
 		
-{Op_Comparaison} {
-				printf("\nLex : Comp (%s)\n", yytext);
-				yylval.chaine = yytext;
-				return(OP_COMPARAISON);
-			}
+
 {Mot} {
 			printf("\nLex : Mot (%s)\n", yytext);
 			yylval.chaine = yytext;

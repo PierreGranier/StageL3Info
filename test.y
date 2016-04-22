@@ -23,6 +23,7 @@ extern FILE* yyin;
 %token PROGRAMME
 %token AFF
 %token FINFINALE
+%token MOT
 
 %type<chaine> Expression
 %type<chaine> Regle
@@ -61,17 +62,39 @@ Regle:
 Op_comparaison:
 	INF_EGAL
 	| SUP_EGAL
+	| SUP 
+	| INF
 	;		
   
 Precondition:
 	MOT SUP_EGAL MOT 		{}
-	| MOT INF_EGAL MOT	{}
+	| MOT INF_EGAL MOT		{}
+	| MOT SUP MOT 			{}
+	| MOT INF MOT 			{}
 	;
 	/*
 	| REGLE Expression { 	
 		printf("Val longue Expression : %s\n", $$);
 	 }*/
 	;
+	
+SUP:
+	SUP { printf("Sup"); }
+	;
+	
+SUP_EGAL:
+	SUP_EGAL { printf("Sup_egal"); }
+	;
+
+INF:
+	INF { printf("inf"); }
+	;
+
+INF_EGAL:
+	INF_EGAL { printf("inf egal"); }
+	;	
+
+	
 
 %%
 

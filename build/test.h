@@ -45,9 +45,15 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    REGLE = 258,
+    AFFECTATION = 258,
     PRECONDITION = 259,
-    FINFINALE = 260
+    POSTCONDITION = 260,
+    PREMISSE = 261,
+    CONSEQUENCE = 262,
+    PROGRAMME = 263,
+    AFF = 264,
+    FINFINALE = 265,
+    MOT = 266
   };
 #endif
 
@@ -60,7 +66,7 @@ union YYSTYPE
 
 	char* chaine;
 
-#line 64 "build/test.tab.h" /* yacc.c:1909  */
+#line 70 "build/test.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

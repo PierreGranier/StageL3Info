@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #include "global.h"
-#include "test.h"
+#include "test.tab.h"
 
 
 %}

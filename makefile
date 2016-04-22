@@ -1,28 +1,29 @@
 all:
 	mkdir -p build
-	cp global.h build/global.h
 	
 	clear
 	
 	@echo Yacc
-	bison -d test.y -o build/test.tab.c
-	mv build/test.tab.h build/test.h
-	mv build/test.tab.c build/test.y.c
-
+	bison -d test.y -o test.tab.c
+	
 	@echo Lex
-	flex -o build/lex.yy.c test.lex
-	mv build/lex.yy.c build/test.lex.c
+	flex test.lex
 
 	@echo Compilation
-	gcc -c build/test.lex.c -o build/test.lex.o
-	gcc -c build/test.y.c -o build/test.y.o
-	gcc -o test build/test.lex.o build/test.y.o -ll -lm
+	gcc -c	lex.yy.c	-o build/lex.yy.o
+	gcc -c	test.tab.c	-o build/test.tab.o
+	gcc	-o	hoare build/lex.yy.o	build/test.tab.o -lfl -ll -lm
 	
 launch:
 	@echo Execution
-	./test
+	./hoare
 	
 	
 launch_file:
 	@echo Execution avec fichier
-	./test entree.txt
+	./hoare entree.txt
+	
+clean:
+	rm -rf build/*
+	rm -rf *.tab.*
+	rm -rf *.yy.c

@@ -24,8 +24,7 @@ extern FILE* yyin;
 %token AFF
 %token SEQ
 %token FINFINALE
-%token INF_EGAL
-%token SUP_EGAL
+%token INF_EGAL SUP_EGAL SUP INF
 %token MOT
 
 %type<chaine> Expression
@@ -43,11 +42,11 @@ Entree:
 	;
 
 Expression:
-	Expression { printf("expre"); }
+	Expression { printf("%s", $$); }
 	;
 	
 Predicat:
-	Predicat { printf("expre"); }
+	Predicat { printf("predicat"); }
 	;
 	
 Calcul:
@@ -80,23 +79,6 @@ Predicat:
 		printf("Val longue Expression : %s\n", $$);
 	 }*/
 	;
-	
-SUP:
-	SUP { printf("Sup"); }
-	;
-	
-SUP_EGAL:
-	SUP_EGAL { printf("Sup_egal"); }
-	;
-
-INF:
-	INF { printf("inf"); }
-	;
-
-INF_EGAL:
-	INF_EGAL { printf("inf egal"); }
-	;	
-
 	
 
 %%

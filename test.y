@@ -24,6 +24,7 @@ extern FILE* yyin;
 %token FINFINALE
 %token INF_EGAL SUP_EGAL SUP INF
 %token<chaine> MOT
+%token<valEntiere> ENTIER
 %token FIN
 
 %type<chaine> Expression
@@ -47,7 +48,7 @@ Regle:
 			//$$ = $5;
 			printf("la preuve est fausse (premisse présente) : %s\n", $$);
 		}
-	| AFF PREMISSE CONSEQUENCE Predicat Programme Predicat
+	| AFF CONSEQUENCE Predicat Programme Predicat
 		{
 			// Calcul à faire
 			printf("bravo");
@@ -56,31 +57,44 @@ Regle:
 
 Predicat:
 	ACCOLADE_OUVRANTE Condition ACCOLADE_FERMANTE
+		{
+			printf("Prédicat de valeur %s\n", $2);
+			$$= $2;
+		}
 	;
 	
 Condition:
-	MOT INF MOT
+	Valeur
+	;
+
+Valeur:	
+	MOT
+	| ENTIER
+	;
+
+Comparaison:
+	Valeur INF Valeur
 		{ 
 			strcat($$, $1);
 			strcat($$,"<");
 			strcat($$, $3);
 			printf("predicat -%s-", $$);
 		}
-	| MOT SUP MOT
+	| Valeur SUP Valeur
 		{ 
 			strcat($$, $1);
 			strcat($$,">");
 			strcat($$, $3);
 			printf("predicat -%s-", $$);
 		}
-	| MOT SUP_EGAL MOT
+	| Valeur SUP_EGAL Valeur
 		{ 
 			strcat($$, $1);
 			strcat($$,">=");
 			strcat($$, $3);
 			printf("predicat -%s-", $$);
 		}
-	| MOT INF_EGAL MOT
+	| Valeur INF_EGAL Valeur
 		{ 
 			strcat($$, $1);
 			strcat($$,"<=");
@@ -112,7 +126,7 @@ int yyerror(char *s) {
 int main(int argc, char **argv) {
 	if (argc == 2){
 		yyin= fopen(argv[1], "r");
-		printf("Fichier utilisé");
+		printf("Fichier utilisé\n");
 	}
 	yyparse();
 	//yylex();

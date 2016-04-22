@@ -1283,7 +1283,7 @@ yyreduce:
 #line 76 "test.y" /* yacc.c:1646  */
     { 
 			strcat((yyval.chaine), (yyvsp[-2].chaine));
-			strcat((yyval.chaine),"[autre opérateur]");
+			strcat((yyval.chaine),">=");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("predicat -%s-", (yyval.chaine));
 		}
@@ -1294,7 +1294,7 @@ yyreduce:
 #line 83 "test.y" /* yacc.c:1646  */
     { 
 			strcat((yyval.chaine), (yyvsp[-2].chaine));
-			strcat((yyval.chaine),"[autre opérateur]");
+			strcat((yyval.chaine),"<=");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("predicat -%s-", (yyval.chaine));
 		}
@@ -1558,9 +1558,3 @@ int main(int argc, char **argv) {
 	
 	return EXIT_SUCCESS;
 }
-
-
-
-// AFF PREMISSE CONSEQUENCE PRECONDITION azad PROGRAMME a := 1 POSTCONDITION gtrg
-
-

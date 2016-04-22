@@ -123,9 +123,3 @@ int main(int argc, char **argv) {
 	
 	return EXIT_SUCCESS;
 }
-
-
-
-// AFF PREMISSE CONSEQUENCE PRECONDITION azad PROGRAMME a := 1 POSTCONDITION gtrg
-
-

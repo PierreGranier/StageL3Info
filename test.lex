@@ -38,6 +38,13 @@ Op_Comparaison [<>][=]?
 ">="	{
 				return(SUP_EGALE);
 			}
+"<"		{
+				return(INF);
+			}
+
+">"		{
+				return(SUP);
+			}
 		
 {Op_Comparaison} {
 				printf("\nLex : Comp (%s)\n", yytext);

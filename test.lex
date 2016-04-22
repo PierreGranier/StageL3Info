@@ -14,6 +14,7 @@ op_comparaison [<>][=]?
 
 %%
 
+"\n"	{ return (FIN); 	  }
 "fini"	{ return (FINFINALE); }
 
 {separateurs} 	{ /* ignoré */ }

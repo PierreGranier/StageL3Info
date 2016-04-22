@@ -1,5 +1,6 @@
 typedef struct s_typespe {
-	char * chaine; 
+	char * chaine;
+	int valEntiere; 
 } typespe;
 
 #define YYSTYPE typespe

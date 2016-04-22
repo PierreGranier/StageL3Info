@@ -10,15 +10,15 @@
 
 separateurs [ \t]
 mot [A-z]+
+entier [0-9]+
 op_comparaison [<>][=]?
 
 %%
 
-"\n"	{ return (FIN); 	  }
-"fini"	{ return (FINFINALE); }
-
 {separateurs} 	{ /* ignoré */ }
 
+"\n"			{ return (FIN);		  	 	 }
+"fini"			{ return (FINFINALE); 		 }
 "AFF" 			{ return(AFF);  			 }
 "SEQ" 			{ return(SEQ); 				 }
 ":=" 			{ return(AFFECTATION); 		 }
@@ -30,7 +30,7 @@ op_comparaison [<>][=]?
 ">"				{ return(SUP); 				 }
 "{"				{ return(ACCOLADE_OUVRANTE); }
 "}"				{ return(ACCOLADE_FERMANTE); }
-		
+{entier}		{ return (ENTIER) 			 }		
 
 {mot} 	{
 			printf("\nLex : Mot (%s)\n", yytext);

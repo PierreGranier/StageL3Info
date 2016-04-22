@@ -13,6 +13,7 @@ extern FILE* yyin;
 
 %union{
 	char* chaine;
+	int valEntiere;
 }
 
 %token AFFECTATION
@@ -24,13 +25,15 @@ extern FILE* yyin;
 %token FINFINALE
 %token INF_EGAL SUP_EGAL SUP INF
 %token<chaine> MOT
-%token<valEntiere> ENTIER
+%token<chaine> ENTIER
 %token FIN
 
 %type<chaine> Expression
 %type<chaine> Regle
 %type<chaine> Predicat
 %type<chaine> Condition
+%type<chaine> Comparaison
+%type<chaine> Valeur
 
 %start Entree
 
@@ -64,12 +67,18 @@ Predicat:
 	;
 	
 Condition:
-	Valeur
+	Comparaison {$$ = $1;}
 	;
 
-Valeur:	
+Valeur:
 	MOT
+		{
+			$$ = $1;
+		}
 	| ENTIER
+		{
+			$$ = $1;
+		}
 	;
 
 Comparaison:

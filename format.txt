@@ -1,0 +1,100 @@
+
+[EXEMPLE DE PREUVE]
+
+AFF                          AFF
+{0+x>=0}a:=0{a=0^0+x>=0}    {a=0^0+x>=0}b:=x{b=x^a=0^0+x>=0}
+SEQ
+{0+x > 0} a:= 0; b:=x {b=x ^ a = 0 ^ 0+x>=0}
+
+
+[STRUCTURE DE PREUVE AU FORMAT XML]
+
+<SEQ>
+	<CONSEQUENCE>
+		<PREC>0+x>0</PREC>
+		<PROG>a:=0;b:=x</PROG>
+		<POSTC>b=x^a=0^0+x>=0</POSTC>
+	</CONSEQUENCE>
+	<PREMISSE>
+		<AFF>
+			<CONSEQUENCE>
+				<PREC>0+x>=0</PREC>
+				<PROG>a:=0</PROG>
+				<POSTC>a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</AFF>
+		<AFF>
+			<CONSEQUENCE>
+				<PREC>a=0^0+x>=0</PREC>
+				<PROG>b:=x</PROG>
+				<POSTC>b=x^a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</AFF>
+	<PREMISSE>
+</SEQ>
+
+
+<REGLE name="SEQ">
+	<CONSEQUENCE>
+		<PREC>0+x>0</PREC>
+		<PROG>a:=0;b:=x</PROG>
+		<POSTC>b=x^a=0^0+x>=0</POSTC>
+	</CONSEQUENCE>
+	<PREMISSE>
+		<REGLE name="AFF">
+			<CONSEQUENCE>
+				<PREC>0+x>=0</PREC>
+				<PROG>a:=0</PROG>
+				<POSTC>a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</REGLE>
+		<REGLE name="AFF">
+			<CONSEQUENCE>
+				<PREC>a=0^0+x>=0</PREC>
+				<PROG>b:=x</PROG>
+				<POSTC>b=x^a=0^0+x>=0</POSTC>
+			</CONSEQUENCE>
+			<PREMISSE>
+			</PREMISSE>
+		</REGLE>
+	<PREMISSE>
+</REGLE>
+
+
+[STRUCTURE DE PREUVE AU FORMAT FONCTIONNEL (OU AXIOMATIQUE)]
+
+seq(top(aff(top(), bot(preC(), prog(...), postC(...)))), bot(preC(), prog(...), postC(...)))
+SEQ TOP AFF TOP BOT ...
+
+
+[STRUCTURE DE PREUVE AU FORMAT LINEAIRE - ALGO]
+
+string res = "";
+for(int i=0; i<chaine.length(); i++)
+	if(chaine[i] != " " && chaine[i] != "\n")
+		res += chaine[i];
+return res;
+
+
+[AUTRE EXEMPLE DE PREUVE]
+
+AFF
+{0+x>=0}a:=0{a=0^0+x>=0}
+
+AFF ( PREMISSE(), CONSEQUENCE ( PREC ( 0+x>=0 ), PROG ( a:=0 ), POSTC ( a=0^0+x>=0 ) ) )
+AFF PREMISSE CONSEQUENCE PREC 0+x>=0 PROG a:=0 POSTC a=0^0+x>=0
+
+Predicat:
+	Expression PLUS Expression {}
+	Expression MOINS Expression {}
+	Expression EGAL Expression {}
+	etc...
+	
+Expression Predicat -> intraitable
+AFF PREMISSE CONSEQUENCE PREC Predicat PROG Calcul POSTC Predicat {  }

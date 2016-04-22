@@ -13,6 +13,8 @@
 %%regle AFF|SEQ|CONSEQ|WHILE|WHILET
 
 separateurs [ \t]
+Mot [A-z]+
+Op_Comparaison [<>][=]?
 
 %%
 
@@ -28,6 +30,27 @@ separateurs [ \t]
 "PREMISSE" { return(PREMISSE); }
 "CONSEQUENCE" { return(CONSEQUENCE); }
 "PROGRAMME" { return(PROGRAMME); }
+		
+"<="	{
+				return(INF_EGALE);
+			}
+
+">="	{
+				return(SUP_EGALE);
+			}
+		
+{Op_Comparaison} {
+				printf("\nLex : Comp (%s)\n", yytext);
+				yylval.chaine = yytext;
+				return(OP_COMPARAISON);
+			}
+{Mot} {
+			printf("\nLex : Mot (%s)\n", yytext);
+			yylval.chaine = yytext;
+			return(MOT);
+			}
+
+%%
 
 %{
 

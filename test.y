@@ -56,11 +56,21 @@ Regle:
 				$$ = $5;
 				printf("dubzam : %s\n", $$);
 			}
+	;
+  
+Op_comparaison:
+	INF_EGAL
+	| SUP_EGAL
+	;		
+  
+Precondition:
+	MOT SUP_EGAL MOT 		{}
+	| MOT INF_EGAL MOT	{}
+	;
 	/*
 	| REGLE Expression { 	
 		printf("Val longue Expression : %s\n", $$);
 	 }*/
-
 	;
 
 %%
@@ -77,7 +87,7 @@ int main(int argc, char **argv) {
 	}
 	yyparse();
 	//yylex();
-	
+
 	/*if(argc > 0)
 		yyin = fopen(argv[0], "r");
 	else

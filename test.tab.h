@@ -46,19 +46,18 @@ extern int yydebug;
   enum yytokentype
   {
     AFFECTATION = 258,
-    PRECONDITION = 259,
-    POSTCONDITION = 260,
-    PREMISSE = 261,
-    CONSEQUENCE = 262,
-    PROGRAMME = 263,
-    AFF = 264,
-    SEQ = 265,
-    FINFINALE = 266,
-    INF_EGAL = 267,
-    SUP_EGAL = 268,
-    SUP = 269,
-    INF = 270,
-    MOT = 271
+    PREMISSE = 259,
+    CONSEQUENCE = 260,
+    ACCOLADE_OUVRANTE = 261,
+    ACCOLADE_FERMANTE = 262,
+    AFF = 263,
+    SEQ = 264,
+    FINFINALE = 265,
+    INF_EGAL = 266,
+    SUP_EGAL = 267,
+    SUP = 268,
+    INF = 269,
+    MOT = 270
   };
 #endif
 
@@ -71,7 +70,7 @@ union YYSTYPE
 
 	char* chaine;
 
-#line 75 "test.tab.h" /* yacc.c:1909  */
+#line 74 "test.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

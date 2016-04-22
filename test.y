@@ -28,6 +28,7 @@ extern FILE* yyin;
 %type<chaine> Expression
 %type<chaine> Regle
 %type<chaine> Predicat
+%type<chaine> Condition
 
 %start Entree
 
@@ -40,23 +41,17 @@ Entree:
 	;
 	
 Regle:
-	AFF PREMISSE mapremisse CONSEQUENCE Predicat Programme Predicat
+	AFF PREMISSE Regle CONSEQUENCE Predicat Programme Predicat
 		{
 			//$$ = $5;
 			printf("la preuve est fausse (premisse présente) : %s\n", $$);
 		}
-	| AFF Premisse_vide CONSEQUENCE Predicat Programme Predicat
+	| AFF PREMISSE CONSEQUENCE Predicat Programme Predicat
 		{
 			// Calcul à faire
 			printf("bravo");
 		}
 	;
-
-Premisse_vide:
-	 /* Vide */
-	| PREMISSE
-	;
-
 
 Predicat:
 	ACCOLADE_OUVRANTE Condition ACCOLADE_FERMANTE

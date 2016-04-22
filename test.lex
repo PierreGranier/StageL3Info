@@ -29,12 +29,21 @@ op_comparaison [<>][=]?
 "<"				{ return(INF); 				 }
 ">"				{ return(SUP); 				 }
 "{"				{ return(ACCOLADE_OUVRANTE); }
+<<<<<<< HEAD
 "}"				{ return(ACCOLADE_FERMANTE); }
+=======
+"}"				{ return(ACCOLADE_FERMANTE); }	
+
+>>>>>>> df2c4d23aa63e80abaec8a46d73e2dff1adbe8a6
 {entier} { 
 			printf("\nLex : Mot (%s)\n", atoi(yytext));
 			yylval.chaine = yytext;
 			return (ENTIER) 	
+<<<<<<< HEAD
 		 }		
+=======
+		}
+>>>>>>> df2c4d23aa63e80abaec8a46d73e2dff1adbe8a6
 
 {mot} 	{
 			printf("\nLex : Mot (%s)\n", yytext);

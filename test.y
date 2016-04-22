@@ -1,0 +1,88 @@
+%{
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+#include "global.h"
+
+extern FILE* yyin;
+
+%}
+
+%union{
+	char* chaine;
+}
+
+%token AFFECTATION
+%token PRECONDITION
+%token POSTCONDITION
+%token PREMISSE
+%token CONSEQUENCE
+%token PROGRAMME
+%token AFF
+%token FINFINALE
+
+%type<chaine> Expression
+%type<chaine> Regle
+%type<chaine> Predicat
+
+%start Entree
+
+%%
+
+Entree:
+	/* Vide */
+	| Entree Regle
+	| FINFINALE { return 0;}
+	;
+
+Expression:
+	Expression { printf("expre"); }
+	;
+	
+Predicat:
+	Predicat { printf("expre"); }
+	;
+	
+Calcul:
+	Expression AFFECTATION Expression
+	;
+	
+Regle:
+	AFF PREMISSE CONSEQUENCE PRECONDITION Predicat PROGRAMME Calcul POSTCONDITION Predicat
+			{
+				$$ = $5;
+				printf("dubzam : %s\n", $$);
+			}
+	/*
+	| REGLE Expression { 	
+		printf("Val longue Expression : %s\n", $$);
+	 }*/
+
+	;
+
+%%
+
+int yyerror(char *s) {
+  printf("%s\n",s);
+}
+
+int main(int argc, char **argv) {
+
+	if (argc == 2){
+		yyin= fopen(argv[1], "r");
+		printf("Fichier utilisé");
+	}
+	yyparse();
+	//yylex();
+	
+	/*if(argc > 0)
+		yyin = fopen(argv[0], "r");
+	else
+		yyin = stdin;*/
+	
+	return EXIT_SUCCESS;
+}
+

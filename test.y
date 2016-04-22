@@ -16,16 +16,14 @@ extern FILE* yyin;
 }
 
 %token AFFECTATION
-%token PRECONDITION
-%token POSTCONDITION
 %token PREMISSE
 %token CONSEQUENCE
-%token PROGRAMME
+%token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
 %token AFF
 %token SEQ
 %token FINFINALE
 %token INF_EGAL SUP_EGAL SUP INF
-%token MOT
+%token<chaine> MOT
 
 %type<chaine> Expression
 %type<chaine> Regle
@@ -42,38 +40,57 @@ Entree:
 	;
 	
 Regle:
-	AFF PREMISSE CONSEQUENCE PRECONDITION Predicat PROGRAMME Calcul POSTCONDITION Predicat
-			{
-				//$$ = $5;
-				printf("dubzam : %s\n", $$);
-			}
+	AFF PREMISSE mapremisse CONSEQUENCE Predicat Programme Predicat
+		{
+			//$$ = $5;
+			printf("la preuve est fausse (premisse présente) : %s\n", $$);
+		}
+	| AFF Premisse_vide CONSEQUENCE Predicat Programme Predicat
+		{
+			// Calcul à faire
+			printf("bravo");
+		}
 	;
 
+Premisse_vide:
+	 /* Vide */
+	| PREMISSE
+	;
+
+
 Predicat:
-	MOT INF MOT { 
-		strcat($$, $1);
-		strcat($$,"<");
-		strcat($$, $3);
-		printf("predicat -%s-", $$);
-	}
-	| MOT SUP MOT { 
-		strcat($$, $1);
-		strcat($$,">");
-		strcat($$, $3);
-		printf("predicat -%s-", $$);
-	}
-	| MOT SUP_EGAL MOT 		{ 
-		strcat($$, $1);
-		strcat($$,"[autre opérateur]");
-		strcat($$, $3);
-		printf("predicat -%s-", $$);
-	}
-	| MOT INF_EGAL MOT		{ 
-		strcat($$, $1);
-		strcat($$,"[autre opérateur]");
-		strcat($$, $3);
-		printf("predicat -%s-", $$);
-	} 
+	ACCOLADE_OUVRANTE Condition ACCOLADE_FERMANTE
+	;
+	
+Condition:
+	MOT INF MOT
+		{ 
+			strcat($$, $1);
+			strcat($$,"<");
+			strcat($$, $3);
+			printf("predicat -%s-", $$);
+		}
+	| MOT SUP MOT
+		{ 
+			strcat($$, $1);
+			strcat($$,">");
+			strcat($$, $3);
+			printf("predicat -%s-", $$);
+		}
+	| MOT SUP_EGAL MOT
+		{ 
+			strcat($$, $1);
+			strcat($$,"[autre opérateur]");
+			strcat($$, $3);
+			printf("predicat -%s-", $$);
+		}
+	| MOT INF_EGAL MOT
+		{ 
+			strcat($$, $1);
+			strcat($$,"[autre opérateur]");
+			strcat($$, $3);
+			printf("predicat -%s-", $$);
+		}
 	;
 
 	/*
@@ -82,16 +99,13 @@ Predicat:
 	 }*/
 	;	
 
-/*
-Calcul:
+Programme:
 	Expression AFFECTATION Expression
 	;
 
 Expression:
 	 { printf("%s", $$); }
 	;
-*/
-
 
 %%
 

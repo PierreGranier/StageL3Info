@@ -42,9 +42,11 @@ Le premier paramètre étant la conclusion et les suivants les prémisses
 
 ### Langage (axiomes)
 
+Tokens déjà présents dans les preuves :
 * `AFF/SEQ/CONSEQ/WHILE/WHILET` d’arité 1 (pour `AFF`) ou 2 (pour les autres) : les règles de Hoare
 * `PREMISSE` d’arité 1 : la prémisse d’une règle
 * `CONSEQUENCE` d’arité n (0 à ∝) : la conséquence d’une règle
+Tokens à définir :
 * **{** et **}** les symboles encadrant un prédicat
 * **:=** le symbole d'affectation d'une valeur à une variable du programme
 * **;** le symbole séparant deux instructions du programme
@@ -55,13 +57,36 @@ Le premier paramètre étant la conclusion et les suivants les prémisses
 
 ### Terminaison des axiomes
 
-* `AFF CONCLUSION {...}a:=0{...}`
+Seuls les cas suivants valident les règles de Hoare :
+* `AFF CONCLUSION Predicat Programme Predicat`
     * Chaque prédicat doit être juste sémantiquement
     * Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
-* `AFF CONCLUSION {...}a:=0{...} AFF CONCLUSION {...}a:=0{...}`
+* `AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat`
     * *Mêmes choses que précédement*
     * La postcondition du premier triplet doit être égale à la précondition du second triplet
+* `SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat`
+    * *Mêmes choses que précédemment*
+    * Les deux derniers programmes concatainés avec un `;` entre eux sont syntaxiquement équivalents au premier programme
+
+Types à définir :
+* `Predicat`
+    * `ACCOLADE_OUVRANTE Condition ACCOLADE_FERMANTE`
+* `Condition`
+    * Comme `Expression` : une condition peut être de la forme `Condition ET Condition`
+    * La condition est vraie sémantiquement
+* `Programme`
+    * `Expression AFFECTATION Expression`
+    * ???
+
+Tokens à définir :
+* `ACCOLADE_OUVRANTE` **{**
+* `ACCOLADE_FERMANTE` **}**
+* `AFFECTATION` **:=**
 
 ## Assistant de création de preuve
+
+*A étudier*
+
+## Liens utiles
 
 [Markdown](https://fr.wikipedia.org/wiki/Markdown)

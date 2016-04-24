@@ -25,7 +25,7 @@ Vérificateur de preuves de programme en logique de Hoare
 triplet1 ... tripletn  
       triplet
 
-`**{** précondition **}** variable **:=** valeur **{** postcondition **}** ... **{** précondition **}** variable **:=** valeur { postcondition **}**`
+`**{** précondition **}** variable **:=** valeur **{** postcondition **}** ... **{** précondition **}** variable **:=** valeur { postcondition **}**`  
 `Nom de la règle ... Nom de la règle`  
 `**{** précondition **}** variable **:=** valeur **{** postcondition **}**`
 
@@ -35,7 +35,7 @@ triplet1 ... tripletn
 * Utilisant des axiomes
 * Lecture de la preuve de bas en haut
 
-`Nom de la règle(**{** précondition **}** variable **:=** valeur **{** postcondition **}**, Nom de la règle( etc... ))`
+`Nom de la règle(**{** précondition **}** variable **:=** valeur **{** postcondition **}**, Nom de la règle( etc... ))`  
 Le premier paramètre étant la conclusion et les suivants les prémisses
 
 ## Vérificateur de preuve
@@ -59,7 +59,7 @@ Le premier paramètre étant la conclusion et les suivants les prémisses
     ** Chaque prédicat doit être juste sémantiquement
     ** Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
 * `AFF CONCLUSION {...}a:=0{...} AFF CONCLUSION {...}a:=0{...}`
-    ** Chaque prédicat doit être juste sémantiquement
-    ** Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
+    ** *Mêmes choses que précédement*
+    ** La postcondition du premier triplet doit être égale à la précondition du second triplet
 
 ## Assistant de création de preuve

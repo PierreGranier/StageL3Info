@@ -18,16 +18,16 @@ Vérificateur de preuves de programme en logique de Hoare
 
 ### Construction d'une preuve (dans un IDE)
 
-* Comme dans le cours de Courtieu
+* Comme dans le [cours de Courtieu (2008)](http://cedric.cnam.fr/~courtiep/downloads/hoare.pdf "Outils de preuve et vérification - Courtieu, 2008")
 * Construction de la preuve de bas en haut
 * Les prémisses sont en haut de la règle et la conclusion en bas
 
 triplet1 ... tripletn  
       triplet
 
-`**{** précondition **}** variable **:=** valeur **{** postcondition **}** ... **{** précondition **}** variable **:=** valeur { postcondition **}**`  
-`Nom de la règle ... Nom de la règle`  
-`**{** précondition **}** variable **:=** valeur **{** postcondition **}**`
+**{** précondition **}** variable **:=** valeur **{** postcondition **}** ... **{** précondition **}** variable **:=** valeur { postcondition **}**  
+Nom de la règle ... Nom de la règle  
+**{** précondition **}** variable **:=** valeur **{** postcondition **}**
 
 ### Génération d'une preuve (dans un fichier)
 
@@ -35,7 +35,7 @@ triplet1 ... tripletn
 * Utilisant des axiomes
 * Lecture de la preuve de bas en haut
 
-`Nom de la règle(**{** précondition **}** variable **:=** valeur **{** postcondition **}**, Nom de la règle( etc... ))`  
+Nom de la règle(**{** précondition **}** variable **:=** valeur **{** postcondition **}**, Nom de la règle( etc... ))  
 Le premier paramètre étant la conclusion et les suivants les prémisses
 
 ## Vérificateur de preuve
@@ -56,10 +56,12 @@ Le premier paramètre étant la conclusion et les suivants les prémisses
 ### Terminaison des axiomes
 
 * `AFF CONCLUSION {...}a:=0{...}`
-    ** Chaque prédicat doit être juste sémantiquement
-    ** Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
+    * Chaque prédicat doit être juste sémantiquement
+    * Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
 * `AFF CONCLUSION {...}a:=0{...} AFF CONCLUSION {...}a:=0{...}`
-    ** *Mêmes choses que précédement*
-    ** La postcondition du premier triplet doit être égale à la précondition du second triplet
+    * *Mêmes choses que précédement*
+    * La postcondition du premier triplet doit être égale à la précondition du second triplet
 
 ## Assistant de création de preuve
+
+[texte du lien](https://fr.wikipedia.org/wiki/Markdown)

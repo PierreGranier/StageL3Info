@@ -24,9 +24,9 @@ Vérificateur de preuves de programme en logique de Hoare
 triplet1 ... tripletn  
       triplet
 
-{ `précondition` } `variable` := `valeur` { `postcondition` } ... { `précondition` } `variable` := `valeur` { `postcondition` }
-`Nom de la règle` ... `Nom de la règle`  
-{ `précondition` } `variable` := `valeur` { `postcondition` }
+**{** précondition **}** variable **:=** valeur **{** postcondition **}** ... **{** précondition **}** variable **:=** valeur { postcondition **}**
+Nom de la règle ... Nom de la règle  
+**{** précondition **}** variable **:=** valeur **{** postcondition **}**
 
 ### Génération d'une preuve (dans un fichier)
 
@@ -34,7 +34,7 @@ triplet1 ... tripletn
 * Utilisant des axiomes
 * Lecture de la preuve de bas en haut
 
-`Nom de la règle`({ `précondition` } `variable` := `valeur` { `postcondition` }, `Nom de la règle`( etc... ))
+Nom de la règle(**{** précondition **}** variable **:=** valeur **{** postcondition **}**, Nom de la règle( etc... ))
 
 ## Vérificateur de preuve
 

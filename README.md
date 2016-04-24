@@ -46,6 +46,7 @@ Tokens déjà présents dans les preuves :
 * `AFF/SEQ/CONSEQ/WHILE/WHILET` d’arité 1 (pour `AFF`) ou 2 (pour les autres) : les règles de Hoare
 * `PREMISSE` d’arité 1 : la prémisse d’une règle
 * `CONSEQUENCE` d’arité n (0 à ∝) : la conséquence d’une règle
+
 Tokens à définir :
 * **{** et **}** les symboles encadrant un prédicat
 * **:=** le symbole d'affectation d'une valeur à une variable du programme

@@ -64,4 +64,4 @@ Le premier paramètre étant la conclusion et les suivants les prémisses
 
 ## Assistant de création de preuve
 
-[texte du lien](https://fr.wikipedia.org/wiki/Markdown)
+[Markdown](https://fr.wikipedia.org/wiki/Markdown)

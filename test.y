@@ -6,6 +6,9 @@
 #include <math.h>
 
 #include "global.h"
+#define false	0 	
+#define true 	1
+typedef char boolean;
 
 extern FILE* yyin;
 
@@ -14,6 +17,7 @@ extern FILE* yyin;
 %union{
 	char* chaine;
 	int valEntiere;
+	boolean valBool;
 }
 
 %token FIN
@@ -29,14 +33,14 @@ extern FILE* yyin;
 %token<chaine> MOT
 %token<chaine> ENTIER
 
-%type<chaine> Expression
+%type<chaine> ExpressionMot
+%type<valEntiere> ExpressionEntier
 %type<chaine> Regle
-%type<chaine> Predicat
+%type<valBool> Predicat
 %type<chaine> Programme
-%type<chaine> Conditions
-%type<chaine> Condition
-%type<chaine> Comparaison
-%type<chaine> Valeur
+%type<valBool> Conditions
+%type<valBool> Condition
+%type<valBool> Comparaison
 
 %start Entree
 
@@ -48,7 +52,8 @@ Entree:
 	| Regle FIN Entree
 	| FINFINALE { printf("Fin du programme"); return 0; }
 	| Comparaison FIN Entree
-	| Expression FIN Entree
+	| ExpressionMot FIN Entree
+	| ExpressionEntier FIN Entree
 	;
 	
 Regle:
@@ -62,14 +67,14 @@ Regle:
 		}
 	| AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
-			if(strcmp($5, $8) != 0)
+			if($5 != $8)
 				printf("3- Erreur : prédicats de la règle AFF pas égaux\n%s\n", $$);
 		}
 	| SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
 			strcat($10, ";");
 			strcat($10, $15);
-			if(strcmp($10, $4) != 0)
+			if($10 != $4)
 				printf("4- Erreur : programmes de la règle SEQ incorrects\n%s\n", $$);
 		}
 	;
@@ -77,7 +82,6 @@ Regle:
 Predicat:
 	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
 		{
-			printf("Prédicat de valeur |%s|\n", $2);
 			$$ = $2;
 		}
 	;
@@ -101,104 +105,106 @@ Condition:
 	;
 	
 Comparaison:
-	Expression INF Expression
+	ExpressionEntier INF ExpressionEntier
 		{
-			$$ = $1;
-			strcat($$,">");
-			strcat($$, $3);
-			
-			if(atoi($1) >= atoi($3)) {
-				printf("Erreur : comparaison INF non logique\n%s\n", $$);
+			if($1 >= $3) {
+				$$ = false;
+				printf("Erreur : comparaison INF non logique : %d < %d\n", $1, $3);
 			}
+			else $$ = true;
 		}
-	| Expression SUP Expression
+	| ExpressionEntier SUP ExpressionEntier
 		{
-			$$ = $1;
-			strcat($$,">");
-			strcat($$, $3);
-			
-			if(atoi($1) <= atoi($3)) {
-				printf("Erreur : comparaison SUP non logique\n%s\n", $$);
+			if($1 <= $3) {
+				$$ = false;
+				printf("Erreur : comparaison SUP non logique : %d < %d\n", $1, $3);
 			}
-				
-		}
-	| Expression INF_EGAL Expression
-		{
-			$$ = $1;
-			strcat($$,">");
-			strcat($$, $3);
+			else $$ = true;
 			
-			if(atoi($1) > atoi($3)) {
-				printf("Erreur : comparaison INF_EGAL non logique\n%s\n", $$);
+		}
+	| ExpressionEntier INF_EGAL ExpressionEntier
+		{
+			if($1 > $3) {
+				$$= 0;
+				$$ = false;
+				printf("Erreur : comparaison INF_EGAL non logique : %d < %d\n", $1, $3);
 			}
+			else $$ = true;
 		}
-	| Expression SUP_EGAL Expression
+	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
-			$$ = $1;
-			strcat($$,">");
-			strcat($$, $3);
-			
-			if(atoi($1) < atoi($3)) {
-				printf("Erreur : comparaison SUP_EGAL non logique\n%s\n", $$);
+			if($1 < $3) {
+				$$ = false;
+				printf("Erreur : comparaison SUP_EGAL non logique : %d < %d\n", $1, $3);
 			}
+			else $$ = true;
 		}
-	| Expression EGAL Expression
-		{
-			$$ = $1;
-			strcat($$,">");
-			strcat($$, $3);
-			
-			if(atoi($1) != atoi($3)) {
-				printf("Erreur : comparaison EGAL non logique\n%s\n", $$);
-			}
-		}
-	;
-	
-Valeur:
-	MOT
-		{
-			$$ = 0;
-			// TODO a faire plus tard, en aout
-		}
-	| ENTIER
-		{
-			$$ = $1;
-		}
+	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionMot		INF_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionMot		SUP_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionMot		INF			ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionMot		SUP			ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionMot		INF_EGAL	ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionMot		SUP_EGAL	ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionEntier	INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionEntier	SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionEntier	INF_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
 	;
 	
 Programme:
-	MOT AFFECTATION Expression
+	MOT AFFECTATION ExpressionEntier
 		{
 			// TODO Faire affectation de MOT
-			printf("Affectation de %s avec valeur : %s\n", $1, $3);
+			printf("Affectation de %s avec valeur : %d\n", $1, $3);
 		}
 	;
 	
-Expression:
-	Valeur PLUS Expression
+ExpressionMot:
+	MOT PLUS ExpressionMot
 		{
-			// $$ = $1 + $3;
-			strcat($1, " + ");
-			strcat($1, $3);
+			$$ = $1;
+			strcat($$, " + ");
+			strcat($$, $3);
+			printf("%s", $$);
+		}
+	| MOT MOINS ExpressionMot
+		{
+			$$ = $1;
+			strcat($$, " - ");
+			strcat($$, $3);
+			printf("%s", $$);
+		}
+	| MOT FOIS ExpressionMot
+		{
+			$$ = $1;
+			strcat($$, " * ");
+			strcat($$, $3);
+			printf("%s", $$);
+		}
+	| MOT
+		{
 			$$ = $1;
 		}
-	| Valeur MOINS Expression
+	;
+	
+ExpressionEntier:
+	ENTIER PLUS ExpressionEntier
 		{
-			// $$ = $1 - $3;
-			strcat($1, " - ");
-			strcat($1, $3);
-			$$ = $1;
+			$$ = atoi($1) + $3;
 		}
-	| Valeur FOIS Expression
+	| ENTIER MOINS ExpressionEntier
 		{
-			// $$ = $1 * $3;
-			strcat($1, " * ");
-			strcat($1, $3);
-			$$ = $1;
+			$$ = atoi($1) - $3;
 		}
-	| Valeur 
+	| ENTIER FOIS ExpressionEntier
 		{
-			$$ = $1;
+			$$ = atoi($1) * $3;
+		}
+	| ENTIER
+		{
+			$$ = atoi($1);
 		}
 	;
 	

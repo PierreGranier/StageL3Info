@@ -1449,33 +1449,33 @@ yyreduce:
 
   case 24:
 #line 179 "test.y" /* yacc.c:1646  */
-    { 
-			(yyval.chaine) = (yyvsp[-2].chaine) + (yyvsp[0].chaine);
-			// strcat($1, " + ");
-			// strcat($1, $3);
-			// $$ = $1;
+    {
+			// $$ = $1 + $3;
+			strcat((yyvsp[-2].chaine), " + ");
+			strcat((yyvsp[-2].chaine), (yyvsp[0].chaine));
+			(yyval.chaine) = (yyvsp[-2].chaine);
 		}
 #line 1459 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 186 "test.y" /* yacc.c:1646  */
-    { 
-			(yyval.chaine) = (yyvsp[-2].chaine) - (yyvsp[0].chaine);
-			// strcat($1, " - ");
-			// strcat($1, $3);
-			// $$ = $1;
+    {
+			// $$ = $1 - $3;
+			strcat((yyvsp[-2].chaine), " - ");
+			strcat((yyvsp[-2].chaine), (yyvsp[0].chaine));
+			(yyval.chaine) = (yyvsp[-2].chaine);
 		}
 #line 1470 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 193 "test.y" /* yacc.c:1646  */
-    { 
-			(yyval.chaine) = (yyvsp[-2].chaine) * (yyvsp[0].chaine);
-			// strcat($1, " * ");
-			// strcat($1, $3);
-			// $$ = $1;
+    {
+			// $$ = $1 * $3;
+			strcat((yyvsp[-2].chaine), " * ");
+			strcat((yyvsp[-2].chaine), (yyvsp[0].chaine));
+			(yyval.chaine) = (yyvsp[-2].chaine);
 		}
 #line 1481 "test.tab.c" /* yacc.c:1646  */
     break;

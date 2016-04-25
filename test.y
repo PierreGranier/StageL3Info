@@ -176,21 +176,21 @@ Programme:
 	
 Expression:
 	Valeur PLUS Expression
-		{ 
+		{
 			// $$ = $1 + $3;
 			strcat($1, " + ");
 			strcat($1, $3);
 			$$ = $1;
 		}
 	| Valeur MOINS Expression
-		{ 
+		{
 			// $$ = $1 - $3;
 			strcat($1, " - ");
 			strcat($1, $3);
 			$$ = $1;
 		}
 	| Valeur FOIS Expression
-		{ 
+		{
 			// $$ = $1 * $3;
 			strcat($1, " * ");
 			strcat($1, $3);

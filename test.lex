@@ -50,7 +50,6 @@ fin	"fini"|"fin"|"j'ai tout fini"
 int main(int argc, char **argv) {
 	yylex();
 	
-	printf("\nBIENVENUE\n");
 	if(argc > 0)
 		yyin = fopen(argv[0], "r");
 	else

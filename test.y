@@ -129,7 +129,7 @@ Valeur:
 	MOT
 		{
 			$$ = 0;
-			// Todo a faire plus tard, en aout
+			// TODO a faire plus tard, en aout
 		}
 	| ENTIER
 		{
@@ -152,17 +152,19 @@ Expression:
 			strcat($1, " + ");
 			strcat($1, $3);
 			$$ = $1;
-			printf("Valeur de l'expression %s", $$);
+			printf("Valeur de l'expression %s\n", $$);
+			
 		}
-	| Valeur 
 	| Valeur MOINS Expression
 		{ 
 			// $$ = $1 - $3;
 			strcat($1, " - ");
 			strcat($1, $3);
 			$$ = $1;
-			printf("Valeur de l'expression %s", $$);
-		}	;
+			printf("Valeur de l'expression %s\n", $$);
+		}
+	| Valeur 
+	;
 	
 %%
 

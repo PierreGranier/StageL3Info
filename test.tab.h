@@ -58,11 +58,13 @@ extern int yydebug;
     SUP_EGAL = 268,
     SUP = 269,
     INF = 270,
-    PLUS = 271,
-    MOINS = 272,
-    ET = 273,
-    MOT = 274,
-    ENTIER = 275
+    EGAL = 271,
+    PLUS = 272,
+    MOINS = 273,
+    FOIS = 274,
+    ET = 275,
+    MOT = 276,
+    ENTIER = 277
   };
 #endif
 
@@ -76,7 +78,7 @@ union YYSTYPE
 	char* chaine;
 	int valEntiere;
 
-#line 80 "test.tab.h" /* yacc.c:1909  */
+#line 82 "test.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

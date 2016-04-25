@@ -44,9 +44,11 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
+	| FIN { printf("Fin du programme"); return 0; }
 	| Regle FIN Entree
-	| FINFINALE { return 0; }
+	| FINFINALE { printf("Fin du programme"); return 0; }
 	| Comparaison FIN Entree
+	| Expression FIN Entree
 	;
 	
 Regle:
@@ -101,33 +103,54 @@ Condition:
 Comparaison:
 	Expression INF Expression
 		{
-			strcat($1,"<");
-			strcat($1, $3);
-			$$=$1;
+			$$ = $1;
+			strcat($$,">");
+			strcat($$, $3);
+			
+			if(atoi($1) >= atoi($3)) {
+				printf("Erreur : comparaison INF non logique\n%s\n", $$);
+			}
 		}
 	| Expression SUP Expression
-		{ 
-			strcat($1,">");
-			strcat($1, $3);
-			$$=$1;
+		{
+			$$ = $1;
+			strcat($$,">");
+			strcat($$, $3);
+			
+			if(atoi($1) <= atoi($3)) {
+				printf("Erreur : comparaison SUP non logique\n%s\n", $$);
+			}
+				
 		}
 	| Expression INF_EGAL Expression
-		{ 
-			strcat($1,"<=");
-			strcat($1, $3);
-			$$=$1;
+		{
+			$$ = $1;
+			strcat($$,">");
+			strcat($$, $3);
+			
+			if(atoi($1) > atoi($3)) {
+				printf("Erreur : comparaison INF_EGAL non logique\n%s\n", $$);
+			}
 		}
 	| Expression SUP_EGAL Expression
-		{ 
-			strcat($1,">=");
-			strcat($1, $3);
-			$$=$1;
+		{
+			$$ = $1;
+			strcat($$,">");
+			strcat($$, $3);
+			
+			if(atoi($1) < atoi($3)) {
+				printf("Erreur : comparaison SUP_EGAL non logique\n%s\n", $$);
+			}
 		}
 	| Expression EGAL Expression
 		{
-			strcat($1,"=");
-			strcat($1, $3);
-			$$=$1;
+			$$ = $1;
+			strcat($$,">");
+			strcat($$, $3);
+			
+			if(atoi($1) != atoi($3)) {
+				printf("Erreur : comparaison EGAL non logique\n%s\n", $$);
+			}
 		}
 	;
 	
@@ -149,42 +172,33 @@ Programme:
 			// TODO Faire affectation de MOT
 			printf("Affectation de %s avec valeur : %s\n", $1, $3);
 		}
-	| MOT AFFECTATION MOT
-		{
-			printf("Affectation de %s avec variable : %s\n", $1, $3 )
-		}
 	;
 	
 Expression:
 	Valeur PLUS Expression
 		{ 
-			// $$ = $1 + $3;
-			strcat($1, " + ");
-			strcat($1, $3);
-			$$ = $1;
-			printf("Valeur de l'expression %s\n", $$);
-			
+			$$ = $1 + $3;
+			// strcat($1, " + ");
+			// strcat($1, $3);
+			// $$ = $1;
 		}
 	| Valeur MOINS Expression
 		{ 
-			// $$ = $1 - $3;
-			strcat($1, " - ");
-			strcat($1, $3);
-			$$ = $1;
-			printf("Valeur de l'expression %s\n", $$);
+			$$ = $1 - $3;
+			// strcat($1, " - ");
+			// strcat($1, $3);
+			// $$ = $1;
 		}
 	| Valeur FOIS Expression
 		{ 
-			// $$ = $1 - $3;
-			strcat($1, " * ");
-			strcat($1, $3);
-			$$ = $1;
-			printf("Valeur de l'expression %s\n", $$);
+			$$ = $1 * $3;
+			// strcat($1, " * ");
+			// strcat($1, $3);
+			// $$ = $1;
 		}
 	| Valeur 
 		{
 			$$ = $1;
-			printf("Valeur : %s\n", $$);
 		}
 	;
 	

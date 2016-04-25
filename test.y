@@ -16,17 +16,17 @@ extern FILE* yyin;
 	int valEntiere;
 }
 
-%token AFFECTATION
+%token FIN
+%token FINFINALE
 %token PREMISSE
 %token CONCLUSION
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
-%token AFF
-%token SEQ
-%token FINFINALE
+%token AFFECTATION
+%token AFF SEQ
 %token INF_EGAL SUP_EGAL SUP INF
+%token ET
 %token<chaine> MOT
 %token<chaine> ENTIER
-%token FIN
 
 %type<chaine> Expression
 %type<chaine> Regle
@@ -68,30 +68,33 @@ Regle:
 				printf("Erreur : programmes de la règle SEQ incorrects\n%s\n", $$);
 		}
 	;
-
+	
 Predicat:
-	ACCOLADE_OUVRANTE Condition ACCOLADE_FERMANTE
+	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
 		{
 			printf("Prédicat de valeur %s\n", $2);
 			$$ = $2;
 		}
 	;
 	
+Conditions:
+	Condition ET Conditions
+		{
+			$$ = $1 && $3;
+		}
+	| Condition
+		{
+			$$ = $1;
+		}
+	;
+	
 Condition:
-	Comparaison {$$ = $1;}
-	;
-
-Valeur:
-	MOT
-		{
-			$$ = $1;
-		}
-	| ENTIER
+	Comparaison
 		{
 			$$ = $1;
 		}
 	;
-
+	
 Comparaison:
 	Valeur INF Valeur
 		{ 
@@ -122,21 +125,26 @@ Comparaison:
 			printf("predicat -%s-", $$);
 		}
 	;
-
-	/*
-	| REGLE Expression { 	
-		printf("Val longue Expression : %s\n", $$);
-	 }*/
-	;	
-
+	
+Valeur:
+	MOT
+		{
+			$$ = $1;
+		}
+	| ENTIER
+		{
+			$$ = $1;
+		}
+	;
+	
 Programme:
 	Expression AFFECTATION Expression
 	;
-
+	
 Expression:
 	 { printf("%s", $$); }
 	;
-
+	
 %%
 
 int yyerror(char *s) {

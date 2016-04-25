@@ -12,13 +12,14 @@ separateurs [ \t]
 mot [A-z]+
 entier [0-9]+
 op_comparaison [<>][=]?
+fin	"fini"|"fin"|"j'ai tout fini"
 
 %%
 
 {separateurs} 	{ /* ignoré */ }
 
-"\n"			{ return (FIN);		  	 	 }
-"fini"			{ return (FINFINALE); 		 }
+"\n"			{ return(FIN);		  	 	 }
+{fin}			{ return(FINFINALE); 		 }
 "AFF" 			{ return(AFF);  			 }
 "SEQ" 			{ return(SEQ); 				 }
 ":=" 			{ return(AFFECTATION); 		 }
@@ -32,15 +33,14 @@ op_comparaison [<>][=]?
 "}"				{ return(ACCOLADE_FERMANTE); }
 "^"				{ return(ET);				 }
 
-{entier} { 
-			printf("\nLex : Mot (%s)\n", yytext);
-			yylval.valEntiere = atoi(yytext);
-			return(ENTIER); 	
+{entier} {
+			//yylval.valEntiere = atoi(yytext);
+			yylval.chaine = strdup(yytext);
+			return(ENTIER);
 		 }		
 
 {mot} 	{
-			printf("\nLex : Mot (%s)\n", yytext);
-			yylval.chaine = yytext;
+			yylval.chaine = strdup(yytext);
 			return(MOT);
 		}
 

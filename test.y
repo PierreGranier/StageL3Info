@@ -45,6 +45,7 @@ Entree:
 	/* Vide */
 	| Regle FIN Entree
 	| FINFINALE { return 0; }
+	| Comparaison FIN Entree
 	;
 	
 Regle:
@@ -98,39 +99,40 @@ Condition:
 	
 Comparaison:
 	Valeur INF Valeur
-		{ 
-			strcat($$, $1);
-			strcat($$,"<");
-			strcat($$, $3);
-			printf("predicat -%s-", $$);
+		{
+			strcat($1,"<");
+			strcat($1, $3);
+			$$=$1;
+			printf("predicat |%s|\n", $$);
 		}
 	| Valeur SUP Valeur
 		{ 
-			strcat($$, $1);
-			strcat($$,">");
-			strcat($$, $3);
-			printf("predicat -%s-", $$);
-		}
-	| Valeur SUP_EGAL Valeur
-		{ 
-			strcat($$, $1);
-			strcat($$,">=");
-			strcat($$, $3);
-			printf("predicat -%s-", $$);
+			strcat($1,">");
+			strcat($1, $3);
+			$$=$1;
+			printf("predicat |%s|\n", $$);
 		}
 	| Valeur INF_EGAL Valeur
 		{ 
-			strcat($$, $1);
-			strcat($$,"<=");
-			strcat($$, $3);
-			printf("predicat -%s-", $$);
+			strcat($1,"<=");
+			strcat($1, $3);
+			$$=$1;
+			printf("predicat |%s|\n", $$);
+		}
+	| Valeur SUP_EGAL Valeur
+		{ 
+			strcat($1,">=");
+			strcat($1, $3);
+			$$=$1;
+			printf("predicat |%s|\n", $$);
 		}
 	;
 	
 Valeur:
 	MOT
 		{
-			$$ = $1;
+			$$ = 0;
+			// Todo a faire plus tard, en aout
 		}
 	| ENTIER
 		{

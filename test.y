@@ -24,6 +24,7 @@ extern FILE* yyin;
 %token AFFECTATION
 %token AFF SEQ
 %token INF_EGAL SUP_EGAL SUP INF
+%token PLUS MOINS
 %token ET
 %token<chaine> MOT
 %token<chaine> ENTIER
@@ -51,7 +52,7 @@ Entree:
 Regle:
 	AFF CONCLUSION Predicat Programme Predicat PREMISSE Regle
 		{
-			printf("Erreur : prémisse présente dans la règle AFF\n%s\n", $$);
+			printf("1- Erreur : prémisse présente dans la règle AFF\n%s\n", $$);
 		}
 	| AFF CONCLUSION Predicat Programme Predicat
 		{
@@ -60,21 +61,21 @@ Regle:
 	| AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
 			if(strcmp($5, $8) != 0)
-				printf("Erreur : prédicats de la règle AFF pas égaux\n%s\n", $$);
+				printf("3- Erreur : prédicats de la règle AFF pas égaux\n%s\n", $$);
 		}
 	| SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
 			strcat($10, ";");
 			strcat($10, $15);
 			if(strcmp($10, $4) != 0)
-				printf("Erreur : programmes de la règle SEQ incorrects\n%s\n", $$);
+				printf("4- Erreur : programmes de la règle SEQ incorrects\n%s\n", $$);
 		}
 	;
 	
 Predicat:
 	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
 		{
-			printf("Prédicat de valeur %s\n", $2);
+			printf("Prédicat de valeur |%s|\n", $2);
 			$$ = $2;
 		}
 	;
@@ -103,28 +104,24 @@ Comparaison:
 			strcat($1,"<");
 			strcat($1, $3);
 			$$=$1;
-			printf("predicat |%s|\n", $$);
 		}
 	| Valeur SUP Valeur
 		{ 
 			strcat($1,">");
 			strcat($1, $3);
 			$$=$1;
-			printf("predicat |%s|\n", $$);
 		}
 	| Valeur INF_EGAL Valeur
 		{ 
 			strcat($1,"<=");
 			strcat($1, $3);
 			$$=$1;
-			printf("predicat |%s|\n", $$);
 		}
 	| Valeur SUP_EGAL Valeur
 		{ 
 			strcat($1,">=");
 			strcat($1, $3);
 			$$=$1;
-			printf("predicat |%s|\n", $$);
 		}
 	;
 	
@@ -141,12 +138,31 @@ Valeur:
 	;
 	
 Programme:
-	Expression AFFECTATION Expression
+	MOT AFFECTATION Expression
+		{
+			// TODO Faire affectation de MOT
+			printf("Affectation de %s avec valeur : %s", $1, $3);
+		}
 	;
 	
 Expression:
-	 { printf("%s", $$); }
-	;
+	Valeur PLUS Expression
+		{ 
+			// $$ = $1 + $3;
+			strcat($1, " + ");
+			strcat($1, $3);
+			$$ = $1;
+			printf("Valeur de l'expression %s", $$);
+		}
+	| Valeur 
+	| Valeur MOINS Expression
+		{ 
+			// $$ = $1 - $3;
+			strcat($1, " - ");
+			strcat($1, $3);
+			$$ = $1;
+			printf("Valeur de l'expression %s", $$);
+		}	;
 	
 %%
 

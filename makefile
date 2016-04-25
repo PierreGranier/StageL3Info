@@ -12,7 +12,7 @@ all:
 	@echo Compilation
 	gcc -c lex.yy.c -o build/lex.yy.o
 	gcc -c test.tab.c -o build/test.tab.o
-	gcc	-o hoare build/lex.yy.o build/test.tab.o -lfl -ll -lm
+	gcc -o hoare build/lex.yy.o build/test.tab.o -lfl -ll -lm
 	
 launch:
 	@echo Execution

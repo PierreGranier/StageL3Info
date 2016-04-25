@@ -30,6 +30,7 @@ op_comparaison [<>][=]?
 ">"				{ return(SUP); 				 }
 "{"				{ return(ACCOLADE_OUVRANTE); }
 "}"				{ return(ACCOLADE_FERMANTE); }
+"^"				{ return(ET);				 }
 
 {entier} { 
 			printf("\nLex : Mot (%s)\n", yytext);

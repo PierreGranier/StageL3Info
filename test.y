@@ -136,6 +136,12 @@ Programme:
 Expression:
 	 { printf("%s", $$); }
 	;
+	
+Verif:
+	{ 
+			
+	}
+	;
 
 %%
 

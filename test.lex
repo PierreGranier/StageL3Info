@@ -25,6 +25,7 @@ fin	"fini"|"fin"|"j'ai tout fini"
 ":=" 			{ return(AFFECTATION); 		 }
 "+"				{ return(PLUS);				 }
 "-"				{ return(MOINS);			 }
+"*"				{ return(FOIS);				 }
 "PREMISSE" 		{ return(PREMISSE); 		 }
 "CONCLUSION" 	{ return(CONCLUSION); 		 }
 "<="			{ return(INF_EGAL);			 }

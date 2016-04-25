@@ -24,7 +24,7 @@ extern FILE* yyin;
 %token AFFECTATION
 %token AFF SEQ
 %token INF_EGAL SUP_EGAL SUP INF
-%token PLUS MOINS
+%token PLUS MOINS FOIS
 %token ET
 %token<chaine> MOT
 %token<chaine> ENTIER
@@ -141,7 +141,11 @@ Programme:
 	MOT AFFECTATION Expression
 		{
 			// TODO Faire affectation de MOT
-			printf("Affectation de %s avec valeur : %s", $1, $3);
+			printf("Affectation de %s avec valeur : %s\n", $1, $3);
+		}
+	| MOT AFFECTATION MOT
+		{
+			printf("Affectation de %s avec variable : %s\n", $1, $3 )
 		}
 	;
 	
@@ -163,7 +167,19 @@ Expression:
 			$$ = $1;
 			printf("Valeur de l'expression %s\n", $$);
 		}
+	| Valeur FOIS Expression
+		{ 
+			// $$ = $1 - $3;
+			strcat($1, " * ");
+			strcat($1, $3);
+			$$ = $1;
+			printf("Valeur de l'expression %s\n", $$);
+		}
 	| Valeur 
+		{
+			$$ = $1;
+			printf("Valeur : %s\n", $$);
+		}
 	;
 	
 %%

@@ -81,7 +81,7 @@ Predicat:
 Conditions:
 	Condition ET Conditions
 		{
-			$$ = $1 && $3;
+			$$ = $1;
 		}
 	| Condition
 		{

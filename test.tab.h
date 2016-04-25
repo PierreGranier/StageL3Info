@@ -45,21 +45,22 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    AFFECTATION = 258,
-    PREMISSE = 259,
-    CONCLUSION = 260,
-    ACCOLADE_OUVRANTE = 261,
-    ACCOLADE_FERMANTE = 262,
-    AFF = 263,
-    SEQ = 264,
-    FINFINALE = 265,
-    INF_EGAL = 266,
-    SUP_EGAL = 267,
-    SUP = 268,
-    INF = 269,
-    MOT = 270,
-    ENTIER = 271,
-    FIN = 272
+    FIN = 258,
+    FINFINALE = 259,
+    PREMISSE = 260,
+    CONCLUSION = 261,
+    ACCOLADE_OUVRANTE = 262,
+    ACCOLADE_FERMANTE = 263,
+    AFFECTATION = 264,
+    AFF = 265,
+    SEQ = 266,
+    INF_EGAL = 267,
+    SUP_EGAL = 268,
+    SUP = 269,
+    INF = 270,
+    ET = 271,
+    MOT = 272,
+    ENTIER = 273
   };
 #endif
 
@@ -73,7 +74,7 @@ union YYSTYPE
 	char* chaine;
 	int valEntiere;
 
-#line 77 "test.tab.h" /* yacc.c:1909  */
+#line 78 "test.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

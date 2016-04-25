@@ -145,15 +145,6 @@ Expression:
 	 { printf("%s", $$); }
 	;
 	
-<<<<<<< HEAD
-Verif:
-	{ 
-			
-	}
-	;
-
-=======
->>>>>>> bfcc9ffb94495a072ffc9219c6f508c43e105057
 %%
 
 int yyerror(char *s) {

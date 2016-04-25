@@ -18,7 +18,7 @@ extern FILE* yyin;
 
 %token AFFECTATION
 %token PREMISSE
-%token CONSEQUENCE
+%token CONCLUSION
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
 %token AFF
 %token SEQ
@@ -31,6 +31,7 @@ extern FILE* yyin;
 %type<chaine> Expression
 %type<chaine> Regle
 %type<chaine> Predicat
+%type<chaine> Programme
 %type<chaine> Condition
 %type<chaine> Comparaison
 %type<chaine> Valeur
@@ -46,15 +47,25 @@ Entree:
 	;
 	
 Regle:
-	AFF PREMISSE Regle CONSEQUENCE Predicat Programme Predicat
+	AFF CONCLUSION Predicat Programme Predicat PREMISSE Regle
 		{
-			//$$ = $5;
-			printf("la preuve est fausse (premisse présente) : %s\n", $$);
+			printf("Erreur : prémisse présente dans la règle AFF\n%s\n", $$);
 		}
-	| AFF CONSEQUENCE Predicat Programme Predicat
+	| AFF CONCLUSION Predicat Programme Predicat
 		{
-			// Calcul à faire
-			printf("bravo");
+			// remplacer les prédicats selon la règle
+		}
+	| AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
+		{
+			if(strcmp($5, $8) != 0)
+				printf("Erreur : prédicats de la règle AFF pas égaux\n%s\n", $$);
+		}
+	| SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
+		{
+			strcat($10, ";");
+			strcat($10, $15);
+			if(strcmp($10, $4) != 0)
+				printf("Erreur : programmes de la règle SEQ incorrects\n%s\n", $$);
 		}
 	;
 
@@ -62,7 +73,7 @@ Predicat:
 	ACCOLADE_OUVRANTE Condition ACCOLADE_FERMANTE
 		{
 			printf("Prédicat de valeur %s\n", $2);
-			$$= $2;
+			$$ = $2;
 		}
 	;
 	

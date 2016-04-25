@@ -47,7 +47,7 @@ extern int yydebug;
   {
     AFFECTATION = 258,
     PREMISSE = 259,
-    CONSEQUENCE = 260,
+    CONCLUSION = 260,
     ACCOLADE_OUVRANTE = 261,
     ACCOLADE_FERMANTE = 262,
     AFF = 263,

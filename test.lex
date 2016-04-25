@@ -23,7 +23,7 @@ op_comparaison [<>][=]?
 "SEQ" 			{ return(SEQ); 				 }
 ":=" 			{ return(AFFECTATION); 		 }
 "PREMISSE" 		{ return(PREMISSE); 		 }
-"CONSEQUENCE" 	{ return(CONSEQUENCE); 		 }
+"CONCLUSION" 	{ return(CONCLUSION); 		 }
 "<="			{ return(INF_EGAL);			 }
 ">="			{ return(SUP_EGAL); 		 }
 "<"				{ return(INF); 				 }
@@ -34,7 +34,7 @@ op_comparaison [<>][=]?
 {entier} { 
 			printf("\nLex : Mot (%s)\n", yytext);
 			yylval.valEntiere = atoi(yytext);
-			return (ENTIER); 	
+			return(ENTIER); 	
 		 }		
 
 {mot} 	{

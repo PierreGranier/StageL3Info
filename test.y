@@ -23,7 +23,7 @@ extern FILE* yyin;
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
 %token AFFECTATION
 %token AFF SEQ
-%token INF_EGAL SUP_EGAL SUP INF
+%token INF_EGAL SUP_EGAL SUP INF EGAL
 %token PLUS MOINS FOIS
 %token ET
 %token<chaine> MOT
@@ -120,6 +120,12 @@ Comparaison:
 	| Expression SUP_EGAL Expression
 		{ 
 			strcat($1,">=");
+			strcat($1, $3);
+			$$=$1;
+		}
+	| Expression EGAL Expression
+		{
+			strcat($1,"=");
 			strcat($1, $3);
 			$$=$1;
 		}

@@ -23,6 +23,7 @@ fin	"fini"|"fin"|"j'ai tout fini"
 "AFF" 			{ return(AFF);  			 }
 "SEQ" 			{ return(SEQ); 				 }
 ":=" 			{ return(AFFECTATION); 		 }
+"="				{ return(EGAL);				 }
 "+"				{ return(PLUS);				 }
 "-"				{ return(MOINS);			 }
 "*"				{ return(FOIS);				 }

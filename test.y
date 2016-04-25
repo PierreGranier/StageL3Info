@@ -99,25 +99,25 @@ Condition:
 	;
 	
 Comparaison:
-	Valeur INF Valeur
+	Expression INF Expression
 		{
 			strcat($1,"<");
 			strcat($1, $3);
 			$$=$1;
 		}
-	| Valeur SUP Valeur
+	| Expression SUP Expression
 		{ 
 			strcat($1,">");
 			strcat($1, $3);
 			$$=$1;
 		}
-	| Valeur INF_EGAL Valeur
+	| Expression INF_EGAL Expression
 		{ 
 			strcat($1,"<=");
 			strcat($1, $3);
 			$$=$1;
 		}
-	| Valeur SUP_EGAL Valeur
+	| Expression SUP_EGAL Expression
 		{ 
 			strcat($1,">=");
 			strcat($1, $3);

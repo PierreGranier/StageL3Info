@@ -32,6 +32,7 @@ extern FILE* yyin;
 %type<chaine> Regle
 %type<chaine> Predicat
 %type<chaine> Programme
+%type<chaine> Conditions
 %type<chaine> Condition
 %type<chaine> Comparaison
 %type<chaine> Valeur

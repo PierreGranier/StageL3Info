@@ -59,7 +59,7 @@ Entree:
 Regle:
 	AFF CONCLUSION Predicat Programme Predicat PREMISSE Regle
 		{
-			printf("1- Erreur : prémisse présente dans la règle AFF\n%s\n", $$);
+			printf("1- Erreur : prémisse présente dans la règle AFF %s\n", $$);
 		}
 	| AFF CONCLUSION Predicat Programme Predicat
 		{
@@ -67,15 +67,20 @@ Regle:
 		}
 	| AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
-			if($5 != $8)
-				printf("3- Erreur : prédicats de la règle AFF pas égaux\n%s\n", $$);
+			if(!compare($5, $8)) {
+				printf("Regle Double AFF - Erreur : prédicats de la règle AFF pas égaux %s\n", $$);
+			}
+			else {
+				printf("Double AFF - OK : Les prédicats sont égaux\n");
+				//on appelle la fonction pour vérifier si les prédicats sont bons;
+			}
 		}
 	| SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
 			strcat($10, ";");
 			strcat($10, $15);
 			if($10 != $4)
-				printf("4- Erreur : programmes de la règle SEQ incorrects\n%s\n", $$);
+				printf("4- Erreur : programmes de la règle SEQ incorrects %s\n", $$);
 		}
 	;
 	
@@ -83,6 +88,10 @@ Predicat:
 	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
 		{
 			$$ = $2;
+		}
+	| ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
+		{
+			printf("bob\n");
 		}
 	;
 	
@@ -107,37 +116,60 @@ Condition:
 Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
-			if($1 >= $3) {
-				$$ = false;
-				printf("Erreur : comparaison INF non logique : %d < %d\n", $1, $3);
+			if(atoi($1) > atoi($3)) {
+				printf("Erreur : comparaison INF non logique : %s < %s\n", $1, $3);
 			}
-			else $$ = true;
+			else {
+				$$ = $1;
+				// char *d1 = $1;
+				// char *d3 = $3;
+				strcat($$, "<");
+				strcat($$, $3);
+			}
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
-			if($1 <= $3) {
-				$$ = false;
-				printf("Erreur : comparaison SUP non logique : %d > %d\n", $1, $3);
+			if(atoi($1) < atoi($3)) {
+				printf("Erreur : comparaison SUP non logique : %s > %s\n", $1, $3);
 			}
-			else $$ = true;
+			else {
+				$$ = $1;
+				// char *d1 = $1;
+				// char *d3 = $3;
+				strcat($$, ">");
+				strcat($$, $3);
+			}
 			
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
-			if($1 > $3) {
-				$$= 0;
-				$$ = false;
-				printf("Erreur : comparaison INF_EGAL non logique : %d <= %d\n", $1, $3);
+			if(atoi($1) > atoi($3)) {
+				printf("Erreur : comparaison INF_EGAL non logique : %s <= %s\n", $1, $3);
 			}
-			else $$ = true;
+			else {
+				$$ = $1;
+				// char *d1 = $1;
+				// char *d3 = $3;
+				strcat($$, "<=");
+				strcat($$, $3);
+			}
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
-			if($1 < $3) {
-				$$ = false;
-				printf("Erreur : comparaison SUP_EGAL non logique : %d >= %d\n", $1, $3);
+			if(atoi($1) < atoi($3)) {
+				/*char *t1 = "1";
+				char *t2 = "-98";
+				if(t1 < t2) printf("  1<-98  ");
+				else 		printf("  1>-98  ");*/
+				printf("Erreur : comparaison SUP_EGAL non logique : %s >= %s\n", $1, $3);
 			}
-			else $$ = true;
+			else {
+				$$ = $1;
+				// char *d1 = $1;
+				// char *d3 = $3;
+				strcat($$, ">=");
+				strcat($$, $3);
+			}
 		}
 	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
 	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
@@ -191,19 +223,23 @@ ExpressionMot:
 ExpressionEntier:
 	ENTIER PLUS ExpressionEntier
 		{
-			$$ = atoi($1) + $3;
+			printf("ok1 - ");
+			// $$ = atoi($1) + $3;
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
-			$$ = atoi($1) - $3;
+			printf("ok2 - ");
+			// $$ = atoi($1) - $3;
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
-			$$ = atoi($1) * $3;
+			printf("ok3 - ");
+			// $$ = atoi($1) * $3;
 		}
 	| ENTIER
 		{
-			$$ = atoi($1);
+			printf("ok4 - ");
+			// $$ = atoi($1);
 		}
 	;
 	
@@ -211,6 +247,16 @@ ExpressionEntier:
 
 int yyerror(char *s) {
   printf("%s\n",s);
+}
+
+int compare(char* chaine1, char* chaine2)
+{   unsigned int i=0;
+    if( strlen(chaine1) != strlen(chaine2) )
+        return 0;
+    for(i=0;i<strlen(chaine1);i++)
+        if( chaine1[i] != chaine2[i])
+            return 0;
+    return 1;
 }
 
 int main(int argc, char **argv) {

@@ -86,6 +86,20 @@ Tokens à définir :
 
 ## Assistant de création de preuve
 
+
+### Exemple
+
+
+AFF   AFF      AFF   AFF
+dzad  zzef     dzad  zzef     
+SEQ            SEQ
+azdazd         zaaf
+SEQ
+pfzjep
+
+SEQ pfzjep SEQ azdazd AFF dzad AFF zzef SEQ zaaf
+
+
 *A étudier*
 
 ## Liens utiles

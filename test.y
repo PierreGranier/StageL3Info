@@ -157,7 +157,6 @@ Programme:
 	MOT AFFECTATION ExpressionEntier
 		{
 			// TODO Faire affectation de MOT
-			printf("Affectation de %s avec valeur : %d\n", $1, $3);
 		}
 	;
 	

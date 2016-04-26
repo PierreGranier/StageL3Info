@@ -1388,7 +1388,7 @@ yyreduce:
     {
 			if((yyvsp[-2].valEntiere) <= (yyvsp[0].valEntiere)) {
 				(yyval.valBool) = false;
-				printf("Erreur : comparaison SUP non logique : %d < %d\n", (yyvsp[-2].valEntiere), (yyvsp[0].valEntiere));
+				printf("Erreur : comparaison SUP non logique : %d > %d\n", (yyvsp[-2].valEntiere), (yyvsp[0].valEntiere));
 			}
 			else (yyval.valBool) = true;
 			
@@ -1402,7 +1402,7 @@ yyreduce:
 			if((yyvsp[-2].valEntiere) > (yyvsp[0].valEntiere)) {
 				(yyval.valBool)= 0;
 				(yyval.valBool) = false;
-				printf("Erreur : comparaison INF_EGAL non logique : %d < %d\n", (yyvsp[-2].valEntiere), (yyvsp[0].valEntiere));
+				printf("Erreur : comparaison INF_EGAL non logique : %d <= %d\n", (yyvsp[-2].valEntiere), (yyvsp[0].valEntiere));
 			}
 			else (yyval.valBool) = true;
 		}
@@ -1414,7 +1414,7 @@ yyreduce:
     {
 			if((yyvsp[-2].valEntiere) < (yyvsp[0].valEntiere)) {
 				(yyval.valBool) = false;
-				printf("Erreur : comparaison SUP_EGAL non logique : %d < %d\n", (yyvsp[-2].valEntiere), (yyvsp[0].valEntiere));
+				printf("Erreur : comparaison SUP_EGAL non logique : %d >= %d\n", (yyvsp[-2].valEntiere), (yyvsp[0].valEntiere));
 			}
 			else (yyval.valBool) = true;
 		}
@@ -1423,73 +1423,73 @@ yyreduce:
 
   case 21:
 #line 142 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1428 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
 #line 143 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1434 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 144 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1440 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 145 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1446 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 146 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1452 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 147 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1458 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 148 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1464 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 149 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1470 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 150 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1476 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 151 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1482 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 152 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1488 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 153 "test.y" /* yacc.c:1646  */
-    { printf("peut pas comparer des MOTS"); }
+    { printf("peut pas comparer des MOTS\n"); }
 #line 1494 "test.tab.c" /* yacc.c:1646  */
     break;
 

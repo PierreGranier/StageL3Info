@@ -117,7 +117,7 @@ Comparaison:
 		{
 			if($1 <= $3) {
 				$$ = false;
-				printf("Erreur : comparaison SUP non logique : %d < %d\n", $1, $3);
+				printf("Erreur : comparaison SUP non logique : %d > %d\n", $1, $3);
 			}
 			else $$ = true;
 			
@@ -127,7 +127,7 @@ Comparaison:
 			if($1 > $3) {
 				$$= 0;
 				$$ = false;
-				printf("Erreur : comparaison INF_EGAL non logique : %d < %d\n", $1, $3);
+				printf("Erreur : comparaison INF_EGAL non logique : %d <= %d\n", $1, $3);
 			}
 			else $$ = true;
 		}
@@ -135,7 +135,7 @@ Comparaison:
 		{
 			if($1 < $3) {
 				$$ = false;
-				printf("Erreur : comparaison SUP_EGAL non logique : %d < %d\n", $1, $3);
+				printf("Erreur : comparaison SUP_EGAL non logique : %d >= %d\n", $1, $3);
 			}
 			else $$ = true;
 		}

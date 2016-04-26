@@ -48,9 +48,9 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
-	| FIN { printf("Fin du programme"); return 0; }
-	| Regle FIN Entree
-	| FINFINALE { printf("Fin du programme"); return 0; }
+	| FIN								{ printf("Fin du programme"); return 0; }
+	| FINFINALE							{ printf("Fin du programme"); return 0; }
+	| Regle FIN Entree					{ printf("Preuve vérifiée ou pas\n"); }
 	| Comparaison FIN Entree
 	| ExpressionMot FIN Entree
 	| ExpressionEntier FIN Entree
@@ -59,7 +59,7 @@ Entree:
 Regle:
 	AFF CONCLUSION Predicat Programme Predicat PREMISSE Regle
 		{
-			printf("1- Erreur : prémisse présente dans la règle AFF %s\n", $$);
+			printf("Erreur : prémisse présente dans la règle AFF : %s\n", $$);
 		}
 	| AFF CONCLUSION Predicat Programme Predicat
 		{
@@ -79,8 +79,9 @@ Regle:
 		{
 			strcat($10, ";");
 			strcat($10, $15);
-			if($10 != $4)
-				printf("4- Erreur : programmes de la règle SEQ incorrects %s\n", $$);
+			if($10 != $4) {
+				printf("Erreur : programmes de la règle SEQ incorrects : %s\n", $$);
+			}
 		}
 	;
 	

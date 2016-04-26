@@ -36,12 +36,13 @@ fin	"fini"|"fin"|"j'ai tout fini"
 "{"				{ return(ACCOLADE_OUVRANTE); }
 "}"				{ return(ACCOLADE_FERMANTE); }
 "^"				{ return(ET);				 }
+";"				{ return(POINTVIRGULE);		 }
 
 {entier} {
 			//yylval.valEntiere = atoi(yytext);
 			yylval.chaine = strdup(yytext);
 			return(ENTIER);
-		 }		
+		 }
 
 {mot} 	{
 			yylval.chaine = strdup(yytext);

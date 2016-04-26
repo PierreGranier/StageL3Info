@@ -1,1 +1,1 @@
-AFF CONCLUSION {0>=0} a:=0 { 8>=8 } AFF CONCLUSION {1>=0} a:=0 { 8>=8^5>1 }
+SEQ CONCLUSION {0>=0} a:=0;b:=0 {8>=8^5>1} PREMISSE AFF CONCLUSION {0>=0} a:=0 {8>=8} AFF CONCLUSION {1>=0} b:=0 {8>=8^5>1}

@@ -63,8 +63,9 @@ extern int yydebug;
     MOINS = 273,
     FOIS = 274,
     ET = 275,
-    MOT = 276,
-    ENTIER = 277
+    POINTVIRGULE = 276,
+    MOT = 277,
+    ENTIER = 278
   };
 #endif
 
@@ -73,13 +74,13 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 17 "test.y" /* yacc.c:1909  */
+#line 19 "test.y" /* yacc.c:1909  */
 
 	char* chaine;
 	int valEntiere;
 	boolean valBool;
 
-#line 83 "test.tab.h" /* yacc.c:1909  */
+#line 84 "test.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

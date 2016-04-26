@@ -6,9 +6,11 @@
 #include <math.h>
 
 #include "global.h"
-#define false	0 	
+#define false	0
 #define true 	1
 typedef char boolean;
+
+boolean compare(char* c1, char* c2);
 
 extern FILE* yyin;
 
@@ -30,6 +32,7 @@ extern FILE* yyin;
 %token INF_EGAL SUP_EGAL SUP INF EGAL
 %token PLUS MOINS FOIS
 %token ET
+%token POINTVIRGULE
 %token<chaine> MOT
 %token<chaine> ENTIER
 
@@ -38,6 +41,7 @@ extern FILE* yyin;
 %type<chaine> Regle
 %type<valBool> Predicat
 %type<chaine> Programme
+%type<chaine> Instruction
 %type<valBool> Conditions
 %type<valBool> Condition
 %type<valBool> Comparaison
@@ -48,14 +52,24 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
-	| FIN								{ printf("Fin du programme"); return 0; }
-	| FINFINALE							{ printf("Fin du programme"); return 0; }
-	| Regle FIN Entree					{ printf("Preuve vérifiée ou pas\n"); }
+	| FIN								{ printf("Fin du programme\n"); return 0; }
+	| FINFINALE							{ printf("Fin du programme\n"); return 0; }
+	| Regle FIN Entree					{ printf("Preuve lue en entier\n"); }
 	| Comparaison FIN Entree
 	| ExpressionMot FIN Entree
 	| ExpressionEntier FIN Entree
 	;
+
+/*
+Conclusion:
+	Predicat Programme Predicat
+	;
 	
+DebRegleAFF:
+	AFF CONCLUSION Predicat Programme Predicat
+	;
+*/
+
 Regle:
 	AFF CONCLUSION Predicat Programme Predicat PREMISSE Regle
 		{
@@ -67,18 +81,25 @@ Regle:
 		}
 	| AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
-			if($5 != $8)
-				printf("Erreur : prédicats de la règle AFF pas égaux : %s\n", $$);
+			/*if($5 != $8)
+				printf("Erreur : prédicats de la règle AFF pas égaux : %s\n", $$);*/
 		}
 	| SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
 		{
-			strcat($10, ";");
-			strcat($10, $15);
-			if($10 != $4)
-				printf("Erreur : programmes de la règle SEQ incorrects : %s\n", $$);
+			printf("Ersefsefsfe");
+			/*char* ProgrammeTotal= $10;
+			strcat(ProgrammeTotal, ";");
+			strcat(ProgrammeTotal, $15);
+			printf("fefe -> %s TRUC %s\n", $10, $15);
+			if(compare(ProgrammeTotal, $4) == false) {
+				printf("Erreur : programmes de la règle SEQ incorrects : |%s| != |%s|\n", ProgrammeTotal, $4);
+			}
+			else {				
+				printf("Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
+			}*/
 		}
 	;
-	
+
 Predicat:
 	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
 		{
@@ -89,21 +110,21 @@ Predicat:
 Conditions:
 	Condition ET Conditions
 		{
-			$$ = $1;
+			$$ = ($1 && $3);
 		}
 	| Condition
 		{
 			$$ = $1;
 		}
 	;
-	
+
 Condition:
 	Comparaison
 		{
 			$$ = $1;
 		}
 	;
-	
+
 Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
@@ -120,7 +141,7 @@ Comparaison:
 				printf("Erreur : comparaison SUP non logique : %d > %d\n", $1, $3);
 			}
 			else $$ = true;
-			
+
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
@@ -154,9 +175,35 @@ Comparaison:
 	;
 	
 Programme:
+	Instruction POINTVIRGULE Programme
+		{
+			/*$$= $1;
+			strcat($$, ";");
+			strcat($$, $3);
+			printf("Prgm long : %s\n", $$);*/
+		}
+	| Instruction
+		{
+			/*$$= $1;
+			printf("Prgm\n");*/
+		}
+	;
+	
+Instruction:
 	MOT AFFECTATION ExpressionEntier
 		{
-			// TODO Faire affectation de MOT
+			/*$$= $1;
+			strcat($$, ":=");
+			//strcat($$, $3);
+			printf("Inst longue : %s\n", $$);*/
+			
+		}
+	| MOT AFFECTATION ExpressionMot
+		{
+			/*$$= $1;
+			strcat($$, ":=");
+			strcat($$, $3);
+			printf("Inst\n");*/
 		}
 	;
 	
@@ -187,7 +234,7 @@ ExpressionMot:
 			$$ = $1;
 		}
 	;
-	
+
 ExpressionEntier:
 	ENTIER PLUS ExpressionEntier
 		{
@@ -206,8 +253,18 @@ ExpressionEntier:
 			$$ = atoi($1);
 		}
 	;
-	
+
 %%
+
+boolean compare(char* c1, char* c2) {
+	if(strlen(c1) != strlen(c2))
+		return false;
+	unsigned int i = 0;
+	for(i=0; i<strlen(c1); i++)
+		if(c1[i] != c2[i])
+			return false;
+	return true;
+} 
 
 int yyerror(char *s) {
   printf("%s\n",s);
@@ -225,6 +282,6 @@ int main(int argc, char **argv) {
 		yyin = fopen(argv[0], "r");
 	else
 		yyin = stdin;*/
-	
+
 	return EXIT_SUCCESS;
 }

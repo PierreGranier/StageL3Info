@@ -1,6 +1,11 @@
+typedef struct s_entier {
+	char *chaine;
+	int valeur;
+} t_entier;
+
 typedef struct s_typespe {
 	char* chaine;
-	char* triplet;
+	t_entier entier;
 } typespe;
 
 #define YYSTYPE typespe

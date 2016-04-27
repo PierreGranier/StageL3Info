@@ -11,23 +11,18 @@ extern FILE* yyin;
 
 int compare(char* c1, char* c2);
 
-typedef struct s_triplet {
-	char* preC;
-	char* prgm;
-	char* postC;
-} triplet_hoare;
 %}
 
 %union {
 	char* chaine;
-	triplet_hoare triplet;
+	t_entier entier;
 }
 
 %token FIN
 %token FINFINALE
 
 %token<chaine> MOT
-%token<chaine> ENTIER
+%token<entier> ENTIER		//TODO
 
 %token AFF SEQ
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
@@ -132,39 +127,39 @@ Condition:
 Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
-			if(atoi($1) >= atoi($3)) {
+			if($1.valeur >= $3.valeur) {
 				printf("[Erreur] Comparaison INF non logique : %s < %s\n", $1, $3);
 			}
 			$$ = $1;
 			strcat($$, "<");
-			strcat($$, $3);
+			strcat($$, $3.chaine);
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
-			if(atoi($1) <= atoi($3)) {
+			if($1.valeur <= $3.valeur) {
 				printf("[Erreur] Comparaison SUP non logique : %s > %s\n", $1, $3);
 			}
 			$$ = $1;
 			strcat($$, ">");
-			strcat($$, $3);
+			strcat($$, $3.chaine);
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
-			if(atoi($1) > atoi($3)) {
+			if($3.valeur > $3.valeur) {
 				printf("[Erreur] Comparaison INF_EGAL non logique : %s <= %s\n", $1, $3);
 			}
 			$$ = $1;
 			strcat($$, "<=");
-			strcat($$, $3);
+			strcat($$, $3.chaine);
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
-			if(atoi($1) < atoi($3)) {
+			if($1.valeur < $3.valeur) {
 				printf("[Erreur] Comparaison SUP_EGAL non logique : %s >= %s\n", $1, $3);
 			}
 			$$ = $1;
-			strcat($$, ">=");
-			strcat($$, $3);
+			strcat($$.chaine, ">=");
+			strcat($$.chaine, $3.chaine);
 		}
 	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
 	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
@@ -183,22 +178,22 @@ Comparaison:
 ExpressionEntier:
 	ENTIER
 		{
-			$$ = $1;
+			$$ = $1.valeur;
 		}
 	| ENTIER PLUS ExpressionEntier
 		{
-			$$ = atoi($1) + atoi($3);
-			printf("%d + %d = %d\n", atoi($1), atoi($3), $$);
+			$$ = $1.valeur + $3.valeur;
+			
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
-			$$ = atoi($1) - atoi($3);
-			printf("%d - %d = %d\n", atoi($1), atoi($3), $$);
+			$$ = $1.valeur - $3.valeur;
+			printf("%d - %d = %d\n", $1.valeur, $3.valeur, $$);
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
-			$$ = atoi($1) * atoi($3);
-			printf("%d * %d = %d\n", atoi($1), atoi($3), $$);
+			$$ = $1.valeur * $3.valeur;
+			printf("%d * %d = %d\n", $1.valeur, $3.valeur, $$);
 		}
 	;
 	

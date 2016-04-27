@@ -76,13 +76,8 @@ extern FILE* yyin;
 
 int compare(char* c1, char* c2);
 
-typedef struct s_triplet {
-	char* preC;
-	char* prgm;
-	char* postC;
-} triplet_hoare;
 
-#line 86 "test.tab.c" /* yacc.c:339  */
+#line 81 "test.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -144,12 +139,12 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 21 "test.y" /* yacc.c:355  */
+#line 16 "test.y" /* yacc.c:355  */
 
 	char* chaine;
-	triplet_hoare triplet;
+	t_entier entier;
 
-#line 153 "test.tab.c" /* yacc.c:355  */
+#line 148 "test.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -164,7 +159,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 168 "test.tab.c" /* yacc.c:358  */
+#line 163 "test.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -463,11 +458,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    57,    57,    59,    60,    61,    62,    66,    70,    76,
-     105,   112,   119,   126,   133,   142,   151,   160,   169,   170,
-     171,   172,   173,   174,   175,   176,   177,   178,   179,   180,
-     184,   188,   193,   198,   206,   213,   220,   227,   234,   240,
-     247,   253
+       0,    52,    52,    54,    55,    56,    57,    61,    65,    71,
+     100,   107,   114,   121,   128,   137,   146,   155,   164,   165,
+     166,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+     179,   183,   188,   193,   201,   208,   215,   222,   229,   235,
+     242,   248
 };
 #endif
 
@@ -1287,49 +1282,49 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 59 "test.y" /* yacc.c:1646  */
+#line 54 "test.y" /* yacc.c:1646  */
     { printf("Fin du programme\n"); return 0; }
-#line 1293 "test.tab.c" /* yacc.c:1646  */
+#line 1288 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 60 "test.y" /* yacc.c:1646  */
+#line 55 "test.y" /* yacc.c:1646  */
     { printf("Fin du programme\n"); return 0; }
-#line 1299 "test.tab.c" /* yacc.c:1646  */
+#line 1294 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 61 "test.y" /* yacc.c:1646  */
+#line 56 "test.y" /* yacc.c:1646  */
     { printf("Preuve lue en entier\n"); }
-#line 1305 "test.tab.c" /* yacc.c:1646  */
+#line 1300 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 62 "test.y" /* yacc.c:1646  */
+#line 57 "test.y" /* yacc.c:1646  */
     { printf("\nResultat = ihmohoum"); }
-#line 1311 "test.tab.c" /* yacc.c:1646  */
+#line 1306 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 67 "test.y" /* yacc.c:1646  */
+#line 62 "test.y" /* yacc.c:1646  */
     {
 			// remplacer les prédicats selon la règle
 		}
-#line 1319 "test.tab.c" /* yacc.c:1646  */
+#line 1314 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 71 "test.y" /* yacc.c:1646  */
+#line 66 "test.y" /* yacc.c:1646  */
     {
 			if(compare((yyvsp[-4].chaine), (yyvsp[-2].chaine))) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", (yyval.chaine));
 			}
 		}
-#line 1329 "test.tab.c" /* yacc.c:1646  */
+#line 1324 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 77 "test.y" /* yacc.c:1646  */
+#line 72 "test.y" /* yacc.c:1646  */
     {
 			/*char* ProgrammeTotal= $10;
 			strcat(ProgrammeTotal, ";");
@@ -1342,284 +1337,284 @@ yyreduce:
 				printf("Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
 			}*/
 		}
-#line 1346 "test.tab.c" /* yacc.c:1646  */
+#line 1341 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 106 "test.y" /* yacc.c:1646  */
+#line 101 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-1].chaine);
 		}
-#line 1354 "test.tab.c" /* yacc.c:1646  */
+#line 1349 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 113 "test.y" /* yacc.c:1646  */
+#line 108 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), (yyvsp[-2].chaine));
 			strcat((yyval.chaine), "^");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 		}
-#line 1365 "test.tab.c" /* yacc.c:1646  */
+#line 1360 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 120 "test.y" /* yacc.c:1646  */
+#line 115 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1373 "test.tab.c" /* yacc.c:1646  */
+#line 1368 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 127 "test.y" /* yacc.c:1646  */
+#line 122 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1381 "test.tab.c" /* yacc.c:1646  */
+#line 1376 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 134 "test.y" /* yacc.c:1646  */
+#line 129 "test.y" /* yacc.c:1646  */
     {
-			if(atoi((yyvsp[-2].chaine)) >= atoi((yyvsp[0].chaine))) {
+			if((yyvsp[-2].chaine).valeur >= (yyvsp[0].chaine).valeur) {
 				printf("[Erreur] Comparaison INF non logique : %s < %s\n", (yyvsp[-2].chaine), (yyvsp[0].chaine));
 			}
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "<");
-			strcat((yyval.chaine), (yyvsp[0].chaine));
+			strcat((yyval.chaine), (yyvsp[0].chaine).chaine);
 		}
-#line 1394 "test.tab.c" /* yacc.c:1646  */
+#line 1389 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 143 "test.y" /* yacc.c:1646  */
+#line 138 "test.y" /* yacc.c:1646  */
     {
-			if(atoi((yyvsp[-2].chaine)) <= atoi((yyvsp[0].chaine))) {
+			if((yyvsp[-2].chaine).valeur <= (yyvsp[0].chaine).valeur) {
 				printf("[Erreur] Comparaison SUP non logique : %s > %s\n", (yyvsp[-2].chaine), (yyvsp[0].chaine));
 			}
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), ">");
-			strcat((yyval.chaine), (yyvsp[0].chaine));
+			strcat((yyval.chaine), (yyvsp[0].chaine).chaine);
 		}
-#line 1407 "test.tab.c" /* yacc.c:1646  */
+#line 1402 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 152 "test.y" /* yacc.c:1646  */
+#line 147 "test.y" /* yacc.c:1646  */
     {
-			if(atoi((yyvsp[-2].chaine)) > atoi((yyvsp[0].chaine))) {
+			if((yyvsp[0].chaine).valeur > (yyvsp[0].chaine).valeur) {
 				printf("[Erreur] Comparaison INF_EGAL non logique : %s <= %s\n", (yyvsp[-2].chaine), (yyvsp[0].chaine));
 			}
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "<=");
-			strcat((yyval.chaine), (yyvsp[0].chaine));
+			strcat((yyval.chaine), (yyvsp[0].chaine).chaine);
 		}
-#line 1420 "test.tab.c" /* yacc.c:1646  */
+#line 1415 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 161 "test.y" /* yacc.c:1646  */
+#line 156 "test.y" /* yacc.c:1646  */
     {
-			if(atoi((yyvsp[-2].chaine)) < atoi((yyvsp[0].chaine))) {
+			if((yyvsp[-2].chaine).valeur < (yyvsp[0].chaine).valeur) {
 				printf("[Erreur] Comparaison SUP_EGAL non logique : %s >= %s\n", (yyvsp[-2].chaine), (yyvsp[0].chaine));
 			}
 			(yyval.chaine) = (yyvsp[-2].chaine);
-			strcat((yyval.chaine), ">=");
-			strcat((yyval.chaine), (yyvsp[0].chaine));
+			strcat((yyval.chaine).chaine, ">=");
+			strcat((yyval.chaine).chaine, (yyvsp[0].chaine).chaine);
 		}
-#line 1433 "test.tab.c" /* yacc.c:1646  */
+#line 1428 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 169 "test.y" /* yacc.c:1646  */
+#line 164 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1439 "test.tab.c" /* yacc.c:1646  */
+#line 1434 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 170 "test.y" /* yacc.c:1646  */
+#line 165 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1445 "test.tab.c" /* yacc.c:1646  */
+#line 1440 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 171 "test.y" /* yacc.c:1646  */
+#line 166 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1451 "test.tab.c" /* yacc.c:1646  */
+#line 1446 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 172 "test.y" /* yacc.c:1646  */
+#line 167 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1457 "test.tab.c" /* yacc.c:1646  */
+#line 1452 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 173 "test.y" /* yacc.c:1646  */
+#line 168 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1463 "test.tab.c" /* yacc.c:1646  */
+#line 1458 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 174 "test.y" /* yacc.c:1646  */
+#line 169 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1469 "test.tab.c" /* yacc.c:1646  */
+#line 1464 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 175 "test.y" /* yacc.c:1646  */
+#line 170 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1475 "test.tab.c" /* yacc.c:1646  */
+#line 1470 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 176 "test.y" /* yacc.c:1646  */
+#line 171 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1481 "test.tab.c" /* yacc.c:1646  */
+#line 1476 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 177 "test.y" /* yacc.c:1646  */
+#line 172 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1487 "test.tab.c" /* yacc.c:1646  */
+#line 1482 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 178 "test.y" /* yacc.c:1646  */
+#line 173 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1493 "test.tab.c" /* yacc.c:1646  */
+#line 1488 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 179 "test.y" /* yacc.c:1646  */
+#line 174 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1499 "test.tab.c" /* yacc.c:1646  */
+#line 1494 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 180 "test.y" /* yacc.c:1646  */
+#line 175 "test.y" /* yacc.c:1646  */
     { printf("peut pas comparer des MOTS\n"); }
-#line 1505 "test.tab.c" /* yacc.c:1646  */
+#line 1500 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 185 "test.y" /* yacc.c:1646  */
+#line 180 "test.y" /* yacc.c:1646  */
     {
-			(yyval.chaine) = (yyvsp[0].chaine);
+			(yyval.chaine) = (yyvsp[0].entier).valeur;
 		}
-#line 1513 "test.tab.c" /* yacc.c:1646  */
+#line 1508 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 189 "test.y" /* yacc.c:1646  */
+#line 184 "test.y" /* yacc.c:1646  */
     {
-			(yyval.chaine) = atoi((yyvsp[-2].chaine)) + atoi((yyvsp[0].chaine));
-			printf("%d + %d = %d\n", atoi((yyvsp[-2].chaine)), atoi((yyvsp[0].chaine)), (yyval.chaine));
+			(yyval.chaine) = (yyvsp[-2].entier).valeur + (yyvsp[0].chaine).valeur;
+			
 		}
-#line 1522 "test.tab.c" /* yacc.c:1646  */
+#line 1517 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 194 "test.y" /* yacc.c:1646  */
+#line 189 "test.y" /* yacc.c:1646  */
     {
-			(yyval.chaine) = atoi((yyvsp[-2].chaine)) - atoi((yyvsp[0].chaine));
-			printf("%d - %d = %d\n", atoi((yyvsp[-2].chaine)), atoi((yyvsp[0].chaine)), (yyval.chaine));
+			(yyval.chaine) = (yyvsp[-2].entier).valeur - (yyvsp[0].chaine).valeur;
+			printf("%d - %d = %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].chaine).valeur, (yyval.chaine));
 		}
-#line 1531 "test.tab.c" /* yacc.c:1646  */
+#line 1526 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 199 "test.y" /* yacc.c:1646  */
+#line 194 "test.y" /* yacc.c:1646  */
     {
-			(yyval.chaine) = atoi((yyvsp[-2].chaine)) * atoi((yyvsp[0].chaine));
-			printf("%d * %d = %d\n", atoi((yyvsp[-2].chaine)), atoi((yyvsp[0].chaine)), (yyval.chaine));
+			(yyval.chaine) = (yyvsp[-2].entier).valeur * (yyvsp[0].chaine).valeur;
+			printf("%d * %d = %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].chaine).valeur, (yyval.chaine));
 		}
-#line 1540 "test.tab.c" /* yacc.c:1646  */
+#line 1535 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 207 "test.y" /* yacc.c:1646  */
+#line 202 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "+");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("%s", (yyval.chaine));
 		}
-#line 1551 "test.tab.c" /* yacc.c:1646  */
+#line 1546 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 214 "test.y" /* yacc.c:1646  */
+#line 209 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "-");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("%s", (yyval.chaine));
 		}
-#line 1562 "test.tab.c" /* yacc.c:1646  */
+#line 1557 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 221 "test.y" /* yacc.c:1646  */
+#line 216 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "*");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("%s", (yyval.chaine));
 		}
-#line 1573 "test.tab.c" /* yacc.c:1646  */
+#line 1568 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 228 "test.y" /* yacc.c:1646  */
+#line 223 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1581 "test.tab.c" /* yacc.c:1646  */
+#line 1576 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 235 "test.y" /* yacc.c:1646  */
+#line 230 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), ";");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 		}
-#line 1591 "test.tab.c" /* yacc.c:1646  */
+#line 1586 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 241 "test.y" /* yacc.c:1646  */
+#line 236 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine)= (yyvsp[0].chaine);
 		}
-#line 1599 "test.tab.c" /* yacc.c:1646  */
+#line 1594 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 248 "test.y" /* yacc.c:1646  */
+#line 243 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), ":=");
 			strcat((yyval.chaine), (yyvsp[0].chaine));			
 		}
-#line 1609 "test.tab.c" /* yacc.c:1646  */
+#line 1604 "test.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 254 "test.y" /* yacc.c:1646  */
+#line 249 "test.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), ":=");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 		}
-#line 1619 "test.tab.c" /* yacc.c:1646  */
+#line 1614 "test.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1623 "test.tab.c" /* yacc.c:1646  */
+#line 1618 "test.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1847,7 +1842,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 261 "test.y" /* yacc.c:1906  */
+#line 256 "test.y" /* yacc.c:1906  */
 
 
 /*boolean compare(char* c1, char* c2) {

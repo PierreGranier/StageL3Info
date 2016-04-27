@@ -72,10 +72,10 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 21 "test.y" /* yacc.c:1909  */
+#line 16 "test.y" /* yacc.c:1909  */
 
 	char* chaine;
-	triplet_hoare triplet;
+	t_entier entier;
 
 #line 81 "test.tab.h" /* yacc.c:1909  */
 };

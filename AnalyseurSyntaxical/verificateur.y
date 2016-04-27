@@ -168,18 +168,30 @@ Comparaison:
 			strcat($$, ">=");
 			strcat($$, $3.chaine);
 		}
-	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionMot		INF_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionMot		SUP_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionMot		INF			ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionMot		SUP			ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionMot		INF_EGAL	ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionMot		SUP_EGAL	ExpressionEntier	{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionEntier	INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionEntier	SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionEntier	INF_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
-	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
+	| ExpressionEntier EGAL ExpressionEntier
+		{
+			if($1.valeur != $3.valeur) {
+				printf("[ERREUR] Comparaison EGAL non logique : %d = %d\n", $1.valeur, $3.valeur);
+			}
+			$$ = $1.chaine;
+			strcat($$, "=");
+			strcat($$, $3.chaine);
+		}
+	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		INF_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		SUP_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		EGAL		ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		INF			ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		SUP			ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		INF_EGAL	ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		SUP_EGAL	ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		EGAL		ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionEntier	INF			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionEntier	SUP			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionEntier	INF_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionEntier	EGAL		ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
 	;
 	
 ExpressionEntier:

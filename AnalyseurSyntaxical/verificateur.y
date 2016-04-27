@@ -21,6 +21,8 @@ boolean compare(char* c1, char* c2);
 	char* chaine;
 	t_entier entier;
 	t_triplet triplet;
+	t_instruction instruction;	
+	t_programme programme;
 	boolean valBool;
 }
 
@@ -44,8 +46,8 @@ boolean compare(char* c1, char* c2);
 %type<entier> ExpressionEntier
 %type<chaine> Regle
 %type<chaine> Predicat
-%type<chaine> Programme
-%type<chaine> Instruction
+%type<programme> Programme
+%type<instruction> Instruction
 %type<chaine> Conditions
 %type<chaine> Condition
 %type<chaine> Comparaison
@@ -66,6 +68,13 @@ Regle:
 	AFF Triplet
 		{
 			// remplacer les prédicats selon la règle
+			char *gen;
+			gen = $2.postcondition;
+			// remplacer(gen, $2.programme.instruction.variable, $2.programme.instruction.valeur);
+			if(compare(gen, $2.precondition) == false)
+			{
+					printf("[ERREUR] Mauvaise Précondition ou Postcondition  : %s\n", $$);
+			}
 		}
 	| AFF Triplet AFF Triplet
 		{
@@ -248,28 +257,35 @@ ExpressionMot:
 Programme:
 	Instruction POINTVIRGULE Programme
 		{
-			$$ = $1;
-			strcat($$, ";");
-			strcat($$, $3);
+			$$.contenu = $1.variable;
+			strcat(strcat($$.contenu, ":="), $1.valeur);
+			strcat($$.contenu, ";");
+			strcat($$.contenu, $3.contenu);
+			$$.instruction = $1;
 		}
 	| Instruction
 		{
-			$$= $1;
+			$$.contenu = $1.variable;
+			strcat($$.contenu, ":=");
+			strcat($$.contenu, $1.valeur);
+			$$.instruction = $1;
 		}
 	;
 	
 Instruction:
 	MOT AFFECTATION ExpressionEntier
 		{
-			$$ = $1;
-			strcat($$, ":=");
-			strcat($$, $3.chaine);			
+			$$.variable = $1;
+			$$.valeur = $3.chaine;
+			/*strcat($$, ":=");
+			strcat($$, $3.chaine);*/			
 		}
 	| MOT AFFECTATION ExpressionMot
 		{
-			$$ = $1;
-			strcat($$, ":=");
-			strcat($$, $3);
+			$$.variable = $1;
+			$$.valeur = $3;
+			/*strcat($$, ":=");
+			strcat($$, $3);*/
 		}
 	;
 	

@@ -9,11 +9,11 @@
 
 extern FILE* yyin;
 
-boolean compare(char* c1, char* c2);
+int compare(char* c1, char* c2);
 
 %}
 
-%union{
+%union {
 	char* chaine;
 }
 
@@ -61,8 +61,9 @@ Regle:
 		}
 	| AFF Predicat Programme Predicat AFF Predicat Programme Predicat
 		{
-			if($5 != $8)
+			if(compare($4, $6)) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
+			}
 		}
 	| SEQ Predicat Programme Predicat AFF Predicat Programme Predicat AFF Predicat Programme Predicat
 		{
@@ -77,10 +78,10 @@ Regle:
 				printf("Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
 			}*/
 		}
-	| .
+	/*| .
 		{
 			printf("[ERREUR] Règle non reconnue");
-		}
+		}*/
 	;
 	
 Predicat:
@@ -88,16 +89,15 @@ Predicat:
 		{
 			$$ = $2;
 		}
-	| ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
-		{
-			printf("bob\n");
-		}
 	;
 	
 Conditions:
 	Condition ET Conditions
 		{
-			$$ = ($1 && $3);
+			$$ = $1;
+			strcat($$, $1);
+			strcat($$, "^");
+			strcat($$, $3);
 		}
 	| Condition
 		{
@@ -166,15 +166,15 @@ Comparaison:
 ExpressionEntier:
 	ENTIER PLUS ExpressionEntier
 		{
-			$$ = atoi($1) + $3;
+			$$ = atoi($1) + atoi($3);
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
-			$$ = atoi($1) - $3;
+			$$ = atoi($1) - atoi($3);
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
-			$$ = atoi($1) * $3;
+			$$ = atoi($1) * atoi($3);
 		}
 	| ENTIER
 		{
@@ -240,7 +240,7 @@ Instruction:
 	
 %%
 
-boolean compare(char* c1, char* c2) {
+/*boolean compare(char* c1, char* c2) {
 	if(strlen(c1) != strlen(c2))
 		return false;
 	unsigned int i = 0;
@@ -248,7 +248,7 @@ boolean compare(char* c1, char* c2) {
 		if(c1[i] != c2[i])
 			return false;
 	return true;
-} 
+}*/
 
 int yyerror(char *s) {
   printf("%s\n",s);

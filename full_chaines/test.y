@@ -35,7 +35,7 @@ int compare(char* c1, char* c2);
 %token PLUS MOINS FOIS
 
 %type<chaine> ExpressionMot
-%type<chaine> ExpressionEntier
+%type<entier> ExpressionEntier
 %type<chaine> Regle
 %type<chaine> Predicat
 %type<chaine> Programme
@@ -54,7 +54,7 @@ Entree:
 	| FIN								{ printf("Fin du programme\n"); return 0; }
 	| FINFINALE							{ printf("Fin du programme\n"); return 0; }
 	| Regle FIN Entree					{ printf("Preuve lue en entier\n"); }
-	| ExpressionEntier FIN Entree { printf("\nResultat = ihmohoum"); }
+	| Comparaison FIN Entree { printf("\nResultat = ok"); }
 	;
 	
 Regle:
@@ -128,38 +128,38 @@ Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
 			if($1.valeur >= $3.valeur) {
-				printf("[Erreur] Comparaison INF non logique : %s < %s\n", $1, $3);
+				printf("[Erreur] Comparaison INF non logique : %d < %d\n", $1.valeur, $3.valeur);
 			}
-			$$ = $1;
+			$$ = $1.chaine;
 			strcat($$, "<");
 			strcat($$, $3.chaine);
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
 			if($1.valeur <= $3.valeur) {
-				printf("[Erreur] Comparaison SUP non logique : %s > %s\n", $1, $3);
+				printf("[Erreur] Comparaison SUP non logique : %d > %d\n", $1.valeur, $3.valeur);
 			}
-			$$ = $1;
+			$$ = $1.chaine;
 			strcat($$, ">");
 			strcat($$, $3.chaine);
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
 			if($3.valeur > $3.valeur) {
-				printf("[Erreur] Comparaison INF_EGAL non logique : %s <= %s\n", $1, $3);
+				printf("[Erreur] Comparaison INF_EGAL non logique : %d <= %d\n", $1.valeur, $3.valeur);
 			}
-			$$ = $1;
+			$$ = $1.chaine;
 			strcat($$, "<=");
 			strcat($$, $3.chaine);
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
 			if($1.valeur < $3.valeur) {
-				printf("[Erreur] Comparaison SUP_EGAL non logique : %s >= %s\n", $1, $3);
+				printf("[Erreur] Comparaison SUP_EGAL non logique : %d >= %d\n", $1.valeur, $3.valeur);
 			}
-			$$ = $1;
-			strcat($$.chaine, ">=");
-			strcat($$.chaine, $3.chaine);
+			$$ = $1.chaine;
+			strcat($$, ">=");
+			strcat($$, $3.chaine);
 		}
 	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
 	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
@@ -176,24 +176,25 @@ Comparaison:
 	;
 	
 ExpressionEntier:
-	ENTIER
+	ENTIER PLUS ExpressionEntier
 		{
-			$$ = $1.valeur;
-		}
-	| ENTIER PLUS ExpressionEntier
-		{
-			$$ = $1.valeur + $3.valeur;
-			
+			$$.valeur = $1.valeur + $3.valeur;
+			printf("%d + %d = %d\n", $1.valeur, $3.valeur, $$.valeur);
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
-			$$ = $1.valeur - $3.valeur;
-			printf("%d - %d = %d\n", $1.valeur, $3.valeur, $$);
+			$$.valeur = $1.valeur - $3.valeur;
+			printf("%d - %d = %d\n", $1.valeur, $3.valeur, $$.valeur);
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
-			$$ = $1.valeur * $3.valeur;
-			printf("%d * %d = %d\n", $1.valeur, $3.valeur, $$);
+			$$.valeur = $1.valeur * $3.valeur;
+			printf("%d * %d = %d\n", $1.valeur, $3.valeur, $$.valeur);
+		}
+	| ENTIER
+		{
+			$$.chaine = $1.chaine;
+			$$.valeur = $1.valeur;
 		}
 	;
 	
@@ -243,7 +244,7 @@ Instruction:
 		{
 			$$ = $1;
 			strcat($$, ":=");
-			strcat($$, $3);			
+			strcat($$, $3.chaine);			
 		}
 	| MOT AFFECTATION ExpressionMot
 		{

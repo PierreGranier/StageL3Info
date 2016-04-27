@@ -883,13 +883,14 @@ case 19:
 YY_RULE_SETUP
 #line 38 "test.lex"
 {
-			yylval.chaine = strdup(yytext);
+			yylval.entier.chaine = strdup(yytext);
+			yylval.entier.valeur = atoi(yytext);
 			return(ENTIER);
 		 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 43 "test.lex"
+#line 44 "test.lex"
 {
 			yylval.chaine = strdup(yytext);
 			return(MOT);
@@ -907,10 +908,10 @@ int main(int argc, char **argv) {
 
 case 21:
 YY_RULE_SETUP
-#line 59 "test.lex"
+#line 60 "test.lex"
 ECHO;
 	YY_BREAK
-#line 914 "lex.yy.c"
+#line 915 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1879,4 +1880,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 59 "test.lex"
+#line 60 "test.lex"

@@ -6,7 +6,7 @@ typedef struct s_entier {
 typedef struct s_typespe {
 	char* chaine;
 	t_entier entier;
-} typespe;
+} typespe;	
 
 #define YYSTYPE typespe
 extern YYSTYPE yylval;

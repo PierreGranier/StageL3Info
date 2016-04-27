@@ -11,11 +11,19 @@ extern FILE* yyin;
 
 int compare(char* c1, char* c2);
 
+typedef struct s_triplet {
+	char* preC;
+	char* prgm;
+	char* postC;
+} Triplet;
 %}
 
 %union {
 	char* chaine;
+	Triplet triplet;
 }
+
+
 
 %token FIN
 %token FINFINALE
@@ -42,6 +50,7 @@ int compare(char* c1, char* c2);
 %type<chaine> Conditions
 %type<chaine> Condition
 %type<chaine> Comparaison
+%type<triplet> Triplet
 
 %start Entree
 
@@ -52,6 +61,7 @@ Entree:
 	| FIN								{ printf("Fin du programme\n"); return 0; }
 	| FINFINALE							{ printf("Fin du programme\n"); return 0; }
 	| Regle FIN Entree					{ printf("Preuve lue en entier\n"); }
+	| ExpressionEntier FIN Entree
 	;
 	
 Regle:
@@ -59,7 +69,7 @@ Regle:
 		{
 			// remplacer les prédicats selon la règle
 		}
-	| AFF Predicat Programme Predicat AFF Predicat Programme Predicat
+	| AFF Triplet AFF Predicat Programme Predicat
 		{
 			if(compare($4, $6)) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
@@ -82,6 +92,15 @@ Regle:
 		{
 			printf("[ERREUR] Règle non reconnue");
 		}*/
+	;
+	
+Triplet:
+	Predicat Programme Predicat
+		{
+			$$.preC = $1;
+			$$.prgm = $2;
+			$$.postC = $3;
+		}
 	;
 	
 Predicat:
@@ -166,19 +185,25 @@ Comparaison:
 ExpressionEntier:
 	ENTIER PLUS ExpressionEntier
 		{
-			$$ = atoi($1) + atoi($3);
+			printf("%s PLUS = %d +", $1, atoi($1));
+			$$ = atoi($1);
+			//$$ = atoi($1) + atoi($3);
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
-			$$ = atoi($1) - atoi($3);
+			printf("%s MOINS = %d -", $1, atoi($1));
+			$$ = atoi($1);
+			//$$ = atoi($1) - atoi($3);
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
-			$$ = atoi($1) * atoi($3);
+			printf("%s FOIS = %d *", $1, atoi($1));
+			$$ = atoi($1);
+			//$$ = atoi($1) * atoi($3);
 		}
 	| ENTIER
 		{
-			$$ = atoi($1);
+			$$ = $1;
 		}
 	;
 	

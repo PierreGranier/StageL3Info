@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #include "global.h"
-#include "test.tab.h"
+#include "verificateur.tab.h"
 %}
 
 separateurs [ \t]
@@ -36,7 +36,8 @@ fin	"fini"|"fin"|"j'ai tout fini"
 "*"				{ return(FOIS);				 }
 
 {entier} {
-			yylval.chaine = strdup(yytext);
+			yylval.entier.chaine = strdup(yytext);
+			yylval.entier.valeur = atoi(yytext);
 			return(ENTIER);
 		 }
 

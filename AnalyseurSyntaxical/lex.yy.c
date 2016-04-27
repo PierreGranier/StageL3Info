@@ -501,12 +501,12 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "test.lex"
-#line 5 "test.lex"
+#line 1 "verificateur.lex"
+#line 5 "verificateur.lex"
 #include <stdio.h>
 
 #include "global.h"
-#include "test.tab.h"
+#include "verificateur.tab.h"
 #line 511 "lex.yy.c"
 
 #define INITIAL 0
@@ -692,7 +692,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 17 "test.lex"
+#line 17 "verificateur.lex"
 
 
 #line 699 "lex.yy.c"
@@ -790,98 +790,98 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "test.lex"
+#line 19 "verificateur.lex"
 { /* ignoré */ 				 }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 20 "test.lex"
+#line 20 "verificateur.lex"
 { return(FIN);		  	 	 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "test.lex"
+#line 21 "verificateur.lex"
 { return(FINFINALE); 		 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "test.lex"
+#line 22 "verificateur.lex"
 { return(AFF);  			 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "test.lex"
+#line 23 "verificateur.lex"
 { return(SEQ); 				 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "test.lex"
+#line 24 "verificateur.lex"
 { return(ACCOLADE_OUVRANTE); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "test.lex"
+#line 25 "verificateur.lex"
 { return(ACCOLADE_FERMANTE); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "test.lex"
+#line 26 "verificateur.lex"
 { return(AFFECTATION); 		 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "test.lex"
+#line 27 "verificateur.lex"
 { return(POINTVIRGULE);		 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "test.lex"
+#line 28 "verificateur.lex"
 { return(INF_EGAL);			 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 29 "test.lex"
+#line 29 "verificateur.lex"
 { return(SUP_EGAL); 		 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 30 "test.lex"
+#line 30 "verificateur.lex"
 { return(INF); 				 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 31 "test.lex"
+#line 31 "verificateur.lex"
 { return(SUP); 				 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 32 "test.lex"
+#line 32 "verificateur.lex"
 { return(ET);				 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 33 "test.lex"
+#line 33 "verificateur.lex"
 { return(EGAL);				 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 34 "test.lex"
+#line 34 "verificateur.lex"
 { return(PLUS);				 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 35 "test.lex"
+#line 35 "verificateur.lex"
 { return(MOINS);			 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 36 "test.lex"
+#line 36 "verificateur.lex"
 { return(FOIS);				 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 38 "test.lex"
+#line 38 "verificateur.lex"
 {
 			yylval.entier.chaine = strdup(yytext);
 			yylval.entier.valeur = atoi(yytext);
@@ -890,7 +890,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 44 "test.lex"
+#line 44 "verificateur.lex"
 {
 			yylval.chaine = strdup(yytext);
 			return(MOT);
@@ -908,7 +908,7 @@ int main(int argc, char **argv) {
 
 case 21:
 YY_RULE_SETUP
-#line 60 "test.lex"
+#line 60 "verificateur.lex"
 ECHO;
 	YY_BREAK
 #line 915 "lex.yy.c"
@@ -1880,4 +1880,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 60 "test.lex"
+#line 60 "verificateur.lex"

@@ -16,13 +16,14 @@ int compare(char* c1, char* c2);
 %union {
 	char* chaine;
 	t_entier entier;
+	t_triplet triplet;
 }
 
 %token FIN
 %token FINFINALE
 
 %token<chaine> MOT
-%token<entier> ENTIER		//TODO
+%token<entier> ENTIER
 
 %token AFF SEQ
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
@@ -43,7 +44,7 @@ int compare(char* c1, char* c2);
 %type<chaine> Conditions
 %type<chaine> Condition
 %type<chaine> Comparaison
-//%type<triplet> Triplet
+%type<triplet> Triplet
 
 %start Entree
 
@@ -57,17 +58,17 @@ Entree:
 	;
 	
 Regle:
-	AFF Predicat Programme Predicat
+	AFF Triplet
 		{
 			// remplacer les prédicats selon la règle
 		}
-	| AFF Predicat Programme Predicat AFF Predicat Programme Predicat
+	| AFF Triplet AFF Triplet
 		{
-			if(compare($4, $6)==0) {
+			if(compare($2.postcondition, $4.precondition)==0) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
 			}
 		}
-	| SEQ Predicat Programme Predicat AFF Predicat Programme Predicat AFF Predicat Programme Predicat
+	| SEQ Triplet AFF Triplet AFF Triplet
 		{
 			/*char* ProgrammeTotal= $10;
 			strcat(ProgrammeTotal, ";");
@@ -86,14 +87,14 @@ Regle:
 		}*/
 	;
 	
-/*Triplet:
+Triplet:
 	Predicat Programme Predicat
 		{
-			$$.preC = $1;
-			$$.prgm = $2;
-			$$.postC = $3;
+			$$.precondition = $1;
+			$$.programme = $2;
+			$$.postcondition = $3;
 		}
-	;*/
+	;
 	
 Predicat:
 	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE

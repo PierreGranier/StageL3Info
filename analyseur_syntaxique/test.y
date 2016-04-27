@@ -6,45 +6,49 @@
 #include <math.h>
 
 #include "global.h"
-#define false	0
-#define true 	1
-typedef char boolean;
-
-boolean compare(char* c1, char* c2);
 
 extern FILE* yyin;
 
+int compare(char* c1, char* c2);
+
+typedef struct s_triplet {
+	char* preC;
+	char* prgm;
+	char* postC;
+} triplet_hoare;
 %}
 
-%union{
+%union {
 	char* chaine;
-	int valEntiere;
-	boolean valBool;
+	triplet_hoare triplet;
 }
 
 %token FIN
 %token FINFINALE
-%token PREMISSE
-%token CONCLUSION
-%token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
-%token AFFECTATION
-%token AFF SEQ
-%token INF_EGAL SUP_EGAL SUP INF EGAL
-%token PLUS MOINS FOIS
-%token ET
-%token POINTVIRGULE
+
 %token<chaine> MOT
 %token<chaine> ENTIER
 
+%token AFF SEQ
+%token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
+%token AFFECTATION
+%token POINTVIRGULE
+
+%token INF_EGAL SUP_EGAL SUP INF EGAL
+%token ET
+
+%token PLUS MOINS FOIS
+
 %type<chaine> ExpressionMot
-%type<valEntiere> ExpressionEntier
+%type<chaine> ExpressionEntier
 %type<chaine> Regle
-%type<valBool> Predicat
+%type<chaine> Predicat
 %type<chaine> Programme
 %type<chaine> Instruction
-%type<valBool> Conditions
-%type<valBool> Condition
-%type<valBool> Comparaison
+%type<chaine> Conditions
+%type<chaine> Condition
+%type<chaine> Comparaison
+//%type<triplet> Triplet
 
 %start Entree
 
@@ -55,66 +59,62 @@ Entree:
 	| FIN								{ printf("Fin du programme\n"); return 0; }
 	| FINFINALE							{ printf("Fin du programme\n"); return 0; }
 	| Regle FIN Entree					{ printf("Preuve lue en entier\n"); }
-	| Comparaison FIN Entree
-	| ExpressionMot FIN Entree
-	| ExpressionEntier FIN Entree
-	;
-
-/*
-Conclusion:
-	Predicat Programme Predicat
+	| ExpressionEntier FIN Entree { printf("\nResultat = ihmohoum"); }
 	;
 	
-DebRegleAFF:
-	AFF CONCLUSION Predicat Programme Predicat
-	;
-*/
-
 Regle:
-	AFF CONCLUSION Predicat Programme Predicat PREMISSE Regle
-		{
-			printf("Erreur : prémisse présente dans la règle AFF : %s\n", $$);
-		}
-	| AFF CONCLUSION Predicat Programme Predicat
+	AFF Predicat Programme Predicat
 		{
 			// remplacer les prédicats selon la règle
 		}
-	| AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
+	| AFF Predicat Programme Predicat AFF Predicat Programme Predicat
 		{
-			/*if($5 != $8)
-				printf("Erreur : prédicats de la règle AFF pas égaux : %s\n", $$);*/
+			if(compare($4, $6)) {
+				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
+			}
 		}
-	| SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat
+	| SEQ Predicat Programme Predicat AFF Predicat Programme Predicat AFF Predicat Programme Predicat
 		{
-			printf("Ersefsefsfe");
 			/*char* ProgrammeTotal= $10;
 			strcat(ProgrammeTotal, ";");
 			strcat(ProgrammeTotal, $15);
 			printf("fefe -> %s TRUC %s\n", $10, $15);
 			if(compare(ProgrammeTotal, $4) == false) {
-				printf("Erreur : programmes de la règle SEQ incorrects : |%s| != |%s|\n", ProgrammeTotal, $4);
+				printf("[ERREUR] Programmes de la règle SEQ incorrects : |%s| != |%s|\n", ProgrammeTotal, $4);
 			}
 			else {				
 				printf("Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
 			}*/
 		}
+	/*| .
+		{
+			printf("[ERREUR] Règle non reconnue");
+		}*/
 	;
-
+	
+/*Triplet:
+	Predicat Programme Predicat
+		{
+			$$.preC = $1;
+			$$.prgm = $2;
+			$$.postC = $3;
+		}
+	;*/
+	
 Predicat:
 	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
 		{
 			$$ = $2;
-		}
-	| ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
-		{
-			printf("bob\n");
 		}
 	;
 	
 Conditions:
 	Condition ET Conditions
 		{
-			$$ = ($1 && $3);
+			$$ = $1;
+			strcat($$, $1);
+			strcat($$, "^");
+			strcat($$, $3);
 		}
 	| Condition
 		{
@@ -132,60 +132,39 @@ Condition:
 Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
-			if(atoi($1) > atoi($3)) {
-				printf("Erreur : comparaison INF non logique : %s < %s\n", $1, $3);
+			if(atoi($1) >= atoi($3)) {
+				printf("[Erreur] Comparaison INF non logique : %s < %s\n", $1, $3);
 			}
-			else {
-				$$ = $1;
-				// char *d1 = $1;
-				// char *d3 = $3;
-				strcat($$, "<");
-				strcat($$, $3);
-			}
+			$$ = $1;
+			strcat($$, "<");
+			strcat($$, $3);
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
-			if(atoi($1) < atoi($3)) {
-				printf("Erreur : comparaison SUP non logique : %s > %s\n", $1, $3);
+			if(atoi($1) <= atoi($3)) {
+				printf("[Erreur] Comparaison SUP non logique : %s > %s\n", $1, $3);
 			}
-			else {
-				$$ = $1;
-				// char *d1 = $1;
-				// char *d3 = $3;
-				strcat($$, ">");
-				strcat($$, $3);
-			}
-			else $$ = true;
+			$$ = $1;
+			strcat($$, ">");
+			strcat($$, $3);
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
 			if(atoi($1) > atoi($3)) {
-				printf("Erreur : comparaison INF_EGAL non logique : %s <= %s\n", $1, $3);
+				printf("[Erreur] Comparaison INF_EGAL non logique : %s <= %s\n", $1, $3);
 			}
-			else {
-				$$ = $1;
-				// char *d1 = $1;
-				// char *d3 = $3;
-				strcat($$, "<=");
-				strcat($$, $3);
-			}
+			$$ = $1;
+			strcat($$, "<=");
+			strcat($$, $3);
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
 			if(atoi($1) < atoi($3)) {
-				/*char *t1 = "1";
-				char *t2 = "-98";
-				if(t1 < t2) printf("  1<-98  ");
-				else 		printf("  1>-98  ");*/
-				printf("Erreur : comparaison SUP_EGAL non logique : %s >= %s\n", $1, $3);
+				printf("[Erreur] Comparaison SUP_EGAL non logique : %s >= %s\n", $1, $3);
 			}
-			else {
-				$$ = $1;
-				// char *d1 = $1;
-				// char *d3 = $3;
-				strcat($$, ">=");
-				strcat($$, $3);
-			}
+			$$ = $1;
+			strcat($$, ">=");
+			strcat($$, $3);
 		}
 	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
 	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
@@ -201,36 +180,25 @@ Comparaison:
 	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ printf("peut pas comparer des MOTS\n"); }
 	;
 	
-Programme:
-	Instruction POINTVIRGULE Programme
+ExpressionEntier:
+	ENTIER
 		{
-			/*$$= $1;
-			strcat($$, ";");
-			strcat($$, $3);
-			printf("Prgm long : %s\n", $$);*/
+			$$ = $1;
 		}
-	| Instruction
+	| ENTIER PLUS ExpressionEntier
 		{
-			/*$$= $1;
-			printf("Prgm\n");*/
+			$$ = atoi($1) + atoi($3);
+			printf("%d + %d = %d\n", atoi($1), atoi($3), $$);
 		}
-	;
-	
-Instruction:
-	MOT AFFECTATION ExpressionEntier
+	| ENTIER MOINS ExpressionEntier
 		{
-			/*$$= $1;
-			strcat($$, ":=");
-			//strcat($$, $3);
-			printf("Inst longue : %s\n", $$);*/
-			
+			$$ = atoi($1) - atoi($3);
+			printf("%d - %d = %d\n", atoi($1), atoi($3), $$);
 		}
-	| MOT AFFECTATION ExpressionMot
+	| ENTIER FOIS ExpressionEntier
 		{
-			/*$$= $1;
-			strcat($$, ":=");
-			strcat($$, $3);
-			printf("Inst\n");*/
+			$$ = atoi($1) * atoi($3);
+			printf("%d * %d = %d\n", atoi($1), atoi($3), $$);
 		}
 	;
 	
@@ -238,21 +206,21 @@ ExpressionMot:
 	MOT PLUS ExpressionMot
 		{
 			$$ = $1;
-			strcat($$, " + ");
+			strcat($$, "+");
 			strcat($$, $3);
 			printf("%s", $$);
 		}
 	| MOT MOINS ExpressionMot
 		{
 			$$ = $1;
-			strcat($$, " - ");
+			strcat($$, "-");
 			strcat($$, $3);
 			printf("%s", $$);
 		}
 	| MOT FOIS ExpressionMot
 		{
 			$$ = $1;
-			strcat($$, " * ");
+			strcat($$, "*");
 			strcat($$, $3);
 			printf("%s", $$);
 		}
@@ -261,33 +229,38 @@ ExpressionMot:
 			$$ = $1;
 		}
 	;
-
-ExpressionEntier:
-	ENTIER PLUS ExpressionEntier
+	
+Programme:
+	Instruction POINTVIRGULE Programme
 		{
-			printf("ok1 - ");
-			// $$ = atoi($1) + $3;
+			$$ = $1;
+			strcat($$, ";");
+			strcat($$, $3);
 		}
-	| ENTIER MOINS ExpressionEntier
+	| Instruction
 		{
-			printf("ok2 - ");
-			// $$ = atoi($1) - $3;
-		}
-	| ENTIER FOIS ExpressionEntier
-		{
-			printf("ok3 - ");
-			// $$ = atoi($1) * $3;
-		}
-	| ENTIER
-		{
-			printf("ok4 - ");
-			// $$ = atoi($1);
+			$$= $1;
 		}
 	;
-
+	
+Instruction:
+	MOT AFFECTATION ExpressionEntier
+		{
+			$$ = $1;
+			strcat($$, ":=");
+			strcat($$, $3);			
+		}
+	| MOT AFFECTATION ExpressionMot
+		{
+			$$ = $1;
+			strcat($$, ":=");
+			strcat($$, $3);
+		}
+	;
+	
 %%
 
-boolean compare(char* c1, char* c2) {
+/*boolean compare(char* c1, char* c2) {
 	if(strlen(c1) != strlen(c2))
 		return false;
 	unsigned int i = 0;
@@ -295,7 +268,7 @@ boolean compare(char* c1, char* c2) {
 		if(c1[i] != c2[i])
 			return false;
 	return true;
-} 
+}*/
 
 int yyerror(char *s) {
   printf("%s\n",s);

@@ -15,15 +15,13 @@ typedef struct s_triplet {
 	char* preC;
 	char* prgm;
 	char* postC;
-} Triplet;
+} triplet_hoare;
 %}
 
 %union {
 	char* chaine;
-	Triplet triplet;
+	triplet_hoare triplet;
 }
-
-
 
 %token FIN
 %token FINFINALE
@@ -50,7 +48,7 @@ typedef struct s_triplet {
 %type<chaine> Conditions
 %type<chaine> Condition
 %type<chaine> Comparaison
-%type<triplet> Triplet
+//%type<triplet> Triplet
 
 %start Entree
 
@@ -61,7 +59,7 @@ Entree:
 	| FIN								{ printf("Fin du programme\n"); return 0; }
 	| FINFINALE							{ printf("Fin du programme\n"); return 0; }
 	| Regle FIN Entree					{ printf("Preuve lue en entier\n"); }
-	| ExpressionEntier FIN Entree
+	| ExpressionEntier FIN Entree { printf("\nResultat = ihmohoum"); }
 	;
 	
 Regle:
@@ -69,7 +67,7 @@ Regle:
 		{
 			// remplacer les prédicats selon la règle
 		}
-	| AFF Triplet AFF Predicat Programme Predicat
+	| AFF Predicat Programme Predicat AFF Predicat Programme Predicat
 		{
 			if(compare($4, $6)) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
@@ -94,14 +92,14 @@ Regle:
 		}*/
 	;
 	
-Triplet:
+/*Triplet:
 	Predicat Programme Predicat
 		{
 			$$.preC = $1;
 			$$.prgm = $2;
 			$$.postC = $3;
 		}
-	;
+	;*/
 	
 Predicat:
 	ACCOLADE_OUVRANTE Conditions ACCOLADE_FERMANTE
@@ -183,27 +181,24 @@ Comparaison:
 	;
 	
 ExpressionEntier:
-	ENTIER PLUS ExpressionEntier
+	ENTIER
 		{
-			printf("%s PLUS = %d +", $1, atoi($1));
-			$$ = atoi($1);
-			//$$ = atoi($1) + atoi($3);
+			$$ = $1;
+		}
+	| ENTIER PLUS ExpressionEntier
+		{
+			$$ = atoi($1) + atoi($3);
+			printf("%d + %d = %d\n", atoi($1), atoi($3), $$);
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
-			printf("%s MOINS = %d -", $1, atoi($1));
-			$$ = atoi($1);
-			//$$ = atoi($1) - atoi($3);
+			$$ = atoi($1) - atoi($3);
+			printf("%d - %d = %d\n", atoi($1), atoi($3), $$);
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
-			printf("%s FOIS = %d *", $1, atoi($1));
-			$$ = atoi($1);
-			//$$ = atoi($1) * atoi($3);
-		}
-	| ENTIER
-		{
-			$$ = $1;
+			$$ = atoi($1) * atoi($3);
+			printf("%d * %d = %d\n", atoi($1), atoi($3), $$);
 		}
 	;
 	

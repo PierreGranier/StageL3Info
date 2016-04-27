@@ -16,30 +16,26 @@ fin	"fini"|"fin"|"j'ai tout fini"
 
 %%
 
-{separateurs} 	{ /* ignoré */ }
-
+{separateurs} 	{ /* ignoré */ 				 }
 "\n"			{ return(FIN);		  	 	 }
 {fin}			{ return(FINFINALE); 		 }
 "AFF" 			{ return(AFF);  			 }
 "SEQ" 			{ return(SEQ); 				 }
+"{"				{ return(ACCOLADE_OUVRANTE); }
+"}"				{ return(ACCOLADE_FERMANTE); }
 ":=" 			{ return(AFFECTATION); 		 }
-"="				{ return(EGAL);				 }
-"+"				{ return(PLUS);				 }
-"-"				{ return(MOINS);			 }
-"*"				{ return(FOIS);				 }
-"PREMISSE" 		{ return(PREMISSE); 		 }
-"CONCLUSION" 	{ return(CONCLUSION); 		 }
+";"				{ return(POINTVIRGULE);		 }
 "<="			{ return(INF_EGAL);			 }
 ">="			{ return(SUP_EGAL); 		 }
 "<"				{ return(INF); 				 }
 ">"				{ return(SUP); 				 }
-"{"				{ return(ACCOLADE_OUVRANTE); }
-"}"				{ return(ACCOLADE_FERMANTE); }
 "^"				{ return(ET);				 }
-";"				{ return(POINTVIRGULE);		 }
+"="				{ return(EGAL);				 }
+"+"				{ return(PLUS);				 }
+"-"				{ return(MOINS);			 }
+"*"				{ return(FOIS);				 }
 
 {entier} {
-			//yylval.valEntiere = atoi(yytext);
 			yylval.chaine = strdup(yytext);
 			return(ENTIER);
 		 }

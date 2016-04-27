@@ -1,6 +1,6 @@
 typedef struct s_typespe {
 	char* chaine;
-	Triplet triplet;
+	char* triplet;
 } typespe;
 
 #define YYSTYPE typespe

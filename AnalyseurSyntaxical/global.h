@@ -9,11 +9,14 @@ typedef struct s_triplet {
 	char * postcondition;
 } t_triplet;
 
+typedef char boolean;
+
 typedef struct s_typespe {
 	char* chaine;
 	t_entier entier;
 	t_triplet triplet;
-} typespe;	
+	boolean valBool;
+} typespe;
 
 #define YYSTYPE typespe
 extern YYSTYPE yylval;

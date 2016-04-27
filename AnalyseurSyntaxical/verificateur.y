@@ -7,9 +7,13 @@
 
 #include "global.h"
 
+#define false	0
+#define true 	1
+typedef char boolean;
+
 extern FILE* yyin;
 
-int compare(char* c1, char* c2);
+boolean compare(char* c1, char* c2);
 
 %}
 
@@ -17,6 +21,7 @@ int compare(char* c1, char* c2);
 	char* chaine;
 	t_entier entier;
 	t_triplet triplet;
+	boolean valBool;
 }
 
 %token FIN
@@ -64,7 +69,7 @@ Regle:
 		}
 	| AFF Triplet AFF Triplet
 		{
-			if(compare($2.postcondition, $4.precondition)==0) {
+			if(compare($2.postcondition, $4.precondition) == false) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
 			}
 		}
@@ -258,28 +263,19 @@ Instruction:
 	
 %%
 
-/*boolean compare(char* c1, char* c2) {
-	if(strlen(c1) != strlen(c2))
-		return false;
-	unsigned int i = 0;
-	for(i=0; i<strlen(c1); i++)
-		if(c1[i] != c2[i])
-			return false;
-	return true;
-}*/
-
 int yyerror(char *s) {
   printf("%s\n",s);
 }
 
-int compare(char* chaine1, char* chaine2)
-{   unsigned int i=0;
-    if( strlen(chaine1) != strlen(chaine2) )
-        return 0;
+boolean compare(char* chaine1, char* chaine2)
+{
+	unsigned int i=0;
+    if(strlen(chaine1) != strlen(chaine2))
+        return false;
     for(i=0;i<strlen(chaine1);i++)
         if( chaine1[i] != chaine2[i])
-            return 0;
-    return 1;
+            return false;
+    return true;
 }
 
 int main(int argc, char **argv) {

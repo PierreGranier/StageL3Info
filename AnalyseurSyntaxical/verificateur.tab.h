@@ -77,9 +77,11 @@ union YYSTYPE
 	char* chaine;
 	t_entier entier;
 	t_triplet triplet;
+	t_instruction instruction;	
+	t_programme programme;
 	boolean valBool;
 
-#line 83 "verificateur.tab.h" /* yacc.c:1909  */
+#line 85 "verificateur.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

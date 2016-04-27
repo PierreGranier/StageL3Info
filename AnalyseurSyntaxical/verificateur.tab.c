@@ -148,9 +148,11 @@ union YYSTYPE
 	char* chaine;
 	t_entier entier;
 	t_triplet triplet;
+	t_instruction instruction;	
+	t_programme programme;
 	boolean valBool;
 
-#line 154 "verificateur.tab.c" /* yacc.c:355  */
+#line 156 "verificateur.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -165,7 +167,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 169 "verificateur.tab.c" /* yacc.c:358  */
+#line 171 "verificateur.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -464,11 +466,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    58,    58,    60,    61,    62,    66,    70,    76,    96,
-     105,   113,   114,   121,   128,   135,   144,   153,   162,   171,
-     180,   181,   182,   183,   184,   185,   186,   187,   188,   189,
-     190,   191,   192,   193,   194,   198,   203,   208,   213,   221,
-     228,   235,   242,   249,   255,   262,   268
+       0,    60,    60,    62,    63,    64,    68,    79,    85,   105,
+     114,   122,   123,   130,   137,   144,   153,   162,   171,   180,
+     189,   190,   191,   192,   193,   194,   195,   196,   197,   198,
+     199,   200,   201,   202,   203,   207,   212,   217,   222,   230,
+     237,   244,   251,   258,   266,   276,   283
 };
 #endif
 
@@ -1288,43 +1290,50 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 60 "verificateur.y" /* yacc.c:1646  */
+#line 62 "verificateur.y" /* yacc.c:1646  */
     { printf("Fin du programme\n"); return 0; }
-#line 1294 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1296 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 61 "verificateur.y" /* yacc.c:1646  */
+#line 63 "verificateur.y" /* yacc.c:1646  */
     { printf("Fin du programme\n"); return 0; }
-#line 1300 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1302 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 62 "verificateur.y" /* yacc.c:1646  */
+#line 64 "verificateur.y" /* yacc.c:1646  */
     { printf("Preuve lue en entier\n"); }
-#line 1306 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1308 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 67 "verificateur.y" /* yacc.c:1646  */
+#line 69 "verificateur.y" /* yacc.c:1646  */
     {
 			// remplacer les prédicats selon la règle
+			char *gen;
+			gen = (yyvsp[0].triplet).postcondition;
+			remplacer(gen, (yyvsp[0].triplet).programme.instruction.variable, (yyvsp[0].triplet).programme.instruction.valeur);
+			if(compare(gen, (yyvsp[0].triplet).precondition) == false)
+			{
+					printf("[ERREUR] Mauvaise Précondition ou Postcondition  : %s\n", (yyval.chaine));
+			}
 		}
-#line 1314 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1323 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 71 "verificateur.y" /* yacc.c:1646  */
+#line 80 "verificateur.y" /* yacc.c:1646  */
     {
 			if(compare((yyvsp[-2].triplet).postcondition, (yyvsp[0].triplet).precondition) == false) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", (yyval.chaine));
 			}
 		}
-#line 1324 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1333 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 77 "verificateur.y" /* yacc.c:1646  */
+#line 86 "verificateur.y" /* yacc.c:1646  */
     {
 			/*char* ProgrammeTotal= $10;
 			strcat(ProgrammeTotal, ";");
@@ -1337,62 +1346,62 @@ yyreduce:
 				printf("Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
 			}*/
 		}
-#line 1341 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1350 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 97 "verificateur.y" /* yacc.c:1646  */
+#line 106 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.triplet).precondition = (yyvsp[-2].chaine);
-			(yyval.triplet).programme = (yyvsp[-1].chaine);
+			(yyval.triplet).programme = (yyvsp[-1].programme);
 			(yyval.triplet).postcondition = (yyvsp[0].chaine);
 		}
-#line 1351 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1360 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 106 "verificateur.y" /* yacc.c:1646  */
+#line 115 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-1].chaine);
 		}
-#line 1359 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1368 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 113 "verificateur.y" /* yacc.c:1646  */
+#line 122 "verificateur.y" /* yacc.c:1646  */
     {}
-#line 1365 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1374 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 115 "verificateur.y" /* yacc.c:1646  */
+#line 124 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), (yyvsp[-2].chaine));
 			strcat((yyval.chaine), "^");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 		}
-#line 1376 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1385 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 122 "verificateur.y" /* yacc.c:1646  */
+#line 131 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1384 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1393 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 129 "verificateur.y" /* yacc.c:1646  */
+#line 138 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1392 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1401 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 136 "verificateur.y" /* yacc.c:1646  */
+#line 145 "verificateur.y" /* yacc.c:1646  */
     {
 			if((yyvsp[-2].entier).valeur >= (yyvsp[0].entier).valeur) {
 				printf("[ERREUR] Comparaison INF non logique : %d < %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur);
@@ -1401,11 +1410,11 @@ yyreduce:
 			strcat((yyval.chaine), "<");
 			strcat((yyval.chaine), (yyvsp[0].entier).chaine);
 		}
-#line 1405 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1414 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 145 "verificateur.y" /* yacc.c:1646  */
+#line 154 "verificateur.y" /* yacc.c:1646  */
     {
 			if((yyvsp[-2].entier).valeur <= (yyvsp[0].entier).valeur) {
 				printf("[ERREUR] Comparaison SUP non logique : %d > %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur);
@@ -1414,11 +1423,11 @@ yyreduce:
 			strcat((yyval.chaine), ">");
 			strcat((yyval.chaine), (yyvsp[0].entier).chaine);
 		}
-#line 1418 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1427 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 154 "verificateur.y" /* yacc.c:1646  */
+#line 163 "verificateur.y" /* yacc.c:1646  */
     {
 			if((yyvsp[0].entier).valeur > (yyvsp[0].entier).valeur) {
 				printf("[ERREUR] Comparaison INF_EGAL non logique : %d <= %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur);
@@ -1427,11 +1436,11 @@ yyreduce:
 			strcat((yyval.chaine), "<=");
 			strcat((yyval.chaine), (yyvsp[0].entier).chaine);
 		}
-#line 1431 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1440 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 163 "verificateur.y" /* yacc.c:1646  */
+#line 172 "verificateur.y" /* yacc.c:1646  */
     {
 			if((yyvsp[-2].entier).valeur < (yyvsp[0].entier).valeur) {
 				printf("[ERREUR] Comparaison SUP_EGAL non logique : %d >= %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur);
@@ -1440,11 +1449,11 @@ yyreduce:
 			strcat((yyval.chaine), ">=");
 			strcat((yyval.chaine), (yyvsp[0].entier).chaine);
 		}
-#line 1444 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1453 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 172 "verificateur.y" /* yacc.c:1646  */
+#line 181 "verificateur.y" /* yacc.c:1646  */
     {
 			if((yyvsp[-2].entier).valeur != (yyvsp[0].entier).valeur) {
 				printf("[ERREUR] Comparaison EGAL non logique : %d = %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur);
@@ -1453,216 +1462,223 @@ yyreduce:
 			strcat((yyval.chaine), "=");
 			strcat((yyval.chaine), (yyvsp[0].entier).chaine);
 		}
-#line 1457 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1466 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 180 "verificateur.y" /* yacc.c:1646  */
+#line 189 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1463 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1472 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 181 "verificateur.y" /* yacc.c:1646  */
+#line 190 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1469 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1478 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 182 "verificateur.y" /* yacc.c:1646  */
+#line 191 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1475 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1484 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 183 "verificateur.y" /* yacc.c:1646  */
+#line 192 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1481 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1490 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 184 "verificateur.y" /* yacc.c:1646  */
+#line 193 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1487 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1496 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 185 "verificateur.y" /* yacc.c:1646  */
+#line 194 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1493 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1502 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 186 "verificateur.y" /* yacc.c:1646  */
+#line 195 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1499 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1508 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 187 "verificateur.y" /* yacc.c:1646  */
+#line 196 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1505 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1514 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 188 "verificateur.y" /* yacc.c:1646  */
+#line 197 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1511 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1520 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 189 "verificateur.y" /* yacc.c:1646  */
+#line 198 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1517 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1526 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 190 "verificateur.y" /* yacc.c:1646  */
+#line 199 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1523 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1532 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 191 "verificateur.y" /* yacc.c:1646  */
+#line 200 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1529 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1538 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 192 "verificateur.y" /* yacc.c:1646  */
+#line 201 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1535 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1544 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 193 "verificateur.y" /* yacc.c:1646  */
+#line 202 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1541 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1550 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 194 "verificateur.y" /* yacc.c:1646  */
+#line 203 "verificateur.y" /* yacc.c:1646  */
     { printf("peut pas comparer sémantiquement des MOTS\n"); }
-#line 1547 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1556 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 199 "verificateur.y" /* yacc.c:1646  */
+#line 208 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.entier).valeur = (yyvsp[-2].entier).valeur + (yyvsp[0].entier).valeur;
 			printf("%d + %d = %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur, (yyval.entier).valeur);
 		}
-#line 1556 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1565 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 204 "verificateur.y" /* yacc.c:1646  */
+#line 213 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.entier).valeur = (yyvsp[-2].entier).valeur - (yyvsp[0].entier).valeur;
 			printf("%d - %d = %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur, (yyval.entier).valeur);
 		}
-#line 1565 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1574 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 209 "verificateur.y" /* yacc.c:1646  */
+#line 218 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.entier).valeur = (yyvsp[-2].entier).valeur * (yyvsp[0].entier).valeur;
 			printf("%d * %d = %d\n", (yyvsp[-2].entier).valeur, (yyvsp[0].entier).valeur, (yyval.entier).valeur);
 		}
-#line 1574 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1583 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 214 "verificateur.y" /* yacc.c:1646  */
+#line 223 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.entier).chaine = (yyvsp[0].entier).chaine;
 			(yyval.entier).valeur = (yyvsp[0].entier).valeur;
 		}
-#line 1583 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1592 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 222 "verificateur.y" /* yacc.c:1646  */
+#line 231 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "+");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("%s", (yyval.chaine));
 		}
-#line 1594 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1603 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 229 "verificateur.y" /* yacc.c:1646  */
+#line 238 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "-");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("%s", (yyval.chaine));
 		}
-#line 1605 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1614 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 236 "verificateur.y" /* yacc.c:1646  */
+#line 245 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[-2].chaine);
 			strcat((yyval.chaine), "*");
 			strcat((yyval.chaine), (yyvsp[0].chaine));
 			printf("%s", (yyval.chaine));
 		}
-#line 1616 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1625 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 243 "verificateur.y" /* yacc.c:1646  */
+#line 252 "verificateur.y" /* yacc.c:1646  */
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1624 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1633 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 250 "verificateur.y" /* yacc.c:1646  */
+#line 259 "verificateur.y" /* yacc.c:1646  */
     {
-			(yyval.chaine) = (yyvsp[-2].chaine);
-			strcat((yyval.chaine), ";");
-			strcat((yyval.chaine), (yyvsp[0].chaine));
+			(yyval.programme).contenu = (yyvsp[-2].instruction).variable;
+			strcat(strcat((yyval.programme).contenu, ":="), (yyvsp[-2].instruction).valeur);
+			strcat((yyval.programme).contenu, ";");
+			strcat((yyval.programme).contenu, (yyvsp[0].programme).contenu);
+			(yyval.programme).instruction = (yyvsp[-2].instruction);
 		}
-#line 1634 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1645 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 256 "verificateur.y" /* yacc.c:1646  */
+#line 267 "verificateur.y" /* yacc.c:1646  */
     {
-			(yyval.chaine)= (yyvsp[0].chaine);
+			(yyval.programme).contenu = (yyvsp[0].instruction).variable;
+			strcat((yyval.programme).contenu, ":=");
+			strcat((yyval.programme).contenu, (yyvsp[0].instruction).valeur);
+			(yyval.programme).instruction = (yyvsp[0].instruction);
 		}
-#line 1642 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1656 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 263 "verificateur.y" /* yacc.c:1646  */
+#line 277 "verificateur.y" /* yacc.c:1646  */
     {
-			(yyval.chaine) = (yyvsp[-2].chaine);
-			strcat((yyval.chaine), ":=");
-			strcat((yyval.chaine), (yyvsp[0].entier).chaine);			
+			(yyval.instruction).variable = (yyvsp[-2].chaine);
+			(yyval.instruction).valeur = (yyvsp[0].entier).chaine;
+			/*strcat($$, ":=");
+			strcat($$, $3.chaine);*/			
 		}
-#line 1652 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1667 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 269 "verificateur.y" /* yacc.c:1646  */
+#line 284 "verificateur.y" /* yacc.c:1646  */
     {
-			(yyval.chaine) = (yyvsp[-2].chaine);
-			strcat((yyval.chaine), ":=");
-			strcat((yyval.chaine), (yyvsp[0].chaine));
+			(yyval.instruction).variable = (yyvsp[-2].chaine);
+			(yyval.instruction).valeur = (yyvsp[0].chaine);
+			/*strcat($$, ":=");
+			strcat($$, $3);*/
 		}
-#line 1662 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1678 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1666 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1682 "verificateur.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1890,7 +1906,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 276 "verificateur.y" /* yacc.c:1906  */
+#line 292 "verificateur.y" /* yacc.c:1906  */
 
 
 int yyerror(char *s) {

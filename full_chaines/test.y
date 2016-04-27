@@ -54,7 +54,6 @@ Entree:
 	| FIN								{ printf("Fin du programme\n"); return 0; }
 	| FINFINALE							{ printf("Fin du programme\n"); return 0; }
 	| Regle FIN Entree					{ printf("Preuve lue en entier\n"); }
-	| Comparaison FIN Entree { printf("\nResultat = ok"); }
 	;
 	
 Regle:
@@ -64,7 +63,7 @@ Regle:
 		}
 	| AFF Predicat Programme Predicat AFF Predicat Programme Predicat
 		{
-			if(compare($4, $6)) {
+			if(compare($4, $6)==0) {
 				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
 			}
 		}
@@ -104,7 +103,9 @@ Predicat:
 	;
 	
 Conditions:
-	Condition ET Conditions
+	/* vide */
+		{}
+	| Condition ET Conditions
 		{
 			$$ = $1;
 			strcat($$, $1);
@@ -128,7 +129,7 @@ Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
 			if($1.valeur >= $3.valeur) {
-				printf("[Erreur] Comparaison INF non logique : %d < %d\n", $1.valeur, $3.valeur);
+				printf("[ERREUR] Comparaison INF non logique : %d < %d\n", $1.valeur, $3.valeur);
 			}
 			$$ = $1.chaine;
 			strcat($$, "<");
@@ -137,7 +138,7 @@ Comparaison:
 	| ExpressionEntier SUP ExpressionEntier
 		{
 			if($1.valeur <= $3.valeur) {
-				printf("[Erreur] Comparaison SUP non logique : %d > %d\n", $1.valeur, $3.valeur);
+				printf("[ERREUR] Comparaison SUP non logique : %d > %d\n", $1.valeur, $3.valeur);
 			}
 			$$ = $1.chaine;
 			strcat($$, ">");
@@ -146,7 +147,7 @@ Comparaison:
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
 			if($3.valeur > $3.valeur) {
-				printf("[Erreur] Comparaison INF_EGAL non logique : %d <= %d\n", $1.valeur, $3.valeur);
+				printf("[ERREUR] Comparaison INF_EGAL non logique : %d <= %d\n", $1.valeur, $3.valeur);
 			}
 			$$ = $1.chaine;
 			strcat($$, "<=");
@@ -155,7 +156,7 @@ Comparaison:
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
 			if($1.valeur < $3.valeur) {
-				printf("[Erreur] Comparaison SUP_EGAL non logique : %d >= %d\n", $1.valeur, $3.valeur);
+				printf("[ERREUR] Comparaison SUP_EGAL non logique : %d >= %d\n", $1.valeur, $3.valeur);
 			}
 			$$ = $1.chaine;
 			strcat($$, ">=");

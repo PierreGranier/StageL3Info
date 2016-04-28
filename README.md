@@ -88,7 +88,7 @@ La règle `Regle` liste les cas des règles de Hoare à vérifier :
     * La postcondition (deuxième prédicat) du premier triplet doit être égale à la précondition (premier prédicat) du second triplet
 * `SEQ Triplet AFF Triplet AFF Triplet`
     * *Mêmes choses que précédemment*
-    * La concaténation du programme des deux derniers triplets avec un `;` doivent être syntaxiquement équivalents au programme du premier triplet
+    * La concaténation du programme des deux derniers triplets avec un **;** doivent être syntaxiquement équivalents au programme du premier triplet
 * *...*
 
 ## Assistant de création de preuve
@@ -98,6 +98,6 @@ La règle `Regle` liste les cas des règles de Hoare à vérifier :
 
 ## Liens utiles
 
-[Markdown](https://fr.wikipedia.org/wiki/Markdown "Wiki Markdown")
-[Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare "Wiki Hoare")
-[cours de Courtieu (2008)](http://cedric.cnam.fr/~courtiep/downloads/hoare.pdf "Outils de preuve et vérification - Courtieu, 2008")
+* [Markdown](https://fr.wikipedia.org/wiki/Markdown "Wiki Markdown")
+* [Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare "Wiki Hoare")
+* [cours de Courtieu (2008)](http://cedric.cnam.fr/~courtiep/downloads/hoare.pdf "Outils de preuve et vérification - Courtieu, 2008")

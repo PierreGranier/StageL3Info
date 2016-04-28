@@ -59,9 +59,9 @@ Tokens déjà présents dans les preuves :
 * `SEQ/CONSEQ/WHILE/WHILET` : les règles de Hoare d'arité 2 (une conclusion puis une prémisse)
 
 Tokens à définir :
-* `ACCOLADE_OUVRANTE` et `ACCOLADE_FERMANTE` respectivement les caractères **{** et **}** : les symboles encadrant un prédicat
+* `ACCOLADE_OUVRANTE` et `ACCOLADE_FERMANTE` respectivement **{** et **}** : les caractères encadrant un prédicat
 * `AFFECTATION` **:=** : le symbole d'affectation d'une valeur à une variable d'un programme
-* `POINTVIRGULE` **;** : le symbole séparant deux instructions d'un programme
+* `POINTVIRGULE` **;** : le caractère séparant deux instructions d'un programme
 
 Principales règles à définir :
 * La règle `Regle` est composée au mois d'un token correspondant au nom d'une règle de Hoare (plus de détails plus loin)

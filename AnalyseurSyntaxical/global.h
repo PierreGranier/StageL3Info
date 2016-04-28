@@ -1,28 +1,37 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+using namespace std;
+
 typedef struct s_entier {
-	char *chaine;
+	string chaine;
 	int valeur;
 } t_entier;
 
 typedef struct s_instruction {
-	char * variable;
-	char * valeur;
+	string variable;
+	string valeur;
 } t_instruction;
 
 typedef struct s_programme {
-	char * contenu;
+	string contenu;
 	t_instruction instruction;
 } t_programme;
 
 typedef struct s_triplet {
-	char * 		precondition;
+	string precondition;
 	t_programme programme;
-	char * 		postcondition;
+	string postcondition;
 } t_triplet;
 
 typedef char boolean;
 
 typedef struct s_typespe {
-	char* chaine;
+	string chaine;
 	t_entier entier;
 	t_triplet triplet;
 	t_instruction instruction;

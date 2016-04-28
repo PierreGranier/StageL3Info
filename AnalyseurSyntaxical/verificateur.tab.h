@@ -72,9 +72,9 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 24 "verificateur.y" /* yacc.c:1909  */
+#line 15 "verificateur.y" /* yacc.c:1909  */
 
-	char* chaine;
+	string chaine;
 	t_entier entier;
 	t_triplet triplet;
 	t_instruction instruction;	

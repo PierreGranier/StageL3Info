@@ -1,28 +1,19 @@
 %{
-
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
-
 #include "global.h"
+#include "fonctions.c"
 
 #define false	0
 #define true 	1
 typedef char boolean;
 
-boolean compare(char* c1, char* c2);
-
 extern "C" int yylex(void);
 extern "C" int yyparse(void);
 extern "C" void yyerror(const std::string&);
 extern FILE* yyin;
-
 %}
 
 %union {
-	char* chaine;
+	string chaine;
 	t_entier entier;
 	t_triplet triplet;
 	t_instruction instruction;	
@@ -63,27 +54,28 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
-	| FIN								{ printf("Fin du programme\n"); return 0; }
-	| FINFINALE							{ printf("Fin du programme\n"); return 0; }
-	| Regle FIN Entree					{ printf("Preuve lue en entier\n"); }
+	| FIN								{ cout << "Fin du programme" << endl; return 0; }
+	| FINFINALE							{ cout << "Fin du programme" << endl; return 0; }
+	| Regle FIN Entree					{ cout << "Preuve lue en entier" << endl; }
 	;
 	
 Regle:
 	AFF Triplet
 		{
 			// remplacer les prédicats selon la règle
-			char *gen;
+			string gen;
 			gen = $2.postcondition;
-			// remplacer(gen, $2.programme.instruction.variable, $2.programme.instruction.valeur);
-			if(compare(gen, $2.precondition) == false)
+			remplacer(gen, $2.programme.instruction.variable, $2.programme.instruction.valeur);
+			cout << "BOB = " << $2.postcondition << " ET GENNERE " << gen << endl;
+			if(gen.compare($2.precondition) != 0)
 			{
-					printf("[ERREUR] Mauvaise Précondition ou Postcondition  : %s\n", $$);
+					cout << "[ERREUR] Mauvaise Précondition ou Postcondition  : " << $$ << endl;
 			}
 		}
 	| AFF Triplet AFF Triplet
 		{
-			if(compare($2.postcondition, $4.precondition) == false) {
-				printf("[ERREUR] Prédicats de la règle AFF pas égaux : %s\n", $$);
+			if($2.postcondition.compare($4.precondition) != 0) {
+				cout << "[ERREUR] Prédicats de la règle AFF pas égaux : " << $$ << endl;
 			}
 		}
 	| SEQ Triplet AFF Triplet AFF Triplet
@@ -91,17 +83,17 @@ Regle:
 			/*char* ProgrammeTotal= $10;
 			strcat(ProgrammeTotal, ";");
 			strcat(ProgrammeTotal, $15);
-			printf("fefe -> %s TRUC %s\n", $10, $15);
+			cout << "fefe -> %s TRUC %s\n", $10, $15);
 			if(compare(ProgrammeTotal, $4) == false) {
-				printf("[ERREUR] Programmes de la règle SEQ incorrects : |%s| != |%s|\n", ProgrammeTotal, $4);
+				cout << "[ERREUR] Programmes de la règle SEQ incorrects : |%s| != |%s|\n", ProgrammeTotal, $4);
 			}
 			else {				
-				printf("Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
+				cout << "Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
 			}*/
 		}
 	/*| .
 		{
-			printf("[ERREUR] Règle non reconnue");
+			cout << "[ERREUR] Règle non reconnue" << endl;
 		}*/
 	;
 	
@@ -126,10 +118,7 @@ Conditions:
 		{}
 	| Condition ET Conditions
 		{
-			$$ = $1;
-			strcat($$, $1);
-			strcat($$, "^");
-			strcat($$, $3);
+			$$ = $1 + $1 + "^" + $3; // >WTF ?§?!!?!!
 		}
 	| Condition
 		{
@@ -148,80 +137,70 @@ Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
 			if($1.valeur >= $3.valeur) {
-				printf("[ERREUR] Comparaison INF non logique : %d < %d\n", $1.valeur, $3.valeur);
+				cout << "[ERREUR] Comparaison INF non logique : " << $1.valeur << "<" << $3.valeur << endl;
 			}
-			$$ = $1.chaine;
-			strcat($$, "<");
-			strcat($$, $3.chaine);
+			$$ = $1.chaine + "<" + $3.chaine;
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
 			if($1.valeur <= $3.valeur) {
-				printf("[ERREUR] Comparaison SUP non logique : %d > %d\n", $1.valeur, $3.valeur);
+				cout << "[ERREUR] Comparaison SUP non logique : " << $1.valeur << ">" << $3.valeur << endl;
 			}
-			$$ = $1.chaine;
-			strcat($$, ">");
-			strcat($$, $3.chaine);
+			$$ = $1.chaine + ">" + $3.chaine;
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
 			if($3.valeur > $3.valeur) {
-				printf("[ERREUR] Comparaison INF_EGAL non logique : %d <= %d\n", $1.valeur, $3.valeur);
+				cout << "[ERREUR] Comparaison INF_EGAL non logique : " << $1.valeur << "<=" << $3.valeur << endl;
 			}
-			$$ = $1.chaine;
-			strcat($$, "<=");
-			strcat($$, $3.chaine);
+			$$ = $1.chaine + "<=" + $3.chaine;
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
 			if($1.valeur < $3.valeur) {
-				printf("[ERREUR] Comparaison SUP_EGAL non logique : %d >= %d\n", $1.valeur, $3.valeur);
+				cout << "[ERREUR] Comparaison SUP_EGAL non logique : " << $1.valeur << ">=" << $3.valeur << endl;
 			}
-			$$ = $1.chaine;
-			strcat($$, ">=");
-			strcat($$, $3.chaine);
+			$$ = $1.chaine + ">=" + $3.chaine;
 		}
 	| ExpressionEntier EGAL ExpressionEntier
 		{
 			if($1.valeur != $3.valeur) {
-				printf("[ERREUR] Comparaison EGAL non logique : %d = %d\n", $1.valeur, $3.valeur);
+				cout << "[ERREUR] Comparaison EGAL non logique : " << $1.valeur << "=" << $3.valeur << endl;
 			}
-			$$ = $1.chaine;
-			strcat($$, "=");
-			strcat($$, $3.chaine);
+			$$ = $1.chaine + "=" + $3.chaine;
 		}
-	| ExpressionMot		INF			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		SUP			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		INF_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		SUP_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		EGAL		ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		INF			ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		SUP			ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		INF_EGAL	ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		SUP_EGAL	ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionMot		EGAL		ExpressionEntier	{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionEntier	INF			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionEntier	SUP			ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionEntier	INF_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
-	| ExpressionEntier	EGAL		ExpressionMot		{ printf("peut pas comparer sémantiquement des MOTS\n"); }
+	| ExpressionMot		INF			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		SUP			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		INF_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		SUP_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		EGAL		ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		INF			ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		SUP			ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		INF_EGAL	ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		SUP_EGAL	ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		EGAL		ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionEntier	INF			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionEntier	SUP			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionEntier	INF_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionEntier	EGAL		ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
 	;
 	
 ExpressionEntier:
 	ENTIER PLUS ExpressionEntier
 		{
 			$$.valeur = $1.valeur + $3.valeur;
-			printf("%d + %d = %d\n", $1.valeur, $3.valeur, $$.valeur);
+			cout << $1.valeur << "+" << $3.valeur << "=" << $$.valeur << endl;
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
 			$$.valeur = $1.valeur - $3.valeur;
-			printf("%d - %d = %d\n", $1.valeur, $3.valeur, $$.valeur);
+			cout << $1.valeur << "-" << $3.valeur << "=" << $$.valeur << endl;
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
 			$$.valeur = $1.valeur * $3.valeur;
-			printf("%d * %d = %d\n", $1.valeur, $3.valeur, $$.valeur);
+			cout << $1.valeur << "*" << $3.valeur << "=" << $$.valeur << endl;
 		}
 	| ENTIER
 		{
@@ -233,24 +212,18 @@ ExpressionEntier:
 ExpressionMot:
 	MOT PLUS ExpressionMot
 		{
-			$$ = $1;
-			strcat($$, "+");
-			strcat($$, $3);
-			printf("%s", $$);
+			$$ = $1 + "+" + $3;
+			cout << $$ << endl;
 		}
 	| MOT MOINS ExpressionMot
 		{
-			$$ = $1;
-			strcat($$, "-");
-			strcat($$, $3);
-			printf("%s", $$);
+			$$ = $1 + "-" + $3;
+			cout << $$ << endl;
 		}
 	| MOT FOIS ExpressionMot
 		{
-			$$ = $1;
-			strcat($$, "*");
-			strcat($$, $3);
-			printf("%s", $$);
+			$$ = $1 + "*" + $3;
+			cout << $$ << endl;
 		}
 	| MOT
 		{
@@ -261,17 +234,12 @@ ExpressionMot:
 Programme:
 	Instruction POINTVIRGULE Programme
 		{
-			$$.contenu = $1.variable;
-			strcat(strcat($$.contenu, ":="), $1.valeur);
-			strcat($$.contenu, ";");
-			strcat($$.contenu, $3.contenu);
+			$$.contenu = $1.variable + ":=" + $1.valeur + ";" + $3.contenu;
 			$$.instruction = $1;
 		}
 	| Instruction
 		{
-			$$.contenu = $1.variable;
-			strcat($$.contenu, ":=");
-			strcat($$.contenu, $1.valeur);
+			$$.contenu = $1.variable + ":=" + $1.valeur;
 			$$.instruction = $1;
 		}
 	;
@@ -280,23 +248,19 @@ Instruction:
 	MOT AFFECTATION ExpressionEntier
 		{
 			$$.variable = $1;
-			$$.valeur = $3.chaine;
-			/*strcat($$, ":=");
-			strcat($$, $3.chaine);*/			
+			$$.valeur = $3.chaine;		
 		}
 	| MOT AFFECTATION ExpressionMot
 		{
 			$$.variable = $1;
 			$$.valeur = $3;
-			/*strcat($$, ":=");
-			strcat($$, $3);*/
 		}
 	;
 	
 %%
 
-void yyerror(const std::string& mess) {
-  std::cerr << "ERROR : "<< mess<< std::endl;
+void yyerror(const string& mess) {
+  cerr << "ERROR : "<< mess<< endl;
 }
 
 boolean compare(char* chaine1, char* chaine2)
@@ -305,15 +269,15 @@ boolean compare(char* chaine1, char* chaine2)
     if(strlen(chaine1) != strlen(chaine2))
         return false;
     for(i=0;i<strlen(chaine1);i++)
-        if( chaine1[i] != chaine2[i])
+        if(chaine1[i] != chaine2[i])
             return false;
     return true;
 }
 
 int main(int argc, char **argv) {
-	if (argc == 2){
-		yyin= fopen(argv[1], "r");
-		printf("Fichier utilisé\n");
+	if(argc == 2){
+		yyin = fopen(argv[1], "r");
+		cout << "Fichier utilisé\n" << endl;
 	}
 	yyparse();
 	//yylex();

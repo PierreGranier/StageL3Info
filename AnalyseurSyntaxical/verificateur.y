@@ -54,7 +54,7 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
-	| FIN								{ cout << "Fin sdu programme" << endl; return 0; }
+	| FIN								{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE							{ cout << "Fin du programme" << endl; return 0; }
 	| Regle FIN Entree					{ cout << "Preuve lue en entier" << endl; }
 	;

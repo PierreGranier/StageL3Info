@@ -9,7 +9,7 @@ extern "C" void yyerror(const std::string&);
 extern FILE* yyin;
 %}
 
-// Importation des types dé finis en C++ (pour les utiliser en Yacc)
+// Importation des types définis en C++ (pour les utiliser en Yacc)
 %union {
 	string chaine;
 	t_entier entier;

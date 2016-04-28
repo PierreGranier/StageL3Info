@@ -1,3 +1,5 @@
+CXX= g++
+
 all:
 	mkdir -p build
 	
@@ -10,9 +12,9 @@ all:
 	flex verificateur.lex
 	
 	@echo Compilation
-	gcc -c lex.yy.c -o build/lex.yy.o
-	gcc -c verificateur.tab.c -o build/verificateur.tab.o
-	gcc -o verificateur build/lex.yy.o build/verificateur.tab.o -lfl -ll -lm
+	$(CXX) -c lex.yy.c -o build/lex.yy.o
+	$(CXX) -c verificateur.tab.c -o build/verificateur.tab.o
+	$(CXX) -o verificateur build/lex.yy.o build/verificateur.tab.o -lfl -ll -lm
 	
 launch:
 	@echo Execution

@@ -6,6 +6,9 @@
 
 #include "global.h"
 #include "verificateur.tab.h"
+
+extern "C" int yylex(void);
+
 %}
 
 separateurs [ \t]
@@ -46,14 +49,4 @@ fin	"fini"|"fin"|"j'ai tout fini"
 			return(MOT);
 		}
 
-%{
-int main(int argc, char **argv) {
-	yylex();
-	
-	if(argc > 0)
-		yyin = fopen(argv[0], "r");
-	else
-		yyin = stdin;
-}
-%}
-
+%%

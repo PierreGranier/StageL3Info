@@ -1,6 +1,7 @@
 %{
 
 #include <stdio.h>
+#include <iostream>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
@@ -11,9 +12,12 @@
 #define true 	1
 typedef char boolean;
 
-extern FILE* yyin;
-
 boolean compare(char* c1, char* c2);
+
+extern "C" int yylex(void);
+extern "C" int yyparse(void);
+extern "C" void yyerror(const std::string&);
+extern FILE* yyin;
 
 %}
 
@@ -291,8 +295,8 @@ Instruction:
 	
 %%
 
-int yyerror(char *s) {
-  printf("%s\n",s);
+void yyerror(const std::string& mess) {
+  std::cerr << "ERROR : "<< mess<< std::endl;
 }
 
 boolean compare(char* chaine1, char* chaine2)

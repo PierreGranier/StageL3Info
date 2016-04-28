@@ -60,7 +60,7 @@ Tokens déjà présents dans les preuves :
 
 Tokens à définir :
 * `ACCOLADE_OUVRANTE` et `ACCOLADE_FERMANTE` respectivement **{** et **}** : les caractères encadrant un prédicat
-* `AFFECTATION` **:=** : le symbole d'affectation d'une valeur à une variable d'un programme
+* `AFFECTATION` **:=** : le caractère d'affectation d'une valeur à une variable d'un programme
 * `POINTVIRGULE` **;** : le caractère séparant deux instructions d'un programme
 
 Principales règles à définir :

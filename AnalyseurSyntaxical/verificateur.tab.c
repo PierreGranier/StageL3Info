@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.0.2.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
 /* Bison implementation for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "3.0.2"
+#define YYBISON_VERSION "3.0.4"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -132,7 +132,7 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE YYSTYPE;
+
 union YYSTYPE
 {
 #line 13 "verificateur.y" /* yacc.c:355  */
@@ -145,6 +145,8 @@ union YYSTYPE
 
 #line 147 "verificateur.tab.c" /* yacc.c:355  */
 };
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -158,7 +160,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 162 "verificateur.tab.c" /* yacc.c:358  */
+#line 164 "verificateur.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -1295,19 +1297,19 @@ yyreduce:
         case 3:
 #line 54 "verificateur.y" /* yacc.c:1646  */
     { cout << "Fin du programme" << endl; return 0; }
-#line 1299 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1301 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 55 "verificateur.y" /* yacc.c:1646  */
     { cout << "Fin du programme" << endl; return 0; }
-#line 1305 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1307 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
 #line 56 "verificateur.y" /* yacc.c:1646  */
     { cout << "Preuve lue en entier" << endl; }
-#line 1311 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1313 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
@@ -1322,7 +1324,7 @@ yyreduce:
 					cout << "[ERREUR] Mauvaise Précondition ou Postcondition  : " << (yyval.chaine) << endl;
 			}
 		}
-#line 1326 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1328 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
@@ -1332,7 +1334,7 @@ yyreduce:
 				cout << "[ERREUR] Prédicats de la règle AFF pas égaux : " << (yyval.chaine) << endl;
 			}
 		}
-#line 1336 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1338 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
@@ -1355,7 +1357,7 @@ yyreduce:
 				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << (yyvsp[-4].triplet).programme.contenu << " différent de " << (yyvsp[-2].triplet).programme.contenu + ";" + (yyvsp[0].triplet).programme.contenu  << endl;
 			}
 		}
-#line 1359 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1361 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
@@ -1365,7 +1367,7 @@ yyreduce:
 			(yyval.triplet).programme = (yyvsp[-1].programme);
 			(yyval.triplet).postcondition = (yyvsp[0].chaine);
 		}
-#line 1369 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1371 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
@@ -1373,13 +1375,13 @@ yyreduce:
     {
 			(yyval.chaine) = (yyvsp[-1].chaine);
 		}
-#line 1377 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1379 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 119 "verificateur.y" /* yacc.c:1646  */
     {}
-#line 1383 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1385 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
@@ -1387,7 +1389,7 @@ yyreduce:
     {
 			(yyval.chaine) = (yyvsp[-2].chaine) + "^" + (yyvsp[0].chaine);
 		}
-#line 1391 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1393 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
@@ -1395,7 +1397,7 @@ yyreduce:
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1399 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1401 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
@@ -1403,7 +1405,7 @@ yyreduce:
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1407 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1409 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
@@ -1414,7 +1416,7 @@ yyreduce:
 			}
 			(yyval.chaine) = (yyvsp[-2].entier).chaine + "<" + (yyvsp[0].entier).chaine;
 		}
-#line 1418 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1420 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
@@ -1425,7 +1427,7 @@ yyreduce:
 			}
 			(yyval.chaine) = (yyvsp[-2].entier).chaine + ">" + (yyvsp[0].entier).chaine;
 		}
-#line 1429 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1431 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
@@ -1436,7 +1438,7 @@ yyreduce:
 			}
 			(yyval.chaine) = (yyvsp[-2].entier).chaine + "<=" + (yyvsp[0].entier).chaine;
 		}
-#line 1440 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1442 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
@@ -1447,7 +1449,7 @@ yyreduce:
 			}
 			(yyval.chaine) = (yyvsp[-2].entier).chaine + ">=" + (yyvsp[0].entier).chaine;
 		}
-#line 1451 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1453 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
@@ -1458,97 +1460,97 @@ yyreduce:
 			}
 			(yyval.chaine) = (yyvsp[-2].entier).chaine + "=" + (yyvsp[0].entier).chaine;
 		}
-#line 1462 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1464 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 173 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1468 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1470 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
 #line 174 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1474 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1476 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 175 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1480 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1482 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
 #line 176 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1486 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1488 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 177 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1492 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1494 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 178 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1498 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1500 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 179 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1504 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1506 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 180 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1510 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1512 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 181 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1516 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1518 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 182 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1522 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1524 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
 #line 183 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1528 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1530 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
 #line 184 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1534 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1536 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
 #line 185 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1540 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1542 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
 #line 186 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1546 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1548 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
 #line 187 "verificateur.y" /* yacc.c:1646  */
     { cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-#line 1552 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1554 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
@@ -1559,7 +1561,7 @@ yyreduce:
 			cout << (yyvsp[-2].entier).valeur << "+" << (yyvsp[0].entier).valeur << "=" << (yyval.entier).valeur << endl;
 			cout << (yyval.entier).valeur << " ?=" << (yyval.entier).chaine << "| " << endl;
 		}
-#line 1563 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1565 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
@@ -1570,7 +1572,7 @@ yyreduce:
 			cout << (yyvsp[-2].entier).valeur << "-" << (yyvsp[0].entier).valeur << "=" << (yyval.entier).valeur << endl;
 			cout << (yyval.entier).valeur << " ?= " << (yyval.entier).chaine << endl;
 		}
-#line 1574 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1576 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
@@ -1581,7 +1583,7 @@ yyreduce:
 			cout << (yyvsp[-2].entier).valeur << "*" << (yyvsp[0].entier).valeur << "=" << (yyval.entier).valeur << endl;
 			cout << (yyval.entier).valeur << " ?= " << (yyval.entier).chaine << endl;
 		}
-#line 1585 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1587 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
@@ -1591,7 +1593,7 @@ yyreduce:
 			(yyval.entier).chaine = (yyvsp[0].entier).chaine;
 			// cout << $$.valeur << " ?= " << $$.chaine << endl;
 		}
-#line 1595 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1597 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
@@ -1600,7 +1602,7 @@ yyreduce:
 			(yyval.chaine) = (yyvsp[-2].chaine) + "+" + (yyvsp[0].chaine);
 			cout << (yyvsp[-2].chaine) << "+" << (yyvsp[0].chaine) << "=" << (yyval.chaine) << endl;
 		}
-#line 1604 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1606 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
@@ -1608,7 +1610,7 @@ yyreduce:
     {
 			(yyval.chaine) = (yyvsp[-2].chaine) + "-" + (yyvsp[0].chaine);
 		}
-#line 1612 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1614 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
@@ -1616,43 +1618,43 @@ yyreduce:
     {
 			(yyval.chaine) = (yyvsp[-2].chaine) + "*" + (yyvsp[0].chaine);
 		}
-#line 1620 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1622 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
 #line 234 "verificateur.y" /* yacc.c:1646  */
     { (yyval.chaine) = (yyvsp[-2].chaine) + "+" + (yyvsp[0].entier).chaine; cout << (yyvsp[-2].chaine) << "+" << (yyvsp[0].entier).chaine << "=" << (yyval.chaine) << endl; }
-#line 1626 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1628 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
 #line 235 "verificateur.y" /* yacc.c:1646  */
     { (yyval.chaine) = (yyvsp[-2].chaine) + "-" + (yyvsp[0].entier).chaine; }
-#line 1632 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1634 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
 #line 236 "verificateur.y" /* yacc.c:1646  */
     { (yyval.chaine) = (yyvsp[-2].chaine) + "*" + (yyvsp[0].entier).chaine; }
-#line 1638 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1640 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
 #line 237 "verificateur.y" /* yacc.c:1646  */
     { (yyval.chaine) = (yyvsp[-2].entier).chaine + "+" + (yyvsp[0].chaine); cout << (yyvsp[-2].entier).chaine << "+" << (yyvsp[0].chaine) << "=" << (yyval.chaine) << endl; }
-#line 1644 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1646 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
 #line 238 "verificateur.y" /* yacc.c:1646  */
     { (yyval.chaine) = (yyvsp[-2].entier).chaine + "-" + (yyvsp[0].chaine); }
-#line 1650 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1652 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
 #line 239 "verificateur.y" /* yacc.c:1646  */
     { (yyval.chaine) = (yyvsp[-2].entier).chaine + "*" + (yyvsp[0].chaine); }
-#line 1656 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1658 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
@@ -1660,7 +1662,7 @@ yyreduce:
     {
 			(yyval.chaine) = (yyvsp[0].chaine);
 		}
-#line 1664 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1666 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
@@ -1669,7 +1671,7 @@ yyreduce:
 			(yyval.programme).contenu = (yyvsp[-2].instruction).variable + ":=" + (yyvsp[-2].instruction).valeur + ";" + (yyvsp[0].programme).contenu;
 			(yyval.programme).instruction = (yyvsp[-2].instruction);
 		}
-#line 1673 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1675 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
@@ -1678,7 +1680,7 @@ yyreduce:
 			(yyval.programme).contenu = (yyvsp[0].instruction).variable + ":=" + (yyvsp[0].instruction).valeur;
 			(yyval.programme).instruction = (yyvsp[0].instruction);
 		}
-#line 1682 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1684 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
@@ -1687,7 +1689,7 @@ yyreduce:
 			(yyval.instruction).variable = (yyvsp[-2].chaine);
 			(yyval.instruction).valeur = (yyvsp[0].entier).chaine;		
 		}
-#line 1691 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1693 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
@@ -1696,11 +1698,11 @@ yyreduce:
 			(yyval.instruction).variable = (yyvsp[-2].chaine);
 			(yyval.instruction).valeur = (yyvsp[0].chaine);
 		}
-#line 1700 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1702 "verificateur.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1704 "verificateur.tab.c" /* yacc.c:1646  */
+#line 1706 "verificateur.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

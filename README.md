@@ -16,6 +16,18 @@ Vérificateur de preuves de programme en logique de Hoare
 
 ## Format d'une preuve
 
+### Règles de Hoare
+
+Différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare] "Wiki Hoare")) :
+* AFF : Affectation
+![ADD](https://upload.wikimedia.org/math/0/b/9/0b9a2415175302dce994af21a9218367.png "ADD")
+* SEQ : Séquence (ou composition)
+![SEQ](https://upload.wikimedia.org/math/a/6/f/a6f77b176903b2ee21016352ce1094b7.png "SEQ")
+* COND : Conditionnelle
+![COND](https://upload.wikimedia.org/math/e/e/4/ee4f74d64cb71775ea181039c1634ac6.png "COND")
+* CONSEQ : Consequence (ou affaiblissement)
+![CONSEQ](https://upload.wikimedia.org/math/e/7/4/e74a5e88893d68a24aa51b4f16f711f8.png "CONSEQ")
+
 ### Construction d'une preuve (dans un IDE)
 
 * Comme dans le [cours de Courtieu (2008)](http://cedric.cnam.fr/~courtiep/downloads/hoare.pdf "Outils de preuve et vérification - Courtieu, 2008")
@@ -25,40 +37,49 @@ Vérificateur de preuves de programme en logique de Hoare
 triplet1 ... tripletn  
       triplet
 
-**{** précondition **}** variable **:=** valeur **{** postcondition **}** ... **{** précondition **}** variable **:=** valeur { postcondition **}**  
+**{** précondition **}** variable **:=** valeur **{** postcondition **}** ... **{** précondition **}** variable **:=** valeur **{** postcondition **}**  
 Nom de la règle ... Nom de la règle  
 **{** précondition **}** variable **:=** valeur **{** postcondition **}**
 
 ### Génération d'une preuve (dans un fichier)
 
 * Sur une seule ligne
-* Utilisant des axiomes
+* Les noms de règles utilisés comme des axiomes (ou fonctions)
 * Lecture de la preuve de bas en haut
 
 Nom de la règle(**{** précondition **}** variable **:=** valeur **{** postcondition **}**, Nom de la règle( etc... ))  
-Le premier paramètre étant la conclusion et les suivants les prémisses
+Le premier paramètre d'une règle étant la conclusion et les suivants les prémisses
 
 ## Vérificateur de preuve
 
-### Langage (axiomes)
+### Langage
 
 Tokens déjà présents dans les preuves :
-* `AFF/SEQ/CONSEQ/WHILE/WHILET` d’arité 1 (pour `AFF`) ou 2 (pour les autres) : les règles de Hoare
-* `PREMISSE` d’arité 1 : la prémisse d’une règle
-* `CONSEQUENCE` d’arité n (0 à ∝) : la conséquence d’une règle
+* `AFF` : une règle de Hoare d’arité 1 (ne contient qu'une conclusion, pas de prémisse)
+* `SEQ/CONSEQ/WHILE/WHILET` : les règles de Hoare d'arité 2 (une conclusion puis une prémisse)
 
 Tokens à définir :
-* **{** et **}** les symboles encadrant un prédicat
-* **:=** le symbole d'affectation d'une valeur à une variable du programme
-* **;** le symbole séparant deux instructions du programme
+* `ACCOLADE_OUVRANTE` et `ACCOLADE_FERMANTE` respectivement les caractères **{** et **}** : les symboles encadrant un prédicat
+* `AFFECTATION` **:=** : le symbole d'affectation d'une valeur à une variable d'un programme
+* `POINTVIRGULE` **;** : le symbole séparant deux instructions d'un programme
+
+Principales règles à définir :
+* La règle `Regle` est composée au mois d'un token correspondant au nom d'une règle de Hoare (plus de détails plus loin)
+* La règle `Triplet` est composée d'une règle `Prédicat`, `Programme` et `Prédicat`
+* La règle `Prédicat` est composée de la règle `Conditions` entre les caractères **{** et **}**
+* La règle `Conditions` est un ensemble de règles `Condition` séparées par le caractère **;**
+* La règle `Condition` est composé d'une expression, d'un symbole de comparaison et d'une autre expression
+* La règle `Programme` est composée de règles `Instruction`
+* La règle `Instruction` est composée d'une variable, du symbole **:=** et d'une expression
 
 ### Exemple
 
-`SEQ CONCLUSION {...}a:=0;b:=0{...} PREMISSE AFF CONCLUSION {...}a:=0{...} AFF CONCLUSION {...}b:=0{...}`
+`SEQ {...}a:=0;b:=0{...} AFF {...}a:=0{...} AFF {...}b:=0{...}`
+Note : les termes "conclusion" et "premisse" d'une règle de Hoare sont implicites : une conclusion est composée d'un triplet, et une premisse est composée d'une ou plusieurs règles de Hoare.
 
-### Terminaison des axiomes
+### Terminaison des règles de Hoare
 
-Seuls les cas suivants valident les règles de Hoare :
+La règle `Regle` liste les cas des règles de Hoare à vérifier :
 * `AFF CONCLUSION Predicat Programme Predicat`
     * Chaque prédicat doit être juste sémantiquement
     * Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
@@ -69,39 +90,13 @@ Seuls les cas suivants valident les règles de Hoare :
     * *Mêmes choses que précédemment*
     * Les deux derniers programmes concatainés avec un `;` entre eux sont syntaxiquement équivalents au premier programme
 
-Types à définir :
-* `Predicat`
-    * `ACCOLADE_OUVRANTE Condition ACCOLADE_FERMANTE`
-* `Condition`
-    * Comme `Expression` : une condition peut être de la forme `Condition ET Condition`
-    * La condition est vraie sémantiquement
-* `Programme`
-    * `Expression AFFECTATION Expression`
-    * ???
-
-Tokens à définir :
-* `ACCOLADE_OUVRANTE` **{**
-* `ACCOLADE_FERMANTE` **}**
-* `AFFECTATION` **:=**
-
 ## Assistant de création de preuve
 
-
-### Exemple
-
-
-AFF   AFF      AFF   AFF
-dzad  zzef     dzad  zzef     
-SEQ            SEQ
-azdazd         zaaf
-SEQ
-pfzjep
-
-SEQ pfzjep SEQ azdazd AFF dzad AFF zzef SEQ zaaf
-
-
 *A étudier*
+*En Qt4 ou 5 ?*
 
 ## Liens utiles
 
-[Markdown](https://fr.wikipedia.org/wiki/Markdown)
+[Markdown](https://fr.wikipedia.org/wiki/Markdown "Wiki Markdown")
+[Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare] "Wiki Hoare")
+[cours de Courtieu (2008)](http://cedric.cnam.fr/~courtiep/downloads/hoare.pdf "Outils de preuve et vérification - Courtieu, 2008")

@@ -18,14 +18,14 @@ Vérificateur de preuves de programme en logique de Hoare
 
 ### Règles de Hoare
 
-Différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare] "Wiki Hoare")) :
-* AFF : Affectation
+Différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare "Wiki Hoare")) :
+* AFF : Affectation  
 ![ADD](https://upload.wikimedia.org/math/0/b/9/0b9a2415175302dce994af21a9218367.png "ADD")
-* SEQ : Séquence (ou composition)
+* SEQ : Séquence (ou composition)  
 ![SEQ](https://upload.wikimedia.org/math/a/6/f/a6f77b176903b2ee21016352ce1094b7.png "SEQ")
-* COND : Conditionnelle
+* COND : Conditionnelle  
 ![COND](https://upload.wikimedia.org/math/e/e/4/ee4f74d64cb71775ea181039c1634ac6.png "COND")
-* CONSEQ : Consequence (ou affaiblissement)
+* CONSEQ : Consequence (ou affaiblissement)  
 ![CONSEQ](https://upload.wikimedia.org/math/e/7/4/e74a5e88893d68a24aa51b4f16f711f8.png "CONSEQ")
 
 ### Construction d'une preuve (dans un IDE)
@@ -80,15 +80,16 @@ Note : les termes "conclusion" et "premisse" d'une règle de Hoare sont implicit
 ### Terminaison des règles de Hoare
 
 La règle `Regle` liste les cas des règles de Hoare à vérifier :
-* `AFF CONCLUSION Predicat Programme Predicat`
-    * Chaque prédicat doit être juste sémantiquement
+* `AFF Triplet`
+    * Chaque prédicat du triplet doit être juste sémantiquement
     * Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
-* `AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat`
+* `AFF Triplet`
     * *Mêmes choses que précédement*
-    * La postcondition du premier triplet doit être égale à la précondition du second triplet
-* `SEQ CONCLUSION Predicat Programme Predicat PREMISSE AFF CONCLUSION Predicat Programme Predicat AFF CONCLUSION Predicat Programme Predicat`
+    * La postcondition (deuxième prédicat) du premier triplet doit être égale à la précondition (premier prédicat) du second triplet
+* `SEQ Triplet AFF Triplet AFF Triplet`
     * *Mêmes choses que précédemment*
-    * Les deux derniers programmes concatainés avec un `;` entre eux sont syntaxiquement équivalents au premier programme
+    * La concaténation du programme des deux derniers triplets avec un `;` doivent être syntaxiquement équivalents au programme du premier triplet
+* *...*
 
 ## Assistant de création de preuve
 
@@ -98,5 +99,5 @@ La règle `Regle` liste les cas des règles de Hoare à vérifier :
 ## Liens utiles
 
 [Markdown](https://fr.wikipedia.org/wiki/Markdown "Wiki Markdown")
-[Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare] "Wiki Hoare")
+[Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare "Wiki Hoare")
 [cours de Courtieu (2008)](http://cedric.cnam.fr/~courtiep/downloads/hoare.pdf "Outils de preuve et vérification - Courtieu, 2008")

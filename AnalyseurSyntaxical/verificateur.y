@@ -76,16 +76,25 @@ Regle:
 		}
 	| SEQ Triplet AFF Triplet AFF Triplet
 		{
-			/*char* ProgrammeTotal= $10;
-			strcat(ProgrammeTotal, ";");
-			strcat(ProgrammeTotal, $15);
-			cout << "fefe -> %s TRUC %s\n", $10, $15);
-			if(compare(ProgrammeTotal, $4) == false) {
-				cout << "[ERREUR] Programmes de la règle SEQ incorrects : |%s| != |%s|\n", ProgrammeTotal, $4);
+			if($2.precondition.compare($4.precondition) != 0) 
+			{
+				cout << "[ERREUR] Précondition de SEQ != de Précondition de AFF(1)" << endl; 
 			}
-			else {				
-				cout << "Programmes de la règle SEQ identiques : |%s|\n", ProgrammeTotal);
-			}*/
+			if($2.postcondition.compare($6.postcondition) !=0)
+			{
+				cout << "[ERREUR] Postcondition de SEQ != de Postcondition de AFF(2)" << endl;
+			}
+			if($4.postcondition.compare($6.precondition) != 0)
+			{
+				cout << "[ERREUR] Postcondition de AFF(1) != de Précondition de AFF(2)" << endl;
+			}
+			
+			if($2.programme.contenu.compare($4.programme.contenu + ";" + $6.programme.contenu) != 0) {
+				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << $2.programme.contenu << " différent de " << $4.programme.contenu + ";" + $6.programme.contenu  << endl;
+			}
+			else {
+				// cout << "Programmes de la règle SEQ identiques :" << endl;
+			}
 		}
 	/*| .
 		{

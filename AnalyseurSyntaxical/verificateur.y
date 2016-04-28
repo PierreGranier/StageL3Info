@@ -54,6 +54,9 @@ Entree:
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
 	| Regle FIN Entree			{ cout << "Preuve lue en entier" << endl; }
+	| Predicat FIN Entree
+	| ExpressionMot FIN Entree
+	| ExpressionEntier FIN Entree
 	;
 	
 Regle:
@@ -92,14 +95,7 @@ Regle:
 			if($2.programme.contenu.compare($4.programme.contenu + ";" + $6.programme.contenu) != 0) {
 				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << $2.programme.contenu << " différent de " << $4.programme.contenu + ";" + $6.programme.contenu  << endl;
 			}
-			else {
-				// cout << "Programmes de la règle SEQ identiques :" << endl;
-			}
 		}
-	/*| .
-		{
-			cout << "[ERREUR] Règle non reconnue" << endl;
-		}*/
 	;
 	
 Triplet:
@@ -195,22 +191,29 @@ ExpressionEntier:
 	ENTIER PLUS ExpressionEntier
 		{
 			$$.valeur = $1.valeur + $3.valeur;
+			$$.chaine = to_string($$.valeur);
 			cout << $1.valeur << "+" << $3.valeur << "=" << $$.valeur << endl;
+			cout << $$.valeur << " ?=" << $$.chaine << "| " << endl;
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
 			$$.valeur = $1.valeur - $3.valeur;
+			$$.chaine = to_string($$.valeur);
 			cout << $1.valeur << "-" << $3.valeur << "=" << $$.valeur << endl;
+			cout << $$.valeur << " ?= " << $$.chaine << endl;
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
 			$$.valeur = $1.valeur * $3.valeur;
+			$$.chaine = to_string($$.valeur);
 			cout << $1.valeur << "*" << $3.valeur << "=" << $$.valeur << endl;
+			cout << $$.valeur << " ?= " << $$.chaine << endl;
 		}
 	| ENTIER
 		{
-			$$.chaine = $1.chaine;
 			$$.valeur = $1.valeur;
+			$$.chaine = $1.chaine;
+			// cout << $$.valeur << " ?= " << $$.chaine << endl;
 		}
 	;
 	
@@ -218,18 +221,22 @@ ExpressionMot:
 	MOT PLUS ExpressionMot
 		{
 			$$ = $1 + "+" + $3;
-			cout << $$ << endl;
+			cout << $1 << "+" << $3 << "=" << $$ << endl;
 		}
 	| MOT MOINS ExpressionMot
 		{
 			$$ = $1 + "-" + $3;
-			cout << $$ << endl;
 		}
 	| MOT FOIS ExpressionMot
 		{
 			$$ = $1 + "*" + $3;
-			cout << $$ << endl;
 		}
+	| MOT		PLUS		ExpressionEntier	{ $$ = $1 + "+" + $3.chaine; cout << $1 << "+" << $3.chaine << "=" << $$ << endl; }
+	| MOT		MOINS		ExpressionEntier	{ $$ = $1 + "-" + $3.chaine; }
+	| MOT		FOIS		ExpressionEntier	{ $$ = $1 + "*" + $3.chaine; }
+	| ENTIER 	PLUS 		MOT		{ $$ = $1.chaine + "+" + $3; cout << $1.chaine << "+" << $3 << "=" << $$ << endl; }
+	| ENTIER 	MOINS 		MOT		{ $$ = $1.chaine + "-" + $3; }
+	| ENTIER 	FOIS 		MOT		{ $$ = $1.chaine + "*" + $3; }
 	| MOT
 		{
 			$$ = $1;

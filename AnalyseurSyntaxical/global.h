@@ -1,9 +1,7 @@
-#include <stdio.h>
 #include <iostream>
 #include <string>
-#include <string.h>
 #include <stdlib.h>
-#include <math.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -28,15 +26,12 @@ typedef struct s_triplet {
 	string postcondition;
 } t_triplet;
 
-typedef char boolean;
-
 typedef struct s_typespe {
 	string chaine;
 	t_entier entier;
 	t_triplet triplet;
 	t_instruction instruction;
 	t_programme programme;
-	boolean valBool;
 } typespe;
 
 #define YYSTYPE typespe

@@ -2,23 +2,20 @@
 #include "global.h"
 #include "fonctions.c"
 
-#define false	0
-#define true 	1
-typedef char boolean;
-
+// Permettre l'utilisation du C++
 extern "C" int yylex(void);
 extern "C" int yyparse(void);
 extern "C" void yyerror(const std::string&);
 extern FILE* yyin;
 %}
 
+// Importation des types définis en C++ (pour les utiliser en Yacc)
 %union {
 	string chaine;
 	t_entier entier;
 	t_triplet triplet;
-	t_instruction instruction;	
+	t_instruction instruction;
 	t_programme programme;
-	boolean valBool;
 }
 
 %token FIN
@@ -54,20 +51,19 @@ extern FILE* yyin;
 
 Entree:
 	/* Vide */
-	| FIN								{ cout << "Fin du programme" << endl; return 0; }
-	| FINFINALE							{ cout << "Fin du programme" << endl; return 0; }
-	| Regle FIN Entree					{ cout << "Preuve lue en entier" << endl; }
+	| FIN						{ cout << "Fin du programme" << endl; return 0; }
+	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
+	| Regle FIN Entree			{ cout << "Preuve lue en entier" << endl; }
 	;
 	
 Regle:
 	AFF Triplet
 		{
-			// remplacer les prédicats selon la règle
-			string gen;
-			gen = $2.postcondition;
-			remplacer(gen, $2.programme.instruction.variable, $2.programme.instruction.valeur);
-			cout << "BOB = " << $2.postcondition << " ET GENNERE " << gen << endl;
-			if(gen.compare($2.precondition) != 0)
+			string gener;
+			gener = $2.postcondition;
+			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
+			cout << "BOB = " << $2.postcondition << " ET GENNERE " << gener << endl;
+			if(gener.compare($2.precondition) != 0)
 			{
 					cout << "[ERREUR] Mauvaise Précondition ou Postcondition  : " << $$ << endl;
 			}
@@ -118,21 +114,21 @@ Conditions:
 		{}
 	| Condition ET Conditions
 		{
-			$$ = $1 + $1 + "^" + $3; // >WTF ?§?!!?!!
+			$$ = $1 + "^" + $3;
 		}
 	| Condition
 		{
 			$$ = $1;
 		}
 	;
-
+	
 Condition:
 	Comparaison
 		{
 			$$ = $1;
 		}
 	;
-
+	
 Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
@@ -261,17 +257,6 @@ Instruction:
 
 void yyerror(const string& mess) {
   cerr << "ERROR : "<< mess<< endl;
-}
-
-boolean compare(char* chaine1, char* chaine2)
-{
-	unsigned int i=0;
-    if(strlen(chaine1) != strlen(chaine2))
-        return false;
-    for(i=0;i<strlen(chaine1);i++)
-        if(chaine1[i] != chaine2[i])
-            return false;
-    return true;
 }
 
 int main(int argc, char **argv) {

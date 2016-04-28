@@ -72,16 +72,15 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 15 "verificateur.y" /* yacc.c:1909  */
+#line 13 "verificateur.y" /* yacc.c:1909  */
 
 	string chaine;
 	t_entier entier;
 	t_triplet triplet;
-	t_instruction instruction;	
+	t_instruction instruction;
 	t_programme programme;
-	boolean valBool;
 
-#line 85 "verificateur.tab.h" /* yacc.c:1909  */
+#line 84 "verificateur.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

@@ -57,9 +57,38 @@ Entree:
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
 	| Regle FIN Entree			{ cout << "Preuve lue en entier" << endl; 		}
-	| Expression FIN Entree
 	;
 	
+Regle:
+	AffTriplet
+		{
+			$$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
+		}
+	/*| AffTriplet AffTriplet
+		{
+			if($1.postcondition.compare($2.precondition) != 0) {
+				cout << "[ERREUR] La postcondition de AFF(1) " << $1.postcondition << " est différent de la postcondition de AFF(2) " << $2.precondition << endl;
+			}
+		}*/
+	| SEQ Triplet AffTriplet AffTriplet
+		{
+			if($2.precondition.compare($3.precondition) != 0) 
+			{
+				cout << "[ERREUR] La précondition de SEQ " << $2.precondition << " est différent de la précondition de AFF(1) " << $3.precondition << endl; 
+			}
+			if($2.postcondition.compare($4.postcondition) !=0)
+			{
+				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition << " est différent de la postcondition de AFF(2) " << $4.postcondition << endl;
+			}
+			if($3.postcondition.compare($4.precondition) != 0)
+			{
+				cout << "[ERREUR] La postcondition de AFF(1) " << $3.postcondition << " est différent de la précondition de AFF(2) " << $4.precondition << endl;
+			}
+			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
+				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
+			}
+		}
+	;
 	
 AffTriplet:	
 	AFF Triplet
@@ -69,42 +98,9 @@ AffTriplet:
 			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
 			if(gener.compare($2.precondition) != 0)
 			{
-					cout << "[ERREUR] Mauvaise Précondition ou Postcondition : " << gener << " est différent de " << $2.precondition << endl;
+					cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition << endl;
 			}
-		$$ = $2;
-		}
-	;
-	
-Regle:
-	AffTriplet
-	| AffTriplet AffTriplet
-		{
-			if($1.postcondition.compare($2.precondition) != 0) {
-				cout << "[ERREUR] Prédicats de la règle AFF pas égaux : " << $$ << endl;	//à voir 7 aprem
-			}
-			cout << $$ << endl;
-		}
-	| SEQ Triplet AffTriplet AffTriplet
-		{
-			if($2.precondition.compare($3.precondition) != 0) 
-			{
-				cout << "[ERREUR] Précondition de SEQ est différent de Précondition de AFF(1)" << endl; 
-			}
-			if($2.postcondition.compare($4.postcondition) !=0)
-			{
-				cout << "[ERREUR] Postcondition de SEQ est différent de Postcondition de AFF(2)" << endl;
-			}
-			if($3.postcondition.compare($4.precondition) != 0)
-			{
-				cout << "[ERREUR] Postcondition de AFF(1) est différent de Précondition de AFF(2)" << endl;
-			}
-			
-			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
-				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
-			}
-			
-			// $$ = "AFF {" + $4.precondition + "}" + $4.programme.contenu + "{" + $4.postcondition + "} AFF {" + $6.precondition +"}" + $6.programme.contenu + "{" + $6.postcondition +"}" ;
-			// cout << $$ << endl;
+			$$ = $2;
 		}
 	;
 	
@@ -276,17 +272,17 @@ void yyerror(const string& mess) {
 }
 
 int main(int argc, char **argv) {
-	if(argc == 2){
+	// Lecture du fichier si envoyé
+	if(argc == 2) {
+		cout << "Fichier utilisé\nLecture de la preuve" << endl;
 		yyin = fopen(argv[1], "r");
-		cout << "Fichier utilisé\n" << endl;
 	}
+	
+	// Verification de la preuve
 	yyparse();
-	//yylex();
-
-	/*if(argc > 0)
-		yyin = fopen(argv[0], "r");
-	else
-		yyin = stdin;*/
+	
+	// Fin de la vérification de la preuve
+	cout << "Preuve vérifiée si pas de message d'erreur" << endl;
 
 	return EXIT_SUCCESS;
 }

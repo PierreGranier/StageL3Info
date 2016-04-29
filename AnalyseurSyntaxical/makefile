@@ -20,11 +20,6 @@ launch:
 	@echo Execution
 	./verificateur
 	
-	
-launch_file:
-	@echo Execution avec fichier
-	./verificateur entree.txt
-	
 clean:
 	@echo Nettoyage
 	rm -rf build/*

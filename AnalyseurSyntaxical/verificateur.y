@@ -241,9 +241,6 @@ ExpressionMot:
 		{
 			$$.chaine = $1.chaine;
 		}
-	// | Expression		PLUS	MOT		{ $$.chaine = $1.chaine + "+" + $3.chaine; }
-	| Expression		MOINS	MOT		{ $$.chaine = $1.chaine + "-" + $3.chaine; }
-	| Expression		FOIS	MOT		{ $$.chaine = $1.chaine + "*" + $3.chaine; }
 	;
 	
 Programme:

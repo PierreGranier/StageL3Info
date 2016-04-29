@@ -18,7 +18,7 @@ Vérificateur de preuves de programme en logique de Hoare
 
 ### Règles de Hoare
 
-Différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare "Wiki Hoare")) :
+Les différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare "Wiki Hoare")) :
 * AFF : Affectation  
 ![ADD](https://upload.wikimedia.org/math/0/b/9/0b9a2415175302dce994af21a9218367.png "ADD")
 * SEQ : Séquence (ou composition)  

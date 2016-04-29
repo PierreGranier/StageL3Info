@@ -93,6 +93,9 @@ Regle:
 			if($2.programme.contenu.compare($4.programme.contenu + ";" + $6.programme.contenu) != 0) {
 				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << $2.programme.contenu << " différent de " << $4.programme.contenu + ";" + $6.programme.contenu  << endl;
 			}
+			
+			$$ = "AFF" + $4.precondition + $4.programme + $4.postcondition + "AFF" + $6.precondition + $6.programme + $6.postcondition;
+			cout << $$ << " <<====" << endl;
 		}
 	;
 	

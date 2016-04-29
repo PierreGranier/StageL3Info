@@ -3,7 +3,8 @@
 Vérificateur de preuves de programme en logique de Hoare
 
 ## Fonctionnalités du projet
-[x][ ]
+1. [x]
+2. [ ]
 * Définir le format du fichier contenant une preuve
 * Vérificateur de preuve
     * Système à construire avec Lex et Yacc (.lex et .y, versions Flex et GNU Bison)

@@ -12,7 +12,7 @@ extern FILE* yyin;
 // Importation des types définis en C++ (pour les utiliser en Yacc)
 %union {
 	string chaine;
-	t_entier entier;
+	t_expression expression;
 	t_triplet triplet;
 	t_instruction instruction;
 	t_programme programme;
@@ -21,8 +21,8 @@ extern FILE* yyin;
 %token FIN
 %token FINFINALE
 
-%token<chaine> MOT
-%token<entier> ENTIER
+%token<expression> MOT
+%token<expression> ENTIER
 
 %token AFF SEQ
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
@@ -34,8 +34,9 @@ extern FILE* yyin;
 
 %token PLUS MOINS FOIS
 
-%type<chaine> ExpressionMot
-%type<entier> ExpressionEntier
+%type<expression> Expression
+%type<expression> ExpressionMot
+%type<expression> ExpressionEntier
 %type<chaine> Regle
 %type<chaine> Predicat
 %type<programme> Programme
@@ -53,10 +54,7 @@ Entree:
 	/* Vide */
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
-	| Regle FIN Entree			{ cout << "Preuve lue en entier" << endl; }
-	| Predicat FIN Entree
-	| ExpressionMot FIN Entree
-	| ExpressionEntier FIN Entree
+	| Regle FIN Entree			{ cout << "Preuve lue en entier" << endl; 		}
 	;
 	
 Regle:
@@ -65,31 +63,31 @@ Regle:
 			string gener;
 			gener = $2.postcondition;
 			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
-			cout << "BOB = " << $2.postcondition << " ET GENNERE " << gener << endl;
+			cout << "BOB = " << $2.postcondition << " ET GENERE " << gener << endl;
 			if(gener.compare($2.precondition) != 0)
 			{
-					cout << "[ERREUR] Mauvaise Précondition ou Postcondition  : " << $$ << endl;
+					cout << "[ERREUR] Mauvaise Précondition ou Postcondition : " << gener << " est différent de " << $2.precondition << endl;
 			}
 		}
 	| AFF Triplet AFF Triplet
 		{
 			if($2.postcondition.compare($4.precondition) != 0) {
-				cout << "[ERREUR] Prédicats de la règle AFF pas égaux : " << $$ << endl;
+				cout << "[ERREUR] Prédicats de la règle AFF pas égaux : " << $$ << endl;	//à voir 7 aprem
 			}
 		}
 	| SEQ Triplet AFF Triplet AFF Triplet
 		{
 			if($2.precondition.compare($4.precondition) != 0) 
 			{
-				cout << "[ERREUR] Précondition de SEQ != de Précondition de AFF(1)" << endl; 
+				cout << "[ERREUR] Précondition de SEQ est différent de Précondition de AFF(1)" << endl; 
 			}
 			if($2.postcondition.compare($6.postcondition) !=0)
 			{
-				cout << "[ERREUR] Postcondition de SEQ != de Postcondition de AFF(2)" << endl;
+				cout << "[ERREUR] Postcondition de SEQ est différent de Postcondition de AFF(2)" << endl;
 			}
 			if($4.postcondition.compare($6.precondition) != 0)
 			{
-				cout << "[ERREUR] Postcondition de AFF(1) != de Précondition de AFF(2)" << endl;
+				cout << "[ERREUR] Postcondition de AFF(1) est différent de Précondition de AFF(2)" << endl;
 			}
 			
 			if($2.programme.contenu.compare($4.programme.contenu + ";" + $6.programme.contenu) != 0) {
@@ -170,21 +168,21 @@ Comparaison:
 			}
 			$$ = $1.chaine + "=" + $3.chaine;
 		}
-	| ExpressionMot		INF			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		SUP			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		INF_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		SUP_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		EGAL		ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		INF			ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		SUP			ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		INF_EGAL	ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		SUP_EGAL	ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionMot		EGAL		ExpressionEntier	{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionEntier	INF			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionEntier	SUP			ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionEntier	INF_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
-	| ExpressionEntier	EGAL		ExpressionMot		{ cout << "peut pas comparer sémantiquement des MOTS\n" << endl; }
+	| ExpressionMot		INF			Expression			{ $$ = $1.chaine + "<" + $3.chaine; }
+	| ExpressionMot		SUP			Expression			{ $$ = $1.chaine + ">" + $3.chaine; }
+	| ExpressionMot		INF_EGAL	Expression			{ $$ = $1.chaine + "<=" + $3.chaine; }
+	| ExpressionMot		SUP_EGAL	Expression			{ $$ = $1.chaine + ">=" + $3.chaine; }
+	| ExpressionMot		EGAL		Expression			{ $$ = $1.chaine + "=" + $3.chaine; }
+	| ExpressionEntier	INF			ExpressionMot		{ $$ = $1.chaine + "<" + $3.chaine; }
+	| ExpressionEntier	SUP			ExpressionMot		{ $$ = $1.chaine + ">" + $3.chaine; }
+	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$ = $1.chaine + "<=" + $3.chaine; }
+	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ $$ = $1.chaine + ">=" + $3.chaine; }
+	| ExpressionEntier	EGAL		ExpressionMot		{ $$ = $1.chaine + "=" + $3.chaine; }
+	;
+	
+Expression:
+	ExpressionEntier
+	| ExpressionMot
 	;
 	
 ExpressionEntier:
@@ -192,55 +190,48 @@ ExpressionEntier:
 		{
 			$$.valeur = $1.valeur + $3.valeur;
 			$$.chaine = to_string($$.valeur);
-			cout << $1.valeur << "+" << $3.valeur << "=" << $$.valeur << endl;
-			cout << $$.valeur << " ?=" << $$.chaine << "| " << endl;
 		}
 	| ENTIER MOINS ExpressionEntier
 		{
 			$$.valeur = $1.valeur - $3.valeur;
 			$$.chaine = to_string($$.valeur);
-			cout << $1.valeur << "-" << $3.valeur << "=" << $$.valeur << endl;
-			cout << $$.valeur << " ?= " << $$.chaine << endl;
 		}
 	| ENTIER FOIS ExpressionEntier
 		{
 			$$.valeur = $1.valeur * $3.valeur;
 			$$.chaine = to_string($$.valeur);
-			cout << $1.valeur << "*" << $3.valeur << "=" << $$.valeur << endl;
-			cout << $$.valeur << " ?= " << $$.chaine << endl;
 		}
 	| ENTIER
 		{
 			$$.valeur = $1.valeur;
 			$$.chaine = $1.chaine;
-			// cout << $$.valeur << " ?= " << $$.chaine << endl;
+		}
+	| ENTIER PLUS ExpressionMot
+		{
+			$$.chaine = $1.chaine + "+" + $3.chaine;
 		}
 	;
 	
 ExpressionMot:
-	MOT PLUS ExpressionMot
+	MOT PLUS Expression
 		{
-			$$ = $1 + "+" + $3;
-			cout << $1 << "+" << $3 << "=" << $$ << endl;
+			$$.chaine = $1.chaine + "+" + $3.chaine;
 		}
-	| MOT MOINS ExpressionMot
+	| MOT MOINS Expression
 		{
-			$$ = $1 + "-" + $3;
+			$$.chaine = $1.chaine + "-" + $3.chaine;
 		}
-	| MOT FOIS ExpressionMot
+	| MOT FOIS Expression
 		{
-			$$ = $1 + "*" + $3;
+			$$.chaine = $1.chaine + "*" + $3.chaine;
 		}
-	| MOT		PLUS		ExpressionEntier	{ $$ = $1 + "+" + $3.chaine; cout << $1 << "+" << $3.chaine << "=" << $$ << endl; }
-	| MOT		MOINS		ExpressionEntier	{ $$ = $1 + "-" + $3.chaine; }
-	| MOT		FOIS		ExpressionEntier	{ $$ = $1 + "*" + $3.chaine; }
-	| ENTIER 	PLUS 		MOT		{ $$ = $1.chaine + "+" + $3; cout << $1.chaine << "+" << $3 << "=" << $$ << endl; }
-	| ENTIER 	MOINS 		MOT		{ $$ = $1.chaine + "-" + $3; }
-	| ENTIER 	FOIS 		MOT		{ $$ = $1.chaine + "*" + $3; }
 	| MOT
 		{
-			$$ = $1;
+			$$.chaine = $1.chaine;
 		}
+	| Expression		PLUS	MOT		{ $$.chaine = $1.chaine + "+" + $3.chaine; }
+	| Expression		MOINS	MOT		{ $$.chaine = $1.chaine + "-" + $3.chaine; }
+	| Expression		FOIS	MOT		{ $$.chaine = $1.chaine + "*" + $3.chaine; }
 	;
 	
 Programme:
@@ -259,20 +250,20 @@ Programme:
 Instruction:
 	MOT AFFECTATION ExpressionEntier
 		{
-			$$.variable = $1;
-			$$.valeur = $3.chaine;		
+			$$.variable = $1.chaine;
+			$$.valeur = $3.chaine;
 		}
 	| MOT AFFECTATION ExpressionMot
 		{
-			$$.variable = $1;
-			$$.valeur = $3;
+			$$.variable = $1.chaine;
+			$$.valeur = $3.chaine;
 		}
 	;
 	
 %%
 
 void yyerror(const string& mess) {
-  cerr << "ERROR : "<< mess<< endl;
+  cerr << "[ERREUR] yyerror : "<< mess<< endl;
 }
 
 int main(int argc, char **argv) {

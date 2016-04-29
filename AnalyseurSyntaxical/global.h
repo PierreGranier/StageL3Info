@@ -5,10 +5,10 @@
 
 using namespace std;
 
-typedef struct s_entier {
+typedef struct s_expression {
 	string chaine;
 	int valeur;
-} t_entier;
+} t_expression;
 
 typedef struct s_instruction {
 	string variable;
@@ -28,7 +28,7 @@ typedef struct s_triplet {
 
 typedef struct s_typespe {
 	string chaine;
-	t_entier entier;
+	t_expression expression;
 	t_triplet triplet;
 	t_instruction instruction;
 	t_programme programme;

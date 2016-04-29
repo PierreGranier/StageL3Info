@@ -39,13 +39,13 @@ fin	"fini"|"fin"|"j'ai tout fini"
 "*"				{ return(FOIS);				 }
 
 {entier} {
-			yylval.entier.chaine = strdup(yytext);
-			yylval.entier.valeur = atoi(yytext);
+			yylval.expression.chaine = strdup(yytext);
+			yylval.expression.valeur = atoi(yytext);
 			return(ENTIER);
 		 }
 
 {mot} 	{
-			yylval.chaine = strdup(yytext);
+			yylval.expression.chaine = strdup(yytext);
 			return(MOT);
 		}
 

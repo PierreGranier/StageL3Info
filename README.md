@@ -83,7 +83,7 @@ La règle `Regle` liste les cas des règles de Hoare à vérifier :
 * `AFF Triplet`
     * Chaque prédicat du triplet doit être juste sémantiquement
     * Le triplet doit être conforme syntaxiquement à la règle de Hoare `AFF`
-* `AFF Triplet`
+* `AFF Triplet AFF Triplet`
     * *Mêmes choses que précédement*
     * La postcondition (deuxième prédicat) du premier triplet doit être égale à la précondition (premier prédicat) du second triplet
 * `SEQ Triplet AFF Triplet AFF Triplet`

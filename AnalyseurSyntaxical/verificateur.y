@@ -46,6 +46,8 @@ extern FILE* yyin;
 %type<chaine> Comparaison
 %type<triplet> Triplet
 
+%type<triplet> AffTriplet
+
 %start Entree
 
 %%
@@ -55,50 +57,54 @@ Entree:
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
 	| Regle FIN Entree			{ cout << "Preuve lue en entier" << endl; 		}
+	| Expression FIN Entree
 	;
 	
-Regle:
-	/* vide */
-	| AFF Triplet
+	
+AffTriplet:	
+	AFF Triplet
 		{
 			string gener;
 			gener = $2.postcondition;
 			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
-			cout << "BOB = " << $2.postcondition << " ET GENERE " << gener << endl;
 			if(gener.compare($2.precondition) != 0)
 			{
 					cout << "[ERREUR] Mauvaise Précondition ou Postcondition : " << gener << " est différent de " << $2.precondition << endl;
 			}
+		$$ = $2;
 		}
-	| AFF Triplet AFF Triplet
+	;
+	
+Regle:
+	AffTriplet
+	| AffTriplet AffTriplet
 		{
-			if($2.postcondition.compare($4.precondition) != 0) {
+			if($1.postcondition.compare($2.precondition) != 0) {
 				cout << "[ERREUR] Prédicats de la règle AFF pas égaux : " << $$ << endl;	//à voir 7 aprem
 			}
-			$$ = "AFF {" + $2.precondition + "}" + $2.programme.contenu + "{" + $2.postcondition + "}";
 			cout << $$ << endl;
 		}
-	| SEQ Triplet AFF Triplet AFF Triplet Regle
+	| SEQ Triplet AffTriplet AffTriplet
 		{
-			if($2.precondition.compare($4.precondition) != 0) 
+			if($2.precondition.compare($3.precondition) != 0) 
 			{
 				cout << "[ERREUR] Précondition de SEQ est différent de Précondition de AFF(1)" << endl; 
 			}
-			if($2.postcondition.compare($6.postcondition) !=0)
+			if($2.postcondition.compare($4.postcondition) !=0)
 			{
 				cout << "[ERREUR] Postcondition de SEQ est différent de Postcondition de AFF(2)" << endl;
 			}
-			if($4.postcondition.compare($6.precondition) != 0)
+			if($3.postcondition.compare($4.precondition) != 0)
 			{
 				cout << "[ERREUR] Postcondition de AFF(1) est différent de Précondition de AFF(2)" << endl;
 			}
 			
-			if($2.programme.contenu.compare($4.programme.contenu + ";" + $6.programme.contenu) != 0) {
-				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << $2.programme.contenu << " différent de " << $4.programme.contenu + ";" + $6.programme.contenu  << endl;
+			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
+				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
 			
-			$$ = "AFF {" + $4.precondition + "}" + $4.programme.contenu + "{" + $4.postcondition + "} AFF {" + $6.precondition +"}" + $6.programme.contenu + "{" + $6.postcondition +"}" ;
-			cout << $$ << endl;
+			// $$ = "AFF {" + $4.precondition + "}" + $4.programme.contenu + "{" + $4.postcondition + "} AFF {" + $6.precondition +"}" + $6.programme.contenu + "{" + $6.postcondition +"}" ;
+			// cout << $$ << endl;
 		}
 	;
 	
@@ -235,7 +241,7 @@ ExpressionMot:
 		{
 			$$.chaine = $1.chaine;
 		}
-	| Expression		PLUS	MOT		{ $$.chaine = $1.chaine + "+" + $3.chaine; }
+	// | Expression		PLUS	MOT		{ $$.chaine = $1.chaine + "+" + $3.chaine; }
 	| Expression		MOINS	MOT		{ $$.chaine = $1.chaine + "-" + $3.chaine; }
 	| Expression		FOIS	MOT		{ $$.chaine = $1.chaine + "*" + $3.chaine; }
 	;

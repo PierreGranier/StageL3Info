@@ -58,7 +58,8 @@ Entree:
 	;
 	
 Regle:
-	AFF Triplet
+	/* vide */
+	| AFF Triplet
 		{
 			string gener;
 			gener = $2.postcondition;
@@ -74,8 +75,10 @@ Regle:
 			if($2.postcondition.compare($4.precondition) != 0) {
 				cout << "[ERREUR] Prédicats de la règle AFF pas égaux : " << $$ << endl;	//à voir 7 aprem
 			}
+			$$ = "AFF {" + $2.precondition + "}" + $2.programme.contenu + "{" + $2.postcondition + "}";
+			cout << $$ << endl;
 		}
-	| SEQ Triplet AFF Triplet AFF Triplet
+	| SEQ Triplet AFF Triplet AFF Triplet Regle
 		{
 			if($2.precondition.compare($4.precondition) != 0) 
 			{
@@ -94,8 +97,8 @@ Regle:
 				cout << "[ERREUR] Programmes de la règle SEQ incorrects : " << $2.programme.contenu << " différent de " << $4.programme.contenu + ";" + $6.programme.contenu  << endl;
 			}
 			
-			$$ = "AFF" + $4.precondition + $4.programme + $4.postcondition + "AFF" + $6.precondition + $6.programme + $6.postcondition;
-			cout << $$ << " <<====" << endl;
+			$$ = "AFF {" + $4.precondition + "}" + $4.programme.contenu + "{" + $4.postcondition + "} AFF {" + $6.precondition +"}" + $6.programme.contenu + "{" + $6.postcondition +"}" ;
+			cout << $$ << endl;
 		}
 	;
 	

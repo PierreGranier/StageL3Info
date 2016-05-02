@@ -59,12 +59,33 @@ Entree:
 	| Regle FIN Entree
 	;
 	
+// Preuve
+Arbre:
+	Regle
+		{
+			
+		}
+	;
+	
+// Sous-preuve
+Branche:
+	/* vide */
+	| Regle
+		{
+			
+		}
+	| Regle Regle
+		{
+			
+		}
+	;
+	
 Regle:
 	AffTriplet
 		{
 			// $$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
 		}
-	| SEQ Triplet AffTriplet AffTriplet Regle
+	| SEQ Triplet AffTriplet AffTriplet
 		{
 			if($2.precondition.compare($3.precondition) != 0) 
 			{

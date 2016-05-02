@@ -103,6 +103,8 @@ La règle `Regle` liste les cas des règles de Hoare à vérifier :
 * [cours de Courtieu (2008)](http://cedric.cnam.fr/~courtiep/downloads/hoare.pdf "Outils de preuve et vérification - Courtieu, 2008")
 
 
+
+
         											 **
         											 /\
         										    /**\

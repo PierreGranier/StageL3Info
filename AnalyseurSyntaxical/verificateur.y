@@ -37,7 +37,6 @@ extern FILE* yyin;
 %type<expression> Expression
 %type<expression> ExpressionMot
 %type<expression> ExpressionEntier
-%type<chaine> Regle
 %type<chaine> Predicat
 %type<programme> Programme
 %type<instruction> Instruction
@@ -46,6 +45,7 @@ extern FILE* yyin;
 %type<chaine> Comparaison
 %type<triplet> Triplet
 
+//%type<chaine> Regle
 %type<triplet> AffTriplet
 
 %start Entree
@@ -77,20 +77,21 @@ Branche:
 	AffTriplet
 		{
 			// $$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
-											 **
-											 /\
-										    /**\
-										   /*/\*\
-										  /*/**\*\
-										 /*/*/\*\*\
-										/*/*/**\*\*\
-									   /*/*/*/\*\*\*\
-									  /*/*/*/**\*\*\*\
-									 /*/*/*/*/\*\*\*\*\
-									/*/*/*/*/**\*\*\*\*\
-								   /*/*/*/*/*/\*\*\*\*\*\
-			      				  /*/*/*/*/*/**\*\*\*\*\*\
-								 /*/*/*/*/*/*/\*\*\*\*\*\*\
+			// 								 **
+			// 								 /\
+			// 							    /**\
+			// 							   /*/\*\
+			// 							  /*/**\*\
+			// 							 /*/*/\*\*\
+			// 							/*/*/**\*\*\
+			// 						   /*/*/*/\*\*\*\
+			// 						  /*/*/*/**\*\*\*\
+			// 						 /*/*/*/*/\*\*\*\*\
+			// 						/*/*/*/*/**\*\*\*\*\
+			// 					   /*/*/*/*/*/\*\*\*\*\*\
+			//       			  /*/*/*/*/*/**\*\*\*\*\*\
+			// 					 /*/*/*/*/*/*/\*\*\*\*\*\*\
+			// Fin de la pyramide
 		}
 	| SEQ Triplet Branche Branche
 	
@@ -118,8 +119,8 @@ Branche:
 			{
 				
 			}
-		}
-	;*/
+		}*/
+	;
 	
 AffTriplet:	
 	AFF Triplet

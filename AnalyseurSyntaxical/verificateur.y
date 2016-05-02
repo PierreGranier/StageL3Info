@@ -64,7 +64,7 @@ Regle:
 		{
 			// $$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
 		}
-	| SEQ Triplet AffTriplet AffTriplet
+	| SEQ Triplet AffTriplet AffTriplet Regle
 		{
 			if($2.precondition.compare($3.precondition) != 0) 
 			{
@@ -82,7 +82,14 @@ Regle:
 				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
 		}
-	;
+	/*| COND Predicat Conditions Programme Programme Predicat 
+		{
+			if()
+			{
+				
+			}
+		}
+	;*/
 	
 AffTriplet:	
 	AFF Triplet
@@ -97,6 +104,11 @@ AffTriplet:
 			$$ = $2;
 		}
 	;
+	
+/*CondConclusion:
+
+
+CondPremisse:*/
 	
 Triplet:
 	Predicat Programme Predicat

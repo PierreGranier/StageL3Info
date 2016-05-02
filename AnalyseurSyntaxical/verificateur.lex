@@ -15,13 +15,13 @@ separateurs [ \t]
 entier [0-9]+
 mot [A-z]+
 op_comparaison [<>][=]?
-fin	"fini"|"fin"|"j'ai tout fini"
+finfinale	"fini"|"fin"|"j'ai tout fini"|"aye"
 
 %%
 
 {separateurs} 	{ /* ignoré */ 				 }
 "\n"			{ return(FIN);		  	 	 }
-{fin}			{ return(FINFINALE); 		 }
+{finfinale}		{ return(FINFINALE); 		 }
 "AFF" 			{ return(AFF);  			 }
 "SEQ" 			{ return(SEQ); 				 }
 "{"				{ return(ACCOLADE_OUVRANTE); }

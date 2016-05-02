@@ -56,20 +56,14 @@ Entree:
 	/* Vide */
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
-	| Regle FIN Entree			{ cout << "Preuve lue en entier" << endl; 		}
+	| Regle FIN Entree
 	;
 	
 Regle:
 	AffTriplet
 		{
-			$$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
+			// $$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
 		}
-	/*| AffTriplet AffTriplet
-		{
-			if($1.postcondition.compare($2.precondition) != 0) {
-				cout << "[ERREUR] La postcondition de AFF(1) " << $1.postcondition << " est différent de la postcondition de AFF(2) " << $2.precondition << endl;
-			}
-		}*/
 	| SEQ Triplet AffTriplet AffTriplet
 		{
 			if($2.precondition.compare($3.precondition) != 0) 
@@ -268,21 +262,21 @@ Instruction:
 %%
 
 void yyerror(const string& mess) {
-  cerr << "[ERREUR] yyerror : "<< mess<< endl;
+  cerr << "[ERREUR] yyerror : " << mess << endl;
 }
 
 int main(int argc, char **argv) {
 	// Lecture du fichier si envoyé
 	if(argc == 2) {
-		cout << "Fichier utilisé\nLecture de la preuve" << endl;
 		yyin = fopen(argv[1], "r");
+		cout << "Fichier utilisé\nLecture de la preuve" << endl;
 	}
-	
+		
 	// Verification de la preuve
 	yyparse();
-	
+		
 	// Fin de la vérification de la preuve
-	cout << "Preuve vérifiée si pas de message d'erreur" << endl;
+	cout << "Preuve lue en entier\nPreuve vérifiée si pas de message d'erreur" << endl;
 
 	return EXIT_SUCCESS;
 }

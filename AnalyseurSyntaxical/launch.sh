@@ -2,5 +2,11 @@
 
 make clean
 make all
-cat $1
-./verificateur $1
+
+if [ $1 ]
+then
+    cat $1
+    ./verificateur $1
+else
+    ./verificateur
+fi

@@ -45,7 +45,8 @@ extern FILE* yyin;
 %type<chaine> Comparaison
 %type<triplet> Triplet
 
-//%type<chaine> Regle
+%type<chaine> Regle
+%type<triplet> Regle2
 %type<triplet> AffTriplet
 
 %start Entree
@@ -56,24 +57,75 @@ Entree:
 	/* Vide */
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
-	| Arbre FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
+	| Regle2 FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
 	;
 	
-// Preuve et sous preuve
-Arbre:
-	/* vide */
-	| Branche
+																								/*
+																								// Preuve
+																								Arbre:
+																									Branche
+																									;
+																									
+																								// Sous-preuve
+																								Branche:
+																									| Regle
+																										{
+																											
+																										}
+																									| Regle Regle
+																										{
+																											
+																										}
+																									;
+																								*/
+	
+Regle2:
+																								/*AFF Triplet
+																								| SEQ Triplet Regle Regle
+																								| COND Triplet Regle Regle
+																								| CONSEQ Triplet Expression Regle Expression
+																								| WHILE Triplet Regle*/
+	
+	AFF Triplet
+		{
+			string gener;
+			gener = $2.postcondition;
+			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
+			if(gener.compare($2.precondition) != 0)
+			{
+					cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition << endl;
+			}
+			$$ = $2; // ou copier tous les attributs
+		}
+	| SEQ Triplet Regle2 Regle2
+		{
+			// Pour la prochaine boucle SEQ si il y a:
+			$$.programme.contenu = $3.programme.contenu + ";" + $4.programme.contenu;
+			
+			if($2.precondition.compare($3.precondition) != 0) 
+			{
+				cout << "[ERREUR] La précondition de SEQ " << $2.precondition << " est différent de la précondition de AFF(1) " << $3.precondition << endl; 
+			}
+			if($2.postcondition.compare($4.postcondition) != 0)
+			{
+				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition << " est différent de la postcondition de AFF(2) " << $4.postcondition << endl;
+			}
+			if($3.postcondition.compare($4.precondition) != 0)
+			{
+				cout << "[ERREUR] La postcondition de AFF(1) " << $3.postcondition << " est différent de la précondition de AFF(2) " << $4.precondition << endl;
+			}
+			if($2.programme.contenu.compare($$.programme.contenu) != 0) {
+				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
+			}
+		}
+	/*| COND Triplet Regle2 Regle2
 		{
 			
-		}
-	| Branche Branche
-		{
-			
-		}
+		}*/
 	;
 	
 // Regle
-Branche:
+Regle:
 	AffTriplet
 		{
 			// $$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
@@ -120,7 +172,6 @@ Branche:
 			//				   	
 			// Fin de la pyramide
 		}
-	| SEQ Triplet Branche Branche
 	
 	| SEQ Triplet AffTriplet AffTriplet
 		{
@@ -128,7 +179,7 @@ Branche:
 			{
 				cout << "[ERREUR] La précondition de SEQ " << $2.precondition << " est différent de la précondition de AFF(1) " << $3.precondition << endl; 
 			}
-			if($2.postcondition.compare($4.postcondition) !=0)
+			if($2.postcondition.compare($4.postcondition) != 0)
 			{
 				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition << " est différent de la postcondition de AFF(2) " << $4.postcondition << endl;
 			}
@@ -149,7 +200,7 @@ Branche:
 		}*/
 	;
 	
-AffTriplet:	
+AffTriplet:
 	AFF Triplet
 		{
 			string gener;
@@ -162,11 +213,6 @@ AffTriplet:
 			$$ = $2;
 		}
 	;
-	
-/*CondConclusion:
-
-
-CondPremisse:*/
 	
 Triplet:
 	Predicat Programme Predicat
@@ -339,7 +385,7 @@ int main(int argc, char **argv) {
 	// Lecture du fichier si envoyé
 	if(argc == 2) {
 		yyin = fopen(argv[1], "r");
-		cout << "Fichier utilisé\nLecture de la preuve" << endl;
+		cout << "\nFichier utilisé\nLecture de la preuve" << endl;
 	}
 		
 	// Verification de la preuve

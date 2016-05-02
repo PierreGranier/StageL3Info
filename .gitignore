@@ -37,4 +37,4 @@ build/
 *.exe
 *.out
 *.app
-hoare
+verificateur

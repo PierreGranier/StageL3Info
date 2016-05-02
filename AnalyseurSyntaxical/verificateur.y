@@ -56,35 +56,44 @@ Entree:
 	/* Vide */
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
-	| Regle FIN Entree
+	| Arbre FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
 	;
 	
-// Preuve
+// Preuve et sous preuve
 Arbre:
-	Regle
-		{
-			
-		}
-	;
-	
-// Sous-preuve
-Branche:
 	/* vide */
-	| Regle
+	| Branche
 		{
 			
 		}
-	| Regle Regle
+	| Branche Branche
 		{
 			
 		}
 	;
 	
-Regle:
+// Regle
+Branche:
 	AffTriplet
 		{
 			// $$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
+											 **
+											 /\
+										    /**\
+										   /*/\*\
+										  /*/**\*\
+										 /*/*/\*\*\
+										/*/*/**\*\*\
+									   /*/*/*/\*\*\*\
+									  /*/*/*/**\*\*\*\
+									 /*/*/*/*/\*\*\*\*\
+									/*/*/*/*/**\*\*\*\*\
+								   /*/*/*/*/*/\*\*\*\*\*\
+			      				  /*/*/*/*/*/**\*\*\*\*\*\
+								 /*/*/*/*/*/*/\*\*\*\*\*\*\
 		}
+	| SEQ Triplet Branche Branche
+	
 	| SEQ Triplet AffTriplet AffTriplet
 		{
 			if($2.precondition.compare($3.precondition) != 0) 

@@ -31,9 +31,9 @@ typedef struct s_programme {
 } t_programme;
 
 typedef struct s_triplet {
-	string precondition;
+	t_comparaison precondition;
 	t_programme programme;
-	string postcondition;
+	t_comparaison postcondition;
 } t_triplet;
 
 typedef struct s_typespe {

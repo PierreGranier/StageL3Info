@@ -119,6 +119,11 @@ Regle:
 		}
 	| COND Triplet Regle Regle
 		{
+			if($2.precondition.compare($2.precondition+"^"+$2.programme.si) != 0)
+			{
+				cout << "[ERREUR] La précondition de COND " << $2.precondition << " est différente de " << $2.precondition << "^" << $2.programme.si << endl;
+			} 
+			
 		}
 	;
 	

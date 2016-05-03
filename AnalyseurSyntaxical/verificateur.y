@@ -96,6 +96,8 @@ Regle2:
 					cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition << endl;
 			}
 			$$ = $2; // ou copier tous les attributs
+			//$$.precondition = $2.precondition;
+			cout << "|" << $$.precondition << ">" << endl;
 		}
 	| SEQ Triplet Regle2 Regle2
 		{

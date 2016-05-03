@@ -85,7 +85,6 @@ Regle:
 	
 	AFF Triplet
 		{
-			cout << "--Regle OK" << endl;
 			string gener;
 			gener = $2.postcondition;
 			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
@@ -120,8 +119,6 @@ Regle:
 		}
 	| COND Triplet Regle Regle
 		{
-			cout << "LE COND " << endl;
-			cout << "|" << $2.programme.contenu << ">" << endl;
 		}
 	;
 	
@@ -131,7 +128,6 @@ Triplet:
 			$$.precondition = $1;
 			$$.programme = $2;
 			$$.postcondition = $3;
-			cout << "--Triplet OK" << endl;
 		}
 	;
 	
@@ -152,7 +148,6 @@ Conditions:
 	| Condition
 		{
 			$$ = $1;
-			cout << "sdzb ? " << $$ << endl;
 		}
 	;
 	

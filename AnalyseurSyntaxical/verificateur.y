@@ -13,6 +13,7 @@ extern FILE* yyin;
 %union {
 	string chaine;
 	t_expression expression;
+	t_comparaison comparaison;
 	t_triplet triplet;
 	t_instruction instruction;
 	t_programme programme;
@@ -29,7 +30,7 @@ extern FILE* yyin;
 %token AFFECTATION
 %token POINTVIRGULE
 
-%token INF_EGAL SUP_EGAL SUP INF EGAL
+%token INF_EGAL SUP_EGAL SUP INF EGAL NON_EGAL
 %token ET
 
 %token PLUS MOINS FOIS
@@ -41,9 +42,9 @@ extern FILE* yyin;
 %type<chaine> Predicat
 %type<programme> Programme
 %type<instruction> Instruction
-%type<chaine> Conditions
-%type<chaine> Condition
-%type<chaine> Comparaison
+%type<comparaison> Conditions
+%type<comparaison> Condition
+%type<comparaison> Comparaison
 %type<triplet> Triplet
 
 %start Entree
@@ -174,46 +175,51 @@ Comparaison:
 			if($1.valeur >= $3.valeur) {
 				cout << "[ERREUR] Comparaison INF non logique : " << $1.valeur << "<" << $3.valeur << endl;
 			}
-			$$ = $1.chaine + "<" + $3.chaine;
+			$$.affirmation = $1.chaine + "<" + $3.chaine;
+			$$.negation = $1.chaine + ">=" + $3.chaine;
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
 			if($1.valeur <= $3.valeur) {
 				cout << "[ERREUR] Comparaison SUP non logique : " << $1.valeur << ">" << $3.valeur << endl;
 			}
-			$$ = $1.chaine + ">" + $3.chaine;
+			$$.affirmation = $1.chaine + ">" + $3.chaine;
+			$$.negation = $1.chaine + "<=" + $3.chaine;
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
 			if($3.valeur > $3.valeur) {
 				cout << "[ERREUR] Comparaison INF_EGAL non logique : " << $1.valeur << "<=" << $3.valeur << endl;
 			}
-			$$ = $1.chaine + "<=" + $3.chaine;
+			$$.affirmation = $1.chaine + "<=" + $3.chaine;
+			$$.negation = $1.chaine + ">" + $3.chaine;
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
 			if($1.valeur < $3.valeur) {
 				cout << "[ERREUR] Comparaison SUP_EGAL non logique : " << $1.valeur << ">=" << $3.valeur << endl;
 			}
-			$$ = $1.chaine + ">=" + $3.chaine;
+			$$.affirmation = $1.chaine + ">=" + $3.chaine;
+			$$.negation = $1.chaine + "<" + $3.chaine;
 		}
 	| ExpressionEntier EGAL ExpressionEntier
 		{
 			if($1.valeur != $3.valeur) {
 				cout << "[ERREUR] Comparaison EGAL non logique : " << $1.valeur << "=" << $3.valeur << endl;
 			}
-			$$ = $1.chaine + "=" + $3.chaine;
+			$$.affirmation = $1.chaine + "=" + $3.chaine;
+			$$.negation = $1.chaine + "!=" + $3.chaine;
 		}
-	| ExpressionMot		INF			Expression			{ $$ = $1.chaine + "<" + $3.chaine; }
-	| ExpressionMot		SUP			Expression			{ $$ = $1.chaine + ">" + $3.chaine; }
-	| ExpressionMot		INF_EGAL	Expression			{ $$ = $1.chaine + "<=" + $3.chaine; }
-	| ExpressionMot		SUP_EGAL	Expression			{ $$ = $1.chaine + ">=" + $3.chaine; }
-	| ExpressionMot		EGAL		Expression			{ $$ = $1.chaine + "=" + $3.chaine; }
-	| ExpressionEntier	INF			ExpressionMot		{ $$ = $1.chaine + "<" + $3.chaine; }
-	| ExpressionEntier	SUP			ExpressionMot		{ $$ = $1.chaine + ">" + $3.chaine; }
-	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$ = $1.chaine + "<=" + $3.chaine; }
-	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ $$ = $1.chaine + ">=" + $3.chaine; }
-	| ExpressionEntier	EGAL		ExpressionMot		{ $$ = $1.chaine + "=" + $3.chaine; }
+	| ExpressionMot		INF			Expression			{ $$.affirmation = $1.chaine + "<" + $3.chaine; $$.negation = $1.chaine + ">=" + $3.chaine; }
+	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine; $$.negation = $1.chaine + "<=" + $3.chaine; }
+	| ExpressionMot		INF_EGAL	Expression			{ $$.affirmation = $1.chaine + "<=" + $3.chaine; $$.negation = $1.chaine + ">" + $3.chaine; }
+	| ExpressionMot		SUP_EGAL	Expression			{ $$.affirmation = $1.chaine + ">=" + $3.chaine; $$.negation = $1.chaine + "<" + $3.chaine; }
+	| ExpressionMot		EGAL		Expression			{ $$.affirmation = $1.chaine + "=" + $3.chaine; $$.negation = $1.chaine + "!=" + $3.chaine; }
+	| ExpressionEntier	INF			ExpressionMot		{ $$.affirmation = $1.chaine + "<" + $3.chaine; $$.negation = $1.chaine + ">=" + $3.chaine; }
+	| ExpressionEntier	SUP			ExpressionMot		{ $$.affirmation = $1.chaine + ">" + $3.chaine; $$.negation = $1.chaine + "<=" + $3.chaine; }
+	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + "<=" + $3.chaine; $$.negation = $1.chaine + ">" + $3.chaine; }
+	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + ">=" + $3.chaine; $$.negation = $1.chaine + ">" + $3.chaine; }
+	| ExpressionEntier	EGAL		ExpressionMot		{ $$.affirmation = $1.chaine + "=" + $3.chaine; $$.negation = $1.chaine + "!=" + $3.chaine; }
 	;
 	
 Expression:

@@ -10,6 +10,11 @@ typedef struct s_expression {
 	int valeur;
 } t_expression;
 
+typedef struct s_comparaison {
+	string affirmation;
+	string negation;
+} t_comparaison
+
 typedef struct s_instruction {
 	string variable;
 	string valeur;
@@ -34,6 +39,7 @@ typedef struct s_triplet {
 typedef struct s_typespe {
 	string chaine;
 	t_expression expression;
+	t_comparaison comparaison
 	t_triplet triplet;
 	t_instruction instruction;
 	t_programme programme;

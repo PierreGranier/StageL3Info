@@ -122,7 +122,11 @@ Regle:
 			if($3.precondition.compare($2.precondition+"^"+$2.programme.si) != 0)
 			{
 				cout << "[ERREUR] La précondition de COND " << $3.precondition << " est différente de " << $2.precondition << "^" << $2.programme.si << endl;
-			} 
+			}
+			if($2.postcondition.compare($3.postcondition) != 0 && $3.postcondition.compare($4.postcondition) != 0)
+			{
+				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition << " != " << $3.postcondition << "!=" << $4.postcondition << endl;
+			}
 			
 		}
 	;

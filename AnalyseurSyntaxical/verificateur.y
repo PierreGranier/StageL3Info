@@ -127,6 +127,7 @@ Regle:
 			{
 				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition << " != " << $3.postcondition << "!=" << $4.postcondition << endl;
 			}
+			if($4.precondition.compare($2.precondition+"^"+$2.programme.si) != 0)
 			
 		}
 	;

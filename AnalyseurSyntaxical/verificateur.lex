@@ -35,8 +35,9 @@ finfinale "fini"|"fin"|"j'ai tout fini"|"aye"
 ">="			{ return(SUP_EGAL); 		 }
 "<"				{ return(INF); 				 }
 ">"				{ return(SUP); 				 }
-"^"				{ return(ET);				 }
 "="				{ return(EGAL);				 }
+"!="			{ return(NON_EGAL);			 }
+"^"				{ return(ET);				 }
 "+"				{ return(PLUS);				 }
 "-"				{ return(MOINS);			 }
 "*"				{ return(FOIS);				 }

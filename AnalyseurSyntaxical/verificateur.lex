@@ -13,9 +13,9 @@ extern "C" int yylex(void);
 
 separateurs [ \t]
 entier [0-9]+
-mot [A-z]+
+mot [a-zA-Z]+
 op_comparaison [<>][=]?
-finfinale	"fini"|"fin"|"j'ai tout fini"|"aye"
+finfinale "fini"|"fin"|"j'ai tout fini"|"aye"
 
 %%
 

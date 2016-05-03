@@ -85,6 +85,7 @@ Regle:
 	
 	AFF Triplet
 		{
+			cout << "--Regle OK" << endl;
 			string gener;
 			gener = $2.postcondition;
 			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
@@ -117,53 +118,6 @@ Regle:
 				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
 		}
-	/*| COND Triplet Regle Regle*/
-		//{
-			//
-			//
-			// 								 **
-			// 								 /\
-			// 							    /**\
-			// 							   /*/\*\
-			// 							  /*/**\*\
-			// 							 /*/*/\*\*\
-			// 							/*/*/**\*\*\
-			// 						   /*/*/*/\*\*\*\
-			// 						  /*/*/*/**\*\*\*\
-			// 						 /*/*/*/*/\*\*\*\*\
-			// 						/*/*/*/*/**\*\*\*\*\
-			// 					   /*/*/*/*/*/\*\*\*\*\*\
-			//       			  /*/*/*/*/*/**\*\*\*\*\*\
-			// 					 /*/*/*/*/*/*/\*\*\*\*\*\*\
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//								||||
-			//							   /||||\
-			//						      //||||\\
-			//							 ///||||\\\
-			//							////||||\\\\
-			//						   /////||||\\\\\
-			//						  //////||||\\\\\\	
-			//						 /////////\\\\\\\\\
-			//					 	////////    \\\\\\\\
-			//					   ///////        \\\\\\\
-			//					  //////			\\\\\\
-			//					 ///// 				  \\\\\
-			//					////        		    \\\\
-			//				   ///						  \\\	
-			//				  //							\\
-			//
-			//
-	/*	}*/
 	| COND Triplet Regle Regle
 		{
 			cout << "LE COND " << endl;
@@ -177,6 +131,7 @@ Triplet:
 			$$.precondition = $1;
 			$$.programme = $2;
 			$$.postcondition = $3;
+			cout << "--Triplet OK" << endl;
 		}
 	;
 	
@@ -197,8 +152,7 @@ Conditions:
 	| Condition
 		{
 			$$ = $1;
-
-			cout << "||" << $$ << ">" << endl;
+			cout << "sdzb ? " << $$ << endl;
 		}
 	;
 	
@@ -318,14 +272,10 @@ Programme:
 		{
 			$$.contenu = $1.variable + ":=" + $1.valeur;
 			$$.instruction = $1;
-			cout << "|" << $$.contenu << ">" << endl;
 		}
 	| Conditions Programme Programme
 		{
-			//cout << "|" << $$.contenu << ">" << endl;
 			$$.contenu = $1 + " " + $2.contenu + " " + $3.contenu;
-			//cout << "|" << $$.contenu << ">" << endl;
-			cout << $1 << " ca et puis " << $2.contenu << " et puis ca " << $3.contenu << endl;
 		}
 	;
 	

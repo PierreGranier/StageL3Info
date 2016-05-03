@@ -31,7 +31,7 @@ extern FILE* yyin;
 %token POINTVIRGULE
 
 %token INF_EGAL SUP_EGAL SUP INF EGAL NON_EGAL
-%token ET
+%token ET NON
 
 %token PLUS MOINS FOIS
 
@@ -128,7 +128,9 @@ Regle:
 			{
 				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition << " != " << $3.postcondition << "!=" << $4.postcondition << endl;
 			}
-			if($4.precondition.compare($2.precondition+"^¬"+$2.programme.si) != 0)
+			if($4.precondition.compare($2.precondition+"^"+$2.programme.si) != 0) {
+				cout << "truc erreur machin là" << endl;
+			}
 			
 		}
 	;

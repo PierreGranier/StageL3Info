@@ -119,9 +119,9 @@ Regle:
 		}
 	| COND Triplet Regle Regle
 		{
-			if($2.precondition.compare($2.precondition+"^"+$2.programme.si) != 0)
+			if($3.precondition.compare($2.precondition+"^"+$2.programme.si) != 0)
 			{
-				cout << "[ERREUR] La précondition de COND " << $2.precondition << " est différente de " << $2.precondition << "^" << $2.programme.si << endl;
+				cout << "[ERREUR] La précondition de COND " << $3.precondition << " est différente de " << $2.precondition << "^" << $2.programme.si << endl;
 			} 
 			
 		}
@@ -276,6 +276,9 @@ Programme:
 	| Conditions Programme Programme
 		{
 			$$.contenu = $1 + " " + $2.contenu + " " + $3.contenu;
+			$$.si = $1;
+			$$.alors = $2.contenu;
+			$$.sinon = $3.contenu;
 		}
 	;
 	

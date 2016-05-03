@@ -21,8 +21,8 @@ typedef struct s_programme {
 	t_instruction instruction;
 	// Pour les programmes avec condition programme programme
 	string si;
-	t_programme alors;
-	t_programme sinon;
+	string alors;
+	string sinon;
 } t_programme;
 
 typedef struct s_triplet {

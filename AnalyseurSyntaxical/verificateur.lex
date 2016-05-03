@@ -24,6 +24,9 @@ finfinale	"fini"|"fin"|"j'ai tout fini"|"aye"
 {finfinale}		{ return(FINFINALE); 		 }
 "AFF" 			{ return(AFF);  			 }
 "SEQ" 			{ return(SEQ); 				 }
+"COND" 			{ return(COND); 			 }
+"CONSEQ" 		{ return(CONSEQ); 			 }
+"WHILE" 		{ return(WHILE); 			 }
 "{"				{ return(ACCOLADE_OUVRANTE); }
 "}"				{ return(ACCOLADE_FERMANTE); }
 ":=" 			{ return(AFFECTATION); 		 }

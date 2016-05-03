@@ -24,7 +24,7 @@ extern FILE* yyin;
 %token<expression> MOT
 %token<expression> ENTIER
 
-%token AFF SEQ
+%token AFF SEQ COND CONSEQ WHILE
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
 %token AFFECTATION
 %token POINTVIRGULE
@@ -34,6 +34,7 @@ extern FILE* yyin;
 
 %token PLUS MOINS FOIS
 
+%type<triplet> Regle
 %type<expression> Expression
 %type<expression> ExpressionMot
 %type<expression> ExpressionEntier
@@ -45,10 +46,6 @@ extern FILE* yyin;
 %type<chaine> Comparaison
 %type<triplet> Triplet
 
-%type<chaine> Regle
-%type<triplet> Regle2
-%type<triplet> AffTriplet
-
 %start Entree
 
 %%
@@ -57,7 +54,7 @@ Entree:
 	/* Vide */
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
-	| Regle2 FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
+	| Regle FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
 	;
 	
 																								/*
@@ -79,7 +76,7 @@ Entree:
 																									;
 																								*/
 	
-Regle2:
+Regle:
 																								/*AFF Triplet
 																								| SEQ Triplet Regle Regle
 																								| COND Triplet Regle Regle
@@ -95,42 +92,35 @@ Regle2:
 			{
 					cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition << endl;
 			}
-			$$ = $2; // ou copier tous les attributs
-			//$$.precondition = $2.precondition;
-			cout << "|" << $$.precondition << ">" << endl;
+			$$ = $2;
 		}
-	| SEQ Triplet Regle2 Regle2
+	| SEQ Triplet Regle Regle
 		{
-			// Pour la prochaine boucle SEQ si il y a:
-			$$.programme.contenu = $3.programme.contenu + ";" + $4.programme.contenu;
+			// Pour la prochaine boucle s'il y a:
+			$$.precondition = $2.precondition;
+			$$.programme.contenu = $2.programme.contenu;
+			$$.postcondition = $2.postcondition;
 			
 			if($2.precondition.compare($3.precondition) != 0) 
 			{
-				cout << "[ERREUR] La précondition de SEQ " << $2.precondition << " est différent de la précondition de AFF(1) " << $3.precondition << endl; 
+				cout << "[ERREUR] La précondition de SEQ " << $2.precondition << " est différente de la précondition de (1) " << $3.precondition << endl; 
 			}
 			if($2.postcondition.compare($4.postcondition) != 0)
 			{
-				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition << " est différent de la postcondition de AFF(2) " << $4.postcondition << endl;
+				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition << " est différente de la postcondition de (2) " << $4.postcondition << endl;
 			}
 			if($3.postcondition.compare($4.precondition) != 0)
 			{
-				cout << "[ERREUR] La postcondition de AFF(1) " << $3.postcondition << " est différent de la précondition de AFF(2) " << $4.precondition << endl;
+				cout << "[ERREUR] La postcondition de (1) " << $3.postcondition << " est différente de la précondition de (2) " << $4.precondition << endl;
 			}
-			if($2.programme.contenu.compare($$.programme.contenu) != 0) {
+			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
 				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
 		}
-	/*| COND Triplet Regle2 Regle2
-		{
-			
-		}*/
-	;
-	
-// Regle
-Regle:
-	AffTriplet
-		{
-			// $$ = "{" + $1.precondition + "}" + $1.programme.contenu + "{" + $1.postcondition + "}";
+	/*| COND Triplet Regle Regle*/
+		//{
+			//
+			//
 			// 								 **
 			// 								 /\
 			// 							    /**\
@@ -171,48 +161,13 @@ Regle:
 			//					////        		    \\\\
 			//				   ///						  \\\	
 			//				  //							\\
-			//				   	
-			// Fin de la pyramide
-		}
-	
-	| SEQ Triplet AffTriplet AffTriplet
+			//
+			//
+	/*	}*/
+	| COND Triplet Regle Regle
 		{
-			if($2.precondition.compare($3.precondition) != 0) 
-			{
-				cout << "[ERREUR] La précondition de SEQ " << $2.precondition << " est différent de la précondition de AFF(1) " << $3.precondition << endl; 
-			}
-			if($2.postcondition.compare($4.postcondition) != 0)
-			{
-				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition << " est différent de la postcondition de AFF(2) " << $4.postcondition << endl;
-			}
-			if($3.postcondition.compare($4.precondition) != 0)
-			{
-				cout << "[ERREUR] La postcondition de AFF(1) " << $3.postcondition << " est différent de la précondition de AFF(2) " << $4.precondition << endl;
-			}
-			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
-				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
-			}
-		}
-	/*| COND Predicat Conditions Programme Programme Predicat 
-		{
-			if()
-			{
-				
-			}
-		}*/
-	;
-	
-AffTriplet:
-	AFF Triplet
-		{
-			string gener;
-			gener = $2.postcondition;
-			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
-			if(gener.compare($2.precondition) != 0)
-			{
-					cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition << endl;
-			}
-			$$ = $2;
+			cout << "LE COND " << endl;
+			cout << "|" << $2.programme.contenu << ">" << endl;
 		}
 	;
 	
@@ -242,6 +197,8 @@ Conditions:
 	| Condition
 		{
 			$$ = $1;
+
+			cout << "||" << $$ << ">" << endl;
 		}
 	;
 	
@@ -361,6 +318,14 @@ Programme:
 		{
 			$$.contenu = $1.variable + ":=" + $1.valeur;
 			$$.instruction = $1;
+			cout << "|" << $$.contenu << ">" << endl;
+		}
+	| Conditions Programme Programme
+		{
+			//cout << "|" << $$.contenu << ">" << endl;
+			$$.contenu = $1 + " " + $2.contenu + " " + $3.contenu;
+			//cout << "|" << $$.contenu << ">" << endl;
+			cout << $1 << " ca et puis " << $2.contenu << " et puis ca " << $3.contenu << endl;
 		}
 	;
 	

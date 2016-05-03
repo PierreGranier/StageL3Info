@@ -42,8 +42,8 @@ extern FILE* yyin;
 %type<chaine> Predicat
 %type<programme> Programme
 %type<instruction> Instruction
-%type<comparaison> Conditions
-%type<comparaison> Condition
+%type<chaine> Conditions
+%type<chaine> Condition
 %type<comparaison> Comparaison
 %type<triplet> Triplet
 
@@ -128,7 +128,7 @@ Regle:
 			{
 				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition << " != " << $3.postcondition << "!=" << $4.postcondition << endl;
 			}
-			if($4.precondition.compare($2.precondition+"^"+$2.programme.si) != 0)
+			if($4.precondition.compare($2.precondition+"^¬"+$2.programme.si) != 0)
 			
 		}
 	;
@@ -154,7 +154,8 @@ Conditions:
 		{}
 	| Condition ET Conditions
 		{
-			$$ = $1 + "^" + $3;
+			$$= $1+ "^" + $3;
+			
 		}
 	| Condition
 		{
@@ -165,7 +166,11 @@ Conditions:
 Condition:
 	Comparaison
 		{
-			$$ = $1;
+			$$ = $1.affirmation;
+		}
+	| NON Comparaison
+		{
+			$$ = $2.negation;
 		}
 	;
 	

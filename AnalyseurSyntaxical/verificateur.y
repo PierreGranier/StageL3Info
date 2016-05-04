@@ -78,9 +78,7 @@ Entree:
 																								*/
 	
 Regle:
-																								/*AFF Triplet
-																								| SEQ Triplet Regle Regle
-																								| COND Triplet Regle Regle
+																								/*
 																								| CONSEQ Triplet Expression Regle Expression
 																								| WHILE Triplet Regle*/
 	
@@ -89,9 +87,10 @@ Regle:
 			string gener;
 			gener = $2.postcondition.affirmation;
 			remplacer(gener, $2.programme.instruction.variable, $2.programme.instruction.valeur);
+			// Vérification syntaxique du triplet (les prédicats sont vérifiés syntaxiquement)
 			if(gener.compare($2.precondition.affirmation) != 0)
 			{
-					cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition.affirmation << endl;
+				cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition.affirmation << endl;
 			}
 			$$ = $2;
 		}
@@ -142,6 +141,10 @@ Regle:
 			{
 				cout << "[ERREUR] Le programme de la conclusion de COND " << $2.programme.sinon << " est différent du programme de la prémisse (2) " << $4.programme.contenu << endl;
 			}
+		}
+	| CONSEQ Triplet Regle
+		{
+			
 		}
 	;
 	

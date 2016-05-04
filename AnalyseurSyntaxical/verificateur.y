@@ -144,7 +144,20 @@ Regle:
 		}
 	| CONSEQ Triplet Regle
 		{
-			
+			if($2.programme.contenu.compare($3.programme.contenu) != 0)
+			{
+				cout << "[ERREUR] Le programme de la conclusion de CONSEQ " << $2.programme.contenu << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
+			} 
+			// Si les préconditions sont différentes alors on check si elles sont conséquences
+			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
+			{
+				
+			}
+			// Si les postcondition sont différentes alors on check si elles sont conséquences
+			if($3.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
+			{
+				
+			}
 		}
 	;
 	

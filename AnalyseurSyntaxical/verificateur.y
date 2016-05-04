@@ -38,11 +38,11 @@ extern FILE* yyin;
 %type<triplet> Regle
 %type<triplet> Triplet
 %type<proposition> Predicat
-%type<instruction> Instruction
 %type<proposition> Conditions
 %type<proposition> Condition
 %type<proposition> Comparaison
 %type<programme> Programme
+%type<instruction> Instruction
 %type<expression> Expression
 %type<expression> ExpressionMot
 %type<expression> ExpressionEntier
@@ -102,15 +102,15 @@ Regle:
 			
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
-				cout << "[ERREUR] La précondition de SEQ " << $2.precondition.affirmation << " est différente de la précondition de (1) " << $3.precondition.affirmation << endl; 
+				cout << "[ERREUR] La précondition de SEQ " << $2.precondition.affirmation << " est différente de la précondition de la prémisse (1) " << $3.precondition.affirmation << endl; 
 			}
 			if($2.postcondition.affirmation.compare($4.postcondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition.affirmation << " est différente de la postcondition de (2) " << $4.postcondition.affirmation << endl;
+				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition.affirmation << " est différente de la postcondition de la prémisse (2) " << $4.postcondition.affirmation << endl;
 			}
 			if($3.postcondition.affirmation.compare($4.precondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] La postcondition de (1) " << $3.postcondition.affirmation << " est différente de la précondition de (2) " << $4.precondition.affirmation << endl;
+				cout << "[ERREUR] La postcondition de (1) " << $3.postcondition.affirmation << " est différente de la précondition de la prémisse (2) " << $4.precondition.affirmation << endl;
 			}
 			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
 				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
@@ -118,20 +118,30 @@ Regle:
 		}
 	| COND Triplet Regle Regle
 		{
-			if($3.precondition.affirmation.compare($2.precondition.affirmation+"^"+$2.programme.si) != 0)
+			//  Précondition de la prémisse (1) comparée avec B et P de la conclusion
+			if($3.precondition.affirmation.compare($2.programme.si.affirmation + "^" + $2.precondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] La précondition de COND " << $3.precondition.affirmation << " est différente de " << $2.precondition.affirmation << "^" << $2.programme.si << endl;
+				cout << "[ERREUR] La précondition de la prémisse (1) de COND " << $3.precondition.affirmation << " est différente de " << $2.programme.si.affirmation << "^" << $2.precondition.affirmation << endl;
 			}
+			//  Postcondition de la conclusion comparée avec les autres postconditions de (1) et (2)
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0 && $3.postcondition.affirmation.compare($4.postcondition.affirmation) != 0)
 			{
 				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
 			}
-			if($4.precondition.affirmation.compare($2.precondition.negation+"^"+$2.programme.si) != 0) {
-				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
-				cout << "AFFIRMATION = " << $2.precondition.affirmation << endl;
-				cout << "NEGATION = " << $2.precondition.negation << endl;
+			// Précondition de la prémisse (2) comparée avec NON B et P de la conclusion
+			if($4.precondition.affirmation.compare($2.programme.si.negation + "^" + $2.precondition.affirmation) != 0) {
+				cout << "[ERREUR] La précondition de la prémisse (2) de COND " << $4.precondition.affirmation << " est différente de " << $2.programme.si.negation << "^" << $2.precondition.affirmation << endl;
 			}
-			
+			// Programme ALORS de la conclusion comparé avec le programme de la prémisse (1)
+			if($2.programme.alors.compare($3.programme.contenu) != 0)
+			{
+				cout << "[ERREUR] Le programme de la conclusion de COND " << $2.programme.alors << " est différent du programme de la prémisse (1) " << $3.programme.contenu << endl;
+			}
+			// Programme SINON de la conclusion comparé avec le programme de la prémisse (2)
+			if($2.programme.sinon.compare($4.programme.contenu) != 0)
+			{
+				cout << "[ERREUR] Le programme de la conclusion de COND " << $2.programme.sinon << " est différent du programme de la prémisse (2) " << $4.programme.contenu << endl;
+			}
 		}
 	;
 	
@@ -290,9 +300,15 @@ Programme:
 	| Conditions Programme Programme
 		{
 			$$.contenu = $1.affirmation + " " + $2.contenu + " " + $3.contenu;
-			$$.si = $1.affirmation;
+			$$.si = $1;
 			$$.alors = $2.contenu;
 			$$.sinon = $3.contenu;
+		}
+	| Conditions Programme
+		{
+			$$.contenu = $1.affirmation + " " + $2.contenu;
+			$$.si = $1;
+			$$.alors = $2.contenu;
 		}
 	;
 	

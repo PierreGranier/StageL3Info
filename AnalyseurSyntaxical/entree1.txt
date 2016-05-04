@@ -4,9 +4,6 @@ SEQ {x+1=43} a:=0;b:=0;y:=x+1;z:=y {z=43} SEQ {x+1=43} a:=0;b:=0 {x+1=43} AFF {x
 
 COND {x>=0} x>=0 y:=8 y:=9 {y=8} AFF {x>=0^x>=0} y:=8 {y=8} AFF {x<0^x>=0} y:=9 {y=8}
 
-COND {89>8^x>0} x>0 a:=0 b:=0 {x>0^n=3} AFF {x>0^n = 3 } a:=0 {x>0^ n = 3} AFF {x>0 ^ n=3} b:=0 {x>0^n=3}
-
-
 
 	/*| COND Triplet Regle Regle*/
 		//{

@@ -25,7 +25,7 @@ typedef struct s_programme {
 	// Pour les programmes avec ;
 	t_instruction instruction;
 	// Pour les programmes avec condition programme programme
-	string si;
+	t_proposition si;
 	string alors;
 	string sinon;
 } t_programme;

@@ -36,16 +36,16 @@ extern FILE* yyin;
 %token PLUS MOINS FOIS
 
 %type<triplet> Regle
-%type<expression> Expression
-%type<expression> ExpressionMot
-%type<expression> ExpressionEntier
+%type<triplet> Triplet
 %type<proposition> Predicat
-%type<programme> Programme
 %type<instruction> Instruction
 %type<proposition> Conditions
 %type<proposition> Condition
 %type<proposition> Comparaison
-%type<triplet> Triplet
+%type<programme> Programme
+%type<expression> Expression
+%type<expression> ExpressionMot
+%type<expression> ExpressionEntier
 
 %start Entree
 
@@ -98,9 +98,7 @@ Regle:
 	| SEQ Triplet Regle Regle
 		{
 			// Pour la prochaine boucle s'il y a:
-			$$.precondition = $2.precondition;
-			$$.programme.contenu = $2.programme.contenu;
-			$$.postcondition = $2.postcondition;
+			$$ = $2; // copie les prédicats et les programmes
 			
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
@@ -128,9 +126,11 @@ Regle:
 			{
 				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
 			}
-/*			if($4.precondition.compare($2.precondition+"^"+$2.programme.si) != 0) {
-				cout << "truc erreur machin là" << endl;
-			}*/
+			if($4.precondition.affirmation.compare($2.precondition.negation+"^"+$2.programme.si) != 0) {
+				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
+				cout << "AFFIRMATION = " << $2.precondition.affirmation << endl;
+				cout << "NEGATION = " << $2.precondition.negation << endl;
+			}
 			
 		}
 	;
@@ -158,7 +158,6 @@ Conditions:
 		{
 			$$.affirmation= $1.affirmation+ "^" + $3.affirmation;
 			$$.negation= $1.negation+ "^" + $3.negation;
-			
 		}
 	| Condition
 		{

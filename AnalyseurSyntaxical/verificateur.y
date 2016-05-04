@@ -13,7 +13,7 @@ extern FILE* yyin;
 %union {
 	string chaine;
 	t_expression expression;
-	t_comparaison comparaison;
+	t_proposition proposition;
 	t_triplet triplet;
 	t_instruction instruction;
 	t_programme programme;
@@ -39,12 +39,12 @@ extern FILE* yyin;
 %type<expression> Expression
 %type<expression> ExpressionMot
 %type<expression> ExpressionEntier
-%type<comparaison> Predicat
+%type<proposition> Predicat
 %type<programme> Programme
 %type<instruction> Instruction
-%type<comparaison> Conditions
-%type<comparaison> Condition
-%type<comparaison> Comparaison
+%type<proposition> Conditions
+%type<proposition> Condition
+%type<proposition> Comparaison
 %type<triplet> Triplet
 
 %start Entree
@@ -56,7 +56,6 @@ Entree:
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
 	| Regle FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
-	| Condition FIN Entree
 	;
 	
 																								/*
@@ -99,7 +98,9 @@ Regle:
 	| SEQ Triplet Regle Regle
 		{
 			// Pour la prochaine boucle s'il y a:
-			$$ = $2; // copie des prédicats et du programme de $1 dans $$
+			$$.precondition = $2.precondition;
+			$$.programme.contenu = $2.programme.contenu;
+			$$.postcondition = $2.postcondition;
 			
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
@@ -127,11 +128,9 @@ Regle:
 			{
 				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
 			}
-			if($4.precondition.affirmation.compare($2.precondition.negation+"^"+$2.programme.si) != 0) {
+/*			if($4.precondition.compare($2.precondition+"^"+$2.programme.si) != 0) {
 				cout << "truc erreur machin là" << endl;
-				cout << "AFFIRMATION = " << $2.precondition.affirmation << endl;
-				cout << "NEGATION = " << $2.precondition.negation << endl;
-			}
+			}*/
 			
 		}
 	;
@@ -157,8 +156,9 @@ Conditions:
 		{}
 	| Condition ET Conditions
 		{
-			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
-			$$.negation = $1.negation + "^" + $3.negation;
+			$$.affirmation= $1.affirmation+ "^" + $3.affirmation;
+			$$.negation= $1.negation+ "^" + $3.negation;
+			
 		}
 	| Condition
 		{
@@ -214,16 +214,16 @@ Comparaison:
 			$$.affirmation = $1.chaine + "=" + $3.chaine;
 			$$.negation = $1.chaine + "!=" + $3.chaine;
 		}
-	| ExpressionMot		INF			Expression			{ $$.affirmation = $1.chaine + "<" + $3.chaine; $$.negation = $1.chaine + ">=" + $3.chaine; }
-	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine; $$.negation = $1.chaine + "<=" + $3.chaine; }
-	| ExpressionMot		INF_EGAL	Expression			{ $$.affirmation = $1.chaine + "<=" + $3.chaine; $$.negation = $1.chaine + ">" + $3.chaine; }
-	| ExpressionMot		SUP_EGAL	Expression			{ $$.affirmation = $1.chaine + ">=" + $3.chaine; $$.negation = $1.chaine + "<" + $3.chaine; }
-	| ExpressionMot		EGAL		Expression			{ $$.affirmation = $1.chaine + "=" + $3.chaine; $$.negation = $1.chaine + "!=" + $3.chaine; }
-	| ExpressionEntier	INF			ExpressionMot		{ $$.affirmation = $1.chaine + "<" + $3.chaine; $$.negation = $1.chaine + ">=" + $3.chaine; }
-	| ExpressionEntier	SUP			ExpressionMot		{ $$.affirmation = $1.chaine + ">" + $3.chaine; $$.negation = $1.chaine + "<=" + $3.chaine; }
-	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + "<=" + $3.chaine; $$.negation = $1.chaine + ">" + $3.chaine; }
-	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + ">=" + $3.chaine; $$.negation = $1.chaine + ">" + $3.chaine; }
-	| ExpressionEntier	EGAL		ExpressionMot		{ $$.affirmation = $1.chaine + "=" + $3.chaine; $$.negation = $1.chaine + "!=" + $3.chaine; }
+	| ExpressionMot		INF			Expression			{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine; }
+	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine; 		$$.negation = $1.chaine + "<=" + $3.chaine; }
+	| ExpressionMot		INF_EGAL	Expression			{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }
+	| ExpressionMot		SUP_EGAL	Expression			{ $$.affirmation = $1.chaine + ">=" + $3.chaine;		$$.negation = $1.chaine + "<" + $3.chaine;  }    
+	| ExpressionMot		EGAL		Expression			{ $$.affirmation = $1.chaine + "=" + $3.chaine; 		$$.negation = $1.chaine + "!=" + $3.chaine; }
+	| ExpressionEntier	INF			ExpressionMot		{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine; }
+	| ExpressionEntier	SUP			ExpressionMot		{ $$.affirmation = $1.chaine + ">" + $3.chaine; 		$$.negation = $1.chaine + "<=" + $3.chaine; }
+	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }
+	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + ">=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }
+	| ExpressionEntier	EGAL		ExpressionMot		{ $$.affirmation = $1.chaine + "=" + $3.chaine; 		$$.negation = $1.chaine + "!=" + $3.chaine; }
 	;
 	
 Expression:

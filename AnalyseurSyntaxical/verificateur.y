@@ -31,7 +31,7 @@ extern FILE* yyin;
 %token POINTVIRGULE
 
 %token INF_EGAL SUP_EGAL SUP INF EGAL NON_EGAL
-%token ET NON
+%token ET FALSE
 
 %token PLUS MOINS FOIS
 
@@ -182,12 +182,16 @@ Conditions:
 		{}
 	| Condition ET Conditions
 		{
-			$$.affirmation= $1.affirmation+ "^" + $3.affirmation;
-			$$.negation= $1.negation+ "^" + $3.negation;
+			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
+			$$.negation = $1.negation + "^" + $3.negation;
 		}
 	| Condition
 		{
 			$$ = $1;
+		}
+	| FALSE
+		{
+			
 		}
 	;
 	

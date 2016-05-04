@@ -15,7 +15,7 @@ separateurs [ \t]
 entier [0-9]+
 mot [a-zA-Z]+
 op_comparaison [<>][=]?
-finfinale "fini"|"fin"|"j'ai tout fini"|"aye"
+finfinale "fini"|"fin"|"j'ai tout fini"
 
 %%
 
@@ -38,6 +38,7 @@ finfinale "fini"|"fin"|"j'ai tout fini"|"aye"
 "="				{ return(EGAL);				 }
 "!="			{ return(NON_EGAL);			 }
 "^"				{ return(ET);				 }
+"false"			{ return(FALSE);			 }
 "+"				{ return(PLUS);				 }
 "-"				{ return(MOINS);			 }
 "*"				{ return(FOIS);				 }

@@ -1,3 +1,6 @@
+AFF {false} a:=0 {}
+
+---- OSEF ----
 COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {} y:=8 {} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {} y:=9 {}
 
 AFF                                                                     AFF
@@ -6,3 +9,4 @@ CONSEQ                                                                  CONSEQ
 {x>=0^x>=0} y:=8 {y=8}                                                  {x<0^x>=0} y:=9 {y=8}
 COND
 {x>=0} x>=0 y:=8 y:=9 {y=8}
+---- FIN OSEF ----

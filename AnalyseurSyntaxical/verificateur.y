@@ -189,10 +189,6 @@ Conditions:
 		{
 			$$ = $1;
 		}
-	| FALSE
-		{
-			
-		}
 	;
 	
 Condition:

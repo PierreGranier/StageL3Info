@@ -31,7 +31,7 @@ extern FILE* yyin;
 %token POINTVIRGULE
 
 %token INF_EGAL SUP_EGAL SUP INF EGAL NON_EGAL
-%token ET FALSE
+%token ET TRUE FALSE
 
 %token PLUS MOINS FOIS
 
@@ -99,18 +99,22 @@ Regle:
 			// Pour la prochaine boucle s'il y a:
 			$$ = $2; // copie les prédicats et les programmes
 			
+			// Précondition de la conclusion comparée avec la précondition de la prémisse (1)
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
 				cout << "[ERREUR] La précondition de SEQ " << $2.precondition.affirmation << " est différente de la précondition de la prémisse (1) " << $3.precondition.affirmation << endl; 
 			}
+			// Postcondition de la conclusion comparée avec la postcondition de la prémisse (2)
 			if($2.postcondition.affirmation.compare($4.postcondition.affirmation) != 0)
 			{
 				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition.affirmation << " est différente de la postcondition de la prémisse (2) " << $4.postcondition.affirmation << endl;
 			}
+			// Postcondition de la prémisse (1) comparée avec la précondition de la prémisse (2)
 			if($3.postcondition.affirmation.compare($4.precondition.affirmation) != 0)
 			{
 				cout << "[ERREUR] La postcondition de (1) " << $3.postcondition.affirmation << " est différente de la précondition de la prémisse (2) " << $4.precondition.affirmation << endl;
 			}
+			// Programme de la conclusion comparé avec le programmes de la prémisse (1) et (2)
 			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
 				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
@@ -122,7 +126,7 @@ Regle:
 			{
 				cout << "[ERREUR] La précondition de la prémisse (1) de COND " << $3.precondition.affirmation << " est différente de " << $2.programme.si.affirmation << "^" << $2.precondition.affirmation << endl;
 			}
-			//  Postcondition de la conclusion comparée avec les autres postconditions de (1) et (2)
+			//  Postcondition de la conclusion comparée avec la postcondition de la prémisse (1) puis (2)
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0 && $3.postcondition.affirmation.compare($4.postcondition.affirmation) != 0)
 			{
 				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
@@ -144,6 +148,7 @@ Regle:
 		}
 	| CONSEQ Triplet Regle
 		{
+			// Programme de la conclusion comparé avec le programme de la prémisse
 			if($2.programme.contenu.compare($3.programme.contenu) != 0)
 			{
 				cout << "[ERREUR] Le programme de la conclusion de CONSEQ " << $2.programme.contenu << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
@@ -151,12 +156,12 @@ Regle:
 			// Si les préconditions sont différentes alors on check si elles sont conséquences
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
-				
+				cout << "" << endl;
 			}
 			// Si les postcondition sont différentes alors on check si elles sont conséquences
 			if($3.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
 			{
-				
+				cout << "" << endl;
 			}
 		}
 	;
@@ -179,7 +184,7 @@ Predicat:
 	
 Conditions:
 	/* vide */
-		{}
+		{} // conflits à cause du vide
 	| Condition ET Conditions
 		{
 			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
@@ -195,6 +200,16 @@ Condition:
 	Comparaison
 		{
 			$$ = $1;
+		}
+	| TRUE // conflits
+		{
+			$$.affirmation = "true";
+			$$.negation = "false";
+		}
+	| FALSE // conflits
+		{
+			$$.affirmation = "false";
+			$$.negation = "true";
 		}
 	;
 	

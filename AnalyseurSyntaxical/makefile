@@ -1,4 +1,4 @@
-CXX= g++ -std=c++11
+CXX= g++ -std=gnu++11
 
 all:
 	mkdir -p build
@@ -14,7 +14,9 @@ all:
 	@echo Compilation
 	$(CXX) -c lex.yy.c -o build/lex.yy.o
 	$(CXX) -c verificateur.tab.c -o build/verificateur.tab.o
-	$(CXX) -o verificateur build/lex.yy.o build/verificateur.tab.o -lfl -ll -lm
+	$(CXX) -o verificateur build/lex.yy.o build/verificateur.tab.o -lfl
+	
+	./verificateur entree.txt
 	
 launch:
 	@echo Execution

@@ -38,6 +38,7 @@ finfinale "fini"|"fin"|"j'ai tout fini"
 "="				{ return(EGAL);				 }
 "!="			{ return(NON_EGAL);			 }
 "^"				{ return(ET);				 }
+"true"			{ return(TRUE);				 }
 "false"			{ return(FALSE);			 }
 "+"				{ return(PLUS);				 }
 "-"				{ return(MOINS);			 }

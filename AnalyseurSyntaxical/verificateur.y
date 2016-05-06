@@ -81,7 +81,19 @@ Regle:
 																								/*
 																								| CONSEQ Triplet Expression Regle Expression
 																								| WHILE Triplet Regle*/
-	
+	/*Triplet
+		{
+			// Un triplet est considéré valide lorsque les prédicats sont vrais : {true} ... {true}
+			// Mais dans certains exemples : {false} ... {false} est considéré comme un triplet valide ?
+			// Dans ce cas il ne faudrait plus afficher un message d'erreur lorsqu'une comparaison n'est pas logique
+			// Il faudrait afficher un message d'erreur lorsqu'un triplet n'est pas valide
+			// Solution : vérifier de la validité d'un triplet ici dans la règle Règle ?
+			// Permettrait de contrôler le cas où un triplet {false} ... {...} est valide
+			// Le seul triplet invalide est de la forme {true} ... {false}
+			// Implique de changer la structure des predicats (rajouter un attribut "bool valeur" dans la structure s_proposition)
+			// Implique aussi de rajouter dans la règle Comparaison (entre autres) $$.valeur = $1.valeur && $3.valeur
+			// cout << "[ERREUR][SEMANTIQUE] cf les erreurs déjà écrites plus bas à reprendre ici" << endl;
+		}*/
 	AFF Triplet
 		{
 			string gener;
@@ -90,7 +102,7 @@ Regle:
 			// Vérification syntaxique du triplet (les prédicats sont vérifiés syntaxiquement)
 			if(gener.compare($2.precondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition.affirmation << endl;
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
@@ -99,21 +111,21 @@ Regle:
 			// Précondition de la conclusion comparée avec la précondition de la prémisse (1)
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
-				cout << "[ERREUR] La précondition de SEQ " << $2.precondition.affirmation << " est différente de la précondition de la prémisse (1) " << $3.precondition.affirmation << endl; 
+				cout << "[ERREUR][SYNTAXIQUE] La précondition de SEQ " << $2.precondition.affirmation << " est différente de la précondition de la prémisse (1) " << $3.precondition.affirmation << endl; 
 			}
 			// Postcondition de la conclusion comparée avec la postcondition de la prémisse (2)
 			if($2.postcondition.affirmation.compare($4.postcondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] La postcondition de SEQ " << $2.postcondition.affirmation << " est différente de la postcondition de la prémisse (2) " << $4.postcondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de SEQ " << $2.postcondition.affirmation << " est différente de la postcondition de la prémisse (2) " << $4.postcondition.affirmation << endl;
 			}
 			// Postcondition de la prémisse (1) comparée avec la précondition de la prémisse (2)
 			if($3.postcondition.affirmation.compare($4.precondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] La postcondition de (1) " << $3.postcondition.affirmation << " est différente de la précondition de la prémisse (2) " << $4.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de (1) " << $3.postcondition.affirmation << " est différente de la précondition de la prémisse (2) " << $4.precondition.affirmation << endl;
 			}
 			// Programme de la conclusion comparé avec le programmes de la prémisse (1) et (2)
 			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
-				cout << "[ERREUR] Les programmes de SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
+				cout << "[ERREUR][SYNTAXIQUE] Les programmes de SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
@@ -122,26 +134,26 @@ Regle:
 			//  Précondition de la prémisse (1) comparée avec B et P de la conclusion
 			if($3.precondition.affirmation.compare($2.programme.si.affirmation + "^" + $2.precondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] La précondition de la prémisse (1) de COND " << $3.precondition.affirmation << " est différente de " << $2.programme.si.affirmation << "^" << $2.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La précondition de la prémisse (1) de COND " << $3.precondition.affirmation << " est différente de " << $2.programme.si.affirmation << "^" << $2.precondition.affirmation << endl;
 			}
 			//  Postcondition de la conclusion comparée avec la postcondition de la prémisse (1) puis (2)
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0 && $3.postcondition.affirmation.compare($4.postcondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] Les postconditions de COND sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] Les postconditions de COND sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
 			}
 			// Précondition de la prémisse (2) comparée avec NON B et P de la conclusion
 			if($4.precondition.affirmation.compare($2.programme.si.negation + "^" + $2.precondition.affirmation) != 0) {
-				cout << "[ERREUR] La précondition de la prémisse (2) de COND " << $4.precondition.affirmation << " est différente de " << $2.programme.si.negation << "^" << $2.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La précondition de la prémisse (2) de COND " << $4.precondition.affirmation << " est différente de " << $2.programme.si.negation << "^" << $2.precondition.affirmation << endl;
 			}
 			// Programme ALORS de la conclusion comparé avec le programme de la prémisse (1)
 			if($2.programme.alors.compare($3.programme.contenu) != 0)
 			{
-				cout << "[ERREUR] Le programme de la conclusion de COND " << $2.programme.alors << " est différent du programme de la prémisse (1) " << $3.programme.contenu << endl;
+				cout << "[ERREUR][SYNTAXIQUE] Le programme de la conclusion de COND " << $2.programme.alors << " est différent du programme de la prémisse (1) " << $3.programme.contenu << endl;
 			}
 			// Programme SINON de la conclusion comparé avec le programme de la prémisse (2)
 			if($2.programme.sinon.compare($4.programme.contenu) != 0)
 			{
-				cout << "[ERREUR] Le programme de la conclusion de COND " << $2.programme.sinon << " est différent du programme de la prémisse (2) " << $4.programme.contenu << endl;
+				cout << "[ERREUR][SYNTAXIQUE] Le programme de la conclusion de COND " << $2.programme.sinon << " est différent du programme de la prémisse (2) " << $4.programme.contenu << endl;
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
@@ -150,23 +162,35 @@ Regle:
 			// Programme de la conclusion comparé avec le programme de la prémisse
 			if($2.programme.contenu.compare($3.programme.contenu) != 0)
 			{
-				cout << "[ERREUR] Le programme de la conclusion de CONSEQ " << $2.programme.contenu << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
+				cout << "[ERREUR][SYNTAXIQUE] Le programme de la conclusion de CONSEQ " << $2.programme.contenu << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
 			} 
 			// Si les préconditions sont différentes alors on check si elles sont conséquences
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
 				cout << "[CONSEQ] Prec " << $2.precondition.affirmation << " => " << $3.precondition.affirmation << endl;
 				
-				// si $3.precondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.precondition.affirmation = 0
-				// si $3.precondition.affirmation vaut "true", vérifier que $2.precondition.affirmation = 1
+				// si $3.precondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.precondition.affirmation = false
+				// si $3.precondition.affirmation vaut "true", vérifier que $2.precondition.affirmation = true
+				
+				// Valeur booléenne de la précondition de la conclusion comparée à la valeur booléenne de la précondition de la prémisse
+				// if($2.precondition.valeur != $3.precondition.valeur)
+				// {
+				// 	cout << "[ERREUR][SEMANTIQUE] La précondition de la conclusion " << $2.precondition.affirmation << " n'implique pas la précondition de la prémisse " << $3.precondition.affirmation << endl;
+				// }
 			}
 			// Si les postcondition sont différentes alors on check si elles sont conséquences
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
 			{
 				cout << "[CONSEQ] Post " << $3.postcondition.affirmation << " => " << $2.postcondition.affirmation << endl;
 				
-				// si $3.postcondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.programme.contenu^$2.postcondition.affirmation = 0
-				// si $3.postcondition.affirmation vaut "true", vérifier que $2.programme.contenu^$2.postcondition.affirmation = 1
+				// si $3.postcondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.programme.contenu^$2.postcondition.affirmation = false
+				// si $3.postcondition.affirmation vaut "true", vérifier que $2.programme.contenu^$2.postcondition.affirmation = true
+				
+				// Valeur booléenne de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
+				// if($3.postcondition.valeur != $2.postcondition.valeur)
+				// {
+				// 	cout << "[ERREUR][SEMANTIQUE] La postcondition de la prémisse " << $3.postcondition.affirmation << " n'implique pas la postcondition de la conclusion " << $2.postcondition.affirmation << endl;
+				// }
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
@@ -199,11 +223,11 @@ Conditions:
 			// Une formule qui contient une condition et sa négation est fausse
 			int pos = ($$.affirmation.find($1.negation));
 			if(pos > -1) {
-				cout << "[ERREUR] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
+				cout << "[ERREUR][SEMANTIQUE] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
 			}
 			// Une formule qui contient une condition "faux" fausse
 			if($$.affirmation.find("faux")) {
-				cout << "[ERREUR] Condition donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient la condition \"faux\"" << endl;
+				cout << "[ERREUR][SEMANTIQUE] Condition donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient la condition \"faux\"" << endl;
 			}
 		}
 	| Condition
@@ -233,7 +257,7 @@ Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
 			if($1.valeur >= $3.valeur) {
-				cout << "[ERREUR] Comparaison INF non logique : " << $1.valeur << "<" << $3.valeur << endl;
+				cout << "[ERREUR][SEMANTIQUE] Comparaison INF non logique : " << $1.valeur << "<" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + "<" + $3.chaine;
 			$$.negation = $1.chaine + ">=" + $3.chaine;
@@ -241,7 +265,7 @@ Comparaison:
 	| ExpressionEntier SUP ExpressionEntier
 		{
 			if($1.valeur <= $3.valeur) {
-				cout << "[ERREUR] Comparaison SUP non logique : " << $1.valeur << ">" << $3.valeur << endl;
+				cout << "[ERREUR][SEMANTIQUE] Comparaison SUP non logique : " << $1.valeur << ">" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + ">" + $3.chaine;
 			$$.negation = $1.chaine + "<=" + $3.chaine;
@@ -249,7 +273,7 @@ Comparaison:
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
 			if($3.valeur > $3.valeur) {
-				cout << "[ERREUR] Comparaison INF_EGAL non logique : " << $1.valeur << "<=" << $3.valeur << endl;
+				cout << "[ERREUR][SEMANTIQUE] Comparaison INF_EGAL non logique : " << $1.valeur << "<=" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + "<=" + $3.chaine;
 			$$.negation = $1.chaine + ">" + $3.chaine;
@@ -257,7 +281,7 @@ Comparaison:
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
 			if($1.valeur < $3.valeur) {
-				cout << "[ERREUR] Comparaison SUP_EGAL non logique : " << $1.valeur << ">=" << $3.valeur << endl;
+				cout << "[ERREUR][SEMANTIQUE] Comparaison SUP_EGAL non logique : " << $1.valeur << ">=" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + ">=" + $3.chaine;
 			$$.negation = $1.chaine + "<" + $3.chaine;
@@ -265,7 +289,7 @@ Comparaison:
 	| ExpressionEntier EGAL ExpressionEntier
 		{
 			if($1.valeur != $3.valeur) {
-				cout << "[ERREUR] Comparaison EGAL non logique : " << $1.valeur << "=" << $3.valeur << endl;
+				cout << "[ERREUR][SEMANTIQUE] Comparaison EGAL non logique : " << $1.valeur << "=" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + "=" + $3.chaine;
 			$$.negation = $1.chaine + "!=" + $3.chaine;
@@ -375,7 +399,7 @@ Instruction:
 %%
 
 void yyerror(const string& mess) {
-  cerr << "[ERREUR] yyerror : " << mess << endl;
+  cerr << "[ERREUR][YYERROR] " << mess << endl;
 }
 
 int main(int argc, char **argv) {

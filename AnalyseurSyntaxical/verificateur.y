@@ -201,6 +201,10 @@ Conditions:
 			if(pos > -1) {
 				cout << "[ERREUR] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
 			}
+			// Une formule qui contient une condition "faux" fausse
+			if($$.affirmation.find("faux")) {
+				cout << "[ERREUR] Condition donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient la condition \"faux\"" << endl;
+			}
 		}
 	| Condition
 		{

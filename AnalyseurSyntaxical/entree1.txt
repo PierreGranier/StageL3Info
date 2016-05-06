@@ -1,3 +1,5 @@
+AFF {false^true} a:=0 {false^true}
+
 SEQ {x+1=43} y:=x+1;z:=y {z=43} AFF {x+1=43} y:=x+1 {y=43} AFF {y=43} z:=y {z=43}
 
 SEQ {x+1=43} a:=0;b:=0;y:=x+1;z:=y {z=43} SEQ {x+1=43} a:=0;b:=0 {x+1=43} AFF {x+1=43} a:=0 {x+1=43} AFF {x+1=43} b:=0 {x+1=43} SEQ {x+1=43} y:=x+1;z:=y {z=43} AFF {x+1=43} y:=x+1 {y=43} AFF {y=43} z:=y {z=43}

@@ -1,4 +1,7 @@
-COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {} y:=8 {} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {} y:=9 {}
+CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {false} y:=9 {false}
+
+
+COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {x>=0^8=8} y:=8 {x>=0^y=8} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {false} y:=9 {false}
 
 AFF                                                                     AFF
 [x>=0^x>=0 => x>=0] {x>=0^8=8} y:=8 {x>=0^y=8} [x>=0^y=8 => y=8]        [x<0^x>=0 => false] {false} y:=9 {false} [false => y=8]

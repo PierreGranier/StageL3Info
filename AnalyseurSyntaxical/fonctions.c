@@ -10,10 +10,13 @@ int position(string const & chaine, string const & souschaine) {
 	// Objectif : éviter les remplacements de sous chaines dans des mots. Exemple : les chaines "false", "ab>5", etc... ne doivent pas être affectées par le remplacement de la sous chaine "a"
 	// Retourne la position de la sous chaine ssi elle est en début ou fin de chaine ou adjascente à un symbole
 	int pos = chaine.find(souschaine);
-	if(pos > -1)
+	if(pos > -1) {
 		if(( separateur(chaine[pos-1]) && operateur(chaine[pos+souschaine.length()]) ) // sous chaine entre séparateur et opérateur
-		|| ( operateur(chaine[pos-1]) && separateur(chaine[pos+souschaine.length()]) )) // sous chaine entre opérateur et séparateur
+		|| ( operateur(chaine[pos-1]) && separateur(chaine[pos+souschaine.length()]) ))// sous chaine entre opérateur et séparateur
+		{
 			return pos; // remplacement autorisé
+		}
+	}
 	return -1; // remplacement interdit
 }
 

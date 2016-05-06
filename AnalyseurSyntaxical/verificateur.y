@@ -92,13 +92,10 @@ Regle:
 			{
 				cout << "[ERREUR] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition.affirmation << endl;
 			}
-			$$ = $2;
+			$$ = $2; // copie les prédicats et les programmes
 		}
 	| SEQ Triplet Regle Regle
 		{
-			// Pour la prochaine boucle s'il y a:
-			$$ = $2; // copie les prédicats et les programmes
-			
 			// Précondition de la conclusion comparée avec la précondition de la prémisse (1)
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
@@ -116,8 +113,9 @@ Regle:
 			}
 			// Programme de la conclusion comparé avec le programmes de la prémisse (1) et (2)
 			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
-				cout << "[ERREUR] Les programmes de la règle SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
+				cout << "[ERREUR] Les programmes de SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
+			$$ = $2; // copie les prédicats et les programmes
 		}
 	| COND Triplet Regle Regle
 		{
@@ -129,7 +127,7 @@ Regle:
 			//  Postcondition de la conclusion comparée avec la postcondition de la prémisse (1) puis (2)
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0 && $3.postcondition.affirmation.compare($4.postcondition.affirmation) != 0)
 			{
-				cout << "[ERREUR] Les postconditions sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
+				cout << "[ERREUR] Les postconditions de COND sont différentes : " << $2.postcondition.affirmation << " != " << $3.postcondition.affirmation << "!=" << $4.postcondition.affirmation << endl;
 			}
 			// Précondition de la prémisse (2) comparée avec NON B et P de la conclusion
 			if($4.precondition.affirmation.compare($2.programme.si.negation + "^" + $2.precondition.affirmation) != 0) {
@@ -145,6 +143,7 @@ Regle:
 			{
 				cout << "[ERREUR] Le programme de la conclusion de COND " << $2.programme.sinon << " est différent du programme de la prémisse (2) " << $4.programme.contenu << endl;
 			}
+			$$ = $2; // copie les prédicats et les programmes
 		}
 	| CONSEQ Triplet Regle
 		{
@@ -156,13 +155,20 @@ Regle:
 			// Si les préconditions sont différentes alors on check si elles sont conséquences
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
-				cout << "" << endl;
+				cout << "[CONSEQ] Prec " << $2.precondition.affirmation << " => " << $3.precondition.affirmation << endl;
+				
+				// si $3.precondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.precondition.affirmation = 0
+				// si $3.precondition.affirmation vaut "true", vérifier que $2.precondition.affirmation = 1
 			}
 			// Si les postcondition sont différentes alors on check si elles sont conséquences
-			if($3.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
+			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
 			{
-				cout << "" << endl;
+				cout << "[CONSEQ] Post " << $3.postcondition.affirmation << " => " << $2.postcondition.affirmation << endl;
+				
+				// si $3.postcondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.programme.contenu^$2.postcondition.affirmation = 0
+				// si $3.postcondition.affirmation vaut "true", vérifier que $2.programme.contenu^$2.postcondition.affirmation = 1
 			}
+			$$ = $2; // copie les prédicats et les programmes
 		}
 	;
 	
@@ -189,6 +195,12 @@ Conditions:
 		{
 			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
 			$$.negation = $1.negation + "^" + $3.negation;
+			
+			// Une formule qui contient une condition et sa négation est fausse
+			int pos = ($$.affirmation.find($1.negation));
+			if(pos > -1) {
+				cout << "[ERREUR] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
+			}
 		}
 	| Condition
 		{
@@ -255,10 +267,10 @@ Comparaison:
 			$$.negation = $1.chaine + "!=" + $3.chaine;
 		}
 	| ExpressionMot		INF			Expression			{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine; }
-	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine; 		$$.negation = $1.chaine + "<=" + $3.chaine; }
+	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine;			$$.negation = $1.chaine + "<=" + $3.chaine; }
 	| ExpressionMot		INF_EGAL	Expression			{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }
 	| ExpressionMot		SUP_EGAL	Expression			{ $$.affirmation = $1.chaine + ">=" + $3.chaine;		$$.negation = $1.chaine + "<" + $3.chaine;  }    
-	| ExpressionMot		EGAL		Expression			{ $$.affirmation = $1.chaine + "=" + $3.chaine; 		$$.negation = $1.chaine + "!=" + $3.chaine; }
+	| ExpressionMot		EGAL		Expression			{ $$.affirmation = $1.chaine + "=" + $3.chaine;			$$.negation = $1.chaine + "!=" + $3.chaine; }
 	| ExpressionEntier	INF			ExpressionMot		{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine; }
 	| ExpressionEntier	SUP			ExpressionMot		{ $$.affirmation = $1.chaine + ">" + $3.chaine; 		$$.negation = $1.chaine + "<=" + $3.chaine; }
 	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }

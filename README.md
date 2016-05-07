@@ -21,12 +21,14 @@ Vérificateur de preuves de programme en logique de Hoare
 Les différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/Logique_de_Hoare "Wiki Hoare")) :
 * AFF : Affectation  
 ![ADD](https://upload.wikimedia.org/math/0/b/9/0b9a2415175302dce994af21a9218367.png "ADD")
-* SEQ : Séquence (ou composition)  
+* SEQ : Composition (ou séquence)  
 ![SEQ](https://upload.wikimedia.org/math/a/6/f/a6f77b176903b2ee21016352ce1094b7.png "SEQ")
 * COND : Conditionnelle  
 ![COND](https://upload.wikimedia.org/math/e/e/4/ee4f74d64cb71775ea181039c1634ac6.png "COND")
 * CONSEQ : Consequence (ou affaiblissement)  
 ![CONSEQ](https://upload.wikimedia.org/math/e/7/4/e74a5e88893d68a24aa51b4f16f711f8.png "CONSEQ")
+* WHILE : Itération
+![WHILE](https://upload.wikimedia.org/math/4/7/3/47393cfe477eaf8846db242ee9c818c5.png "WHILE")
 
 ### Construction d'une preuve (dans un IDE)
 

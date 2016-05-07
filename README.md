@@ -27,7 +27,7 @@ Les différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/
 ![COND](https://upload.wikimedia.org/math/e/e/4/ee4f74d64cb71775ea181039c1634ac6.png "COND")
 * CONSEQ : Consequence (ou affaiblissement)  
 ![CONSEQ](https://upload.wikimedia.org/math/e/7/4/e74a5e88893d68a24aa51b4f16f711f8.png "CONSEQ")
-* WHILE : Itération
+* WHILE : Itération  
 ![WHILE](https://upload.wikimedia.org/math/4/7/3/47393cfe477eaf8846db242ee9c818c5.png "WHILE")
 
 ### Construction d'une preuve (dans un IDE)

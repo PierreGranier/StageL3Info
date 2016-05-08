@@ -163,7 +163,7 @@ Regle:
 			if($2.programme.contenu.compare($3.programme.contenu) != 0)
 			{
 				cout << "[ERREUR][SYNTAXIQUE] Le programme de la conclusion de CONSEQ " << $2.programme.contenu << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
-			} 
+			}
 			// Si les préconditions sont différentes alors on check si elles sont conséquences
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
@@ -193,6 +193,29 @@ Regle:
 				// }
 			}
 			$$ = $2; // copie les prédicats et les programmes
+		}
+	| WHILE Triplet Regle
+		{
+			//  Postcondition de la conclusion comparée avec NON B et I de la conclusion 
+			if($2.postcondition.affirmation.compare($2.programme.tantque.affirmation + "^" + $2.precondition.affirmation))
+			{
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de WHILE " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.affirmation << "^" << $2.precondition.affirmation << endl;
+			}
+			//  Précondition de la prémisse comparée avec I et B de la conclusion
+			if($3.precondition.affirmation.compare($2.precondition.affirmation + "^" + $2.programme.tantque.affirmation) != 0)
+			{
+				cout << "[ERREUR][SYNTAXIQUE] La précondition de la prémisse de WHILE " << $3.precondition.affirmation << " est différente de " << $2.precondition.affirmation << "^" << $2.programme.tantque.affirmation << endl;
+			}
+			// Postcondition de la prémisse comparée avec la précondition de la conclusion
+			if($3.postcondition.affirmation.compare($2.precondition.affirmation) != 0)
+			{
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de la prémisse de WHILE " << $3.precondition.affirmation << " est différente de la précondition de la conclusion " << $2.precondition.affirmation << endl;
+			}
+			// Programme FAIRE de la conclusion comparé avec le programme de la prémisse
+			if($2.programme.faire.compare($3.programme.contenu) != 0)
+			{
+				cout << "[ERREUR][SYNTAXIQUE] Le programme de la conclusion de WHILE " << $2.programme.faire << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
+			}
 		}
 	;
 	
@@ -380,6 +403,8 @@ Programme:
 			$$.contenu = $1.affirmation + " " + $2.contenu;
 			$$.si = $1;
 			$$.alors = $2.contenu;
+			$$.tantque = $1;
+			$$.faire = $2.contenu;
 		}
 	;
 	

@@ -22,12 +22,15 @@ typedef struct s_instruction {
 
 typedef struct s_programme {
 	string contenu;
-	// Pour les programmes avec ;
+	// Pour les programmes contenant des instructions
 	t_instruction instruction;
-	// Pour les programmes avec condition programme programme
+	// Pour les programmes si alors sinon
 	t_proposition si;
 	string alors;
 	string sinon;
+	// Pour les programmes tant que faire
+	t_proposition tantque;
+	string faire;
 } t_programme;
 
 typedef struct s_triplet {

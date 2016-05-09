@@ -13,6 +13,7 @@ typedef struct s_expression {
 typedef struct s_proposition {
 	string affirmation;
 	string negation;
+	bool valeur;
 } t_proposition;
 
 typedef struct s_instruction {

@@ -1,4 +1,4 @@
-CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {vrai}
+CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {5>50} y:=9 {5>50}
 
 
 COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {x>=0^8=8} y:=8 {x>=0^y=8} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}

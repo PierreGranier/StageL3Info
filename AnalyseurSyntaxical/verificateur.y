@@ -124,7 +124,8 @@ Regle:
 				cout << "[ERREUR][SYNTAXIQUE] La postcondition de (1) " << $3.postcondition.affirmation << " est différente de la précondition de la prémisse (2) " << $4.precondition.affirmation << endl;
 			}
 			// Programme de la conclusion comparé avec le programmes de la prémisse (1) et (2)
-			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0) {
+			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0)
+			{
 				cout << "[ERREUR][SYNTAXIQUE] Les programmes de SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
 			$$ = $2; // copie les prédicats et les programmes
@@ -248,7 +249,7 @@ Conditions:
 			if(pos > -1) {
 				cout << "[ERREUR][SEMANTIQUE] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
 			}
-			// Une formule qui contient une condition "faux" fausse
+			// Une formule qui contient une condition "faux" est fausse
 			if($$.affirmation.find("faux")) {
 				cout << "[ERREUR][SEMANTIQUE] Condition donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient la condition \"faux\"" << endl;
 			}

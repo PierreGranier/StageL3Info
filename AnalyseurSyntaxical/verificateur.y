@@ -31,7 +31,7 @@ extern FILE* yyin;
 %token POINTVIRGULE
 
 %token INF_EGAL SUP_EGAL SUP INF EGAL NON_EGAL
-%token ET TRUE FALSE
+%token ET VRAI FAUX
 
 %token PLUS MOINS FOIS
 
@@ -83,13 +83,13 @@ Regle:
 																								| WHILE Triplet Regle*/
 	/*Triplet
 		{
-			// Un triplet est considéré valide lorsque les prédicats sont vrais : {true} ... {true}
-			// Mais dans certains exemples : {false} ... {false} est considéré comme un triplet valide ?
+			// Un triplet est considéré valide lorsque les prédicats sont vrais : {vrai} ... {vrai}
+			// Mais dans certains exemples : {faux} ... {faux} est considéré comme un triplet valide ?
 			// Dans ce cas il ne faudrait plus afficher un message d'erreur lorsqu'une comparaison n'est pas logique
 			// Il faudrait afficher un message d'erreur lorsqu'un triplet n'est pas valide
 			// Solution : vérifier de la validité d'un triplet ici dans la règle Règle ?
-			// Permettrait de contrôler le cas où un triplet {false} ... {...} est valide
-			// Le seul triplet invalide est de la forme {true} ... {false}
+			// Permettrait de contrôler le cas où un triplet {faux} ... {...} est valide
+			// Le seul triplet invalide est de la forme {vrai} ... {faux}
 			// Implique de changer la structure des predicats (rajouter un attribut "bool valeur" dans la structure s_proposition)
 			// Implique aussi de rajouter dans la règle Comparaison (entre autres) $$.valeur = $1.valeur && $3.valeur
 			// cout << "[ERREUR][SEMANTIQUE] cf les erreurs déjà écrites plus bas à reprendre ici" << endl;
@@ -170,8 +170,8 @@ Regle:
 			{
 				cout << "[CONSEQ] Prec " << $2.precondition.affirmation << " => " << $3.precondition.affirmation << endl;
 				
-				// si $3.precondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.precondition.affirmation = false
-				// si $3.precondition.affirmation vaut "true", vérifier que $2.precondition.affirmation = true
+				// si $3.precondition.affirmation contient "faux" entre deux séparateurs, vérifier que $2.precondition.affirmation = false
+				// si $3.precondition.affirmation vaut "vrai", vérifier que $2.precondition.affirmation = true
 				
 				// Valeur booléenne de la précondition de la conclusion comparée à la valeur booléenne de la précondition de la prémisse
 				// if($2.precondition.valeur != $3.precondition.valeur)
@@ -184,8 +184,8 @@ Regle:
 			{
 				cout << "[CONSEQ] Post " << $3.postcondition.affirmation << " => " << $2.postcondition.affirmation << endl;
 				
-				// si $3.postcondition.affirmation contient "false" entre deux séparateurs, vérifier que $2.programme.contenu^$2.postcondition.affirmation = false
-				// si $3.postcondition.affirmation vaut "true", vérifier que $2.programme.contenu^$2.postcondition.affirmation = true
+				// si $3.postcondition.affirmation contient "faux" entre deux séparateurs, vérifier que $2.programme.contenu^$2.postcondition.affirmation = false
+				// si $3.postcondition.affirmation vaut "vrai", vérifier que $2.programme.contenu^$2.postcondition.affirmation = true
 				
 				// Valeur booléenne de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
 				// if($3.postcondition.valeur != $2.postcondition.valeur)
@@ -265,15 +265,15 @@ Condition:
 		{
 			$$ = $1;
 		}
-	| TRUE // conflits
+	| VRAI // conflits
 		{
-			$$.affirmation = "true";
-			$$.negation = "false";
+			$$.affirmation = "vrai";
+			$$.negation = "faux";
 		}
-	| FALSE // conflits
+	| FAUX // conflits
 		{
-			$$.affirmation = "false";
-			$$.negation = "true";
+			$$.affirmation = "faux";
+			$$.negation = "vrai";
 		}
 	;
 	

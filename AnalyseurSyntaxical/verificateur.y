@@ -78,23 +78,23 @@ Entree:
 																								*/
 	
 Regle:
-																								/*
-																								| CONSEQ Triplet Expression Regle Expression
-																								| WHILE Triplet Regle*/
-	/*Triplet
+	Triplet
 		{
-			// Un triplet est considéré valide lorsque les prédicats sont vrais : {vrai} ... {vrai}
-			// Mais dans certains exemples : {faux} ... {faux} est considéré comme un triplet valide ?
-			// Dans ce cas il ne faudrait plus afficher un message d'erreur lorsqu'une comparaison n'est pas logique
-			// Il faudrait afficher un message d'erreur lorsqu'un triplet n'est pas valide
-			// Solution : vérifier de la validité d'un triplet ici dans la règle Règle ?
-			// Permettrait de contrôler le cas où un triplet {faux} ... {...} est valide
 			// Le seul triplet invalide est de la forme {vrai} ... {faux}
-			// Implique de changer la structure des predicats (rajouter un attribut "bool valeur" dans la structure s_proposition)
-			// Implique aussi de rajouter dans la règle Comparaison (entre autres) $$.valeur = $1.valeur && $3.valeur
-			// cout << "[ERREUR][SEMANTIQUE] cf les erreurs déjà écrites plus bas à reprendre ici" << endl;
-		}*/
-	AFF Triplet
+			if($1.precondition.valeur == true && $1.postcondition.valeur == false)
+			{
+				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $1.precondition.affirmation << "} prog {" << $1.postcondition.affirmation << "} n'est pas valide : vrai -> faux = faux" << endl;
+			}
+			
+			// Si la précondition est vraie pour tout état initial vérifiant la précondition et si l'exécution du programme se termine
+			// Alors la précondition est vraie après l'exécution du programme
+			
+			// Si la précondition est vraie pour tout état initial vérifiant la précondition
+			// Alors l'exécution du programme se termine et la précondition est vraie après l'exécution du programme
+			
+			$$ = $1;
+		}
+	| AFF Triplet
 		{
 			string gener;
 			gener = $2.postcondition.affirmation;
@@ -158,6 +158,7 @@ Regle:
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
+	//| CONSEQ Triplet Expression Regle Expression
 	| CONSEQ Triplet Regle
 		{
 			// Programme de la conclusion comparé avec le programme de la prémisse
@@ -243,15 +244,18 @@ Conditions:
 		{
 			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
 			$$.negation = $1.negation + "^" + $3.negation;
+			$$.valeur = $1.valeur && $3.valeur;
 			
 			// Une formule qui contient une condition et sa négation est fausse
 			int pos = ($$.affirmation.find($1.negation));
 			if(pos > -1) {
-				cout << "[ERREUR][SEMANTIQUE] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
+				//cout << "[ERREUR][SEMANTIQUE] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
+				$$.valeur = false;
 			}
 			// Une formule qui contient une condition "faux" est fausse
 			if($$.affirmation.find("faux")) {
-				cout << "[ERREUR][SEMANTIQUE] Condition donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient la condition \"faux\"" << endl;
+				//cout << "[ERREUR][SEMANTIQUE] Condition donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient la condition \"faux\"" << endl;
+				$$.valeur = false;
 			}
 		}
 	| Condition
@@ -269,11 +273,13 @@ Condition:
 		{
 			$$.affirmation = "vrai";
 			$$.negation = "faux";
+			$$.valeur = true;
 		}
 	| FAUX // conflits
 		{
 			$$.affirmation = "faux";
 			$$.negation = "vrai";
+			$$.valeur = false;
 		}
 	;
 	
@@ -281,42 +287,47 @@ Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
 			if($1.valeur >= $3.valeur) {
-				cout << "[ERREUR][SEMANTIQUE] Comparaison INF non logique : " << $1.valeur << "<" << $3.valeur << endl;
+				//cout << "[ERREUR][SEMANTIQUE] Comparaison INF non logique : " << $1.valeur << "<" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + "<" + $3.chaine;
 			$$.negation = $1.chaine + ">=" + $3.chaine;
+			$$.valeur = $1.valeur < $3.valeur;
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
 			if($1.valeur <= $3.valeur) {
-				cout << "[ERREUR][SEMANTIQUE] Comparaison SUP non logique : " << $1.valeur << ">" << $3.valeur << endl;
+				//cout << "[ERREUR][SEMANTIQUE] Comparaison SUP non logique : " << $1.valeur << ">" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + ">" + $3.chaine;
 			$$.negation = $1.chaine + "<=" + $3.chaine;
+			$$.valeur = $1.valeur > $3.valeur;
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
 			if($3.valeur > $3.valeur) {
-				cout << "[ERREUR][SEMANTIQUE] Comparaison INF_EGAL non logique : " << $1.valeur << "<=" << $3.valeur << endl;
+				//cout << "[ERREUR][SEMANTIQUE] Comparaison INF_EGAL non logique : " << $1.valeur << "<=" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + "<=" + $3.chaine;
 			$$.negation = $1.chaine + ">" + $3.chaine;
+			$$.valeur = $1.valeur <= $3.valeur;
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
 			if($1.valeur < $3.valeur) {
-				cout << "[ERREUR][SEMANTIQUE] Comparaison SUP_EGAL non logique : " << $1.valeur << ">=" << $3.valeur << endl;
+				//cout << "[ERREUR][SEMANTIQUE] Comparaison SUP_EGAL non logique : " << $1.valeur << ">=" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + ">=" + $3.chaine;
 			$$.negation = $1.chaine + "<" + $3.chaine;
+			$$.valeur = $1.valeur >= $3.valeur;
 		}
 	| ExpressionEntier EGAL ExpressionEntier
 		{
 			if($1.valeur != $3.valeur) {
-				cout << "[ERREUR][SEMANTIQUE] Comparaison EGAL non logique : " << $1.valeur << "=" << $3.valeur << endl;
+				//cout << "[ERREUR][SEMANTIQUE] Comparaison EGAL non logique : " << $1.valeur << "=" << $3.valeur << endl;
 			}
 			$$.affirmation = $1.chaine + "=" + $3.chaine;
 			$$.negation = $1.chaine + "!=" + $3.chaine;
+			$$.valeur = $1.valeur = $3.valeur;
 		}
 	| ExpressionMot		INF			Expression			{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine; }
 	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine;			$$.negation = $1.chaine + "<=" + $3.chaine; }

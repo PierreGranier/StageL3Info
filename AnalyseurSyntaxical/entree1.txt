@@ -56,3 +56,11 @@ AFF {1>0} a:=0 {8>0}
 			//
 			//
 	/*	}*/
+	
+	
+Mardi 10 :
+	whileT 
+	conflits restants
+	IG (demander au prof)
+	
+	

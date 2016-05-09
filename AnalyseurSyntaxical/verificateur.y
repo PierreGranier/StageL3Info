@@ -175,10 +175,10 @@ Regle:
 				// si $3.precondition.affirmation vaut "vrai", vérifier que $2.precondition.affirmation = true
 				
 				// Valeur booléenne de la précondition de la conclusion comparée à la valeur booléenne de la précondition de la prémisse
-				// if($2.precondition.valeur != $3.precondition.valeur)
-				// {
-				// 	cout << "[ERREUR][SEMANTIQUE] La précondition de la conclusion " << $2.precondition.affirmation << " n'implique pas la précondition de la prémisse " << $3.precondition.affirmation << endl;
-				// }
+				if($2.precondition.valeur != $3.precondition.valeur)
+				{
+					cout << "[ERREUR][SEMANTIQUE] La précondition de la conclusion " << $2.precondition.affirmation << " n'implique pas la précondition de la prémisse " << $3.precondition.affirmation << endl;
+				}
 			}
 			// Si les postcondition sont différentes alors on check si elles sont conséquences
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
@@ -188,11 +188,11 @@ Regle:
 				// si $3.postcondition.affirmation contient "faux" entre deux séparateurs, vérifier que $2.programme.contenu^$2.postcondition.affirmation = false
 				// si $3.postcondition.affirmation vaut "vrai", vérifier que $2.programme.contenu^$2.postcondition.affirmation = true
 				
-				// Valeur booléenne de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
-				// if($3.postcondition.valeur != $2.postcondition.valeur)
-				// {
-				// 	cout << "[ERREUR][SEMANTIQUE] La postcondition de la prémisse " << $3.postcondition.affirmation << " n'implique pas la postcondition de la conclusion " << $2.postcondition.affirmation << endl;
-				// }
+				// Valeur booléenne du programme et de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
+				if($3.postcondition.valeur != $2.postcondition.valeur)
+				{
+					cout << "[ERREUR][SEMANTIQUE] La postcondition de la prémisse " << $3.postcondition.affirmation << " n'implique pas la postcondition de la conclusion " << $2.postcondition.affirmation << endl;
+				}
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}

@@ -234,12 +234,14 @@ Predicat:
 		{
 			$$ = $2;
 		}
+	| ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
+		{
+			$$.valeur = true;
+		}
 	;
 	
 Conditions:
-	/* vide */
-		{} // conflits à cause du vide
-	| Condition ET Conditions
+	Condition ET Conditions
 		{
 			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
 			$$.negation = $1.negation + "^" + $3.negation;
@@ -265,7 +267,7 @@ Condition:
 		{
 			$$ = $1;
 		}
-	| VRAI // conflits
+	/*| VRAI // conflits
 		{
 			$$.affirmation = "vrai";
 			$$.negation = "faux";
@@ -274,10 +276,10 @@ Condition:
 		{
 			$$.affirmation = "faux";
 			$$.negation = "vrai";
-		}
+		}*/
 	;
 	
-Comparaison:
+ Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
 			if($1.valeur >= $3.valeur) {
@@ -360,6 +362,14 @@ ExpressionEntier:
 		{
 			$$.chaine = $1.chaine + "+" + $3.chaine;
 		}
+	| ENTIER MOINS ExpressionMot
+		{
+			$$.chaine = $1.chaine + "-" + $3.chaine;
+		}
+	| ENTIER FOIS ExpressionMot
+		{
+			$$.chaine = $1.chaine + "*" + $3.chaine;
+		}	
 	;
 	
 ExpressionMot:

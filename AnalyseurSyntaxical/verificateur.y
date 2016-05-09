@@ -271,7 +271,7 @@ Condition:
 		{
 			$$ = $1;
 		}
-	/*| VRAI // conflits
+	| VRAI // conflits
 		{
 			$$.affirmation = "vrai";
 			$$.negation = "faux";
@@ -281,12 +281,8 @@ Condition:
 		{
 			$$.affirmation = "faux";
 			$$.negation = "vrai";
-<<<<<<< HEAD
-		}*/
-=======
 			$$.valeur = false;
 		}
->>>>>>> ea3bc04ddb6dfec6d364210e5fd12268580d7ca1
 	;
 	
  Comparaison:

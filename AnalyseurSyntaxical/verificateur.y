@@ -42,6 +42,7 @@ extern FILE* yyin;
 %type<proposition> Condition
 %type<proposition> Comparaison
 %type<programme> Programme
+%type<programme> ProgrammeCompose
 %type<instruction> Instruction
 %type<expression> Expression
 %type<expression> ExpressionMot
@@ -52,7 +53,7 @@ extern FILE* yyin;
 %%
 
 Entree:
-	/* Vide */
+	/* vide */
 	| FIN						{ cout << "Fin du programme" << endl; return 0; }
 	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
 	| Regle FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
@@ -78,28 +79,7 @@ Entree:
 																								*/
 	
 Regle:
-	Triplet
-		{
-			// Le seul triplet invalide est de la forme {vrai} ... {faux}
-			if($1.precondition.valeur == true && $1.postcondition.valeur == false)
-			{
-				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $1.precondition.affirmation << "} prog {" << $1.postcondition.affirmation << "} n'est pas valide : vrai -> faux = faux" << endl;
-			}
-			
-			// Correction partielle :
-			// Si la précondition est vraie pour tout état initial vérifiant la précondition et si l'exécution du programme se termine
-			// Alors la précondition est vraie après l'exécution du programme
-			// Correction totale :
-			// Si la précondition est vraie pour tout état initial vérifiant la précondition
-			// Alors l'exécution du programme se termine et la précondition est vraie après l'exécution du programme
-			
-			$$ = $1;
-			/*
-			[ATTENTION] Limite de l'analyse : on ne peut pas automatiquement savoir si un triplet est valide.
-			Nous ne pouvons pas vérifier la correction partielle et la correction totale d'un triplet (l'axiome AFF permet de vérifier syntaxiquement à défaut de pouvoir vérifier sémantiquement).
-			*/
-		}
-	| AFF Triplet
+	AFF Triplet
 		{
 			string gener;
 			gener = $2.postcondition.affirmation;
@@ -107,7 +87,7 @@ Regle:
 			// Vérification syntaxique du triplet (les prédicats sont vérifiés syntaxiquement)
 			if(gener.compare($2.precondition.affirmation) != 0)
 			{
-				cout << "[ERREUR][SYNTAXIQUE] La précondition est incorrecte dans le triplet de AFF : générer " << gener << " au lieu de " << $2.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La précondition de AFF " << $2.precondition.affirmation << " est différente de " << gener << endl;
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
@@ -131,7 +111,7 @@ Regle:
 			// Programme de la conclusion comparé avec le programmes de la prémisse (1) et (2)
 			if($2.programme.contenu.compare($3.programme.contenu + ";" + $4.programme.contenu) != 0)
 			{
-				cout << "[ERREUR][SYNTAXIQUE] Les programmes de SEQ sont incorrects : " << $2.programme.contenu << " différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
+				cout << "[ERREUR][SYNTAXIQUE] Les programmes de SEQ sont incorrects : " << $2.programme.contenu << " est différent de " << $3.programme.contenu + ";" + $4.programme.contenu  << endl;
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
@@ -278,6 +258,34 @@ Triplet:
 			$$.precondition = $1;
 			$$.programme = $2;
 			$$.postcondition = $3;
+			// Le seul triplet invalide est de la forme {vrai} ... {faux}
+			if($$.precondition.valeur == true && $$.postcondition.valeur == false)
+			{
+				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $$.precondition.affirmation << "} prog {" << $$.postcondition.affirmation << "} n'est pas valide : vrai->faux=faux" << endl;
+			}
+			
+			// Correction partielle :
+			// Si la précondition est vraie pour tout état initial vérifiant la précondition et si l'exécution du programme se termine
+			// Alors la précondition est vraie après l'exécution du programme
+			// Correction totale :
+			// Si la précondition est vraie pour tout état initial vérifiant la précondition
+			// Alors l'exécution du programme se termine et la précondition est vraie après l'exécution du programme
+			
+			/*
+			[ATTENTION] Limite de l'analyse : on ne peut pas automatiquement savoir si un triplet est valide.
+			Nous ne pouvons pas vérifier la correction partielle et la correction totale d'un triplet (l'axiome AFF permet de vérifier syntaxiquement à défaut de pouvoir vérifier sémantiquement).
+			*/
+		}
+	| Predicat ProgrammeCompose Predicat
+		{
+			$$.precondition = $1;
+			$$.programme = $2;
+			$$.postcondition = $3;
+			// Le seul triplet invalide est de la forme {vrai} ... {faux}
+			if($$.precondition.valeur == true && $$.postcondition.valeur == false)
+			{
+				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $$.precondition.affirmation << "} prog {" << $$.postcondition.affirmation << "} n'est pas valide : vrai->faux=faux" << endl;
+			}
 		}
 	;
 	
@@ -431,7 +439,7 @@ ExpressionEntier:
 	| ENTIER FOIS ExpressionMot
 		{
 			$$.chaine = $1.chaine + "*" + $3.chaine;
-		}	
+		}
 	;
 	
 ExpressionMot:
@@ -464,7 +472,29 @@ Programme:
 			$$.contenu = $1.variable + ":=" + $1.valeur;
 			$$.instruction = $1;
 		}
-	| Conditions Programme Programme
+/*	| SI Conditions ALORS Programme SINON Programme
+		{
+			$$.contenu = "Si " + $2.affirmation + " ALORS " + $4.contenu + " SINON " + $6.contenu;
+			$$.si = $2;
+			$$.alors = $4.contenu;
+			$$.sinon = $6.contenu;
+		}
+	| SI Conditions ALORS Programme
+		{
+			$$.contenu = "SI " + $2.affirmation + " ALORS " + $4.contenu;
+			$$.si = $2;
+			$$.alors = $4.contenu;
+		}
+	| TANTQUE Conditions FAIRE Programme
+		{
+			$$.contenu = "TANT QUE " + $2.affirmation + " FAIRE " + $4.contenu;
+			$$.tantque = $2;
+			$$.faire = $4.contenu;
+		}*/
+	;
+	
+ProgrammeCompose:
+	Conditions Programme Programme
 		{
 			$$.contenu = $1.affirmation + " " + $2.contenu + " " + $3.contenu;
 			$$.si = $1;

@@ -6,7 +6,15 @@ SEQ {x+1=43} a:=0;b:=0;y:=x+1;z:=y {z=43} SEQ {x+1=43} a:=0;b:=0 {x+1=43} AFF {x
 
 COND {x>=0} x>=0 y:=8 y:=9 {y=8} AFF {x>=0^x>=0} y:=8 {y=8} AFF {x<0^x>=0} y:=9 {y=8}
 
-AFF {1>0} a:=0 {8>0}
+COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {x>=0^8=8} y:=8 {x>=0^y=8} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}
+
+AFF                                                                     AFF
+[x>=0^x>=0 => x>=0] {x>=0^8=8} y:=8 {x>=0^y=8} [x>=0^y=8 => y=8]        [x<0^x>=0 => faux] {faux} y:=9 {faux} [faux => y=8]
+CONSEQ                                                                  CONSEQ
+{x>=0^x>=0} y:=8 {y=8}                                                  {x<0^x>=0} y:=9 {y=8}
+COND
+{x>=0} x>=0 y:=8 y:=9 {y=8}
+
 
 
 	/*| COND Triplet Regle Regle*/
@@ -59,7 +67,6 @@ AFF {1>0} a:=0 {8>0}
 	
 	
 Mardi 10 :
-	whileT 
 	conflits restants
 	IG (demander au prof)
 	http://www-verimag.imag.fr/~wack/ALGO5/Cours04.pdf page 8

@@ -169,7 +169,7 @@ Regle:
 			//  Postcondition de la conclusion comparée avec NON B et I de la conclusion 
 			if($2.postcondition.affirmation.compare($2.programme.tantque.affirmation + "^" + $2.precondition.affirmation))
 			{
-				cout << "[ERREUR][SYNTAXIQUE] La postcondition de WHILE " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.affirmation << "^" << $2.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de la conclusion de WHILE " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.affirmation << "^" << $2.precondition.affirmation << endl;
 			}
 			//  Précondition de la prémisse comparée avec I et B de la conclusion
 			if($3.precondition.affirmation.compare($2.precondition.affirmation + "^" + $2.programme.tantque.affirmation) != 0)

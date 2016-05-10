@@ -62,5 +62,6 @@ Mardi 10 :
 	whileT 
 	conflits restants
 	IG (demander au prof)
-	
+	http://www-verimag.imag.fr/~wack/ALGO5/Cours04.pdf page 8
+	tester des exemples de while et whileT
 	

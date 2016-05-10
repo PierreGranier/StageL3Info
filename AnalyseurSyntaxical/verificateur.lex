@@ -27,6 +27,7 @@ finfinale "fini"|"fin"|"j'ai tout fini"
 "COND" 			{ return(COND); 			 }
 "CONSEQ" 		{ return(CONSEQ); 			 }
 "WHILE" 		{ return(WHILE); 			 }
+"WHILET" 		{ return(WHILET); 			 }
 "{"				{ return(ACCOLADE_OUVRANTE); }
 "}"				{ return(ACCOLADE_FERMANTE); }
 ":=" 			{ return(AFFECTATION); 		 }

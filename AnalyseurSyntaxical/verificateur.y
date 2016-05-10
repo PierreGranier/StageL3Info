@@ -25,7 +25,7 @@ extern FILE* yyin;
 %token<expression> MOT
 %token<expression> ENTIER
 
-%token AFF SEQ COND CONSEQ WHILE
+%token AFF SEQ COND CONSEQ WHILE WHILET
 %token ACCOLADE_OUVRANTE ACCOLADE_FERMANTE
 %token AFFECTATION
 %token POINTVIRGULE
@@ -86,13 +86,18 @@ Regle:
 				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $1.precondition.affirmation << "} prog {" << $1.postcondition.affirmation << "} n'est pas valide : vrai -> faux = faux" << endl;
 			}
 			
+			// Correction partielle :
 			// Si la précondition est vraie pour tout état initial vérifiant la précondition et si l'exécution du programme se termine
 			// Alors la précondition est vraie après l'exécution du programme
-			
+			// Correction totale :
 			// Si la précondition est vraie pour tout état initial vérifiant la précondition
 			// Alors l'exécution du programme se termine et la précondition est vraie après l'exécution du programme
 			
 			$$ = $1;
+			/*
+			[ATTENTION] Limite de l'analyse : on ne peut pas automatiquement savoir si un triplet est valide.
+			Nous ne pouvons pas vérifier la correction partielle et la correction totale d'un triplet (l'axiome AFF permet de vérifier syntaxiquement à défaut de pouvoir vérifier sémantiquement).
+			*/
 		}
 	| AFF Triplet
 		{
@@ -171,13 +176,10 @@ Regle:
 			{
 				cout << "[CONSEQ] Prec " << $2.precondition.affirmation << " => " << $3.precondition.affirmation << endl;
 				
-				// si $3.precondition.affirmation contient "faux" entre deux séparateurs, vérifier que $2.precondition.affirmation = false
-				// si $3.precondition.affirmation vaut "vrai", vérifier que $2.precondition.affirmation = true
-				
 				// Valeur booléenne de la précondition de la conclusion comparée à la valeur booléenne de la précondition de la prémisse
 				if($2.precondition.valeur != $3.precondition.valeur)
 				{
-					cout << "[ERREUR][SEMANTIQUE] La précondition de la conclusion " << $2.precondition.affirmation << " n'implique pas la précondition de la prémisse " << $3.precondition.affirmation << endl;
+					cout << "[ATTENTION][SEMANTIQUE] La précondition de la conclusion " << $2.precondition.affirmation << " n'implique peut-être pas la précondition de la prémisse " << $3.precondition.affirmation << endl;
 				}
 			}
 			// Si les postcondition sont différentes alors on check si elles sont conséquences
@@ -185,16 +187,22 @@ Regle:
 			{
 				cout << "[CONSEQ] Post " << $3.postcondition.affirmation << " => " << $2.postcondition.affirmation << endl;
 				
-				// si $3.postcondition.affirmation contient "faux" entre deux séparateurs, vérifier que $2.programme.contenu^$2.postcondition.affirmation = false
-				// si $3.postcondition.affirmation vaut "vrai", vérifier que $2.programme.contenu^$2.postcondition.affirmation = true
-				
 				// Valeur booléenne du programme et de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
 				if($3.postcondition.valeur != $2.postcondition.valeur)
 				{
-					cout << "[ERREUR][SEMANTIQUE] La postcondition de la prémisse " << $3.postcondition.affirmation << " n'implique pas la postcondition de la conclusion " << $2.postcondition.affirmation << endl;
+					cout << "[ATTENTION][SEMANTIQUE] La postcondition de la prémisse " << $3.postcondition.affirmation << " n'implique peut-être pas la postcondition de la conclusion " << $2.postcondition.affirmation << endl;
 				}
 			}
 			$$ = $2; // copie les prédicats et les programmes
+			/*
+			[ATTENTION] Limite de l'analyse : on ne peut pas automatiquement savoir si une formule en implique une autre.
+			Comparer l'égalité de la valeur booléenne de chaque formule implique d'avoir repéré tous les cas où une formule est fausse (rendue fausse par deux conditions).
+			Or, certaines conditions ne peuvent êtres vérifiées si elles ne sont pas composées que d'entiers :
+			x>=y^x<=z => false si y>z (y et z entiers)
+			x>y^x<z => false si y>=z (y et z entiers)
+			x=y^x=z => false si y!=z
+			Nous n'avons automatisé que les cas où une formule contient une condtion et sa négation et où une formule contient le token faux.
+			*/
 		}
 	| WHILE Triplet Regle
 		{
@@ -218,6 +226,31 @@ Regle:
 			{
 				cout << "[ERREUR][SYNTAXIQUE] Le programme de la conclusion de WHILE " << $2.programme.faire << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
 			}
+			$$ = $2; // copie les prédicats et les programmes
+		}
+	| WHILET Triplet Regle
+		{
+			//  Postcondition de la conclusion comparée avec NON B et I de la conclusion 
+			if($2.postcondition.affirmation.compare($2.programme.tantque.affirmation + "^" + $2.precondition.affirmation))
+			{
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de WHILET " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.affirmation << "^" << $2.precondition.affirmation << endl;
+			}
+			//  Précondition de la prémisse contient avec I et B de la conclusion
+			if($3.precondition.affirmation.find($2.precondition.affirmation) > -1 && $3.precondition.affirmation.find($2.programme.tantque.affirmation) > -1)
+			{
+				cout << "[ERREUR][SYNTAXIQUE] La précondition de la prémisse de WHILET " << $3.precondition.affirmation << " ne contient pas la précondition de la conclusion " << $2.precondition.affirmation << " ou la condition de la conclusion " << $2.programme.tantque.affirmation << endl;
+			}
+			// Postcondition de la prémisse contient la précondition de la conclusion
+			if($3.postcondition.affirmation.find($2.precondition.affirmation) > -1 )
+			{
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de la prémisse de WHILET " << $3.precondition.affirmation << " ne contient pas la précondition de la conclusion " << $2.precondition.affirmation << endl;
+			}
+			// Programme FAIRE de la conclusion comparé avec le programme de la prémisse
+			if($2.programme.faire.compare($3.programme.contenu) != 0)
+			{
+				cout << "[ERREUR][SYNTAXIQUE] Le programme de la conclusion de WHILET " << $2.programme.faire << " est différent du programme de la prémisse " << $3.programme.contenu << endl;
+			}
+			$$ = $2; // copie les prédicats et les programmes
 		}
 	;
 	

@@ -15,6 +15,10 @@ CONSEQ                                                                  CONSEQ
 COND
 {x>=0} x>=0 y:=8 y:=9 {y=8}
 
+WHILE {x>=0} x<b x:=x+1 {x>=b^x>=0} CONSEQ {x>=0^x<b} x:=x+1 {x>=0} AFF {x+1>=0} x:=x+1 {x>=0}
+
+WHILET {x>=0} x<b x:=x+1 {x>=b^x>=0} CONSEQ {x>=0 ^x<b^x=n} x:=x+1 {x>=0^x<n} AFF {x+1>=0} x:=x+1 {x>=0}
+
 
 
 	/*| COND Triplet Regle Regle*/

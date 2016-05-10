@@ -1,4 +1,8 @@
+WHILET {x>=0} x<b x:=x+1 {x>=b^x>=0} CONSEQ {x>=0 ^x<b^x=n} x:=x+1 {x>=0^x<n} AFF {x+1>=0} x:=x+1 {x>=0}
+
+
 WHILE {c>=0} x<b c:=c+1 {x>=0^c>=b} COND {x>=0^c>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^c<0^x>=0} y:=8 {y=8} AFF {x>=0^c<0^8=8} y:=9 {x>=0^c>=0^y=8} CONSEQ {x<0^c<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}
+
 
 
 

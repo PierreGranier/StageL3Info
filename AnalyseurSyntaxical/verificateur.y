@@ -59,25 +59,6 @@ Entree:
 	| Regle FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
 	;
 	
-																								/*
-																								// Preuve
-																								Arbre:
-																									Branche
-																									;
-																									
-																								// Sous-preuve
-																								Branche:
-																									| Regle
-																										{
-																											
-																										}
-																									| Regle Regle
-																										{
-																											
-																										}
-																									;
-																								*/
-	
 Regle:
 	AFF Triplet
 		{
@@ -472,25 +453,6 @@ Programme:
 			$$.contenu = $1.variable + ":=" + $1.valeur;
 			$$.instruction = $1;
 		}
-/*	| SI Conditions ALORS Programme SINON Programme
-		{
-			$$.contenu = "Si " + $2.affirmation + " ALORS " + $4.contenu + " SINON " + $6.contenu;
-			$$.si = $2;
-			$$.alors = $4.contenu;
-			$$.sinon = $6.contenu;
-		}
-	| SI Conditions ALORS Programme
-		{
-			$$.contenu = "SI " + $2.affirmation + " ALORS " + $4.contenu;
-			$$.si = $2;
-			$$.alors = $4.contenu;
-		}
-	| TANTQUE Conditions FAIRE Programme
-		{
-			$$.contenu = "TANT QUE " + $2.affirmation + " FAIRE " + $4.contenu;
-			$$.tantque = $2;
-			$$.faire = $4.contenu;
-		}*/
 	;
 	
 ProgrammeCompose:

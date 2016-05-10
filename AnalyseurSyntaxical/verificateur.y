@@ -167,9 +167,10 @@ Regle:
 	| WHILE Triplet Regle
 		{
 			//  Postcondition de la conclusion comparée avec NON B et I de la conclusion 
-			if($2.postcondition.affirmation.compare($2.programme.tantque.affirmation + "^" + $2.precondition.affirmation))
+			if($2.postcondition.affirmation.compare($2.programme.tantque.negation + "^" + $2.precondition.affirmation))
 			{
 				cout << "[ERREUR][SYNTAXIQUE] La postcondition de la conclusion de WHILE " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.affirmation << "^" << $2.precondition.affirmation << endl;
+
 			}
 			//  Précondition de la prémisse comparée avec I et B de la conclusion
 			if($3.precondition.affirmation.compare($2.precondition.affirmation + "^" + $2.programme.tantque.affirmation) != 0)
@@ -191,9 +192,9 @@ Regle:
 	| WHILET Triplet Regle
 		{
 			// Postcondition de la conclusion comparée avec NON B et I de la conclusion 
-			if($2.postcondition.affirmation.compare($2.programme.tantque.affirmation + "^" + $2.precondition.affirmation) != 0)
+			if($2.postcondition.affirmation.compare($2.programme.tantque.negation + "^" + $2.precondition.affirmation) != 0)
 			{
-				cout << "[ERREUR][SYNTAXIQUE] La postcondition de WHILET " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.affirmation << "^" << $2.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de WHILET " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.negation << "^" << $2.precondition.affirmation << endl;
 			}
 			// Précondition de la prémisse contient avec I et B de la conclusion
 			if($3.precondition.affirmation.find($2.precondition.affirmation) == -1 && $3.precondition.affirmation.find($2.programme.tantque.affirmation) == -1)
@@ -201,9 +202,7 @@ Regle:
 				cout << "[ERREUR][SYNTAXIQUE] La précondition de la prémisse de WHILET " << $3.precondition.affirmation << " ne contient pas la précondition de la conclusion " << $2.precondition.affirmation << " ou la condition de la conclusion " << $2.programme.tantque.affirmation << endl;
 			}
 			string premPrec = $3.precondition.affirmation;
-			remplacer(premPrec, $2.precondition.affirmation, "");
-			remplacer(premPrec, $2.programme.tantque.affirmation, "");
-			remplacer(premPrec, "^", "");
+			premPrec.erase(0, $2.precondition.affirmation.length()+1+$2.programme.tantque.affirmation.length()+1);
 			string variantVariable = "";
 			string variantValeur = "";
 			if(premPrec == "")
@@ -215,9 +214,9 @@ Regle:
 				variantVariable = variable(premPrec);
 				variantValeur = premPrec;
 			}
-			if(variantVariable.compare("") == 1 || variantValeur.compare("") == 1)
+			if(variantVariable.compare("") == 0 || variantValeur.compare("") == 0)
 			{
-				cout << "[ERREUR][SYNTAXIQUE] Le variant de boucle " << variantVariable << "=" << variantValeur << " n'est pas correct" << endl;
+				cout << "[ERREUR][SYNTAXIQUE] Le variant de boucle de WHILET " << variantVariable << "=" << variantValeur << " n'est pas correct" << endl;
 			}
 			// Postcondition de la prémisse contient la précondition de la conclusion
 			if($3.postcondition.affirmation.compare($2.precondition.affirmation + "^" + variantVariable + "<" + variantValeur) != 0)

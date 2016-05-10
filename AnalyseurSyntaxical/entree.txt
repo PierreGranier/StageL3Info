@@ -1,15 +1,1 @@
-COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {x>=0^8=8} y:=8 {x>=0^y=8} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}
-
-
-CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {5>50} y:=9 {5>50} //àsupprimer plus tard /!\
-
-
-
-AFF                                                                     AFF
-[x>=0^x>=0 => x>=0] {x>=0^8=8} y:=8 {x>=0^y=8} [x>=0^y=8 => y=8]        [x<0^x>=0 => faux] {faux} y:=9 {faux} [faux => y=8]
-CONSEQ                                                                  CONSEQ
-{x>=0^x>=0} y:=8 {y=8}                                                  {x<0^x>=0} y:=9 {y=8}
-COND
-{x>=0} x>=0 y:=8 y:=9 {y=8}
-
 WHILE {c>=0} x<b c:=c+1 {x>=0^c>=b} COND {x>=0^c>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^c<0^x>=0} y:=8 {y=8} AFF {x>=0^c<0^8=8} y:=9 {x>=0^c>=0^y=8} CONSEQ {x<0^c<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}

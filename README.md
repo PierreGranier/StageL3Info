@@ -29,7 +29,7 @@ Les différentes règles de Hoare ([Wiki : Hoare](https://fr.wikipedia.org/wiki/
 ![CONSEQ](https://upload.wikimedia.org/math/e/7/4/e74a5e88893d68a24aa51b4f16f711f8.png "CONSEQ")
 * WHILE : Itération  
 ![WHILE](https://upload.wikimedia.org/math/4/7/3/47393cfe477eaf8846db242ee9c818c5.png "WHILE")
-* WHILE : Correction totale  
+* WHILET : Correction totale  
 ![WHILET](https://upload.wikimedia.org/math/3/a/5/3a559d4e19483b416de5a6fa94439d66.png "WHILET")
 
 ### Construction d'une preuve (dans un IDE)

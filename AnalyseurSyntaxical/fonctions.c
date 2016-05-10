@@ -40,3 +40,16 @@ void remplacer(string & chaine, string const & souschaine1, string const & sousc
 		pos = position(chaine, souschaine1);
 	}
 }
+
+// Enlève et retourne la première variable affectée de la chaine
+// Avant : a:=b   Après : b   Retourné : a
+string variable(string & chaine) {
+	string var = "";
+	int i = 0;
+	while(chaine[i] != ':' && chaine[i+1] != '=') {
+        var += chaine[i];
+        i++;
+    }
+    chaine.erase(0, i+2);
+	return var;
+}

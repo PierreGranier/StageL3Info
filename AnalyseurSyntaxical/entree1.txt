@@ -1,4 +1,4 @@
-AFF {faux^vrai} a:=0 {faux^vrai}
+AFF {false^true} a:=0 {false^true}
 
 SEQ {x+1=43} y:=x+1;z:=y {z=43} AFF {x+1=43} y:=x+1 {y=43} AFF {y=43} z:=y {z=43}
 
@@ -14,6 +14,10 @@ CONSEQ                                                                  CONSEQ
 {x>=0^x>=0} y:=8 {y=8}                                                  {x<0^x>=0} y:=9 {y=8}
 COND
 {x>=0} x>=0 y:=8 y:=9 {y=8}
+
+WHILE {x>=0} x<b x:=x+1 {x>=b^x>=0} CONSEQ {x>=0^x<b} x:=x+1 {x>=0} AFF {x+1>=0} x:=x+1 {x>=0}
+
+WHILET {x>=0} x<b x:=x+1 {x>=b^x>=0} CONSEQ {x>=0 ^x<b^x=n} x:=x+1 {x>=0^x<n} AFF {x+1>=0} x:=x+1 {x>=0}
 
 
 
@@ -69,4 +73,5 @@ COND
 Mardi 10 :
 	IG (demander au prof)
 	http://www-verimag.imag.fr/~wack/ALGO5/Cours04.pdf page 8
+	
 	

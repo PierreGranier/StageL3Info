@@ -163,7 +163,6 @@ Regle:
 			}
 			$$ = $2; // copie les prédicats et les programmes
 		}
-	//| CONSEQ Triplet Expression Regle Expression
 	| CONSEQ Triplet Regle
 		{
 			// Programme de la conclusion comparé avec le programme de la prémisse
@@ -174,7 +173,7 @@ Regle:
 			// Si les préconditions sont différentes alors on check si elles sont conséquences
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
 			{
-				cout << "[CONSEQ] Prec " << $2.precondition.affirmation << " => " << $3.precondition.affirmation << endl;
+				//cout << "[CONSEQ] Prec " << $2.precondition.affirmation << " => " << $3.precondition.affirmation << endl;
 				
 				// Valeur booléenne de la précondition de la conclusion comparée à la valeur booléenne de la précondition de la prémisse
 				if($2.precondition.valeur != $3.precondition.valeur)
@@ -185,7 +184,7 @@ Regle:
 			// Si les postcondition sont différentes alors on check si elles sont conséquences
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
 			{
-				cout << "[CONSEQ] Post " << $3.postcondition.affirmation << " => " << $2.postcondition.affirmation << endl;
+				//cout << "[CONSEQ] Post " << $3.postcondition.affirmation << " => " << $2.postcondition.affirmation << endl;
 				
 				// Valeur booléenne du programme et de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
 				if($3.postcondition.valeur != $2.postcondition.valeur)
@@ -201,7 +200,7 @@ Regle:
 			x>=y^x<=z => false si y>z (y et z entiers)
 			x>y^x<z => false si y>=z (y et z entiers)
 			x=y^x=z => false si y!=z
-			Nous n'avons automatisé que les cas où une formule contient une condtion et sa négation et où une formule contient le token faux.
+			Nous n'avons automatisé que les cas où une formule contient une condition et sa négation et où une formule contient le token faux.
 			*/
 		}
 	| WHILE Triplet Regle
@@ -230,20 +229,39 @@ Regle:
 		}
 	| WHILET Triplet Regle
 		{
-			//  Postcondition de la conclusion comparée avec NON B et I de la conclusion 
-			if($2.postcondition.affirmation.compare($2.programme.tantque.affirmation + "^" + $2.precondition.affirmation))
+			// Postcondition de la conclusion comparée avec NON B et I de la conclusion 
+			if($2.postcondition.affirmation.compare($2.programme.tantque.affirmation + "^" + $2.precondition.affirmation) != 0)
 			{
 				cout << "[ERREUR][SYNTAXIQUE] La postcondition de WHILET " << $2.postcondition.affirmation << " est différente de " << $2.programme.tantque.affirmation << "^" << $2.precondition.affirmation << endl;
 			}
-			//  Précondition de la prémisse contient avec I et B de la conclusion
-			if($3.precondition.affirmation.find($2.precondition.affirmation) > -1 && $3.precondition.affirmation.find($2.programme.tantque.affirmation) > -1)
+			// Précondition de la prémisse contient avec I et B de la conclusion
+			if($3.precondition.affirmation.find($2.precondition.affirmation) == -1 && $3.precondition.affirmation.find($2.programme.tantque.affirmation) == -1)
 			{
 				cout << "[ERREUR][SYNTAXIQUE] La précondition de la prémisse de WHILET " << $3.precondition.affirmation << " ne contient pas la précondition de la conclusion " << $2.precondition.affirmation << " ou la condition de la conclusion " << $2.programme.tantque.affirmation << endl;
 			}
-			// Postcondition de la prémisse contient la précondition de la conclusion
-			if($3.postcondition.affirmation.find($2.precondition.affirmation) > -1 )
+			string premPrec = $3.precondition.affirmation;
+			remplacer(premPrec, $2.precondition.affirmation, "");
+			remplacer(premPrec, $2.programme.tantque.affirmation, "");
+			remplacer(premPrec, "^", "");
+			string variantVariable = "";
+			string variantValeur = "";
+			if(premPrec == "")
 			{
-				cout << "[ERREUR][SYNTAXIQUE] La postcondition de la prémisse de WHILET " << $3.precondition.affirmation << " ne contient pas la précondition de la conclusion " << $2.precondition.affirmation << endl;
+				cout << "[ERREUR][SYNTAXIQUE] La précondition de la prémisse de WHILET " << $3.precondition.affirmation << " ne contiennent pas de variant de boucle" << endl;
+			}
+			else
+			{
+				variantVariable = variable(premPrec);
+				variantValeur = premPrec;
+			}
+			if(variantVariable.compare("") == 1 || variantValeur.compare("") == 1)
+			{
+				cout << "[ERREUR][SYNTAXIQUE] Le variant de boucle " << variantVariable << "=" << variantValeur << " n'est pas correct" << endl;
+			}
+			// Postcondition de la prémisse contient la précondition de la conclusion
+			if($3.postcondition.affirmation.compare($2.precondition.affirmation + "^" + variantVariable + "<" + variantValeur) != 0)
+			{
+				cout << "[ERREUR][SYNTAXIQUE] La postcondition de la prémisse de WHILET " << $3.precondition.affirmation << " est différent de " << $2.precondition.affirmation << "^" << variantVariable << "<" << variantValeur << endl;
 			}
 			// Programme FAIRE de la conclusion comparé avec le programme de la prémisse
 			if($2.programme.faire.compare($3.programme.contenu) != 0)

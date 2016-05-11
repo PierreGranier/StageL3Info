@@ -1,0 +1,14 @@
+#include "QtWidgets/QtWidgets"
+#include "mainwindow.h"
+
+// make
+
+int main(int argc, char** argv)
+{
+	QApplication app(argc, argv);
+	
+	MainWindow *fenetre = new MainWindow();
+	fenetre->show();
+	
+	return app.exec();
+}

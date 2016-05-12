@@ -1,17 +1,15 @@
 #include "widgetajouter.h"
 
 WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent) {
-    m_top = new QWidget(this);
-    
-	
-    QComboBox *ajouter = new QComboBox(m_top);
-    ajouter->addItem("Ajouter");
-    ajouter->addItem("AFF");
-    ajouter->addItem("SEQ");
-    ajouter->addItem("COND");
-    ajouter->addItem("CONSEQ");
-    ajouter->addItem("WHILE");
-    ajouter->addItem("WHILET");
+   m_top = new QWidget(this);
+   
+   this->addItem("Ajouter");
+   this->addItem("AFF");
+   this->addItem("SEQ");
+   this->addItem("COND");
+   this->addItem("CONSEQ");
+   this->addItem("WHILE");
+   this->addItem("WHILET");
 	
 }
 

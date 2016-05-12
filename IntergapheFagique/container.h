@@ -11,6 +11,7 @@
 class Container : public QWidget
 {
 	private:
+		QWidget *m_top;
 		QVBoxLayout *m_box;
 		
 	public:

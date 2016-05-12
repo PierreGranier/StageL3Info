@@ -2,22 +2,18 @@
 
 Container::Container(QWidget *parent) : QWidget(parent)
 {
-	this->setMinimumSize(800, 600);
+	this->setMinimumSize(500, 500);
 	this->setStyleSheet("background-color:white;");
-		
-	QVBoxLayout *ens = new QVBoxLayout(this);
 	
-	WidgetAjouter *afficher = new WidgetAjouter(this);
-	WidgetRegleAff *aff = new WidgetRegleAff(this);
-	WidgetRegleSeq *seq = new WidgetRegleSeq(this);
-	WidgetRegleCond *cond = new WidgetRegleCond(this);
-	WidgetRegleConseq *conseq = new WidgetRegleConseq(this);
+	QWidget *m_top = new QWidget(this);
+	
+	QHBoxLayout *ens = new QHBoxLayout(m_top);
+	
+	WidgetAjouter *afficher = new WidgetAjouter(m_top);
 	
 	ens->addWidget(afficher);
-	ens->addWidget(aff);
-	ens->addWidget(seq);
-	ens->addWidget(cond);
-	ens->addWidget(conseq);
+	ens->setContentsMargins(50,50,50,50);
+	// getzfzeffze - size et tout
 }
 
 Container::~Container()

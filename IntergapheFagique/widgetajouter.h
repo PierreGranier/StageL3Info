@@ -9,7 +9,6 @@
 class WidgetAjouter : public QComboBox
 {
 	private:
-		QWidget *m_top;
 			
 	public:
 		WidgetAjouter(QWidget *parent);

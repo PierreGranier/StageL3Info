@@ -7,7 +7,6 @@
 class MainWindow : public QMainWindow
 {
 	private:
-		bool m_leftButtonClick;
 		QWidget *m_top;
 		QVBoxLayout *m_box;
 		QScrollArea *m_zoneConteneur;

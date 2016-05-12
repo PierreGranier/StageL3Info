@@ -19,6 +19,8 @@ MainWindow::MainWindow()
 	m_zoneConteneur->setWidget(conteneur);
 	
 	m_box->addWidget(m_zoneConteneur);
+	
+	this->createToolBar();
 }
 
 void MainWindow::createToolBar() {
@@ -27,8 +29,7 @@ void MainWindow::createToolBar() {
 		QAction* saveDataAction = menuSave->addAction("Bob");
 	QMenuBar * fileMenu = menuBar();
 		fileMenu->addMenu("File");*/
-		
-	this->createToolBar();
+	
 	fileToolBar = addToolBar("File");
 	fileToolBar->addAction("Importer");
 	fileToolBar->addAction("Quitter");

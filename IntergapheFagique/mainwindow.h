@@ -12,12 +12,13 @@ class MainWindow : public QMainWindow
 		QWidget *m_top;
 		QVBoxLayout *m_box;
 		QScrollArea *m_zoneConteneur;
+		QToolBar *fileToolBar;
 		
 	public:
 		MainWindow();
 		~MainWindow();
 		
-		void createMenus();
+		void createToolBar();
 };
 
 #endif

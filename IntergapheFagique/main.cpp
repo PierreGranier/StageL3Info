@@ -12,17 +12,20 @@ int main(int argc, char** argv)
 	fenetre->show();*/
 	
 	QWidget *top = new QWidget(0);
+	
+	QHBoxLayout *grid = new QHBoxLayout(top);
+	
 	WidgetAjouter *afficher = new WidgetAjouter(top);
-	afficher->show();
-	
 	WidgetRegleAff *aff = new WidgetRegleAff(top);
-	aff->show();
-	
 	WidgetRegleSeq *seq = new WidgetRegleSeq(top);
-	seq->show();
-	
 	WidgetRegleCond *cond = new WidgetRegleCond(top);
-	cond->show();
+	
+	grid->addWidget(afficher);
+	grid->addWidget(aff);
+	grid->addWidget(seq);
+	grid->addWidget(cond);
+	
+	top->show();
 	
 	return app.exec();
 }

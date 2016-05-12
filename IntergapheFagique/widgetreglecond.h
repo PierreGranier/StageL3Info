@@ -3,7 +3,7 @@
 
 #include "widgetregle.h"
 
-class WidgetRegleAff : public WidgetRegle
+class WidgetRegleCond : public WidgetRegle
 {
 	private:
 		QLineEdit *m_premisseG;

@@ -11,11 +11,10 @@ WidgetRegle::WidgetRegle(QWidget *parent) : QWidget(parent)
 	m_nom = new QLabel("NomRegle", m_top);
 	
     m_conclusion = new QLineEdit(m_top);
-	m_conclusion->setStyleSheet("background-color:pink;");
 	// m_conclusion->setFixedWidth(80);
 	
 	m_grid->addWidget(m_nom, 0, 0, 1, 1);
-	m_grid->addWidget(m_conclusion, 1, 1);
+	m_grid->addWidget(m_conclusion, 1, 1, 1, 2);
 }
 
 WidgetRegle::~WidgetRegle()

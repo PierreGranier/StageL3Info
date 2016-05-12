@@ -3,7 +3,7 @@
 MainWindow::MainWindow() {
 	m_top = new QWidget(this);
 
-	this->createMenus();
+	this->createToolBar();
 	
 	setCentralWidget(m_top);
 	
@@ -22,12 +22,18 @@ MainWindow::MainWindow() {
 	m_box->addWidget(m_zoneConteneur);
 }
 
-void MainWindow::createMenus() {
+void MainWindow::createToolBar() {
 	/*menuBar()->addAction("Fichier");
 	QMenu* menuSave= menuBar()->addMenu("Others");
 		QAction* saveDataAction = menuSave->addAction("Bob");
 	QMenuBar * fileMenu = menuBar();
 		fileMenu->addMenu("File");*/
+		
+   fileToolBar = addToolBar("File");
+   fileToolBar->addAction("test");
+   fileToolBar->addAction("Importer");
+   fileToolBar->addAction("Quitter");
+
 }
 
 MainWindow::~MainWindow() {

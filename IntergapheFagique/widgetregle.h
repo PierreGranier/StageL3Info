@@ -4,6 +4,7 @@
 #include <QtWidgets/QtWidgets>
 #include <iostream>
 #include <string>
+#include "widgetajouter.h"
 
 class WidgetRegle : public QWidget
 {

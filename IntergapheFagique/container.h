@@ -1,7 +1,7 @@
 #ifndef container_h
 #define container_h
 
-#include "QtWidgets/QtWidgets"
+#include <QtWidgets/QtWidgets>
 /*#include "regles/aff.h"
 #include "regles/seq.h"*/
 

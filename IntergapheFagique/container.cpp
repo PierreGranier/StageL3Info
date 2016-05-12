@@ -12,12 +12,18 @@ Container::Container(QWidget *parent) : QWidget(parent)
 	WidgetRegleSeq *seq = new WidgetRegleSeq(this);
 	WidgetRegleCond *cond = new WidgetRegleCond(this);
 	WidgetRegleConseq *conseq = new WidgetRegleConseq(this);
+	WidgetRegleWhile *whileN = new WidgetRegleWhile(this);
+	WidgetRegleWhileT *whileT = new WidgetRegleWhileT(this);
+	
 	
 	ens->addWidget(afficher);
 	ens->addWidget(aff);
 	ens->addWidget(seq);
 	ens->addWidget(cond);
 	ens->addWidget(conseq);
+	ens->addWidget(whileN);
+	ens->addWidget(whileT);
+	
 }
 
 Container::~Container()

@@ -7,6 +7,8 @@
 #include "widgetregleseq.h"
 #include "widgetreglecond.h"
 #include "widgetregleconseq.h"
+#include "widgetreglewhile.h"
+#include "widgetreglewhilet.h"
 
 class Container : public QWidget
 {

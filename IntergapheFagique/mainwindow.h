@@ -1,7 +1,8 @@
 #ifndef mainwindow_h
 #define mainwindow_h
 
-#include "QtWidgets/QtWidgets"
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QMainWindow>
 #include "container.h"
 
 class MainWindow : public QMainWindow
@@ -10,13 +11,13 @@ class MainWindow : public QMainWindow
 		bool m_leftButtonClick;
 		QWidget *m_top;
 		QVBoxLayout *m_box;
-		QDockWidget *m_dock1;
-		QDockWidget *m_dock2;
 		QScrollArea *m_zoneConteneur;
 		
 	public:
 		MainWindow();
 		~MainWindow();
+		
+		void createMenus();
 };
 
 #endif

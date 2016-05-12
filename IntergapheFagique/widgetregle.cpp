@@ -5,13 +5,13 @@ using namespace std;
 WidgetRegle::WidgetRegle(QWidget *parent) : QWidget(parent)
 {
 	m_top = new QWidget(this);
+	m_top->setFixedWidth(300);
 	
 	m_grid = new QGridLayout(m_top);
     
 	m_nom = new QLabel("NomRegle", m_top);
 	
     m_conclusion = new QLineEdit(m_top);
-	// m_conclusion->setFixedWidth(80);
 	
 	m_grid->addWidget(m_nom, 0, 0, 1, 1);
 	m_grid->addWidget(m_conclusion, 1, 1, 1, 2);

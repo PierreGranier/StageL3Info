@@ -1,9 +1,12 @@
 #ifndef container_h
 #define container_h
 
-#include <QtWidgets/QtWidgets>
-/*#include "regles/aff.h"
-#include "regles/seq.h"*/
+#include <QtWidgets/QWidget>
+#include "widgetajouter.h"
+#include "widgetregleaff.h"
+#include "widgetregleseq.h"
+#include "widgetreglecond.h"
+#include "widgetregleconseq.h"
 
 class Container : public QWidget
 {
@@ -12,11 +15,7 @@ class Container : public QWidget
 		
 	public:
 		Container(QWidget *parent);
-		~Container() {};
-		
-		void dragEnterEvent(QDragEnterEvent *event);
-		//void dragMoveEvent(QDragMoveEvent *event);
-		void dropEvent(QDropEvent *event);
+		~Container();
 };
 
 #endif

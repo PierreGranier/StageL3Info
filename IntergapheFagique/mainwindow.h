@@ -1,8 +1,6 @@
 #ifndef mainwindow_h
 #define mainwindow_h
 
-/*#include <QtWidgets/QWidget>
-#include <QtWidgets/QMainWindow>*/
 #include <QtWidgets/QtWidgets>
 #include "container.h"
 

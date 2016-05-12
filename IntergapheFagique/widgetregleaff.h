@@ -6,7 +6,6 @@
 class WidgetRegleAff : public WidgetRegle
 {
 	private:
-		QLineEdit *m_premisse;
 		
 	public:
 		WidgetRegleAff(QWidget *parent);

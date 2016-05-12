@@ -1,7 +1,8 @@
 #ifndef widgetAjouter_h
 #define widgetAjouter_h
 
-#include <QtWidgets/QtWidgets>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QWidget>
 #include <iostream>
 #include <string>
 

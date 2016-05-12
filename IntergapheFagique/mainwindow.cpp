@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow() {
+MainWindow::MainWindow()
+{
 	m_top = new QWidget(this);
-
-	this->createToolBar();
 	
 	setCentralWidget(m_top);
 	
@@ -15,10 +14,10 @@ MainWindow::MainWindow() {
 	// Le container dans la zoneConteneur dans la box
 	
 	m_zoneConteneur = new QScrollArea(m_top);
-
+	
 	Container *conteneur = new Container(m_top);
 	m_zoneConteneur->setWidget(conteneur);
-
+	
 	m_box->addWidget(m_zoneConteneur);
 }
 
@@ -29,11 +28,10 @@ void MainWindow::createToolBar() {
 	QMenuBar * fileMenu = menuBar();
 		fileMenu->addMenu("File");*/
 		
-   fileToolBar = addToolBar("File");
-   fileToolBar->addAction("test");
-   fileToolBar->addAction("Importer");
-   fileToolBar->addAction("Quitter");
-
+	this->createToolBar();
+	fileToolBar = addToolBar("File");
+	fileToolBar->addAction("Importer");
+	fileToolBar->addAction("Quitter");
 }
 
 MainWindow::~MainWindow() {

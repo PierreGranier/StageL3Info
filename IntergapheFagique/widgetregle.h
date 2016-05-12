@@ -1,7 +1,10 @@
 #ifndef widgetregle_h
 #define widgetregle_h
 
-#include <QtWidgets/QtWidgets>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <iostream>
 #include <string>
 #include "widgetajouter.h"

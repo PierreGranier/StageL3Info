@@ -1,6 +1,7 @@
 #include "widgetajouter.h"
 
-WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent) {
+WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent)
+{
    m_top = new QWidget(this);
    
    this->addItem("Ajouter");

@@ -5,19 +5,18 @@
 
 class WidgetRegleConseq : public WidgetRegle 
 {
-    private:
-    	
-        QLineEdit *m_premisse;
+	private:
+		QLineEdit *m_premisse;
 		
 		WidgetRegle *m_regle;
-        
-        WidgetAjouter *m_ajouter;
-        
-    public:
-        WidgetRegleConseq(QWidget *parent);
-        ~WidgetRegleConseq();
-        
-        std::string toString();
+		
+		WidgetAjouter *m_ajouter;
+		
+	public:
+		WidgetRegleConseq(QWidget *parent);
+		~WidgetRegleConseq();
+		
+		std::string toString();
 };
 
 #endif

@@ -4,7 +4,6 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <iostream>
 #include <string>
 #include "widgetajouter.h"
@@ -14,7 +13,9 @@ class WidgetRegle : public QWidget
 	protected:
 		QWidget *m_top;
 		QGridLayout *m_grid;
+		
 		QLabel *m_nom;
+		
 		QLineEdit *m_conclusion;
 		
 	public:

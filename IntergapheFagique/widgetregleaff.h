@@ -6,6 +6,7 @@
 class WidgetRegleAff : public WidgetRegle
 {
 	private:
+		QLabel *m_premisse;
 		
 	public:
 		WidgetRegleAff(QWidget *parent);

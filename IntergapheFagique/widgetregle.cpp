@@ -13,7 +13,7 @@ WidgetRegle::WidgetRegle(QWidget *parent) : QWidget(parent)
 	
     m_conclusion = new QLineEdit(m_top);
 	
-	m_grid->addWidget(m_nom, 0, 0, 1, 1);
+	m_grid->addWidget(m_nom, 1, 0, 1, 1);
 	m_grid->addWidget(m_conclusion, 1, 1, 1, 2);
 }
 

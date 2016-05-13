@@ -6,9 +6,9 @@ WidgetRegleConseq::WidgetRegleConseq(QWidget *parent) : WidgetRegle(parent)
 {
     m_nom->setText("CONSEQ");
 	
-	m_premisse = new QLineEdit(m_top);
+	m_ajouter = new WidgetAjouter(m_top);
 	
-	m_grid->addWidget(m_premisse, 0, 1, 1, 2);
+	m_grid->addWidget(m_ajouter, 0, 1, 1, 2);
 }
 
 WidgetRegleConseq::~WidgetRegleConseq()
@@ -18,6 +18,5 @@ WidgetRegleConseq::~WidgetRegleConseq()
 
 string WidgetRegleConseq::toString()
 {
-	return "";
-	// return le tostring des LineEdit
+ 	return " " + m_conclusion + " " + m_premisse;
 }

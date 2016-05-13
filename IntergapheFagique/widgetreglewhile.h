@@ -1,19 +1,15 @@
 #ifndef widgetreglewhile_h
 #define widgetreglewhile_h
 
+#include "widgettriplet.h"
 #include "widgetregle.h"
 
 class WidgetRegleWhile : public WidgetRegle
 {
     private:
- 		QLineEdit *m_premisseG;
-		QLineEdit *m_premisseD;
+		WidgetAjouter *m_ajouter;
 		
-		WidgetRegle *m_regleG;
-		WidgetRegle *m_regleD;
-		
-		WidgetAjouter *m_ajouterG;
-		WidgetAjouter *m_AjouterD;       
+		WidgetRegle *m_premisse;
 		
     public:
         WidgetRegleWhile(QWidget *parent);

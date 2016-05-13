@@ -6,11 +6,11 @@ WidgetRegleSeq::WidgetRegleSeq(QWidget *parent) : WidgetRegle(parent)
 {
 	m_nom->setText("SEQ");
 	
-	m_premisseG = new QLineEdit(m_top);
-	m_premisseD = new QLineEdit(m_top);
+	m_ajouterG = new WidgetAjouter(m_top);
+	m_ajouterD = new WidgetAjouter(m_top);
 	
-	m_grid->addWidget(m_premisseG, 0, 1);
-	m_grid->addWidget(m_premisseD, 0, 2);
+	m_grid->addWidget(m_ajouterG, 0, 1);
+	m_grid->addWidget(m_ajouterD, 0, 2);
 }
 
 WidgetRegleSeq::~WidgetRegleSeq()
@@ -20,6 +20,6 @@ WidgetRegleSeq::~WidgetRegleSeq()
 
 string WidgetRegleSeq::toString()
 {
-	return "";
-	// return le tostring des LineEdit
+ 	return " " + m_conclusion + " " + m_premisseG + " " + m_premisseD;
+
 }

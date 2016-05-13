@@ -6,12 +6,9 @@ WidgetRegleWhile::WidgetRegleWhile(QWidget *parent) : WidgetRegle(parent)
 {
     m_nom->setText("WHILE");
 	
-	m_premisseG = new QLineEdit(m_top); 
-	m_premisseD = new QLineEdit(m_top);
+	m_ajouter = new WidgetAjouter(m_top);
 	
-	m_grid->addWidget(m_premisseG, 0, 1);
-	m_grid->addWidget(m_premisseD, 0, 2);    
-    
+	m_grid->addWidget(m_ajouter, 0, 1, 1, 2);
 }
 
 
@@ -22,6 +19,5 @@ WidgetRegleWhile::~WidgetRegleWhile()
 
 string WidgetRegleWhile::toString()
 {
- 	return "";
-	// return le tostring des LineEdit
+ 	return " " + m_conclusion + " " + m_premisse;
 }

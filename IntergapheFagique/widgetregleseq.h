@@ -8,7 +8,7 @@ class WidgetRegleSeq : public WidgetRegle
 {
 	private:
 		WidgetAjouter *m_ajouterG;
-		WidgetAjouter *m_AjouterD;
+		WidgetAjouter *m_ajouterD;
 		
 		WidgetRegle *m_premisseG;
 		WidgetRegle *m_premisseD;

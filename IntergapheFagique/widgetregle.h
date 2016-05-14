@@ -6,6 +6,7 @@
 #include <QtWidgets/QLabel>
 #include <iostream>
 #include <string>
+#include "widgettriplet.h"
 #include "widgetajouter.h"
 
 class WidgetRegle : public QWidget
@@ -16,7 +17,7 @@ class WidgetRegle : public QWidget
 		
 		QLabel *m_nom;
 		
-		QLineEdit *m_conclusion;
+		WidgetTriplet *m_conclusion;
 		
 	public:
 		WidgetRegle(QWidget *parent);

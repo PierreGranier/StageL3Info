@@ -6,19 +6,25 @@ MainWindow::MainWindow()
 	
 	setCentralWidget(m_top);
 	
-	// La box dans le top
+	// Layout appliqué au top
 	
 	m_box = new QVBoxLayout(m_top);
 	m_top->setLayout(m_box);
 	
-	// Le container dans la zoneConteneur dans la box
+	// zoneConteneur est une ScrollArea
 	
 	m_zoneConteneur = new QScrollArea(m_top);
 	
-	Container *conteneur = new Container(m_top);
+	// Un container dans la zoneConteneur
+	
+	Container *conteneur = new Container(m_zoneConteneur);
 	m_zoneConteneur->setWidget(conteneur);
 	
+	// La zoneConteneur dans la box
+	
 	m_box->addWidget(m_zoneConteneur);
+	
+	// Toolbar haute horizontale
 	
 	this->createToolBar();
 }

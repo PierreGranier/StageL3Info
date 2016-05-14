@@ -18,5 +18,6 @@ WidgetRegleAff::~WidgetRegleAff()
 
 string WidgetRegleAff::toString()
 {
- 	return " " + m_conclusion;
+ 	// return " " + m_conclusion;
+	return "";
 }

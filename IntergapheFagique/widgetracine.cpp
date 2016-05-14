@@ -9,7 +9,8 @@ WidgetRacine::WidgetRacine(QWidget *parent) : QWidget(parent)
 	
 	m_grid = new QGridLayout(m_top);
 	
-	m_conclusion = new WidgetRacine(m_top);
+	m_conclusion = new WidgetTriplet(m_top);
+	
 	m_ajouter = new WidgetAjouter(m_top);
 	
 	m_grid->addWidget(m_ajouter, 0, 0);
@@ -23,5 +24,6 @@ WidgetRacine::~WidgetRacine()
 
 string WidgetRacine::toString()
 {
-	return m_conclusion + " " + m_premisse;
+	// return m_conclusion + " " + m_premisse;
+	return "";
 }

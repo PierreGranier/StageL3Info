@@ -19,5 +19,6 @@ WidgetRegleWhileT::~WidgetRegleWhileT()
 
 string WidgetRegleWhileT::toString()
 {
- 	return " " + m_conclusion + " " + m_premisse;
+ 	// return " " + m_conclusion + " " + m_premisse;
+	return "";
 }

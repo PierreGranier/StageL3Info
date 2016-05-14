@@ -12,12 +12,13 @@ class WidgetTriplet : public QWidget
 	private:
 		QWidget *m_top;
 		QHBoxLayout *m_hbox;
+		
 		QLineEdit *m_precondition;
 		QLineEdit *m_programme;
 		QLineEdit *m_postcondition;
 		
 	public:
-		WidgetTriplet();
+		WidgetTriplet(QWidget *parent);
 		~WidgetTriplet();
 		
 		std::string toString();

@@ -20,5 +20,6 @@ WidgetRegleCond::~WidgetRegleCond()
 
 string WidgetRegleCond::toString()
 {
- 	return " " + m_conclusion + " " + m_premisseG + " " + m_premisseD;
+ 	// return " " + m_conclusion + " " + m_premisseG + " " + m_premisseD;
+	return "";
 }

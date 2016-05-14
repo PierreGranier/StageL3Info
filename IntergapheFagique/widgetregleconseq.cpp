@@ -18,5 +18,6 @@ WidgetRegleConseq::~WidgetRegleConseq()
 
 string WidgetRegleConseq::toString()
 {
- 	return " " + m_conclusion + " " + m_premisse;
+ 	// return " " + m_conclusion + " " + m_premisse;
+	return "";
 }

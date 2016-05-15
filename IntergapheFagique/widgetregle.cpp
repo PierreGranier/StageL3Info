@@ -4,22 +4,18 @@ using namespace std;
 
 WidgetRegle::WidgetRegle(QWidget *parent) : QWidget(parent)
 {
-	m_top = new QWidget(this);
-	m_top->setFixedWidth(300);
+	// this->setMaximumWidth(700);
 	
-	m_grid = new QGridLayout(m_top);
+	m_grid = new QGridLayout(this);
     
-	m_nom = new QLabel("NomRegle", m_top);
+	m_nom = new QLabel("NomRegle", this);
 	
-    m_conclusion = new WidgetTriplet(m_top);
-	
-	m_grid->addWidget(m_nom, 1, 0, 1, 1);
-	m_grid->addWidget(m_conclusion, 1, 1, 1, 2);
+	m_grid->addWidget(m_nom, 1, 0, 2, 1);
 }
 
 WidgetRegle::~WidgetRegle()
 {
-	// delete m_top;
+	
 }
 
 string WidgetRegle::toString()

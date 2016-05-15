@@ -1,15 +1,16 @@
 #ifndef widgetreglewhile_h
 #define widgetreglewhile_h
 
-#include "widgettriplet.h"
 #include "widgetregle.h"
 
 class WidgetRegleWhile : public WidgetRegle
 {
     private:
+		WidgetTriplet *m_premisse;
+		
 		WidgetAjouter *m_ajouter;
 		
-		WidgetRegle *m_premisse;
+		WidgetRegle *m_souspreuve;
 		
     public:
         WidgetRegleWhile(QWidget *parent);

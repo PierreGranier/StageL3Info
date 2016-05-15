@@ -12,12 +12,9 @@
 class WidgetRegle : public QWidget
 {
 	protected:
-		QWidget *m_top;
 		QGridLayout *m_grid;
 		
 		QLabel *m_nom;
-		
-		WidgetTriplet *m_conclusion;
 		
 	public:
 		WidgetRegle(QWidget *parent);

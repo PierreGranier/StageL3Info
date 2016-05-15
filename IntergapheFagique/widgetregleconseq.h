@@ -1,15 +1,16 @@
 #ifndef widgetregleconseq_h
 #define widgetregleconseq_h
 
-#include "widgettriplet.h"
 #include "widgetregle.h"
 
 class WidgetRegleConseq : public WidgetRegle 
 {
 	private:
+		WidgetTriplet *m_premisse;
+		
 		WidgetAjouter *m_ajouter;
 		
-		WidgetRegle *m_premisse;
+		WidgetRegle *m_souspreuve;
 		
 	public:
 		WidgetRegleConseq(QWidget *parent);

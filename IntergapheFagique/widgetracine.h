@@ -12,7 +12,6 @@
 class WidgetRacine : public QWidget
 {
 	protected:
-		QWidget *m_top;
 		QGridLayout *m_grid;
 		
 		WidgetTriplet *m_conclusion;

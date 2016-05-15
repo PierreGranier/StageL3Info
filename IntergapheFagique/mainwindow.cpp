@@ -15,21 +15,26 @@ MainWindow::MainWindow()
 	
 	m_zoneConteneur = new QScrollArea(m_top);
 	
-	// Un container dans la zoneConteneur
+	// Un container dans la zoneConteneur dans la box
 	
 	Container *conteneur = new Container(m_zoneConteneur);
 	m_zoneConteneur->setWidget(conteneur);
-	
-	// La zoneConteneur dans la box
+	// m_zoneConteneur->setAlignment(Qt::AlignHCenter);
 	
 	m_box->addWidget(m_zoneConteneur);
+	
+	// Bouton de vérification dans la box
+	
+	m_verifier = new QPushButton("Vérifier la preuve", m_top);
+	m_box->addWidget(m_verifier);
 	
 	// Toolbar haute horizontale
 	
 	this->createToolBar();
 }
 
-void MainWindow::createToolBar() {
+void MainWindow::createToolBar()
+{
 	/*menuBar()->addAction("Fichier");
 	QMenu* menuSave= menuBar()->addMenu("Others");
 		QAction* saveDataAction = menuSave->addAction("Bob");
@@ -41,6 +46,7 @@ void MainWindow::createToolBar() {
 	fileToolBar->addAction("Quitter");
 }
 
-MainWindow::~MainWindow() {
+MainWindow::~MainWindow()
+{
 	delete m_top;
 }

@@ -1,17 +1,19 @@
 #ifndef widgetregleseq_h
 #define widgetregleseq_h
 
-#include "widgettriplet.h"
 #include "widgetregle.h"
 
 class WidgetRegleSeq : public WidgetRegle
 {
 	private:
+		WidgetTriplet *m_premisseG;
+		WidgetTriplet *m_premisseD;
+		
 		WidgetAjouter *m_ajouterG;
 		WidgetAjouter *m_ajouterD;
 		
-		WidgetRegle *m_premisseG;
-		WidgetRegle *m_premisseD;
+		WidgetRegle *m_brancheG;
+		WidgetRegle *m_brancheD;
 		
 	public:
 		WidgetRegleSeq(QWidget *parent);

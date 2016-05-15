@@ -6,18 +6,17 @@ WidgetRegleAff::WidgetRegleAff(QWidget *parent) : WidgetRegle(parent)
 {
 	m_nom->setText("AFF");
 	
-	m_premisse = new QLabel("Axiome", m_top);
+	m_premisse = new QLabel("Axiome", this);
 	
-	m_grid->addWidget(m_premisse, 0, 1, 1, 2);
+	m_grid->addWidget(m_premisse, 0, 1);
 }
 
 WidgetRegleAff::~WidgetRegleAff()
 {
-	// delete m_top;
+	
 }
 
 string WidgetRegleAff::toString()
 {
- 	// return " " + m_conclusion;
 	return "";
 }

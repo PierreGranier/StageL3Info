@@ -4,23 +4,32 @@ using namespace std;
 
 WidgetTriplet::WidgetTriplet(QWidget *parent) : QWidget(parent)
 {
-	m_top = new QWidget(this);
-	// m_top->setFixedWidth(300);
+	m_hbox = new QHBoxLayout(this);
 	
-	m_hbox = new QHBoxLayout(m_top);
+	m_precondition = new QLineEdit(this);
+	// m_programmeVariable = new QLineEdit(this);
+	// m_programmeValeur = new QLineEdit(this);
+	// m_postcondition = new QLineEdit(this);
 	
-	m_precondition = new QLineEdit(m_top);
-	m_programme = new QLineEdit(m_top);
-	m_postcondition = new QLineEdit(m_top);
-	
+	// m_hbox->addWidget(new QLabel("{", this));
 	m_hbox->addWidget(m_precondition);
-	m_hbox->addWidget(m_programme);
-   	m_hbox->addWidget(m_postcondition);
+	// m_hbox->addWidget(new QLabel("}", this));
+	// m_hbox->addWidget(m_programmeVariable);
+	// m_hbox->addWidget(new QLabel(":=", this));
+	// m_hbox->addWidget(m_programmeValeur);
+ 	// m_hbox->addWidget(new QLabel("{", this));
+  	// m_hbox->addWidget(m_postcondition);
+	// m_hbox->addWidget(new QLabel("}", this));
+	
+	m_hbox->setSpacing(0);
+	m_hbox->setContentsMargins(0, 0, 0, 0);
+	
+	// m_precondition->setStyleSheet("background-color:white;border:1px solid black;color:gray;padding:5px;text-align: center;");
 }
 
 WidgetTriplet::~WidgetTriplet()
 {
-	// delete m_top;
+	
 }
 
 string WidgetTriplet::toString()

@@ -60,7 +60,7 @@ Le premier paramètre d'une règle étant la conclusion et les suivants les pré
 
 Tokens déjà présents dans les preuves :
 * `AFF` : une règle de Hoare d’arité 1 (ne contient qu'une conclusion, pas de prémisse)
-* `SEQ/CONSEQ/WHILE/WHILET` : les règles de Hoare d'arité 2 (une conclusion puis une prémisse)
+* `SEQ/COND/CONSEQ/WHILE/WHILET` : les règles de Hoare d'arité 2 (une conclusion puis une prémisse)
 
 Tokens à définir :
 * `ACCOLADE_OUVRANTE` et `ACCOLADE_FERMANTE` respectivement **{** et **}** : les caractères encadrant un prédicat

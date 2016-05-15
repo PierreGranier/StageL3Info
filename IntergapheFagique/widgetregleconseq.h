@@ -10,7 +10,7 @@ class WidgetRegleConseq : public WidgetRegle
 		
 		WidgetAjouter *m_ajouter;
 		
-		WidgetRegle *m_souspreuve;
+		WidgetRegle *m_sousPreuve;
 		
 	public:
 		WidgetRegleConseq(QWidget *parent);

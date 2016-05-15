@@ -12,8 +12,8 @@ class WidgetRegleCond : public WidgetRegle
 		WidgetAjouter *m_ajouterG;
 		WidgetAjouter *m_ajouterD;
 		
-		WidgetRegle *m_souspreuveG;
-		WidgetRegle *m_souspreuveD;
+		WidgetRegle *m_sousPreuveG;
+		WidgetRegle *m_sousPreuveD;
 		
 	public:
 		WidgetRegleCond(QWidget *parent);

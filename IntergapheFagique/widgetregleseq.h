@@ -12,8 +12,8 @@ class WidgetRegleSeq : public WidgetRegle
 		WidgetAjouter *m_ajouterG;
 		WidgetAjouter *m_ajouterD;
 		
-		WidgetRegle *m_brancheG;
-		WidgetRegle *m_brancheD;
+		WidgetRegle *m_sousPreuveG;
+		WidgetRegle *m_sousPreuveD;
 		
 	public:
 		WidgetRegleSeq(QWidget *parent);

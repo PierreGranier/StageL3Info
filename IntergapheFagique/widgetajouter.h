@@ -2,7 +2,6 @@
 #define widgetajouter_h
 
 #include <QtWidgets/QComboBox>
-// #include <QtWidgets/QWidget>
 #include <iostream>
 #include <string>
 

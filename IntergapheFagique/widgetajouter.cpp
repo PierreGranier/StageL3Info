@@ -1,5 +1,7 @@
 #include "widgetajouter.h"
 
+using namespace std;
+
 WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent)
 {
 	this->addItem("Ajouter une règle");

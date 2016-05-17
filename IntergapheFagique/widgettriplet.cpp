@@ -23,8 +23,6 @@ WidgetTriplet::WidgetTriplet(QWidget *parent) : QWidget(parent)
 	
 	m_hbox->setSpacing(0);
 	m_hbox->setContentsMargins(0, 0, 0, 0);
-	
-	// m_precondition->setStyleSheet("background-color:white;border:1px solid black;color:gray;padding:5px;text-align: center;");
 }
 
 WidgetTriplet::~WidgetTriplet()

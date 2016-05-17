@@ -1,10 +1,10 @@
-#include "widgetregleconseq.h"
+#include "widgetreglesimple.h"
 
 using namespace std;
 
-WidgetRegleConseq::WidgetRegleConseq(QWidget *parent) : WidgetRegle(parent)
+WidgetRegleSimple::WidgetRegleSimple(const string &nomRegle, QWidget *parent) : WidgetRegle(parent)
 {
-    m_nom->setText("CONSEQ");
+    m_nom->setText(QString::fromStdString(nomRegle));
 	
 	m_premisse = new WidgetTriplet(this);
 	
@@ -14,12 +14,12 @@ WidgetRegleConseq::WidgetRegleConseq(QWidget *parent) : WidgetRegle(parent)
 	m_grid->addWidget(m_premisse, 1, 1);
 }
 
-WidgetRegleConseq::~WidgetRegleConseq()
+WidgetRegleSimple::~WidgetRegleSimple()
 {
 	
 }
 
-string WidgetRegleConseq::toString()
+string WidgetRegleSimple::toString()
 {
  	// return " " + m_premisse.toString() + " " + m_souspreuve.toString();
 	return "";

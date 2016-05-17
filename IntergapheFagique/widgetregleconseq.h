@@ -1,22 +1,15 @@
 #ifndef widgetregleconseq_h
 #define widgetregleconseq_h
 
-#include "widgetregle.h"
+#include "widgetreglesimple.h"
 
-class WidgetRegleConseq : public WidgetRegle 
+class WidgetRegleConseq : public WidgetRegleSimple
 {
 	private:
-		WidgetTriplet *m_premisse;
-		
-		WidgetAjouter *m_ajouter;
-		
-		WidgetRegle *m_sousPreuve;
 		
 	public:
-		WidgetRegleConseq(QWidget *parent);
-		~WidgetRegleConseq();
-		
-		std::string toString();
+		WidgetRegleConseq(QWidget *parent) : WidgetRegleSimple("CONSEQ", parent) {};
+		~WidgetRegleConseq() {};
 };
 
 #endif

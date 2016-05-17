@@ -1,11 +1,11 @@
-#include "widgetreglecond.h"
+#include "widgetregledouble.h"
 
 using namespace std;
 
-WidgetRegleCond::WidgetRegleCond(QWidget *parent) : WidgetRegle(parent)
+WidgetRegleDouble::WidgetRegleDouble(const string &nomRegle, QWidget *parent) : WidgetRegle(parent)
 {
-	m_nom->setText("COND");
-	
+    m_nom->setText(QString::fromStdString(nomRegle));
+    
 	m_premisseG = new WidgetTriplet(this);
 	m_premisseD = new WidgetTriplet(this);
 	
@@ -18,12 +18,12 @@ WidgetRegleCond::WidgetRegleCond(QWidget *parent) : WidgetRegle(parent)
 	m_grid->addWidget(m_premisseD, 1, 2);
 }
 
-WidgetRegleCond::~WidgetRegleCond()
+WidgetRegleDouble::~WidgetRegleDouble()
 {
 	
 }
 
-string WidgetRegleCond::toString()
+string WidgetRegleDouble::toString()
 {
  	// return " " + m_premisseG.toString() + " " + m_premisseD.toString() + " " + m_souspreuveG.toString() + " " + m_souspreuveD.toString();
 	return "";

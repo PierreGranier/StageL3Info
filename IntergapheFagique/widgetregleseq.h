@@ -1,25 +1,15 @@
 #ifndef widgetregleseq_h
 #define widgetregleseq_h
 
-#include "widgetregle.h"
+#include "widgetregledouble.h"
 
-class WidgetRegleSeq : public WidgetRegle
+class WidgetRegleSeq : public WidgetRegleDouble
 {
 	private:
-		WidgetTriplet *m_premisseG;
-		WidgetTriplet *m_premisseD;
-		
-		WidgetAjouter *m_ajouterG;
-		WidgetAjouter *m_ajouterD;
-		
-		WidgetRegle *m_sousPreuveG;
-		WidgetRegle *m_sousPreuveD;
 		
 	public:
-		WidgetRegleSeq(QWidget *parent);
-		~WidgetRegleSeq();
-		
-		std::string toString();
+		WidgetRegleSeq(QWidget *parent) : WidgetRegleDouble("SEQ", parent) {};
+		~WidgetRegleSeq() {};
 };
 
 #endif

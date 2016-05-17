@@ -1,22 +1,15 @@
 #ifndef widgetreglewhilet_h
 #define widgetreglewhilet_h
 
-#include "widgetregle.h"
+#include "widgetreglesimple.h"
 
-class WidgetRegleWhileT : public WidgetRegle
+class WidgetRegleWhileT : public WidgetRegleSimple
 {
-    private:		
-		WidgetTriplet *m_premisse;
-		
-		WidgetAjouter *m_ajouter;
-		
-		WidgetRegle *m_sousPreuve;
+    private:
 		
     public:
-        WidgetRegleWhileT(QWidget *parent);
-        ~WidgetRegleWhileT();
-		
-		std::string toString();		
+		WidgetRegleWhileT(QWidget *parent) : WidgetRegleSimple("WHILET", parent) {};
+		~WidgetRegleWhileT() {};
 };
 
 #endif

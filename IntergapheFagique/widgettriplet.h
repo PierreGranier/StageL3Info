@@ -11,7 +11,6 @@
 class WidgetTriplet : public QWidget
 {
 	private:
-		QWidget *m_top;
 		QHBoxLayout *m_hbox;
 		
 		QLineEdit *m_precondition;

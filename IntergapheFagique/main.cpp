@@ -5,8 +5,8 @@ int main(int argc, char** argv)
 {
 	QApplication app(argc, argv);
 	
-	/*MainWindow *fenetre = new MainWindow();
-	fenetre->show();*/
+	MainWindow *fenetre = new MainWindow();
+	fenetre->show();
 	
 	Container *c = new Container(0);
 	c->show();

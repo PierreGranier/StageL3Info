@@ -12,6 +12,8 @@ WidgetRegleSimple::WidgetRegleSimple(const string &nomRegle, QWidget *parent) : 
 	
 	m_grid->addWidget(m_ajouter, 0, 1);
 	m_grid->addWidget(m_premisse, 1, 1);
+	
+	connect(m_ajouter, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetAjouter::ajouterSousPreuve);
 }
 
 WidgetRegleSimple::~WidgetRegleSimple()

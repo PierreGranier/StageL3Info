@@ -36,9 +36,11 @@ WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle)
 	else if(nomRegle == "WHILET") 
 		newWidget = new WidgetRegleWhileT(this);
 	
+	emit envoyerWidgetRegle(newWidget);
+	cout << "Y'a dla joie" << endl;
 	return newWidget;
 	
-	cout << "Y'a dla joie" << endl;	
+	
 }
 
 

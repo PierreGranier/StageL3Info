@@ -16,6 +16,9 @@ class WidgetAjouter : public QComboBox
 		WidgetAjouter(QWidget *parent);
 		~WidgetAjouter();
 		WidgetRegle *genererWidgetRegle(const QString &nomRegle);
+		
+	signals:
+		envoyerWidgetRegle(WidgetRegle *sousPreuve);	
 };
 
 #endif

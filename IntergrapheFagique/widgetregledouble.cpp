@@ -2,10 +2,8 @@
 
 using namespace std;
 
-WidgetRegleDouble::WidgetRegleDouble(const string &nomRegle, QWidget *parent) : WidgetRegle(parent)
+WidgetRegleDouble::WidgetRegleDouble(const string &nomRegle, QWidget *parent) : WidgetRegle(nomRegle, parent)
 {
-    m_nom->setText(QString::fromStdString(nomRegle));
-    
 	m_premisseG = new WidgetTriplet(this);
 	m_premisseD = new WidgetTriplet(this);
 	

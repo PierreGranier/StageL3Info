@@ -6,6 +6,7 @@
 class WidgetRegleSimple : public WidgetRegle
 {
     Q_OBJECT
+    
     private:
 		WidgetTriplet *m_premisse;
 		

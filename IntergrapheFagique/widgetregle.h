@@ -17,7 +17,7 @@ class WidgetRegle : public QWidget
 		QLabel *m_nom;
 		
 	public:
-		WidgetRegle(QWidget *parent);
+		WidgetRegle(const std::string &nomRegle, QWidget *parent);
 		~WidgetRegle();
 		
 		std::string toString();

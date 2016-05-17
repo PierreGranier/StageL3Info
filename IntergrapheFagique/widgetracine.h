@@ -1,7 +1,7 @@
 #ifndef widgetracine_h
 #define widgetracine_h
 
-#include "widgetregleimple.h"
+#include "widgetreglesimple.h"
 
 class WidgetRacine : public WidgetRegleSimple
 {

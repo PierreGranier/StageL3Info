@@ -22,6 +22,11 @@ WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent)
 	QObject::connect(this, &WidgetAjouter::currentTextChanged, this, &WidgetAjouter::genererWidgetRegle);
 }
 
+WidgetAjouter::~WidgetAjouter() 
+{
+	
+}
+
 void WidgetAjouter::genererWidgetRegle(const QString &nomRegle) 
 {
 	WidgetRegle *newWidget;
@@ -40,10 +45,4 @@ void WidgetAjouter::genererWidgetRegle(const QString &nomRegle)
 		newWidget = new WidgetRegleWhileT(this);
 	
 	emit envoyerWidgetRegle(newWidget);
-}
-
-
-WidgetAjouter::~WidgetAjouter() 
-{
-	
 }

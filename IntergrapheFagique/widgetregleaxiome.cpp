@@ -2,10 +2,8 @@
 
 using namespace std;
 
-WidgetRegleAxiome::WidgetRegleAxiome(QWidget *parent) : WidgetRegle(parent)
+WidgetRegleAxiome::WidgetRegleAxiome(const string &nomRegle, QWidget *parent) : WidgetRegle(nomRegle, parent)
 {
-	m_nom->setText("AFF");
-	
 	m_premisse = new QLabel("Axiome", this);
 	
 	m_grid->addWidget(m_premisse, 0, 1);

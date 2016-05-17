@@ -12,6 +12,7 @@ HEADERS += container.h \
            widgetajouter.h \
            widgetracine.h \
            widgetregle.h \
+           widgetregleaxiome.h \
            widgetregleaff.h \
            widgetreglecond.h \
            widgetregleconseq.h \
@@ -25,9 +26,8 @@ SOURCES += container.cpp \
            main.cpp \
            mainwindow.cpp \
            widgetajouter.cpp \
-           widgetracine.cpp \
            widgetregle.cpp \
-           widgetregleaff.cpp \
+           widgetregleaxiome.cpp \
            widgetregledouble.cpp \
            widgetreglesimple.cpp \
            widgettriplet.cpp

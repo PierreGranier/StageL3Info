@@ -9,7 +9,7 @@ class WidgetRegleAxiome : public WidgetRegle
 		QLabel *m_premisse;
 		
 	public:
-		WidgetRegleAxiome(QWidget *parent);
+		WidgetRegleAxiome(const std::string &nomRegle, QWidget *parent);
 		~WidgetRegleAxiome();
 		
 		std::string toString();

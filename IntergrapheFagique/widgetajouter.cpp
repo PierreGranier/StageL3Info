@@ -2,6 +2,7 @@
 
 #include "widgetregleaff.h"
 #include "widgetregleseq.h"
+#include "widgetreglecond.h"
 #include "widgetregleconseq.h"
 #include "widgetreglewhile.h"
 #include "widgetreglewhilet.h"
@@ -28,6 +29,8 @@ WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle)
 		newWidget = new WidgetRegleAff(this);
 	else if(nomRegle == "SEQ")
 		newWidget = new WidgetRegleSeq(this);
+	else if(nomRegle == "COND")
+		newWidget = new WidgetRegleCond(this);
 	else if(nomRegle == "CONSEQ")
 		newWidget = new WidgetRegleConseq(this);
 	else if(nomRegle == "WHILE")
@@ -36,7 +39,7 @@ WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle)
 		newWidget = new WidgetRegleWhileT(this);
 	
 	emit envoyerWidgetRegle(newWidget);
-	cout << "Y'a dla joie" << endl;
+	
 	return newWidget;
 	
 	

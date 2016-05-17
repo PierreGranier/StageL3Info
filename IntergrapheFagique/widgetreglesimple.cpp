@@ -8,8 +8,8 @@ WidgetRegleSimple::WidgetRegleSimple(const string &nomRegle, QWidget *parent) : 
 	
 	m_ajouter = new WidgetAjouter(this);
 	
-	m_grid->addWidget(m_ajouter, 0, 1);
-	m_grid->addWidget(m_premisse, 1, 1);
+	m_grid->addWidget(m_ajouter, 0, 0, 1, 2);
+	m_grid->addWidget(m_premisse, 1, 0, 1, 2);
 	
 	QObject::connect(m_ajouter, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleSimple::ajouterSousPreuve);
 }

@@ -6,7 +6,7 @@ WidgetRegleAxiome::WidgetRegleAxiome(const string &nomRegle, QWidget *parent) : 
 {
 	m_premisse = new QLabel("Axiome", this);
 	
-	m_grid->addWidget(m_premisse, 0, 1);
+	m_grid->addWidget(m_premisse, 0, 0, 2, 2, Qt::AlignHCenter);
 }
 
 WidgetRegleAxiome::~WidgetRegleAxiome()

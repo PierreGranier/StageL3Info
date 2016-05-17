@@ -10,7 +10,7 @@ WidgetRegle::WidgetRegle(const string &nomRegle, QWidget *parent) : QWidget(pare
     
 	m_nom = new QLabel(QString::fromStdString(nomRegle), this);
 	
-	m_grid->addWidget(m_nom, 1, 0, 2, 1);
+	m_grid->addWidget(m_nom, 2, 0, 1, 2, Qt::AlignHCenter);
 }
 
 WidgetRegle::~WidgetRegle()

@@ -19,7 +19,7 @@ WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent)
 	this->addItem("WHILE");
 	this->addItem("WHILET");
 	
-	connect(this, &WidgetAjouter::currentTextChanged, this, &WidgetAjouter::genererWidgetRegle);
+	QObject::connect(this, &WidgetAjouter::currentTextChanged, this, &WidgetAjouter::genererWidgetRegle);
 }
 
 WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle) 

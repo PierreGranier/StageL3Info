@@ -16,6 +16,8 @@ class WidgetAjouter : public QComboBox
 	public:
 		WidgetAjouter(QWidget *parent);
 		~WidgetAjouter();
+	
+	public slots:	
 		WidgetRegle *genererWidgetRegle(const QString &nomRegle);
 		
 	signals:

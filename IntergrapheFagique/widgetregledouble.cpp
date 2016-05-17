@@ -17,8 +17,8 @@ WidgetRegleDouble::WidgetRegleDouble(const string &nomRegle, QWidget *parent) : 
 	m_grid->addWidget(m_premisseG, 1, 1);
 	m_grid->addWidget(m_premisseD, 1, 2);
 	
-	connect(m_ajouterG, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveG);
-	connect(m_ajouterD, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveD);
+	QObject::connect(m_ajouterG, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveG);
+	QObject::connect(m_ajouterD, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveD);
 }
 
 WidgetRegleDouble::~WidgetRegleDouble()

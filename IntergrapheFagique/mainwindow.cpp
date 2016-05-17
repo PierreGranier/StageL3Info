@@ -43,7 +43,9 @@ void MainWindow::createToolBar()
 	
 	fileToolBar = addToolBar("File");
 	fileToolBar->addAction("Importer");
-	fileToolBar->addAction("Quitter");
+	QAction* quit= fileToolBar->addAction("Quitter"); // TODO stocker l'action qui en attribut
+		
+	connect(quit, &QAction::triggered, this, &QMainWindow::close);
 }
 
 MainWindow::~MainWindow()

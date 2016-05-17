@@ -5,6 +5,7 @@
 
 class WidgetRegleDouble : public WidgetRegle
 {
+	Q_OBJECT
 	private:
 		WidgetTriplet *m_premisseG;
 		WidgetTriplet *m_premisseD;
@@ -18,11 +19,14 @@ class WidgetRegleDouble : public WidgetRegle
 	public:
 		WidgetRegleDouble(const std::string &nomRegle, QWidget *parent);
 		~WidgetRegleDouble();
+	
+		std::string toString();
 		
+	public slots:	
 		void ajouterSousPreuveG(WidgetRegle *sousPreuve);
 		void ajouterSousPreuveD(WidgetRegle *sousPreuve);
 		
-		std::string toString();
+		
 };
 
 #endif

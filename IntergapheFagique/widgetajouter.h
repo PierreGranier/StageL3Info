@@ -5,6 +5,9 @@
 #include <iostream>
 #include <string>
 
+
+class WidgetRegle;
+
 class WidgetAjouter : public QComboBox
 {
 	private:
@@ -12,6 +15,7 @@ class WidgetAjouter : public QComboBox
 	public:
 		WidgetAjouter(QWidget *parent);
 		~WidgetAjouter();
+		WidgetRegle *genererWidgetRegle(const QString &nomRegle);
 };
 
 #endif

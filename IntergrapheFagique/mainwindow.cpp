@@ -11,18 +11,21 @@ MainWindow::MainWindow()
 	m_box = new QVBoxLayout(m_top);
 	m_top->setLayout(m_box);
 	
-	// zoneConteneur est une ScrollArea
+	// zoneConteneur est une ScrollArea dans la box
 	
 	m_zoneConteneur = new QScrollArea(m_top);
+	m_box->addWidget(m_zoneConteneur);
 	
-	// Un container dans la zoneConteneur dans la box
+	// Widgets internes en pleine page
+	
+	m_zoneConteneur->setWidgetResizable(true);
+	
+	// container dans la zoneConteneur
 	
 	Container *conteneur = new Container(m_zoneConteneur);
 	m_zoneConteneur->setWidget(conteneur);
 	// m_zoneConteneur->setAlignment(Qt::AlignHCenter);
-	
-	m_box->addWidget(m_zoneConteneur);
-	
+
 	// Bouton de vérification dans la box
 	
 	m_verifier = new QPushButton("Vérifier la preuve", m_top);

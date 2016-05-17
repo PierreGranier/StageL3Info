@@ -18,7 +18,7 @@ class WidgetAjouter : public QComboBox
 		~WidgetAjouter();
 	
 	public slots:	
-		WidgetRegle *genererWidgetRegle(const QString &nomRegle);
+		void genererWidgetRegle(const QString &nomRegle);
 		
 	signals:
 		void envoyerWidgetRegle(WidgetRegle *sousPreuve);	

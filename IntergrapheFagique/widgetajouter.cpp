@@ -22,9 +22,10 @@ WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent)
 	QObject::connect(this, &WidgetAjouter::currentTextChanged, this, &WidgetAjouter::genererWidgetRegle);
 }
 
-WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle) 
+void WidgetAjouter::genererWidgetRegle(const QString &nomRegle) 
 {
 	WidgetRegle *newWidget;
+	
 	if(nomRegle == "AFF")
 		newWidget = new WidgetRegleAff(this);
 	else if(nomRegle == "SEQ")
@@ -35,14 +36,10 @@ WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle)
 		newWidget = new WidgetRegleConseq(this);
 	else if(nomRegle == "WHILE")
 		newWidget = new WidgetRegleWhile(this);
-	else if(nomRegle == "WHILET") 
+	else if(nomRegle == "WHILET")
 		newWidget = new WidgetRegleWhileT(this);
 	
 	emit envoyerWidgetRegle(newWidget);
-	
-	return newWidget;
-	
-	
 }
 
 

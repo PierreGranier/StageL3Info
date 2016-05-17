@@ -6,7 +6,6 @@
 #include "widgetreglewhile.h"
 #include "widgetreglewhilet.h"
 
-
 using namespace std;
 
 WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent)

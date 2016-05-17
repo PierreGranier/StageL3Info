@@ -2,6 +2,7 @@ MOC= /usr/lib/x86_64-linux-gnu/qt5/bin/moc
 
 all:
 	clear
+
 	$(MOC) widgetajouter.h -o moc_widgetajouter.cpp
 	$(MOC) widgetreglesimple.h -o moc_widgetreglesimple.cpp
 	$(MOC) widgetregledouble.h -o moc_widgetregledouble.cpp

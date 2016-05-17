@@ -22,7 +22,6 @@ WidgetAjouter::WidgetAjouter(QWidget *parent) : QComboBox(parent)
 	connect(this, &WidgetAjouter::currentTextChanged, this, &WidgetAjouter::genererWidgetRegle);
 }
 
-
 WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle) 
 {
 	WidgetRegle *newWidget;
@@ -39,7 +38,6 @@ WidgetRegle *WidgetAjouter::genererWidgetRegle(const QString &nomRegle)
 	
 	return newWidget;
 	
-	  
 	cout << "Y'a dla joie" << endl;	
 }
 

@@ -26,14 +26,14 @@ WidgetRegleDouble::~WidgetRegleDouble()
 void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
 {
     m_sousPreuveG = sousPreuve;
-    m_grid->replaceWidget(m_ajouterG, m_sousPreuve);
+    m_grid->replaceWidget(m_ajouterG, m_sousPreuveG);
     delete m_ajouterG;
 }
 
 void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
 {
     m_sousPreuveD = sousPreuve;
-    m_grid->replaceWidget(m_ajouterD, m_sousPreuve);
+    m_grid->replaceWidget(m_ajouterD, m_sousPreuveD);
     delete m_ajouterD;
 }
 

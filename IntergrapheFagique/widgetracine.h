@@ -1,28 +1,15 @@
 #ifndef widgetracine_h
 #define widgetracine_h
 
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QGridLayout>
-#include <iostream>
-#include <string>
-#include "widgettriplet.h"
-#include "widgetajouter.h"
-#include "widgetregle.h"
+#include "widgetregleimple.h"
 
-class WidgetRacine : public QWidget
+class WidgetRacine : public WidgetRegleSimple
 {
 	protected:
-		QGridLayout *m_grid;
-		
-		WidgetTriplet *m_conclusion;
-		
-		WidgetAjouter *m_ajouter;
-		
-		WidgetRegle *m_premisse;
 		
 	public:
-		WidgetRacine(QWidget *parent);
-		~WidgetRacine();
+		WidgetRacine(QWidget *parent) : WidgetRegleSimple("Racine", parent) {};
+		~WidgetRacine() {};
 		
 		std::string toString();
 };

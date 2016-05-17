@@ -2,7 +2,7 @@
 #define container_h
 
 #include <QtWidgets/QWidget>
-#include "widgetajouter.h"
+#include "widgetracine.h"
 #include "widgetregleaff.h"
 #include "widgetregleseq.h"
 #include "widgetreglecond.h"

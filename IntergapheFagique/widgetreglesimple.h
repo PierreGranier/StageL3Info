@@ -16,6 +16,8 @@ class WidgetRegleSimple : public WidgetRegle
         WidgetRegleSimple(const std::string &nomRegle, QWidget *parent);
         ~WidgetRegleSimple();
 		
+        void ajouterSousPreuve(WidgetRegle *sousPreuve);
+        
 		std::string toString();		
 };
 

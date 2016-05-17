@@ -19,6 +19,9 @@ class WidgetRegleDouble : public WidgetRegle
 		WidgetRegleDouble(const std::string &nomRegle, QWidget *parent);
 		~WidgetRegleDouble();
 		
+		void ajouterSousPreuveG(WidgetRegle *sousPreuve);
+		void ajouterSousPreuveD(WidgetRegle *sousPreuve);
+		
 		std::string toString();
 };
 

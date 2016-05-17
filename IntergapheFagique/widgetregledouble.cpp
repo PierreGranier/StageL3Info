@@ -23,6 +23,20 @@ WidgetRegleDouble::~WidgetRegleDouble()
 	
 }
 
+void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
+{
+    m_sousPreuveG = sousPreuve;
+    m_grid->replaceWidget(m_ajouterG, m_sousPreuve);
+    delete m_ajouterG;
+}
+
+void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
+{
+    m_sousPreuveD = sousPreuve;
+    m_grid->replaceWidget(m_ajouterD, m_sousPreuve);
+    delete m_ajouterD;
+}
+
 string WidgetRegleDouble::toString()
 {
  	// return " " + m_premisseG.toString() + " " + m_premisseD.toString() + " " + m_souspreuveG.toString() + " " + m_souspreuveD.toString();

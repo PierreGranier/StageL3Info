@@ -38,7 +38,7 @@ void Container::initialiser()
 	m_ens->addWidget(m_racine);
 }
 
-void Container::afficher() const
+void Container::verifier() const
 {
-	cout << m_racine->toString() << endl;
+    // cout << m_racine->toString() << endl;
 }

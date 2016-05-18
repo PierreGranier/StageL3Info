@@ -2,6 +2,7 @@
 #define container_h
 
 #include <QtWidgets/QWidget>
+#include <QtWidgets/QBoxLayout>
 #include <QtGui/QtGui>
 #include <iostream>
 #include <string>
@@ -31,7 +32,7 @@ class Container : public QWidget
 		
 	public slots:
 		void initialiser();
-		void afficher() const;
+		void verifier() const;
 };
 
 #endif

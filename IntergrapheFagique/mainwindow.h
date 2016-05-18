@@ -5,6 +5,7 @@
 #include <QtWidgets/QBoxLayout>
 #include <QtWidgets/QLineEdit>
 #include "container.h"
+#include "console.h"
 
 class MainWindow : public QMainWindow
 {
@@ -12,13 +13,15 @@ class MainWindow : public QMainWindow
 		QWidget *m_top;
 		QVBoxLayout *m_box;
 		
-		QSplitter *m_zonePreuve;
-		QSplitter *m_zoneSortie;
+		QWidget *m_zonePreuve;
+		QWidget *m_zoneSortie;
+		QSplitter *m_splitter;
 		
 		QScrollArea *m_zoneConteneur;
 		Container *m_conteneur;
 		
-		QLineEdit *m_sortie;
+		QScrollArea *m_zoneConsole;
+		Console *m_console;
 		
 		QAction *m_nouveau;
 		QAction *m_quitter;
@@ -27,7 +30,7 @@ class MainWindow : public QMainWindow
 		QAction *m_verifier;
 		QAction *m_aide;
 		QAction *m_propos;
-
+		
 		QToolBar *fileToolBar;
 		
 	public:

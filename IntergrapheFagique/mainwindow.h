@@ -12,6 +12,9 @@ class MainWindow : public QMainWindow
 		QWidget *m_top;
 		QVBoxLayout *m_box;
 		
+		QSplitter *m_zonePreuve;
+		QSplitter *m_zoneSortie;
+		
 		QScrollArea *m_zoneConteneur;
 		Container *m_conteneur;
 		

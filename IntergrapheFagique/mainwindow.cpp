@@ -15,32 +15,37 @@ MainWindow::MainWindow()
 	// Layout appliqué au top
 	
 	m_box = new QVBoxLayout(m_top);
-	m_top->setLayout(m_box);
+	//m_top->setLayout(m_box);
 	
-	// ZoneConteneur est une ScrollArea dans la box
+	// Zone de la preuve
 	
-	m_zoneConteneur = new QScrollArea(m_top);
-	m_box->addWidget(m_zoneConteneur);
+	m_zonePreuve = new QSplitter(m_top);
+	m_box->addWidget(m_zonePreuve);
+	QVBoxLayout *layoutPreuve = new QVBoxLayout(m_zonePreuve);
 	
-	// Widgets internes en pleine page
+		// ZoneConteneur est une ScrollArea dans la box
+		m_zoneConteneur = new QScrollArea(m_zonePreuve);
+		// Widgets internes en pleine page
+		m_zoneConteneur->setWidgetResizable(true);
+		// Container dans la zoneConteneur
+		m_conteneur = new Container(m_zoneConteneur);
+		m_zoneConteneur->setWidget(m_conteneur);
+		m_zoneConteneur->setAlignment(Qt::AlignHCenter);
 	
-	m_zoneConteneur->setWidgetResizable(true);
+	layoutPreuve->addWidget(new QLabel("Zone de construction de preuve", m_zonePreuve));
+	layoutPreuve->addWidget(m_zoneConteneur);
 	
-	// Container dans la zoneConteneur
+	// Zone de la sortie de la vérification
 	
-	m_conteneur = new Container(m_zoneConteneur);
-	m_zoneConteneur->setWidget(m_conteneur);
-	m_zoneConteneur->setAlignment(Qt::AlignHCenter);
+	m_zoneSortie = new QSplitter(m_top);
+	m_box->addWidget(m_zoneSortie);
+	QVBoxLayout *layoutSortie = new QVBoxLayout(m_zoneSortie);
 	
-	// Sortie de la vérification dans la box
-	
-	m_sortie = new QLineEdit(m_top);
-	m_sortie->readOnly(true);
-	m_box->addWidget(m_sortie);
-	
-	// Console de sortie
-	
-		// Les box qui se redimensionnent ! :)
+		m_sortie = new QLineEdit(m_zoneSortie);
+		m_sortie->setReadOnly(true);
+		
+	layoutSortie->addWidget(new QLabel("Sortie", m_zoneSortie));
+	layoutSortie->addWidget(m_sortie);
 	
 	// Actions, ToolBar, Signaux, StatusBar
 	

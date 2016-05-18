@@ -3,15 +3,15 @@
 MainWindow::MainWindow()
 {
 	// Widget prncipal
-
+	
 	m_top = new QWidget(this);
 	setCentralWidget(m_top);
-
+	
 	// Nom et taille de la fenêtre
-
+	
 	this->setWindowTitle("Analyseur Syntaxical");
-	this->setMinimumSize(900, 600);
-
+	this->resize(900, 600);
+	
 	// Layout appliqué au top
 	
 	m_box = new QVBoxLayout(m_top);
@@ -21,34 +21,34 @@ MainWindow::MainWindow()
 	
 	m_zoneConteneur = new QScrollArea(m_top);
 	m_box->addWidget(m_zoneConteneur);
-
+	
 	// Widgets internes en pleine page
-
+	
 	m_zoneConteneur->setWidgetResizable(true);
 	
 	// Container dans la zoneConteneur
-
+	
 	Container *conteneur = new Container(m_zoneConteneur);
 	m_zoneConteneur->setWidget(conteneur);
 	// m_zoneConteneur->setAlignment(Qt::AlignHCenter);
-
+	
 	// Bouton de vérification dans la box
 	
 	m_bouttonVerifier = new QPushButton("Vérifier la preuve", m_top);
 	m_box->addWidget(m_bouttonVerifier);
-
+	
 	// Console de sortie
 
 		// Les box qui se redimensionnent ! :)
 	
 	// Actions, ToolBar, Statusbar
-
+	
 	this->createActions();
 	this->createToolBar();
 	this->createStatusBar();
-
+	
 	// ?
-
+	
 	setUnifiedTitleAndToolBarOnMac(true);
 }
 

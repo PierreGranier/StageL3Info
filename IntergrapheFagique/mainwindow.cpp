@@ -28,9 +28,9 @@ MainWindow::MainWindow()
 	
 	// Container dans la zoneConteneur
 	
-	Container *conteneur = new Container(m_zoneConteneur);
+	m_conteneur = new Container(m_zoneConteneur);
 	m_zoneConteneur->setWidget(conteneur);
-	// m_zoneConteneur->setAlignment(Qt::AlignHCenter);
+	m_zoneConteneur->setAlignment(Qt::AlignHCenter);
 	
 	// Bouton de vérification dans la box
 	
@@ -38,45 +38,60 @@ MainWindow::MainWindow()
 	m_box->addWidget(m_bouttonVerifier);
 	
 	// Console de sortie
-
+	
 		// Les box qui se redimensionnent ! :)
 	
-	// Actions, ToolBar, Statusbar
+	// Actions, ToolBar, Signaux, StatusBar
 	
 	this->createActions();
+	this->createMenuBar();
 	this->createToolBar();
+	this->createSignals();
 	this->createStatusBar();
 	
-	// ?
+	// Marche pas sur Linux
 	
 	setUnifiedTitleAndToolBarOnMac(true);
 }
 
 void MainWindow::createActions()
 {
-	// Menu (Fichier -> Nouveau, Fichier -> Quitter, Preuve -> Règles, Preuve -> Vérifier)
-
+	// Menu (Fichier -> Nouveau, Fichier -> Quitter, Preuve -> Règles, Preuve -> Vérifier)	
+	
+	m_nouveau = new QAction("Nouveau", this);
+	m_quitter = new QAction("Quitter", this);
+	m_regles = new QAction("Règles de construction", this);
+	m_syntaxe = new QAction("Syntaxe de la preuve", this);
+	m_verifier = new QAction("Vérifier la preuve", this);
+	m_aide = new QAction("Aide", this);
+	m_propos = new QAction("A propos", this);
+}
+void MainWindow::createMenuBar()
+{
 	//menuBar()->addAction("GTFE");
-
+	
 	QMenu *fichier = menuBar()->addMenu("Fichier");
-		m_nouveau = fichier->addAction("Nouveau");
-		m_quitter = fichier->addAction("Quitter");
+		fichier->addAction(m_nouveau);
+		fichier->addAction(m_quitter);
 	QMenu *preuve = menuBar()->addMenu("Preuve");
-		m_regles = preuve->addAction("Règles de construction");
-		m_syntaxe = preuve->addAction("Syntaxe de la preuve");
-		m_verifier = preuve->addAction("Vérifier la preuve");
+		preuve->addAction(m_regles);
+		preuve->addAction(m_syntaxe);
+		preuve->addAction(m_verifier);
 	QMenu *pi = menuBar()->addMenu("?");
-		m_aide = pi->addAction("Aide");
-		m_propos = pi->addAction("A propos");
+		pi->addAction(m_aide);
+		pi->addAction(m_propos);
 }
 
 void MainWindow::createToolBar()
 {
 	// Icones (Nouveau, Vérifier la preuve)
-
-	fileToolBar = addToolBar("File");
-	fileToolBar->addAction("Importer");
-	QAction* quit= fileToolBar->addAction("Quitter"); // TODO stocker l'action qui en attribut
+	
+	fileToolBar = addToolBar("Bob");
+		fileToolBar->addAction(m_nouveau);
+		fileToolBar->addAction(m_verifier);
+		fileToolBar->addAction(m_quitter);
+	
+	QAction* quitter = fileToolBar->addAction("Quittedzeer");
 	
 	// http://doc.qt.io/qt-4.8/qdialog.html
 
@@ -87,9 +102,14 @@ void MainWindow::createToolBar()
 	connect(newLetterAct, &QAction::triggered, this, &MainWindow::newLetter);
 	fileMenu->addAction(newLetterAct);
 	fileToolBar->addAction(newLetterAct);*/
+}
 
-
-	connect(quit, &QAction::triggered, this, &QMainWindow::close);
+void MainWindow::createSignals()
+{
+	// connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
+	// connect(quitter, &QAction::triggered, this, &QMainWindow::close);
+	// connect(m_verifier, &QAction::triggered, m_conteneur, &Container::afficher);
+	// connect(m_quitter, &QAction::triggered, this, &QMainWindow::close);
 }
 
 void MainWindow::createStatusBar()

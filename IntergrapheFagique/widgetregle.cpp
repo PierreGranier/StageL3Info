@@ -3,7 +3,7 @@
 using namespace std;
 
 WidgetRegle::WidgetRegle(const string &nomRegle, QWidget *parent) : QWidget(parent)
-{	
+{
 	m_grid = new QGridLayout(this);
     
 	m_nomRegle = new WidgetNomRegle(nomRegle, this);

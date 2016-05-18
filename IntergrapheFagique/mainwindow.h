@@ -10,6 +10,7 @@ class MainWindow : public QMainWindow
 		QWidget *m_top;
 		QVBoxLayout *m_box;
 		QScrollArea *m_zoneConteneur;
+		Container *m_conteneur;
 		QPushButton *m_bouttonVerifier;
 
 		QAction *m_nouveau;
@@ -27,7 +28,9 @@ class MainWindow : public QMainWindow
 		~MainWindow();
 		
 		void createActions();
+		void createMenuBar();
 		void createToolBar();
+		void createSignals();
 		void createStatusBar();
 };
 

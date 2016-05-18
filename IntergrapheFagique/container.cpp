@@ -1,12 +1,16 @@
 #include "container.h"
 
+using namespace std;
+
 Container::Container(QWidget *parent) : QWidget(parent)
 {
 	QVBoxLayout *ens = new QVBoxLayout(this);
 	
 	ens->addStretch(1);
 	
-	ens->addWidget(new WidgetRacine(this));
+	this->initialiser();
+	
+	ens->addWidget(m_racine);
 }
 
 Container::~Container()
@@ -27,4 +31,14 @@ void Container::paintEvent(QPaintEvent *event)
 		
 	QPainter p(this);
 	p.drawImage(0, 0, *m_buffer);
+}
+
+void Container::initialiser()
+{
+	m_racine = new WidgetRacine(this);
+}
+
+void Container::afficher() const
+{
+	cout << m_racine << endl;
 }

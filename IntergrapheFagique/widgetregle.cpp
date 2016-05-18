@@ -4,7 +4,8 @@ using namespace std;
 
 WidgetRegle::WidgetRegle(const string &nomRegle, QWidget *parent) : QWidget(parent)
 {
-	// this->setMaximumWidth(700);
+	this->setMaximumWidth(450);
+	this->setMaximumHeight(120);
 	
 	m_grid = new QGridLayout(this);
     

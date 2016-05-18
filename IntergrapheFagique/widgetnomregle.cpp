@@ -10,9 +10,9 @@ WidgetNomRegle::WidgetNomRegle(const string &nomRegle, QWidget *parent) : QWidge
 
 	QGridLayout *layout = new QGridLayout(this);
 
-	layout->addWidget(new QLabel("-----------------------------", this), 0, 0);
+	layout->addWidget(new QLabel("-----------", this), 0, 0);
 	layout->addWidget(new QLabel(m_nomRegle, this), 0, 1);
-	layout->addWidget(new QLabel("-----------------------------", this), 0, 2);
+	layout->addWidget(new QLabel("-----------", this), 0, 2);
 
 	/*m_buffer = new QImage(size(), QImage::Format_RGB32);
 	m_buffer->fill(Qt::white);

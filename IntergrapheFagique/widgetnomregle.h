@@ -12,7 +12,7 @@ class WidgetNomRegle : public QWidget
 {
     private:
         QString m_nomRegle;
-        
+        QWidget *m_parent;
         QImage *m_buffer;
         QPainter *m_bufferPainter;
         

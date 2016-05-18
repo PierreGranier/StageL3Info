@@ -8,7 +8,10 @@ Container::Container(QWidget *parent) : QWidget(parent)
 	QVBoxLayout *ens = new QVBoxLayout(this);
 	
 	ens->addWidget(new WidgetRacine(this));
-	
+	ens->addWidget(new WidgetRegleSeq(this));
+	ens->addWidget(new WidgetRegleAff(this));
+	ens->addWidget(new WidgetRegleWhile(this));
+
 	// ens->setContentsMargins(50,50,50,50);
 	// getzfzeffze - size et tout
 }

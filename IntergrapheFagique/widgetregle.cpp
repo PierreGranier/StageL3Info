@@ -21,5 +21,5 @@ WidgetRegle::~WidgetRegle()
 
 string WidgetRegle::toString()
 {
-	return "";
+	return m_nomRegle->toString();
 }

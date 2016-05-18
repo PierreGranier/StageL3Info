@@ -31,6 +31,7 @@ WidgetNomRegle::~WidgetNomRegle()
 void WidgetNomRegle::paintEvent(QPaintEvent *event)
 {
 	this->resize(m_parent->size());
+	
 	if(m_nomRegle.toStdString() != "") 
 	{
 		m_buffer = new QImage(m_parent->width(), 30, QImage::Format_RGB32);
@@ -43,7 +44,13 @@ void WidgetNomRegle::paintEvent(QPaintEvent *event)
 		m_bufferPainter->drawLine(0, 20, this->width()/2-m_nomRegle.size()*4, 20);
 		m_bufferPainter->drawText(this->width()/2+2-m_nomRegle.size()*3.5, 24, m_nomRegle);
 		m_bufferPainter->drawLine(this->width()/2+2+m_nomRegle.size()*6, 20, m_parent->width(), 20);
+		
 		QPainter p(this);
 		p.drawImage(0, 0, *m_buffer);
 	}
+}
+
+string WidgetNomRegle::toString()
+{
+	return m_nomRegle.toStdString();
 }

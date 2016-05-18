@@ -21,6 +21,8 @@ class WidgetNomRegle : public QWidget
 		~WidgetNomRegle();
 		
 		 void paintEvent(QPaintEvent *event);
+		 
+		 std::string toString();
 };
 
 #endif

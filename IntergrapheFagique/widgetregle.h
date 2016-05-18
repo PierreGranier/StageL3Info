@@ -6,6 +6,7 @@
 #include <QtWidgets/QLabel>
 #include <iostream>
 #include <string>
+#include "widgetnomregle.h"
 #include "widgettriplet.h"
 #include "widgetajouter.h"
 
@@ -14,7 +15,7 @@ class WidgetRegle : public QWidget
 	protected:
 		QGridLayout *m_grid;
 		
-		QLabel *m_nom;
+		WidgetNomRegle *m_nomRegle;
 		
 	public:
 		WidgetRegle(const std::string &nomRegle, QWidget *parent);

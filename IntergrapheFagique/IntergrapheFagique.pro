@@ -21,7 +21,8 @@ HEADERS += container.h \
            widgetreglesimple.h \
            widgetreglewhile.h \
            widgetreglewhilet.h \
-           widgettriplet.h
+           widgettriplet.h \
+           widgetnomregle.h
 SOURCES += container.cpp \
            main.cpp \
            mainwindow.cpp \
@@ -30,4 +31,5 @@ SOURCES += container.cpp \
            widgetregleaxiome.cpp \
            widgetregledouble.cpp \
            widgetreglesimple.cpp \
-           widgettriplet.cpp
+           widgettriplet.cpp \
+           widgetnomregle.cpp

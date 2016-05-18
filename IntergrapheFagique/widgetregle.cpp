@@ -8,9 +8,9 @@ WidgetRegle::WidgetRegle(const string &nomRegle, QWidget *parent) : QWidget(pare
 	
 	m_grid = new QGridLayout(this);
     
-	m_nom = new QLabel(QString::fromStdString(nomRegle), this);
+	m_nomRegle = new WidgetNomRegle(nomRegle, this);
 	
-	m_grid->addWidget(m_nom, 2, 0, 1, 2, Qt::AlignHCenter);
+	m_grid->addWidget(m_nomRegle, 2, 0, 1, 2, Qt::AlignHCenter);
 }
 
 WidgetRegle::~WidgetRegle()

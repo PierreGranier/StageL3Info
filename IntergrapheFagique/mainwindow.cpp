@@ -32,10 +32,11 @@ MainWindow::MainWindow()
 	m_zoneConteneur->setWidget(m_conteneur);
 	m_zoneConteneur->setAlignment(Qt::AlignHCenter);
 	
-	// Bouton de vérification dans la box
+	// Sortie de la vérification dans la box
 	
-	m_bouttonVerifier = new QPushButton("Vérifier la preuve", m_top);
-	m_box->addWidget(m_bouttonVerifier);
+	m_sortie = new QLineEdit(m_top);
+	m_sortie->readOnly(true);
+	m_box->addWidget(m_sortie);
 	
 	// Console de sortie
 	

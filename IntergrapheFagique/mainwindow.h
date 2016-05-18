@@ -2,6 +2,8 @@
 #define mainwindow_h
 
 #include <QtWidgets/QtWidgets>
+#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QLineEdit>
 #include "container.h"
 
 class MainWindow : public QMainWindow
@@ -9,10 +11,12 @@ class MainWindow : public QMainWindow
 	private:
 		QWidget *m_top;
 		QVBoxLayout *m_box;
+		
 		QScrollArea *m_zoneConteneur;
 		Container *m_conteneur;
-		QPushButton *m_bouttonVerifier;
-
+		
+		QLineEdit *m_sortie;
+		
 		QAction *m_nouveau;
 		QAction *m_quitter;
 		QAction *m_regles;

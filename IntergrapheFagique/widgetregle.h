@@ -19,9 +19,10 @@ class WidgetRegle : public QWidget
 		
 	public:
 		WidgetRegle(const std::string &nomRegle, QWidget *parent);
-		~WidgetRegle();
+		virtual ~WidgetRegle();
 		
-		std::string toString();
+		std::string nomRegle() const;
+		virtual std::string toString() =0;
 };
 
 #endif

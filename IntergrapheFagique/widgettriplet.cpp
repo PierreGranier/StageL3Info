@@ -32,5 +32,5 @@ WidgetTriplet::~WidgetTriplet()
 
 string WidgetTriplet::toString()
 {
-	return " " + m_precondition->text().toStdString();
+	return m_precondition->text().toStdString();
 }

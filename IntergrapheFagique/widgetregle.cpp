@@ -19,7 +19,7 @@ WidgetRegle::~WidgetRegle()
 	
 }
 
-string WidgetRegle::toString()
+string WidgetRegle::nomRegle() const
 {
 	return m_nomRegle->toString();
 }

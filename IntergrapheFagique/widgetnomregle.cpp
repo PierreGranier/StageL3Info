@@ -21,9 +21,9 @@ WidgetNomRegle::WidgetNomRegle(const string &nomRegle, QWidget *parent) : QWidge
 	m_bufferPainter->setPen(Qt::black);
 	m_bufferPainter->setRenderHint(QPainter::Antialiasing, true);
 
-	m_bufferPainter->drawLine(0, 20, this->width()/2-m_nomRegle.size()/2, 20);
-	m_bufferPainter->drawText(this->width()/2-m_nomRegle.size()/2+100000000000, 25, m_nomRegle);
-	m_bufferPainter->drawLine(this->width()/2+m_nomRegle.size()/2, 20, this->width(), 20);
+	m_bufferPainter->drawLine(0, 20, this->width()/2-m_nomRegle.size()*4, 20);
+	m_bufferPainter->drawText(this->width()/2-m_nomRegle.size()*3-2, 24, m_nomRegle);
+	m_bufferPainter->drawLine(this->width()/2+m_nomRegle.size()*5+10, 20, this->width(), 20);
 }
 
 WidgetNomRegle::~WidgetNomRegle()

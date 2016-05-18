@@ -4,17 +4,17 @@ using namespace std;
 
 WidgetNomRegle::WidgetNomRegle(const string &nomRegle, QWidget *parent) : QWidget(parent)
 {
-	// this->setMinimumWidth(QWIDGETSIZE_MAX);
+	 this->setMinimumSize(parent->size());
 
 	m_nomRegle = QString::fromStdString(nomRegle);
 
 	QGridLayout *layout = new QGridLayout(this);
 
-	layout->addWidget(new QLabel("-----------", this), 0, 0);
-	layout->addWidget(new QLabel(m_nomRegle, this), 0, 1);
-	layout->addWidget(new QLabel("-----------", this), 0, 2);
+	// layout->addWidget(new QLabel("-----------", this), 0, 0);
+	// layout->addWidget(new QLabel(m_nomRegle, this), 0, 1);
+	// layout->addWidget(new QLabel("-----------", this), 0, 2);
 
-	/*m_buffer = new QImage(size(), QImage::Format_RGB32);
+	m_buffer = new QImage(size(), QImage::Format_RGB32);
 	m_buffer->fill(Qt::white);
 
 	m_bufferPainter = new QPainter(m_buffer);
@@ -22,7 +22,7 @@ WidgetNomRegle::WidgetNomRegle(const string &nomRegle, QWidget *parent) : QWidge
 	m_bufferPainter->setRenderHint(QPainter::Antialiasing, true);
 
 	m_bufferPainter->drawText(5, 10, m_nomRegle);
-	m_bufferPainter->drawLine(0, 20, QWIDGETSIZE_MAX, 20);*/
+	m_bufferPainter->drawLine(0, 20, this->width(), 20);
 }
 
 WidgetNomRegle::~WidgetNomRegle()
@@ -31,8 +31,8 @@ WidgetNomRegle::~WidgetNomRegle()
 }
 
 void WidgetNomRegle::paintEvent(QPaintEvent *event) {
-	/*cout << m_nomRegle.toStdString() << endl;
+	cout << m_nomRegle.toStdString() << endl;
 
 	QPainter p(this);
-	p.drawImage(0, 0, *m_buffer);*/
+	p.drawImage(0, 0, *m_buffer);
 }

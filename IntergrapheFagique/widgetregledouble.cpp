@@ -10,10 +10,10 @@ WidgetRegleDouble::WidgetRegleDouble(const string &nomRegle, QWidget *parent) : 
 	m_ajouterG = new WidgetAjouter(this);
 	m_ajouterD = new WidgetAjouter(this);
 	
-	m_grid->addWidget(m_ajouterG, 0, 0);
-	m_grid->addWidget(m_ajouterD, 0, 1);
-	m_grid->addWidget(m_premisseG, 1, 0);
-	m_grid->addWidget(m_premisseD, 1, 1);
+	m_grid->addWidget(m_ajouterG, 0, 0, Qt::AlignBottom);
+	m_grid->addWidget(m_ajouterD, 0, 1, Qt::AlignBottom);
+	m_grid->addWidget(m_premisseG, 1, 0, Qt::AlignBottom);
+	m_grid->addWidget(m_premisseD, 1, 1, Qt::AlignBottom);
 	
 	QObject::connect(m_ajouterG, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveG);
 	QObject::connect(m_ajouterD, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveD);

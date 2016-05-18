@@ -89,7 +89,6 @@ void MainWindow::createToolBar()
 	fileToolBar = addToolBar("Bob");
 		fileToolBar->addAction(m_nouveau);
 		fileToolBar->addAction(m_verifier);
-		fileToolBar->addAction(m_quitter);
 	
 	// http://doc.qt.io/qt-4.8/qdialog.html
 

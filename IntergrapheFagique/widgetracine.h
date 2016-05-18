@@ -10,8 +10,6 @@ class WidgetRacine : public WidgetRegleSimple
 	public:
 		WidgetRacine(QWidget *parent) : WidgetRegleSimple("", parent) {};
 		~WidgetRacine() {};
-		
-		std::string toString();
 };
 
 #endif

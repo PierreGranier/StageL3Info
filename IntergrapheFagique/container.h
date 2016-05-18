@@ -16,7 +16,7 @@
 class Container : public QWidget
 {
 	private:
-		QVBoxLayout *m_box;
+		QVBoxLayout *m_ens;
 		
 		QImage *m_buffer;
 		QPainter *m_bufferPainter;

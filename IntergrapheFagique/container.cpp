@@ -4,13 +4,11 @@ using namespace std;
 
 Container::Container(QWidget *parent) : QWidget(parent)
 {
-	QVBoxLayout *ens = new QVBoxLayout(this);
+	m_ens = new QVBoxLayout(this);
 	
-	ens->addStretch(1);
+	m_ens->addStretch(1);
 	
 	this->initialiser();
-	
-	ens->addWidget(m_racine);
 }
 
 Container::~Container()
@@ -37,6 +35,7 @@ void Container::initialiser()
 {
 	delete m_racine;
 	m_racine = new WidgetRacine(this);
+	m_ens->addWidget(m_racine);
 }
 
 void Container::afficher() const

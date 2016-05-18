@@ -22,11 +22,12 @@ WidgetRegleSimple::~WidgetRegleSimple()
 void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 {
     m_sousPreuve = sousPreuve;
+	cout << "Ajout de la ss preuve " << sousPreuve->toString() << endl;
     m_grid->replaceWidget(m_ajouter, m_sousPreuve);
     delete m_ajouter;
 }
 
 string WidgetRegleSimple::toString()
 {
- 	return " " + m_premisse->toString() + " " + m_souspreuve->toString();
+ 	return " " + m_premisse->toString() + " " + m_sousPreuve->toString();
 }

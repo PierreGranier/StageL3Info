@@ -10,7 +10,7 @@ class MainWindow : public QMainWindow
 		QWidget *m_top;
 		QVBoxLayout *m_box;
 		QScrollArea *m_zoneConteneur;
-		QPushButton *m_verifier;
+		QPushButton *m_bouttonVerifier;
 
 		QAction *m_nouveau;
 		QAction *m_quitter;

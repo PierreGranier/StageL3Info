@@ -29,7 +29,7 @@ MainWindow::MainWindow()
 	// Container dans la zoneConteneur
 	
 	m_conteneur = new Container(m_zoneConteneur);
-	m_zoneConteneur->setWidget(conteneur);
+	m_zoneConteneur->setWidget(m_conteneur);
 	m_zoneConteneur->setAlignment(Qt::AlignHCenter);
 	
 	// Bouton de vérification dans la box
@@ -91,8 +91,6 @@ void MainWindow::createToolBar()
 		fileToolBar->addAction(m_verifier);
 		fileToolBar->addAction(m_quitter);
 	
-	QAction* quitter = fileToolBar->addAction("Quittedzeer");
-	
 	// http://doc.qt.io/qt-4.8/qdialog.html
 
 	/*const QIcon newIcon = QIcon::fromTheme("document-new", QIcon(":/images/new.png"));
@@ -106,10 +104,9 @@ void MainWindow::createToolBar()
 
 void MainWindow::createSignals()
 {
-	// connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
-	// connect(quitter, &QAction::triggered, this, &QMainWindow::close);
-	// connect(m_verifier, &QAction::triggered, m_conteneur, &Container::afficher);
-	// connect(m_quitter, &QAction::triggered, this, &QMainWindow::close);
+	connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
+	connect(m_verifier, &QAction::triggered, m_conteneur, &Container::afficher);
+	connect(m_quitter, &QAction::triggered, this, &QMainWindow::close);
 }
 
 void MainWindow::createStatusBar()

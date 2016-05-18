@@ -28,6 +28,5 @@ void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 
 string WidgetRegleSimple::toString()
 {
- 	// return " " + m_premisse.toString() + " " + m_souspreuve.toString();
-	return "";
+ 	return " " + m_premisse->toString() + " " + m_souspreuve->toString();
 }

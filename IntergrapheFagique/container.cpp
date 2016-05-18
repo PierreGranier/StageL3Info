@@ -35,10 +35,11 @@ void Container::paintEvent(QPaintEvent *event)
 
 void Container::initialiser()
 {
+	delete m_racine;
 	m_racine = new WidgetRacine(this);
 }
 
 void Container::afficher() const
 {
-	cout << m_racine << endl;
+	cout << m_racine->toString() << endl;
 }

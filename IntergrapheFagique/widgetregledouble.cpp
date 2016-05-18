@@ -40,6 +40,5 @@ void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
 
 string WidgetRegleDouble::toString()
 {
- 	// return " " + m_premisseG.toString() + " " + m_premisseD.toString() + " " + m_souspreuveG.toString() + " " + m_souspreuveD.toString();
-	return "";
+ 	return " " + m_premisseG->toString() + " " + m_premisseD->toString() + " " + m_souspreuveG->toString() + " " + m_souspreuveD->toString();
 }

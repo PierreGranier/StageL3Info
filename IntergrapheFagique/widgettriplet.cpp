@@ -32,6 +32,5 @@ WidgetTriplet::~WidgetTriplet()
 
 string WidgetTriplet::toString()
 {
-	// return m_precondition.??? + " " + m_programme.??? + " " + m_postcondition.???;
-	return "";
+	return " " + m_precondition->text().toStdString();
 }

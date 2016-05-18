@@ -8,7 +8,7 @@ WidgetNomRegle::WidgetNomRegle(const string &nomRegle, QWidget *parent) : QWidge
 
 	m_nomRegle = QString::fromStdString(nomRegle);
 
-	QGridLayout *layout = new QGridLayout(this);
+	// QGridLayout *layout = new QGridLayout(this);
 
 	// layout->addWidget(new QLabel("-----------", this), 0, 0);
 	// layout->addWidget(new QLabel(m_nomRegle, this), 0, 1);
@@ -21,8 +21,9 @@ WidgetNomRegle::WidgetNomRegle(const string &nomRegle, QWidget *parent) : QWidge
 	m_bufferPainter->setPen(Qt::black);
 	m_bufferPainter->setRenderHint(QPainter::Antialiasing, true);
 
-	m_bufferPainter->drawText(5, 10, m_nomRegle);
-	m_bufferPainter->drawLine(0, 20, this->width(), 20);
+	m_bufferPainter->drawLine(0, 20, this->width()/2-m_nomRegle.size()/2, 20);
+	m_bufferPainter->drawText(this->width()/2-m_nomRegle.size()/2+100000000000, 25, m_nomRegle);
+	m_bufferPainter->drawLine(this->width()/2+m_nomRegle.size()/2, 20, this->width(), 20);
 }
 
 WidgetNomRegle::~WidgetNomRegle()
@@ -31,8 +32,6 @@ WidgetNomRegle::~WidgetNomRegle()
 }
 
 void WidgetNomRegle::paintEvent(QPaintEvent *event) {
-	cout << m_nomRegle.toStdString() << endl;
-
 	QPainter p(this);
 	p.drawImage(0, 0, *m_buffer);
 }

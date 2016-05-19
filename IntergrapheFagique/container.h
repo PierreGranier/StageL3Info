@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <QtCore/QProcess>
 // #include <QtGui/QtGui>
 // #include <QtCore/QTextStream>
 // #include <QtWidgets/QInputDialog>

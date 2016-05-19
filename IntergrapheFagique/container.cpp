@@ -57,29 +57,50 @@ void Container::verifierPreuve() const
 	}
 
     // cout << m_racine->toString() << endl;
-	emit verifierFichier("fichierRes.txt");
+	emit verifierFichier("../IntergrapheFagique/fichierRes.txt");
 }
 
 void Container::executerAnalyseur(const string &fichier) const
 {
+	QString prog = "verificateur";
 	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
+	string resAnalyseur = "../IntergrapheFagique/resAnalyseur.txt";
+	string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
+	system(commande.c_str());
+	
+	//Maintenant on lit le fichier pour écrire le résultat de l'Analyseur dans la console
+	ifstream fichierResAnalyseur(resAnalyseur, ios::in);
+	if(fichierResAnalyseur)
+	{ 				//{1>0} x:=1 {1>0}		Ouais heu c'est pour des tests
+		string res;
+		
+		emit resultatAnalyseur("Exécution de l'analyseur syntaxique...\n");
+		
+		while(!fichierResAnalyseur.eof())
+		{
+			getline(fichierResAnalyseur, res);
+			if(res.find("[ERREUR]") ==0)	//Si la ligne contient [ERREUR]	
+			{
+				emit resultatAnalyseur(res);
+			}
 
-	/*
-	string points = "";
-	int i = 0;
-	int j = 0;
-	while(true)
-	{
-		points = "";
-		j = 0;
-		while(j < i) {
-			points += ".";
-			j++;
+		}		
+		if(res == "")
+		{
+			emit resultatAnalyseur(m_racine->toString() + "\n\nAucune erreur, la preuve est vérifiée");
 		}
-		emit resultatAnalyseur("Exécution de l'analyseur syntaxique" + points + "\n" + m_racine->toString());
-		i++;
+		
+		fichierResAnalyseur.close();
 	}
+<<<<<<< HEAD
 	*/
 	
 	emit resultatAnalyseur("Exécution de l'analyseur lexical...\n" + m_racine->toString());
+=======
+	else 
+	{
+		cout << "Erreur lors de l'ouverture du fichier" << endl;
+	}
+
+>>>>>>> 46b8722b286a65a18122cb2ed81ab30cbffc4495
 }

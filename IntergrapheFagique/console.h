@@ -20,6 +20,7 @@ class Console : public QWidget
 		
 	public slots:
 		void vider();
+
 		void ecrire(const std::string &message);
 };
 

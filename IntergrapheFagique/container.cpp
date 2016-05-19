@@ -41,12 +41,27 @@ void Container::initialiser()
 void Container::verifierPreuve() const
 {
 	// Créé le fichier et l'envoie dans un signal
+	
+	string res = m_racine->toString();
+	ofstream fichierRes("fichierRes.txt", ios::out);
+	if(fichierRes)
+	{
+		//cout << m_racine->toString() << endl;
+		fichierRes << res << endl;
+		fichierRes << endl;
+		fichierRes.close();
+	}
+	else
+	{
+		cout << "Erreur lors de l'ouverture du fichier" << endl;
+	}
+
     // cout << m_racine->toString() << endl;
-	emit verifierFichier(/* nom fichier */);
+	emit verifierFichier("fichierRes.txt");
 }
 
 void Container::executerAnalyseur(const string &fichier) const
 {
 	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
-	emit resultatAnalyseur(/* chaine retour du vérif */);
+	emit resultatAnalyseur(m_racine->toString());
 }

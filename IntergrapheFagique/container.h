@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <QtCore/QProcess>
 // #include <QtCore/QTextStream>
 // #include <QtWidgets/QInputDialog>
 // #include <QtCore/QIODevice>

@@ -11,13 +11,15 @@ class Console : public QWidget
 {
 	private:
 		QVBoxLayout *m_ens;
-
+		
 		QLabel *m_message;
-
+		
 	public:
 		Console(QWidget *parent);
 		~Console();
-
+		
+	public slots:
+		void vider();
 		void ecrire(const std::string &message);
 };
 

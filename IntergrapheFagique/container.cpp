@@ -41,4 +41,5 @@ void Container::initialiser()
 void Container::verifier() const
 {
     // cout << m_racine->toString() << endl;
+	emit analyseurSyntaxical(m_racine->toString());
 }

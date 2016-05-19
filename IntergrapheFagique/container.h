@@ -16,6 +16,8 @@
 
 class Container : public QWidget
 {
+	Q_OBJECT
+	
 	private:
 		QVBoxLayout *m_ens;
 		
@@ -33,6 +35,9 @@ class Container : public QWidget
 	public slots:
 		void initialiser();
 		void verifier() const;
+		
+	signals:
+		void analyseurSyntaxical(const std::string &message) const;	
 };
 
 #endif

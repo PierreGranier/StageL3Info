@@ -5,7 +5,6 @@
 
 class WidgetRegleDouble : public WidgetRegle
 {
-	Q_OBJECT
 	private:
 		WidgetTriplet *m_premisseG;
 		WidgetTriplet *m_premisseD;

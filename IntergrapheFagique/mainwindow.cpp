@@ -120,8 +120,9 @@ void MainWindow::createSignals()
 {
     connect(m_quitter, &QAction::triggered, this, &QMainWindow::close);
     connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
+    connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
     connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifier);
-    // connect(m_conteneur, &Container::analyseurSyntaxical, m_console, &Console::ecrire);
+    connect(m_conteneur, &Container::analyseurSyntaxical, m_console, &Console::ecrire);
 }
 
 void MainWindow::createStatusBar()

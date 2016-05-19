@@ -62,8 +62,10 @@ void Container::verifierPreuve() const
 
 void Container::executerAnalyseur(const string &fichier) const
 {
-	QString prog = "verificateur";
 	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
+
+	QString prog = "verificateur";
+	
 	string resAnalyseur = "../IntergrapheFagique/resAnalyseur.txt";
 	string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
 	system(commande.c_str());
@@ -79,11 +81,7 @@ void Container::executerAnalyseur(const string &fichier) const
 		while(!fichierResAnalyseur.eof())
 		{
 			getline(fichierResAnalyseur, res);
-			if(res.find("[ERREUR]") ==0)	//Si la ligne contient [ERREUR]	
-			{
-				emit resultatAnalyseur(res);
-			}
-
+			emit resultatAnalyseur(res);
 		}		
 		if(res == "")
 		{
@@ -92,15 +90,9 @@ void Container::executerAnalyseur(const string &fichier) const
 		
 		fichierResAnalyseur.close();
 	}
-<<<<<<< HEAD
-	*/
 	
-	emit resultatAnalyseur("Exécution de l'analyseur lexical...\n" + m_racine->toString());
-=======
 	else 
 	{
 		cout << "Erreur lors de l'ouverture du fichier" << endl;
 	}
-
->>>>>>> 46b8722b286a65a18122cb2ed81ab30cbffc4495
 }

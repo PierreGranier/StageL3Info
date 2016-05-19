@@ -64,7 +64,6 @@ void Container::executerAnalyseur(const string &fichier) const
 {
 	QString prog = "verificateur";
 	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
-	// QProcess::startDetached("../AnalyseurSyntaxical/verificateur");
 	string resAnalyseur = "../IntergrapheFagique/resAnalyseur.txt";
 	string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
 	system(commande.c_str());
@@ -74,6 +73,9 @@ void Container::executerAnalyseur(const string &fichier) const
 	if(fichierResAnalyseur)
 	{ 				//{1>0} x:=1 {1>0}		Ouais heu c'est pour des tests
 		string res;
+		
+		emit resultatAnalyseur("Exécution de l'analyseur syntaxique...\n");
+		
 		while(!fichierResAnalyseur.eof())
 		{
 			getline(fichierResAnalyseur, res);
@@ -81,9 +83,7 @@ void Container::executerAnalyseur(const string &fichier) const
 			{
 				emit resultatAnalyseur(res);
 			}
-			// fichierResAnalyseur >> res;	
-			// emit resultatAnalyseur(res);
-			// cout << res << " -- OK ";
+
 		}		
 		if(res == "")
 		{
@@ -96,5 +96,5 @@ void Container::executerAnalyseur(const string &fichier) const
 	{
 		cout << "Erreur lors de l'ouverture du fichier" << endl;
 	}
-	// emit resultatAnalyseur(m_racine->toString());
+
 }

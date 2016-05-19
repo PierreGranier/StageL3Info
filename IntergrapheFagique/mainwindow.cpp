@@ -130,9 +130,8 @@ void MainWindow::createSignals()
 	
     connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
     connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
-	
+	connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
     connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
-    // connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
     connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);
     connect(m_conteneur, &Container::resultatAnalyseur, m_console, &Console::ecrire);
 	

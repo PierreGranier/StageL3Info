@@ -85,7 +85,7 @@ void Container::executerAnalyseur(const string &fichier) const
 		}		
 		if(res == "")
 		{
-			emit resultatAnalyseur(m_racine->toString() + "\n\nAucune erreur, la preuve est vérifiée");
+			emit resultatAnalyseur(m_racine->toString() + "\n\nAucune erreur, la preuve est vérifiée.");
 		}
 		
 		fichierResAnalyseur.close();

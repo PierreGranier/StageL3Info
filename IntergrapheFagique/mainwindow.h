@@ -33,6 +33,8 @@ class MainWindow : public QMainWindow
 		
 		QToolBar *fileToolBar;
 		
+		QMessageBox *m_popup;
+		
 	public:
 		MainWindow();
 		~MainWindow();
@@ -44,10 +46,10 @@ class MainWindow : public QMainWindow
 		void createStatusBar();
 		
 	public slots:
-		/*void regles() const;
+		void regles() const;
 		void syntaxe() const;
 		void aide() const;
-		void propos() const;*/
+		void propos() const;
 };
 
 #endif

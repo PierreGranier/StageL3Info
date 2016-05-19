@@ -38,8 +38,15 @@ void Container::initialiser()
 	m_ens->addWidget(m_racine);
 }
 
-void Container::verifier() const
+void Container::verifierPreuve() const
 {
+	// Créé le fichier et l'envoie dans un signal
     // cout << m_racine->toString() << endl;
-	emit analyseurSyntaxical(m_racine->toString());
+	emit verifierFichier(/* nom fichier */);
+}
+
+void Container::executerAnalyseur(const string &fichier) const
+{
+	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
+	emit resultatAnalyseur(/* chaine retour du vérif */);
 }

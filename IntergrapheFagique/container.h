@@ -34,10 +34,13 @@ class Container : public QWidget
 		
 	public slots:
 		void initialiser();
-		void verifier() const;
+		void verifierPreuve() const;
+		void executerAnalyseur(const std::string &fichier) const;
+
 		
 	signals:
-		void analyseurSyntaxical(const std::string &message) const;	
+		void verifierFichier(const std::string &fichier) const;
+		void resultatAnalyseur(const std::string &message) const;	
 };
 
 #endif

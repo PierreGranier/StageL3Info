@@ -11,7 +11,11 @@ MainWindow::MainWindow()
 	
 	this->setWindowTitle("Analyseur Syntaxical");
 	this->resize(900, 600);
-	this->setWindowIcon(QIcon("icone_triangle.png"));
+	this->setWindowIcon(QIcon("icone_triangle2.png"));
+	
+	// Popup
+	
+	m_popup = new QMessageBox(this);
 	
 	// Layout appliqué au top
 	
@@ -76,10 +80,13 @@ MainWindow::MainWindow()
 	setUnifiedTitleAndToolBarOnMac(true);
 }
 
+MainWindow::~MainWindow()
+{
+	delete m_top;
+}
+
 void MainWindow::createActions()
 {
-	// Menu (Fichier -> Nouveau, Fichier -> Quitter, Preuve -> Règles, Preuve -> Vérifier)	
-	
 	m_nouveau = new QAction("Nouveau", this);
 	m_quitter = new QAction("Quitter", this);
 	m_regles = new QAction("Règles de construction", this);
@@ -90,6 +97,8 @@ void MainWindow::createActions()
 }
 void MainWindow::createMenuBar()
 {
+	// Menu (Fichier -> Nouveau, Fichier -> Quitter, Preuve -> Règles, Preuve -> Vérifier)	
+
 	QMenu *fichier = menuBar()->addMenu("Fichier");
 		fichier->addAction(m_nouveau);
 		fichier->addAction(m_quitter);
@@ -117,10 +126,18 @@ void MainWindow::createToolBar()
 void MainWindow::createSignals()
 {
     connect(m_quitter, &QAction::triggered, this, &QMainWindow::close);
+	
     connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
     connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
-    connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifier);
-    connect(m_conteneur, &Container::analyseurSyntaxical, m_console, &Console::ecrire);
+	
+    connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
+    connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);
+    connect(m_conteneur, &Container::resultatAnalyseur, m_console, &Console::ecrire);
+	
+    connect(m_regles, &QAction::triggered, this, &MainWindow::regles);
+    connect(m_syntaxe, &QAction::triggered, this, &MainWindow::syntaxe);
+    connect(m_aide, &QAction::triggered, this, &MainWindow::aide);
+    connect(m_propos, &QAction::triggered, this, &MainWindow::propos);
 }
 
 void MainWindow::createStatusBar()
@@ -128,7 +145,26 @@ void MainWindow::createStatusBar()
 	statusBar()->showMessage("Prêt");
 }
 
-MainWindow::~MainWindow()
+void MainWindow::regles() const
 {
-	delete m_top;
+	m_popup->setText("Regles");
+	m_popup->exec();
+}
+
+void MainWindow::syntaxe() const
+{
+	m_popup->setText("Syntaxe syntaxicale");
+	m_popup->exec();
+}
+
+void MainWindow::aide() const
+{
+	m_popup->setText("A l'aiiiiide");
+	m_popup->exec();
+}
+
+void MainWindow::propos() const
+{
+	m_popup->setText("Porpos");
+	m_popup->exec();
 }

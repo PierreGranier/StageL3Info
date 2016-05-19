@@ -4,6 +4,8 @@ project(NomApp)
 
 cmake_minimum_required(VERSION 2.8.11)
 
+add_definitions(-Wall -std=c++11 -fPIC)
+
 # Find the Qt libraries
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Core REQUIRED)

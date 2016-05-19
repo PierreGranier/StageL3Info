@@ -63,5 +63,19 @@ void Container::verifierPreuve() const
 void Container::executerAnalyseur(const string &fichier) const
 {
 	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
-	emit resultatAnalyseur(m_racine->toString());
+
+	/*string points = "";
+	int i = 0;
+	int j = 0;
+	while(true)
+	{
+		points = "";
+		j = 0;
+		while(j < i) {
+			points += ".";
+			j++;
+		}
+		emit resultatAnalyseur("Exécution de l'analyseur syntaxique" + points + "\n" + m_racine->toString());
+		i++;
+	}*/
 }

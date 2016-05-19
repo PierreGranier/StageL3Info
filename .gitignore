@@ -1,6 +1,13 @@
 # Temporaires
 *~
 
+# Compilation
+*build/
+*CMakeFiles/
+*.cmake
+*Makefile
+*/CMakeCache.txt
+
 # Stylé kdevelop 
 .kdev4/
 
@@ -13,7 +20,6 @@
 *.lo
 *.o
 *.obj
-build/
 moc_*.cpp
 
 # Precompiled Headers

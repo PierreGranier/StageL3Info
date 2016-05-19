@@ -64,7 +64,8 @@ void Container::executerAnalyseur(const string &fichier) const
 {
 	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
 
-	/*string points = "";
+	/*
+	string points = "";
 	int i = 0;
 	int j = 0;
 	while(true)
@@ -77,5 +78,8 @@ void Container::executerAnalyseur(const string &fichier) const
 		}
 		emit resultatAnalyseur("Exécution de l'analyseur syntaxique" + points + "\n" + m_racine->toString());
 		i++;
-	}*/
+	}
+	*/
+	
+	emit resultatAnalyseur("Exécution de l'analyseur syntaxique...\n" + m_racine->toString());
 }

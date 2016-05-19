@@ -40,3 +40,6 @@ moc_*.cpp
 *.app
 verificateur
 NomApp
+
+# Autre 
+fichierRes.txt

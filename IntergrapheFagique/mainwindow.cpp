@@ -109,9 +109,7 @@ void MainWindow::createToolBar()
 	fileToolBar = addToolBar("Fichier");
 		fileToolBar->addAction(m_nouveau);
 		fileToolBar->addAction(m_verifier);
-	
-	// http://doc.qt.io/qt-4.8/qdialog.html
-	
+		
 	/*const QIcon newIcon = QIcon::fromTheme("document-new", QIcon(":/images/new.png"));
 	QAction *newLetterAct = new QAction(newIcon, tr("&New Letter"), this);*/
 }

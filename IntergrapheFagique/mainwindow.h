@@ -42,6 +42,12 @@ class MainWindow : public QMainWindow
 		void createToolBar();
 		void createSignals();
 		void createStatusBar();
+		
+	public slots:
+		/*void regles() const;
+		void syntaxe() const;
+		void aide() const;
+		void propos() const;*/
 };
 
 #endif

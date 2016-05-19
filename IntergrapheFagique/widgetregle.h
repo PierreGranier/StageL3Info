@@ -4,6 +4,7 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QMessageBox>
 #include <iostream>
 #include <string>
 #include "widgetnomregle.h"
@@ -22,6 +23,7 @@ class WidgetRegle : public QWidget
 		virtual ~WidgetRegle();
 		
 		std::string nomRegle() const;
+		void erreurFermeturePreuve();
 		virtual std::string toString() =0;
 };
 

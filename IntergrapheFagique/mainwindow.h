@@ -1,9 +1,16 @@
 #ifndef mainwindow_h
 #define mainwindow_h
 
-#include <QtWidgets/QtWidgets>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QSplitter>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QMessageBox>
 #include "container.h"
 #include "console.h"
 

@@ -81,5 +81,5 @@ void Container::executerAnalyseur(const string &fichier) const
 	}
 	*/
 	
-	emit resultatAnalyseur("Exécution de l'analyseur syntaxique...\n" + m_racine->toString());
+	emit resultatAnalyseur("Exécution de l'analyseur lexical...\n" + m_racine->toString());
 }

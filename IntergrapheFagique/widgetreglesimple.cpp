@@ -28,5 +28,10 @@ void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 
 string WidgetRegleSimple::toString()
 {
- 	return m_sousPreuve->nomRegle() + " " + m_premisse->toString() + " " + m_sousPreuve->toString();
+	if(m_sousPreuve == NULL)
+	{
+		WidgetRegle::erreurFermeturePreuve();
+		return "";
+	}
+	return m_sousPreuve->nomRegle() + " " + m_premisse->toString() + " " + m_sousPreuve->toString();
 }

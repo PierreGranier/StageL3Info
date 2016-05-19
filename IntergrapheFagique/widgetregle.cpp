@@ -26,3 +26,11 @@ string WidgetRegle::nomRegle() const
 {
 	return m_nomRegle->toString();
 }
+
+void WidgetRegle::erreurFermeturePreuve()
+{
+	QMessageBox *popup = new QMessageBox(this);
+	popup->setIcon(QMessageBox::Critical);
+	popup->setText("Preuve non terminée. Veuillez clore les sous-preuves avec un axiome.");
+	popup->exec();
+}

@@ -16,6 +16,7 @@ MainWindow::MainWindow()
 	// Popup
 	
 	m_popup = new QMessageBox(this);
+	m_popup->setIcon(QMessageBox::NoIcon);
 	
 	// Layout appliqué au top
 	
@@ -33,7 +34,7 @@ MainWindow::MainWindow()
 	m_zonePreuve = new QWidget(m_splitter);
 	m_box->addWidget(m_zonePreuve);
 	QVBoxLayout *layoutPreuve = new QVBoxLayout(m_zonePreuve);
-		layoutPreuve->addWidget(new QLabel("Zone de construction de preuve", m_zonePreuve));
+		layoutPreuve->addWidget(new QLabel("Construction de preuve arborescente", m_zonePreuve));
 		// ZoneConteneur est une ScrollArea
 		m_zoneConteneur = new QScrollArea(m_zonePreuve);
 		// Widgets internes en pleine page
@@ -50,7 +51,7 @@ MainWindow::MainWindow()
 	m_zoneSortie = new QWidget(m_splitter);
 	m_box->addWidget(m_zoneSortie);
 	QVBoxLayout *layoutSortie = new QVBoxLayout(m_zoneSortie);
-		layoutSortie->addWidget(new QLabel("Sortie", m_zoneSortie));
+		layoutSortie->addWidget(new QLabel("Sortie de l'analyseur lexical", m_zoneSortie));
 		// ZoneConsole est une ScrollArea
 		m_zoneConsole = new QScrollArea(m_zonePreuve);
 		// Widgets internes en pleine page
@@ -131,6 +132,7 @@ void MainWindow::createSignals()
     connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
 	
     connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
+    // connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
     connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);
     connect(m_conteneur, &Container::resultatAnalyseur, m_console, &Console::ecrire);
 	
@@ -165,6 +167,6 @@ void MainWindow::aide() const
 
 void MainWindow::propos() const
 {
-	m_popup->setText("Porpos");
+	m_popup->setText("A propos\n\nCet assistant de construction de preuve et analyseur lexical de preuve a été réalisé dans le cadre du projet de licence informatique (3ème année) à Angers.\n\nPierre GRANNIER--RICHARD\nThibaut ROPERCH");
 	m_popup->exec();
 }

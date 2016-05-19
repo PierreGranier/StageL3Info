@@ -40,5 +40,10 @@ void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
 
 string WidgetRegleDouble::toString()
 {
+	if(m_sousPreuveG == NULL || m_sousPreuveD == NULL)
+	{
+		WidgetRegle::erreurFermeturePreuve();
+		return "";
+	}
 	return m_sousPreuveG->nomRegle() + " " + m_premisseG->toString() + " " + m_sousPreuveG->toString() + " " + m_sousPreuveD->nomRegle() + " " + m_premisseD->toString() + " " + m_sousPreuveD->toString();
 }

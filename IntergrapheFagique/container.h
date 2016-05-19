@@ -3,10 +3,10 @@
 
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QBoxLayout>
-#include <QtGui/QtGui>
 #include <iostream>
 #include <string>
 #include <fstream>
+// #include <QtGui/QtGui>
 // #include <QtCore/QTextStream>
 // #include <QtWidgets/QInputDialog>
 // #include <QtCore/QIODevice>

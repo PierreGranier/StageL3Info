@@ -18,6 +18,7 @@ class Console : public QWidget
 		Console(QWidget *parent);
 		~Console();
 
+	public slots:
 		void ecrire(const std::string &message);
 };
 

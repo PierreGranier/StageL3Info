@@ -6,6 +6,12 @@
 #include <QtGui/QtGui>
 #include <iostream>
 #include <string>
+#include <fstream>
+// #include <QtCore/QTextStream>
+// #include <QtWidgets/QInputDialog>
+// #include <QtCore/QIODevice>
+// #include <QtCore/QFile>
+// #include <QtWidgets/QMessageBox>
 #include "widgetracine.h"
 #include "widgetregleaff.h"
 #include "widgetregleseq.h"

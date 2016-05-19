@@ -40,5 +40,18 @@ void Container::initialiser()
 
 void Container::verifier() const
 {
-    // cout << m_racine->toString() << endl;
+	string res = m_racine->toString();
+	ofstream fichierRes("fichierRes.txt", ios::out);
+	if(fichierRes)
+	{
+		//cout << m_racine->toString() << endl;
+		fichierRes << res << endl;
+		fichierRes << endl;
+		fichierRes.close();
+	}
+	else
+	{
+		cout << "Erreur lors de l'ouverture du fichier" << endl;
+	}
+    //cout << m_racine->toString() << endl;
 }

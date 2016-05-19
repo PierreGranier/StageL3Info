@@ -40,6 +40,7 @@ void Container::initialiser()
 
 void Container::verifier() const
 {
+
 	string res = m_racine->toString();
 	ofstream fichierRes("fichierRes.txt", ios::out);
 	if(fichierRes)
@@ -53,5 +54,7 @@ void Container::verifier() const
 	{
 		cout << "Erreur lors de l'ouverture du fichier" << endl;
 	}
-    //cout << m_racine->toString() << endl;
+
+    // cout << m_racine->toString() << endl;
+	emit analyseurSyntaxical(m_racine->toString());
 }

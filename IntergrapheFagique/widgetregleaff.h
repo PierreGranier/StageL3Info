@@ -5,9 +5,9 @@
 
 class WidgetRegleAff : public WidgetRegleAxiome
 {
-    private:
+	private:
 		
-    public:
+	public:
 		WidgetRegleAff(QWidget *parent) : WidgetRegleAxiome("AFF", parent) {};
 		~WidgetRegleAff() {};
 };

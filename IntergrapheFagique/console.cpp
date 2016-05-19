@@ -23,7 +23,12 @@ Console::~Console()
 
 }
 
-void Console::ecrire(const std::string &message)
+void Console::vider()
+{
+	m_message->setText("");
+}
+
+void Console::ecrire(const string &message)
 {
 	m_message->setText(QString::fromStdString(message));
 }

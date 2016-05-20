@@ -18,7 +18,7 @@ include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 # Sources
 
 set(Regles_SRCS widgetregle.cpp widgetregleaxiome.cpp widgetreglesimple.cpp widgetregledouble.cpp)
-set(Widgets_SRCS ${Regles_SRCS} widgetajouter.cpp widgettriplet.cpp widgetnomregle.cpp)
+set(Widgets_SRCS ${Regles_SRCS} widgetajouter.cpp widgetsupprimer.cpp widgettriplet.cpp widgetnomregle.cpp)
 
 set(NomApp_SRCS main.cpp mainwindow.cpp container.cpp console.cpp ${Widgets_SRCS})
 # qt5_automoc(${NomApp_SRCS})

@@ -9,6 +9,7 @@ class WidgetRegleSimple : public WidgetRegle
 		WidgetTriplet *m_premisse;
 		
 		WidgetAjouter *m_ajouter;
+		WidgetSupprimer *m_supprimer;
 		
 		WidgetRegle *m_sousPreuve;
 		
@@ -20,6 +21,7 @@ class WidgetRegleSimple : public WidgetRegle
 		
 	public slots:	
 		void ajouterSousPreuve(WidgetRegle *sousPreuve);
+		void supprimerSousPreuve();
 	   	
 };
 

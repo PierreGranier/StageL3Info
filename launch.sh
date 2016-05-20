@@ -7,4 +7,4 @@ cd ../IntergrapheFagique
 cmake CMakeLists.txt
 make --file=Makefile -j2
 
-./IntergrapheFagique/NomApp
+./NomApp

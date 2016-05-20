@@ -2,7 +2,7 @@ MOC= /usr/lib/x86_64-linux-gnu/qt5/bin/moc
 
 all:
 	clear
-	g++ -Wall -fPIC --std=c++11 -I/usr/include/qt5 main.cpp mainwindow.cpp container.cpp moc_container.cpp console.cpp widgetajouter.cpp moc_widgetajouter.cpp widgetregle.cpp widgetregleaxiome.cpp widgetreglesimple.cpp widgetregledouble.cpp widgettriplet.cpp widgetnomregle.cpp -l Qt5Widgets -l Qt5Core -l Qt5Gui -o NomApp
+	g++ -Wall -fPIC --std=c++11 -I/usr/include/qt5 main.cpp mainwindow.cpp container.cpp moc_container.cpp console.cpp widgetajouter.cpp widgetsupprimer.cpp moc_widgetajouter.cpp widgetregle.cpp widgetregleaxiome.cpp widgetreglesimple.cpp widgetregledouble.cpp widgettriplet.cpp widgetnomregle.cpp -l Qt5Widgets -l Qt5Core -l Qt5Gui -o NomApp
 
 
 # mainwindow.o : mainwindow.cpp mainwindow.h

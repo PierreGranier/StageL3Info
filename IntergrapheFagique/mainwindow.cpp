@@ -157,7 +157,6 @@ void MainWindow::regles() const
     label_img->setPixmap(*pixmap_img);
  
 	QGridLayout *gridLayout = new QGridLayout;
-
 	gridLayout->addWidget(label_img);
 	
 	m_popup->exec();

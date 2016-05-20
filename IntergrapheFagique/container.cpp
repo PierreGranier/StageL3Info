@@ -80,22 +80,22 @@ void Container::executerAnalyseur(const string &fichier) const
 		string res;
 		string resFinal = "";
 		
-		emit resultatAnalyseur("Exécution de l'analyseur syntaxique...\n");
+		emit resultatAnalyseur("Exécution de l'analyseur syntaxique...\n\n");
 		
 		while(!fichierResAnalyseur.eof())
 		{
 			getline(fichierResAnalyseur, res);
-			emit resultatAnalyseur(res);
+			emit resultatAnalyseur(res+"\n");
 			resFinal += res;
 		}
 		
 		if(resFinal.compare("") == 0)
 		{
-			emit resultatAnalyseur("\n\nAucune erreur, la preuve est vérifiée.");
+			emit resultatAnalyseur("Aucune erreur, la preuve est vérifiée.");
 		}
 		else
 		{
-			emit resultatAnalyseur("\n\nUne ou plusieurs erreurs ont été trouvée(s).");
+			emit resultatAnalyseur("Une ou plusieurs erreurs ont été trouvée(s).");
 		}
 		
 		fichierResAnalyseur.close();

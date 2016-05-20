@@ -91,11 +91,11 @@ void Container::executerAnalyseur(const string &fichier) const
 		
 		if(resFinal.compare("") == 0)
 		{
-			emit resultatAnalyseur("Aucune erreur, la preuve est vérifiée.");
+			emit resultatAnalyseur("<strong>Aucune erreur, la preuve est vérifiée?</strong>");
 		}
 		else
 		{
-			emit resultatAnalyseur("Une ou plusieurs erreurs ont été trouvée(s).");
+			emit resultatAnalyseur("<strong>Une ou plusieurs erreurs ont été trouvée(s).</strong>");
 		}
 		
 		fichierResAnalyseur.close();

@@ -54,9 +54,9 @@ extern FILE* yyin;
 
 Entree:
 	/* vide */
-	| FIN						{ cout << "Fin du programme" << endl; return 0; }
-	| FINFINALE					{ cout << "Fin du programme" << endl; return 0; }
-	| Regle FIN Entree			{ cout << "Fin du programme" << endl; return 0; }
+	| FIN						{ /*cout << "Fin du programme" << endl; */ return 0; }
+	| FINFINALE					{ /*cout << "Fin du programme" << endl; */ return 0; }
+	| Regle FIN Entree			{ /*cout << "Fin du programme" << endl; */ return 0; }
 	;
 	
 Regle:
@@ -133,9 +133,7 @@ Regle:
 			}
 			// Si les préconditions sont différentes alors on check si elles sont conséquences
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
-			{
-				//cout << "[CONSEQ] Prec " << $2.precondition.affirmation << " => " << $3.precondition.affirmation << endl;
-				
+			{				
 				// Valeur booléenne de la précondition de la conclusion comparée à la valeur booléenne de la précondition de la prémisse
 				if($2.precondition.valeur != $3.precondition.valeur)
 				{
@@ -144,9 +142,7 @@ Regle:
 			}
 			// Si les postcondition sont différentes alors on check si elles sont conséquences
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
-			{
-				//cout << "[CONSEQ] Post " << $3.postcondition.affirmation << " => " << $2.postcondition.affirmation << endl;
-				
+			{				
 				// Valeur booléenne du programme et de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
 				if($3.postcondition.valeur != $2.postcondition.valeur)
 				{
@@ -289,12 +285,10 @@ Conditions:
 			// Une formule qui contient une condition et sa négation est fausse
 			int pos = ($$.affirmation.find($1.negation));
 			if(pos > -1) {
-				//cout << "[ERREUR][SEMANTIQUE] Conditions donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient à la fois la condition " << $1.affirmation << " et sa négation " << $1.negation << endl;
 				$$.valeur = false;
 			}
 			// Une formule qui contient une condition "faux" est fausse
 			if($$.affirmation.find("faux")) {
-				//cout << "[ERREUR][SEMANTIQUE] Condition donnant lieu à un prédicat faux : la formule " << $$.affirmation << " contient la condition \"faux\"" << endl;
 				$$.valeur = false;
 			}
 		}
@@ -326,45 +320,30 @@ Condition:
  Comparaison:
 	ExpressionEntier INF ExpressionEntier
 		{
-			if($1.valeur >= $3.valeur) {
-				//cout << "[ERREUR][SEMANTIQUE] Comparaison INF non logique : " << $1.valeur << "<" << $3.valeur << endl;
-			}
 			$$.affirmation = $1.chaine + "<" + $3.chaine;
 			$$.negation = $1.chaine + ">=" + $3.chaine;
 			$$.valeur = $1.valeur < $3.valeur;
 		}
 	| ExpressionEntier SUP ExpressionEntier
 		{
-			if($1.valeur <= $3.valeur) {
-				//cout << "[ERREUR][SEMANTIQUE] Comparaison SUP non logique : " << $1.valeur << ">" << $3.valeur << endl;
-			}
 			$$.affirmation = $1.chaine + ">" + $3.chaine;
 			$$.negation = $1.chaine + "<=" + $3.chaine;
 			$$.valeur = $1.valeur > $3.valeur;
 		}
 	| ExpressionEntier INF_EGAL ExpressionEntier
 		{
-			if($3.valeur > $3.valeur) {
-				//cout << "[ERREUR][SEMANTIQUE] Comparaison INF_EGAL non logique : " << $1.valeur << "<=" << $3.valeur << endl;
-			}
 			$$.affirmation = $1.chaine + "<=" + $3.chaine;
 			$$.negation = $1.chaine + ">" + $3.chaine;
 			$$.valeur = $1.valeur <= $3.valeur;
 		}
 	| ExpressionEntier SUP_EGAL ExpressionEntier
 		{
-			if($1.valeur < $3.valeur) {
-				//cout << "[ERREUR][SEMANTIQUE] Comparaison SUP_EGAL non logique : " << $1.valeur << ">=" << $3.valeur << endl;
-			}
 			$$.affirmation = $1.chaine + ">=" + $3.chaine;
 			$$.negation = $1.chaine + "<" + $3.chaine;
 			$$.valeur = $1.valeur >= $3.valeur;
 		}
 	| ExpressionEntier EGAL ExpressionEntier
 		{
-			if($1.valeur != $3.valeur) {
-				//cout << "[ERREUR][SEMANTIQUE] Comparaison EGAL non logique : " << $1.valeur << "=" << $3.valeur << endl;
-			}
 			$$.affirmation = $1.chaine + "=" + $3.chaine;
 			$$.negation = $1.chaine + "!=" + $3.chaine;
 			$$.valeur = $1.valeur = $3.valeur;
@@ -472,12 +451,7 @@ ProgrammeCompose:
 	;
 	
 Instruction:
-	MOT AFFECTATION ExpressionEntier
-		{
-			$$.variable = $1.chaine;
-			$$.valeur = $3.chaine;
-		}
-	| MOT AFFECTATION ExpressionMot
+	MOT AFFECTATION Expression
 		{
 			$$.variable = $1.chaine;
 			$$.valeur = $3.chaine;
@@ -494,14 +468,14 @@ int main(int argc, char **argv) {
 	// Lecture du fichier si envoyé
 	if(argc == 2) {
 		yyin = fopen(argv[1], "r");
-		cout << "\nFichier utilisé\nLecture de la preuve" << endl;
+		// cout << "\nFichier utilisé\nLecture de la preuve" << endl;
 	}
 		
 	// Verification de la preuve
 	yyparse();
 		
 	// Fin de la vérification de la preuve
-	cout << "Preuve lue en entier\nPreuve vérifiée si pas de message d'erreur" << endl;
+	// cout << "Preuve lue en entier\nPreuve vérifiée si pas de message d'erreur" << endl;
 
 	return EXIT_SUCCESS;
 }

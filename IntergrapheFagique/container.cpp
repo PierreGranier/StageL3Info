@@ -70,11 +70,15 @@ void Container::executerAnalyseur(const string &fichier) const
 	string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
 	system(commande.c_str());
 	
-	//Maintenant on lit le fichier pour écrire le résultat de l'Analyseur dans la console
+	// Maintenant on lit le fichier pour écrire le résultat de l'Analyseur dans la console
+	
 	ifstream fichierResAnalyseur(resAnalyseur, ios::in);
 	if(fichierResAnalyseur)
-	{ 				//{1>0} x:=1 {1>0}		Ouais heu c'est pour des tests
+	{
+		// {1>0} x:=1 {1>0}		Ouais heu c'est pour des tests
+		
 		string res;
+		string resFinal = "";
 		
 		emit resultatAnalyseur("Exécution de l'analyseur syntaxique...\n");
 		
@@ -82,10 +86,16 @@ void Container::executerAnalyseur(const string &fichier) const
 		{
 			getline(fichierResAnalyseur, res);
 			emit resultatAnalyseur(res);
-		}		
-		if(res == "")
+			resFinal += res;
+		}
+		
+		if(resFinal.compare("") == 0)
 		{
-			emit resultatAnalyseur(m_racine->toString() + "\n\nAucune erreur, la preuve est vérifiée.");
+			emit resultatAnalyseur("\n\nAucune erreur, la preuve est vérifiée.");
+		}
+		else
+		{
+			emit resultatAnalyseur("\n\nUne ou plusieurs erreurs ont été trouvée(s).");
 		}
 		
 		fichierResAnalyseur.close();

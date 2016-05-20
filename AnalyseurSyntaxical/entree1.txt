@@ -70,8 +70,4 @@ WHILET {x>=0} x<b x:=x+1 {x>=b^x>=0} CONSEQ {x>=0 ^x<b^x=n} x:=x+1 {x>=0^x<n} AF
 	/*	}*/
 	
 	
-Mardi 10 :
-	IG (demander au prof)
-	http://www-verimag.imag.fr/~wack/ALGO5/Cours04.pdf page 8
-	
 	

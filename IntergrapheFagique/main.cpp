@@ -12,10 +12,7 @@ int main(int argc, char** argv)
 }
 
 /*
-
 	TODO tout courre
-	Bouton supprimer (à voir/être (mdr))
-	fiche de voeux de M1
-	Améliorer le texte des onglets aide et tout
-	Look at for last errors
+		fiche de voeux de M1
+		Améliorer le texte des onglets aide et tout
 */

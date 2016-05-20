@@ -10,6 +10,7 @@
 #include "widgetnomregle.h"
 #include "widgettriplet.h"
 #include "widgetajouter.h"
+#include "widgetsupprimer.h"
 
 class WidgetRegle : public QWidget
 {

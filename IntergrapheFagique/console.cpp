@@ -30,5 +30,5 @@ void Console::vider()
 
 void Console::ecrire(const string &message)
 {
-	m_message->setText(m_message->text() + QString::fromStdString(message)); 
+	m_message->setText(m_message->text() + QString::fromStdString(message));
 }

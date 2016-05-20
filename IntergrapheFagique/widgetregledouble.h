@@ -12,6 +12,9 @@ class WidgetRegleDouble : public WidgetRegle
 		WidgetAjouter *m_ajouterG;
 		WidgetAjouter *m_ajouterD;
 		
+		WidgetSupprimer *m_supprimerG;
+		WidgetSupprimer *m_supprimerD;
+		
 		WidgetRegle *m_sousPreuveG;
 		WidgetRegle *m_sousPreuveD;
 		
@@ -24,6 +27,7 @@ class WidgetRegleDouble : public WidgetRegle
 	public slots:	
 		void ajouterSousPreuveG(WidgetRegle *sousPreuve);
 		void ajouterSousPreuveD(WidgetRegle *sousPreuve);
+		void supprimerSousPreuve();
 };
 
 #endif

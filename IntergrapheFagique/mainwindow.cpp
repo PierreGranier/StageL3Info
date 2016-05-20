@@ -146,19 +146,18 @@ void MainWindow::createStatusBar()
 	statusBar()->showMessage("Prêt");
 }
 
-void MainWindow::regles() 
+void MainWindow::regles() const
 {
-	
+	m_popup->setText("Regles");
 	//QImage aff = QImage("../Images/Aff.png");
 	// aff.load();
 	
-	QLabel  *label_img  = new QLabel(m_popup);
+	QLabel  *label_img  = new QLabel(this);
 	QPixmap *pixmap_img = new QPixmap("Images/Aff.png");
     label_img->setPixmap(*pixmap_img);
  
 	QGridLayout *gridLayout = new QGridLayout;
-	gridLayout->addWidget(m_popup);
-	m_popup->setText("Regles");
+
 	gridLayout->addWidget(label_img);
 	
 	m_popup->exec();

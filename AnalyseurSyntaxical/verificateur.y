@@ -462,6 +462,7 @@ Instruction:
 
 void yyerror(const string& mess) {
   cerr << "[ERREUR][YYERROR] " << mess << endl;
+  cout << "[ERREUR] Erreur de syntaxe" << endl;
 }
 
 int main(int argc, char **argv) {

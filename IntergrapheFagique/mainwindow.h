@@ -53,7 +53,7 @@ class MainWindow : public QMainWindow
 		void createStatusBar();
 		
 	public slots:
-		void regles() const;
+		void regles();
 		void syntaxe() const;
 		void aide() const;
 		void propos() const;

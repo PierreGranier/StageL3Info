@@ -146,7 +146,7 @@ void MainWindow::createStatusBar()
 	statusBar()->showMessage("Prêt");
 }
 
-void MainWindow::regles() const
+void MainWindow::regles()
 {
 	m_popup->setText("Regles");
 	//QImage aff = QImage("../Images/Aff.png");

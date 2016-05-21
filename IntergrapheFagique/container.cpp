@@ -18,8 +18,6 @@ Container::~Container()
 
 void Container::paintEvent(QPaintEvent *event)
 {
-	// this->setStyleSheet("background-color:white;");
-	
 	m_buffer = new QImage(size(), QImage::Format_RGB32);
 	m_buffer->fill(Qt::white);
 	

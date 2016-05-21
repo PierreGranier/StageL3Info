@@ -65,8 +65,11 @@ void Container::executerAnalyseur(const string &fichier) const
 	QString prog = "verificateur";
 	
 	string resAnalyseur = "../IntergrapheFagique/resAnalyseur.txt";
-	string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
-	system(commande.c_str());
+	
+    string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
+    // string commande= "START ../AnalyseurSyntaxical/verificateur.exe " + fichier + "1>" + resAnalyseur; //#WindowsDaubé
+	
+    system(commande.c_str());
 	
 	// Maintenant on lit le fichier pour écrire le résultat de l'Analyseur dans la console
 	

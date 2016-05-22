@@ -11,7 +11,7 @@ MainWindow::MainWindow()
 	
 	this->setWindowTitle("Analyseur Syntaxical");
 	this->resize(900, 600);
-	this->setWindowIcon(QIcon("icone_triangle2.png"));
+	this->setWindowIcon(QIcon("icone_v2.png"));
 	
 	// Popup
 	
@@ -89,10 +89,12 @@ MainWindow::~MainWindow()
 void MainWindow::createActions()
 {
 	m_nouveau = new QAction("Nouveau", this);
+		m_nouveau->setIcon(QIcon("menu_nouveau.png"));
 	m_quitter = new QAction("Quitter", this);
 	m_regles = new QAction("Règles de construction", this);
 	m_syntaxe = new QAction("Syntaxe de la preuve", this);
 	m_verifier = new QAction("Vérifier la preuve", this);
+		m_verifier->setIcon(QIcon("menu_verifier.png"));
 	m_aide = new QAction("Aide", this);
 	m_propos = new QAction("A propos", this);
 }
@@ -126,19 +128,19 @@ void MainWindow::createToolBar()
 
 void MainWindow::createSignals()
 {
-    connect(m_quitter, &QAction::triggered, this, &QMainWindow::close);
+	connect(m_quitter, &QAction::triggered, this, &QMainWindow::close);
 	
-    connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
-    connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
+	connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
+	connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
 	connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
-    connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
-    connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);
-    connect(m_conteneur, &Container::resultatAnalyseur, m_console, &Console::ecrire);
+	connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
+	connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);
+	connect(m_conteneur, &Container::resultatAnalyseur, m_console, &Console::ecrire);
 	
-    connect(m_regles, &QAction::triggered, this, &MainWindow::regles);
-    connect(m_syntaxe, &QAction::triggered, this, &MainWindow::syntaxe);
-    connect(m_aide, &QAction::triggered, this, &MainWindow::aide);
-    connect(m_propos, &QAction::triggered, this, &MainWindow::propos);
+	connect(m_regles, &QAction::triggered, this, &MainWindow::regles);
+	connect(m_syntaxe, &QAction::triggered, this, &MainWindow::syntaxe);
+	connect(m_aide, &QAction::triggered, this, &MainWindow::aide);
+	connect(m_propos, &QAction::triggered, this, &MainWindow::propos);
 }
 
 void MainWindow::createStatusBar()
@@ -154,7 +156,7 @@ void MainWindow::regles()
 	
 	QLabel  *label_img  = new QLabel(this);
 	QPixmap *pixmap_img = new QPixmap("Images/Aff.png");
-    label_img->setPixmap(*pixmap_img);
+	label_img->setPixmap(*pixmap_img);
  
 	QGridLayout *gridLayout = new QGridLayout;
 

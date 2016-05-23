@@ -42,6 +42,8 @@ string WidgetRegleDouble::toString()
 
 void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
 {
+	// m_ajouterG->setCurrentIndex(0);
+	
 	m_sousPreuveG = sousPreuve;
 	
 	/*m_grid->removeWidget(m_ajouterG);
@@ -55,6 +57,8 @@ void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
 
 void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
 {
+	// m_ajouterD->setCurrentIndex(0);
+	
 	m_sousPreuveD = sousPreuve;
 	
 	/*m_grid->removeWidget(m_ajouterD);

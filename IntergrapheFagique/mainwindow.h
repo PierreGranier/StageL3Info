@@ -54,7 +54,6 @@ class MainWindow : public QMainWindow
 		
 	public slots:
 		void regles();
-		void syntaxe();
 		void aide();
 		void propos();
 };

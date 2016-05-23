@@ -1,3 +1,6 @@
+COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {x>=0^8=8} y:=8 {x>=0^y=8} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}
+
+
 WHILE {c>=0} x<b c:=c+1 {x>=0^c>=b} COND {x>=0^c>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^c<0^x>=0} y:=8 {y=8} AFF {x>=0^c<0^8=8} y:=8 {x>=0^c>=0^y=8} CONSEQ {x<0^c<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}
 
 

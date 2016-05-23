@@ -136,7 +136,6 @@ void MainWindow::createSignals()
 	connect(m_conteneur, &Container::resultatAnalyseur, m_console, &Console::ecrire);
 	
 	connect(m_regles, &QAction::triggered, this, &MainWindow::regles);
-	connect(m_syntaxe, &QAction::triggered, this, &MainWindow::syntaxe);
 	connect(m_aide, &QAction::triggered, this, &MainWindow::aide);
 	connect(m_propos, &QAction::triggered, this, &MainWindow::propos);
 }
@@ -222,6 +221,16 @@ void MainWindow::aide()
 	
 	m_popup = new QDialog(this);
 	m_popup->setWindowTitle("Aide");
+	
+	QGridLayout *gridLayout = new QGridLayout;
+	m_popup->setLayout(gridLayout);
+	
+	QLabel *exempleSimple = new QLabel("Exemple (règle AFF) : AFF {x+1 = 43} y:=x+1 {y = 43}");
+	QLabel *exempleComplexe = new QLabel("Exemple (règle While) : COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {x>=0^8=8} y:=8 {x>=0^y=8} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}");
+	
+	gridLayout->addWidget(exempleSimple, 0, 0);
+	gridLayout->addWidget(exempleComplexe, 1, 0);
+	gridLayout->setSpacing(20);
 	
 	m_popup->exec();
 }

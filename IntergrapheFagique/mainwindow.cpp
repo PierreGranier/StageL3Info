@@ -89,6 +89,7 @@ void MainWindow::createActions()
 	// m_ouvrir = new QAction("Ouvrir", this);
 		// m_ouvrir->setIcon(QIcon("Images/menu_ouvrir.png"));
 	m_quitter = new QAction("Quitter", this);
+		m_quitter->setIcon(QIcon("Images/menu_fermer.png"));
 	m_regles = new QAction("Règles de construction", this);
 	m_verifier = new QAction("Vérifier la preuve", this);
 		m_verifier->setIcon(QIcon("Images/menu_verifier.png"));

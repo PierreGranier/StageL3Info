@@ -15,4 +15,6 @@ int main(int argc, char** argv)
 	TODO tout courre
 		fiche de voeux de M1
 		Améliorer le texte des onglets aide et tout
+		l'affichage des imagines z est dfaubée il fau la réparzerée (fin de semina, jean é mar)
+		
 */

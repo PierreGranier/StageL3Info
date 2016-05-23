@@ -44,11 +44,11 @@ void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
 {
 	m_sousPreuveG = sousPreuve;
 	
-	m_grid->removeWidget(m_ajouterG);
+	/*m_grid->removeWidget(m_ajouterG);
 	m_grid->removeWidget(m_supprimerG);
 	
 	m_ajouterG->setVisible(false);
-	m_supprimerG->setVisible(false);
+	m_supprimerG->setVisible(false);*/
 	
 	m_grid->addWidget(m_sousPreuveG, 0, 0, 1, 2, Qt::AlignBottom);
 }

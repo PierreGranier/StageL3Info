@@ -42,19 +42,23 @@ string WidgetRegleDouble::toString()
 
 void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
 {
+	// m_ajouterG->setCurrentIndex(0);
+	
 	m_sousPreuveG = sousPreuve;
 	
-	m_grid->removeWidget(m_ajouterG);
+	/*m_grid->removeWidget(m_ajouterG);
 	m_grid->removeWidget(m_supprimerG);
 	
 	m_ajouterG->setVisible(false);
-	m_supprimerG->setVisible(false);
+	m_supprimerG->setVisible(false);*/
 	
 	m_grid->addWidget(m_sousPreuveG, 0, 0, 1, 2, Qt::AlignBottom);
 }
 
 void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
 {
+	// m_ajouterD->setCurrentIndex(0);
+	
 	m_sousPreuveD = sousPreuve;
 	
 	/*m_grid->removeWidget(m_ajouterD);

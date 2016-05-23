@@ -11,7 +11,7 @@ MainWindow::MainWindow()
 	
 	this->setWindowTitle("Analyseur Syntaxical");
 	this->resize(900, 600);
-	this->setWindowIcon(QIcon("icone_v2.png"));
+	this->setWindowIcon(QIcon("Images/icone_v2.png"));
 	
 	// Layout appliqué au top
 	
@@ -84,12 +84,12 @@ MainWindow::~MainWindow()
 void MainWindow::createActions()
 {
 	m_nouveau = new QAction("Nouveau", this);
-		m_nouveau->setIcon(QIcon("menu_nouveau.png"));
+		m_nouveau->setIcon(QIcon("Images/menu_nouveau.png"));
 	m_quitter = new QAction("Quitter", this);
 	m_regles = new QAction("Règles de construction", this);
 	m_syntaxe = new QAction("Syntaxe de la preuve", this);
 	m_verifier = new QAction("Vérifier la preuve", this);
-		m_verifier->setIcon(QIcon("menu_verifier.png"));
+		m_verifier->setIcon(QIcon("Images/menu_verifier.png"));
 	m_aide = new QAction("Aide", this);
 	m_propos = new QAction("A propos", this);
 }

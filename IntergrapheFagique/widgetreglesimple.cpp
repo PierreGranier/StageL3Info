@@ -15,6 +15,11 @@ WidgetRegleSimple::WidgetRegleSimple(const string &nomRegle, QWidget *parent) : 
 	
 	QObject::connect(m_ajouter, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleSimple::ajouterSousPreuve);
 	QObject::connect(m_supprimer, &QPushButton::clicked, this, &WidgetRegleSimple::supprimerSousPreuve);
+	
+	if(nomRegle.compare("") == 0)
+	{
+		m_supprimer->setEnabled(false);
+	}
 }
 
 WidgetRegleSimple::~WidgetRegleSimple()
@@ -34,6 +39,8 @@ string WidgetRegleSimple::toString()
 
 void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 {
+	// m_ajouter->setCurrentIndex(0);
+	
 	m_sousPreuve = sousPreuve;
 	
 	/*m_grid->removeWidget(m_ajouter);
@@ -50,7 +57,7 @@ void WidgetRegleSimple::supprimerSousPreuve()
 	/*
 	m_grid->removeWidget(m_nomRegle);
 	m_grid->removeWidget(m_premisse);
-
+	
 	m_nomRegle->setVisible(false);
 	m_premisse->setVisible(false);
 	

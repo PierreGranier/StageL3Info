@@ -13,11 +13,6 @@ MainWindow::MainWindow()
 	this->resize(900, 600);
 	this->setWindowIcon(QIcon("icone_v2.png"));
 	
-	// Popup
-	
-	m_popup = new QMessageBox(this);
-	m_popup->setIcon(QMessageBox::NoIcon);
-	
 	// Layout appliqué au top
 	
 	m_box = new QVBoxLayout(m_top);
@@ -150,34 +145,102 @@ void MainWindow::createStatusBar()
 
 void MainWindow::regles()
 {
-	m_popup->setText("Regles");
-	//QImage aff = QImage("../Images/Aff.png");
+	// Popup
+	
+	m_popup = new QDialog(this);
+	m_popup->setWindowTitle("Règle de construction");
+	
+	// m_popup->setText("Regles");
+	// QImage aff = QImage("../Images/Aff.png");
 	// aff.load();
 	
-	QLabel  *label_img  = new QLabel(this);
-	QPixmap *pixmap_img = new QPixmap("Images/Aff.png");
-	label_img->setPixmap(*pixmap_img);
+	QLabel *label_aff = new QLabel(m_popup);
+	QLabel *label_seq = new QLabel(m_popup);
+	QLabel *label_cond = new QLabel(m_popup);
+	QLabel *label_conseq = new QLabel(m_popup);
+	QLabel *label_while = new QLabel(m_popup);
+	QLabel *label_whilet = new QLabel(m_popup);
+	
+	QLabel *wid_aff = new QLabel("Aff");
+	QLabel *wid_seq = new QLabel("Seq");
+	QLabel *wid_cond = new QLabel("Cond");
+	QLabel *wid_conseq = new QLabel("Conseq");
+	QLabel *wid_while = new QLabel("While");
+	QLabel *wid_whilet = new QLabel("WhileT");
+	
+	
+	QPixmap *pixmap_aff = new QPixmap("Images/Aff.png");
+	QPixmap *pixmap_seq = new QPixmap("Images/Seq.png");
+	QPixmap *pixmap_cond = new QPixmap("Images/Cond.png");
+	QPixmap *pixmap_conseq = new QPixmap("Images/Conseq.png");
+	QPixmap *pixmap_while = new QPixmap("Images/While.png");
+	QPixmap *pixmap_whilet = new QPixmap("Images/WhileT.png");
+	
+	
+	label_aff->setPixmap(*pixmap_aff);
+	label_seq->setPixmap(*pixmap_seq);
+	label_cond->setPixmap(*pixmap_cond);
+	label_conseq->setPixmap(*pixmap_conseq);
+	label_while->setPixmap(*pixmap_while);
+	label_whilet->setPixmap(*pixmap_whilet);
+	
  
 	QGridLayout *gridLayout = new QGridLayout;
-	gridLayout->addWidget(label_img);
+	m_popup->setLayout(gridLayout);
+	gridLayout->addWidget(wid_aff, 0, 0, Qt::AlignRight);
+	gridLayout->addWidget(label_aff, 0, 1);
+	gridLayout->addWidget(wid_seq, 1, 0, Qt::AlignRight);
+	gridLayout->addWidget(label_seq, 1, 1);
+	gridLayout->addWidget(wid_cond, 2, 0, Qt::AlignRight);
+	gridLayout->addWidget(label_cond, 2, 1);
+	gridLayout->addWidget(wid_conseq, 3, 0, Qt::AlignRight);
+	gridLayout->addWidget(label_conseq, 3, 1);
+	gridLayout->addWidget(wid_while, 4, 0, Qt::AlignRight);
+	gridLayout->addWidget(label_while, 4, 1);
+	gridLayout->addWidget(wid_whilet, 5, 0, Qt::AlignRight);
+	gridLayout->addWidget(label_whilet, 5, 1);
+	gridLayout->setSpacing(30);
+	
+	
 	
 	m_popup->exec();
+	
+	// QTextEdit *zoneTexte1 = new QTextEdit;
+	
+	
+	// zoneTexte->setWindowTitle("Règle de construction");
+	// zoneTexte->setText("coucou");
+	
 }
 
-void MainWindow::syntaxe() const
+void MainWindow::syntaxe()
 {
-	m_popup->setText("Syntaxe syntaxicale");
+	// Popup
+	
+	m_popup = new QDialog(this);
+	m_popup->setWindowTitle("Syntaxe de la preuve");
+	
+	// m_popup->setText("Syntaxe syntaxicale");
 	m_popup->exec();
 }
 
-void MainWindow::aide() const
+void MainWindow::aide()
 {
-	m_popup->setText("A l'aiiiiide");
+	// Popup
+	
+	m_popup = new QDialog(this);
+	m_popup->setWindowTitle("Aide");
+	
+	// m_popup->setText("A l'aiiiiide");
 	m_popup->exec();
 }
 
-void MainWindow::propos() const
+void MainWindow::propos()
 {
-	m_popup->setText("A propos\n\nCet assistant de construction de preuve et analyseur lexical de preuve a été réalisé dans le cadre du projet de licence informatique (3ème année) à Angers.\n\nPierre GRANNIER--RICHARD\nThibaut ROPERCH");
+	// Popup
+	
+	m_popup = new QDialog(this);
+	
+	// m_popup->setText("A propos\n\nCet assistant de construction de preuve et analyseur lexical de preuve a été réalisé dans le cadre du projet de licence informatique (3ème année) à Angers.\n\nPierre GRANNIER--RICHARD\nThibaut ROPERCH");
 	m_popup->exec();
 }

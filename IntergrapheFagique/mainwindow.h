@@ -40,7 +40,7 @@ class MainWindow : public QMainWindow
 		
 		QToolBar *fileToolBar;
 		
-		QMessageBox *m_popup;
+		QDialog *m_popup;
 		
 	public:
 		MainWindow();
@@ -54,9 +54,9 @@ class MainWindow : public QMainWindow
 		
 	public slots:
 		void regles();
-		void syntaxe() const;
-		void aide() const;
-		void propos() const;
+		void syntaxe();
+		void aide();
+		void propos();
 };
 
 #endif

@@ -224,11 +224,10 @@ void MainWindow::aide()
 	QGridLayout *gridLayout = new QGridLayout;
 	m_popup->setLayout(gridLayout);
 	
-	QLabel *exempleSimple = new QLabel("Exemple (règle AFF) : AFF {x+1 = 43} y:=x+1 {y = 43}");
-	QLabel *exempleComplexe = new QLabel("Exemple (règle While) : COND {x>=0} x>=0 y:=8 y:=9 {y=8} CONSEQ {x>=0^x>=0} y:=8 {y=8} AFF {x>=0^8=8} y:=8 {x>=0^y=8} CONSEQ {x<0^x>=0} y:=9 {y=8} AFF {faux} y:=9 {faux}");
+	QLabel *exempleSimple = new QLabel("Exemple (règle AFF) : {x+1 = 43} y:=x+1 {y = 43}");
 	
 	gridLayout->addWidget(exempleSimple, 0, 0);
-	gridLayout->addWidget(exempleComplexe, 1, 0);
+	// gridLayout->addWidget(exempleComplexe, 1, 0);
 	gridLayout->setSpacing(20);
 	
 	m_popup->exec();

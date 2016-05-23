@@ -11,6 +11,7 @@ MainWindow::MainWindow()
 	
 	this->setWindowTitle("Analyseur Syntaxical");
 	this->resize(900, 600);
+	this->move(0,0);
 	this->setWindowIcon(QIcon("Images/icone_v2.png"));
 	
 	// Layout appliqué au top
@@ -85,6 +86,8 @@ void MainWindow::createActions()
 {
 	m_nouveau = new QAction("Nouveau", this);
 		m_nouveau->setIcon(QIcon("Images/menu_nouveau.png"));
+	// m_ouvrir = new QAction("Ouvrir", this);
+		// m_ouvrir->setIcon(QIcon("Images/menu_ouvrir.png"));
 	m_quitter = new QAction("Quitter", this);
 	m_regles = new QAction("Règles de construction", this);
 	m_syntaxe = new QAction("Syntaxe de la preuve", this);
@@ -93,6 +96,7 @@ void MainWindow::createActions()
 	m_aide = new QAction("Aide", this);
 	m_propos = new QAction("A propos", this);
 }
+
 void MainWindow::createMenuBar()
 {
 	// Menu (Fichier -> Nouveau, Fichier -> Quitter, Preuve -> Règles, Preuve -> Vérifier)	
@@ -111,14 +115,13 @@ void MainWindow::createMenuBar()
 
 void MainWindow::createToolBar()
 {
-	// Icones (Nouveau, Vérifier la preuve)
+	// Icones (Nouveau, Ouvrir, Vérifier la preuve)
 	
 	fileToolBar = addToolBar("Fichier");
 		fileToolBar->addAction(m_nouveau);
-		fileToolBar->addAction(m_verifier);
-		
-	/*const QIcon newIcon = QIcon::fromTheme("document-new", QIcon(":/images/new.png"));
-	QAction *newLetterAct = new QAction(newIcon, tr("&New Letter"), this);*/
+		// fileToolBar->addAction(m_ouvrir);
+	fileToolBar = addToolBar("Preuve");
+		fileToolBar->addAction(m_verifier);	
 }
 
 void MainWindow::createSignals()

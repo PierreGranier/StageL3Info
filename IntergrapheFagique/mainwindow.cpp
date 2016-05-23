@@ -240,7 +240,13 @@ void MainWindow::propos()
 	// Popup
 	
 	m_popup = new QDialog(this);
+	m_popup->setWindowTitle("À propos");
 	
-	// m_popup->setText("A propos\n\nCet assistant de construction de preuve et analyseur lexical de preuve a été réalisé dans le cadre du projet de licence informatique (3ème année) à Angers.\n\nPierre GRANNIER--RICHARD\nThibaut ROPERCH");
+	QGridLayout *gridLayout = new QGridLayout;
+	m_popup->setLayout(gridLayout);
+		// gridLayout->addWidget(new QLabel("A propos\n\nCet assistant de construction de preuve et analyseur lexical de preuve a été réalisé dans le cadre du projet de licence informatique (3ème année) à Angers.\n\nPierre GRANNIER--RICHARD\nThibaut ROPERCH"), 0, 1);
+		// gridLayout->addWidget(new QPixmap("Images/icone_v2.png"), 0, 0);
+	gridLayout->setSpacing(30);
+	
 	m_popup->exec();
 }

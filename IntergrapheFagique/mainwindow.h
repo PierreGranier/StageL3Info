@@ -31,6 +31,7 @@ class MainWindow : public QMainWindow
 		Console *m_console;
 		
 		QAction *m_nouveau;
+		QAction *m_ouvrir;
 		QAction *m_quitter;
 		QAction *m_regles;
 		QAction *m_syntaxe;

@@ -216,17 +216,6 @@ void MainWindow::regles()
 	
 }
 
-void MainWindow::syntaxe()
-{
-	// Popup
-	
-	m_popup = new QDialog(this);
-	m_popup->setWindowTitle("Syntaxe de la preuve");
-	
-	// m_popup->setText("Syntaxe syntaxicale");
-	m_popup->exec();
-}
-
 void MainWindow::aide()
 {
 	// Popup
@@ -234,7 +223,6 @@ void MainWindow::aide()
 	m_popup = new QDialog(this);
 	m_popup->setWindowTitle("Aide");
 	
-	// m_popup->setText("A l'aiiiiide");
 	m_popup->exec();
 }
 

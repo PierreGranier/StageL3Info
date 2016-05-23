@@ -13,6 +13,6 @@ int main(int argc, char** argv)
 
 /*
 	TODO tout courre
-		fiche de voeux de M1
+		FINI lol
 		
 */

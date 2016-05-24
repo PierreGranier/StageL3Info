@@ -3,18 +3,20 @@
 
 #include <string>
 
-class PreuveLineaire : public std::string
+class PreuveLineaire
 {
 	private:
+		std::string m_contenu;
 	
 	public:
-		PreuveLineaire(std::string const &chaine) : std::string(chaine) {};
+		PreuveLineaire(std::string const &chaine) { m_contenu = chaine; };
 		~PreuveLineaire() {};
 		
-		bool commencePar(std::string const &chaine) const { return this->find(chaine+" ") == 0 || this->find(" "+chaine+" ") == 0; };
-		std::string triplet() const { return this->substr(this->find('{'), this->find(':')) + this->substr(this->find('='), this->find('}')); };
-		void tronquerRegle() { this->erase(0, this->find('{')); };
-		void tronquerTriplet() { this->substr(this->find('{'), this->find(':')); this->substr(this->find('='), this->find('}')); };
+		bool vide() const { return m_contenu.empty(); };
+		bool commencePar(std::string const &chaine) const { return m_contenu.find(chaine+" ") == 0 || m_contenu.find(" "+chaine+" ") == 0; };
+		std::string triplet() const { return m_contenu.substr(m_contenu.find('{'), m_contenu.find(':')) + m_contenu.substr(m_contenu.find('='), m_contenu.find('}')); };
+		void tronquerRegle() { m_contenu.erase(0, m_contenu.find('{')); };
+		void tronquerTriplet() { m_contenu.substr(m_contenu.find('{'), m_contenu.find(':')); m_contenu.substr(m_contenu.find('='), m_contenu.find('}')); };
 };
 
 #endif

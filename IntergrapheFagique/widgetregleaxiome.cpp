@@ -10,6 +10,8 @@ WidgetRegleAxiome::WidgetRegleAxiome(const string &nomRegle, QWidget *parent) : 
 	
 	m_grid->addWidget(m_premisse, 0, 0, 2, 3, Qt::AlignHCenter);
 	m_grid->addWidget(m_supprimer, 0, 3);
+	
+	QObject::connect(m_supprimer, &QPushButton::clicked, this, &WidgetRegle::supprimerSousPreuve);
 }
 
 WidgetRegleAxiome::~WidgetRegleAxiome()

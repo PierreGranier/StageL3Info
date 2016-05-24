@@ -37,12 +37,13 @@ WidgetRegleDouble::~WidgetRegleDouble()
 void WidgetRegleDouble::modifierTriplet(const std::string &triplet)
 {
 	// Si le gauche est pris, mettre à droite
-	if(m_premisseG.estvide() == NULL)
+	// estVide() return true si est vide
+	if(m_premisseG->estVide() == true)
 	{
-		m_premisseG.modifierTexte(triplet);
+		m_premisseG->modifierTexte(triplet);
 	}
 	else {
-		premisseD.modifierTexte(triplet);
+		m_premisseD->modifierTexte(triplet);
 	}
 }
 

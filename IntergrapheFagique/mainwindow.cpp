@@ -129,6 +129,7 @@ void MainWindow::createSignals()
 	
 	connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
 	connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
+	// connect(m_ouvrir, &QAction::triggered, m_conteneur, &Container::ouvrirPreuve("text.txt"));
 	connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
 	connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
 	connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);
@@ -146,14 +147,8 @@ void MainWindow::createStatusBar()
 
 void MainWindow::regles()
 {
-	// Popup
-	
 	m_popup = new QDialog(this);
 	m_popup->setWindowTitle("Règles de construction");
-	
-	// m_popup->setText("Regles");
-	// QImage aff = QImage("../Images/Aff.png");
-	// aff.load();
 	
 	QLabel *label_aff = new QLabel(m_popup);
 	QLabel *label_seq = new QLabel(m_popup);
@@ -169,14 +164,12 @@ void MainWindow::regles()
 	QLabel *wid_while = new QLabel("While");
 	QLabel *wid_whilet = new QLabel("WhileT");
 	
-	
 	QPixmap *pixmap_aff = new QPixmap("Images/Aff.png");
 	QPixmap *pixmap_seq = new QPixmap("Images/Seq.png");
 	QPixmap *pixmap_cond = new QPixmap("Images/Cond.png");
 	QPixmap *pixmap_conseq = new QPixmap("Images/Conseq.png");
 	QPixmap *pixmap_while = new QPixmap("Images/While.png");
 	QPixmap *pixmap_whilet = new QPixmap("Images/WhileT.png");
-	
 	
 	label_aff->setPixmap(*pixmap_aff);
 	label_seq->setPixmap(*pixmap_seq);
@@ -185,7 +178,6 @@ void MainWindow::regles()
 	label_while->setPixmap(*pixmap_while);
 	label_whilet->setPixmap(*pixmap_whilet);
 	
- 
 	QGridLayout *gridLayout = new QGridLayout;
 	m_popup->setLayout(gridLayout);
 	gridLayout->addWidget(new QLabel("<h2>Règles de construction</h2><hr><br/>", m_popup), 0, 0, 1, 2);
@@ -203,22 +195,11 @@ void MainWindow::regles()
 	gridLayout->addWidget(label_whilet, 6, 1);
 	gridLayout->setSpacing(30);
 	
-	
-	
 	m_popup->exec();
-	
-	// QTextEdit *zoneTexte1 = new QTextEdit;
-	
-	
-	// zoneTexte->setWindowTitle("Règle de construction");
-	// zoneTexte->setText("coucou");
-	
 }
 
 void MainWindow::aide()
 {
-	// Popup
-	
 	m_popup = new QDialog(this);
 	m_popup->setWindowTitle("Aide");
 	
@@ -236,8 +217,6 @@ void MainWindow::aide()
 
 void MainWindow::propos()
 {
-	// Popup
-	
 	m_popup = new QDialog(this);
 	m_popup->setWindowTitle("À propos");
 	

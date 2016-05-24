@@ -22,6 +22,7 @@ class WidgetTriplet : public QWidget
 		WidgetTriplet(QWidget *parent);
 		~WidgetTriplet();
 		
+		void modifierTexte(std::string const &triplet);
 		std::string toString();
 };
 

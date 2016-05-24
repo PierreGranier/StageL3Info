@@ -30,6 +30,11 @@ WidgetTriplet::~WidgetTriplet()
 	
 }
 
+void WidgetTriplet::modifierTexte(string const &triplet)
+{
+	m_postcondition->setText(QString::fromStdString(triplet));
+}
+
 string WidgetTriplet::toString()
 {
 	return m_precondition->text().toStdString();

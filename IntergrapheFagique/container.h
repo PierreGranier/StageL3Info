@@ -20,6 +20,9 @@
 #include "widgetregleconseq.h"
 #include "widgetreglewhile.h"
 #include "widgetreglewhilet.h"
+// #include <stack>
+// #include "preuvelineaire.h"
+// #include "widgetregle.h"
 
 class Container : public QWidget
 {
@@ -41,9 +44,9 @@ class Container : public QWidget
 		
 	public slots:
 		void initialiser();
+		// void ouvrirPreuve(const std::string &fichier);
 		void verifierPreuve() const;
 		void executerAnalyseur(const std::string &fichier) const;
-
 		
 	signals:
 		void verifierFichier(const std::string &fichier) const;

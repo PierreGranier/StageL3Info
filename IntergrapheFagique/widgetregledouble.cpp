@@ -21,8 +21,8 @@ WidgetRegleDouble::WidgetRegleDouble(const string &nomRegle, QWidget *parent) : 
 	
 	QObject::connect(m_ajouterG, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveG);
 	QObject::connect(m_ajouterD, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveD);
-	QObject::connect(m_supprimerG, &QPushButton::clicked, this, &WidgetRegleDouble::supprimerSousPreuve);
-	QObject::connect(m_supprimerD, &QPushButton::clicked, this, &WidgetRegleDouble::supprimerSousPreuve);
+	QObject::connect(m_supprimerG, &QPushButton::clicked, this, &WidgetRegle::supprimerSousPreuve);
+	QObject::connect(m_supprimerD, &QPushButton::clicked, this, &WidgetRegle::supprimerSousPreuve);
 }
 
 WidgetRegleDouble::~WidgetRegleDouble()
@@ -30,14 +30,14 @@ WidgetRegleDouble::~WidgetRegleDouble()
 	
 }
 
-string WidgetRegleDouble::toString()
+void WidgetRegleDouble::modifierTriplet(const std::string &triplet)
 {
-	if(m_sousPreuveG == NULL || m_sousPreuveD == NULL)
-	{
-		WidgetRegle::erreurFermeturePreuve();
-		return "";
-	}
-	return m_sousPreuveG->nomRegle() + " " + m_premisseG->toString() + " " + m_sousPreuveG->toString() + " " + m_sousPreuveD->nomRegle() + " " + m_premisseD->toString() + " " + m_sousPreuveD->toString();
+	// Si le gauche est pris, mettre à droite
+}
+
+void WidgetRegleDouble::ajouterSousPreuve(WidgetRegle *sousPreuve)
+{
+	// Si le gauche est pris, mettre à droite
 }
 
 void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
@@ -70,27 +70,12 @@ void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
 	m_grid->addWidget(m_sousPreuveD, 0, 2, 1, 2, Qt::AlignBottom);
 }
 
-void WidgetRegleDouble::supprimerSousPreuve()
+string WidgetRegleDouble::toString()
 {
-	/*
-	m_grid->removeWidget(m_nomRegle);
-	m_grid->removeWidget(m_premisseG);
-	m_premisseD->setVisible(false);
-	
-	m_nomRegle->setVisible(false);
-	m_premisseG->setVisible(false);
-	m_premisseD->setVisible(false);
-	
-	m_grid->addWidget(m_ajouterG, 0, 0, 1, 2, Qt::AlignBottom);
-	m_grid->addWidget(m_supprimerG, 0, 2, 1, 2, Qt::AlignBottom);
-	m_grid->addWidget(m_ajouterD, 0, 0, 1, 2, Qt::AlignBottom);
-	m_grid->addWidget(m_supprimerD, 0, 2, 1, 2, Qt::AlignBottom);
-	
-	m_ajouterG->setVisible(true);
-	m_supprimerG->setVisible(true);
-	m_ajouterD->setVisible(true);
-	m_supprimerD->setVisible(true);
-	*/
-	
-	delete(this);
+	if(m_sousPreuveG == NULL || m_sousPreuveD == NULL)
+	{
+		WidgetRegle::erreurFermeturePreuve();
+		return "";
+	}
+	return m_sousPreuveG->nomRegle() + " " + m_premisseG->toString() + " " + m_sousPreuveG->toString() + " " + m_sousPreuveD->nomRegle() + " " + m_premisseD->toString() + " " + m_sousPreuveD->toString();
 }

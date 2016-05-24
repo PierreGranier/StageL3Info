@@ -35,7 +35,70 @@ void Container::initialiser()
 	m_racine = new WidgetRacine(this);
 	m_ens->addWidget(m_racine);
 }
+/*
+void Container::ouvrirPreuve(const std::string &fichier)
+{
+	// Initialisation de la preuve de type PreuveLineaire (type héritant de string)
+	
+	ifstream fichierPreuve(fichier, ios::in);
+	string chainePreuve;
+	getline(fichierResAnalyseur, chainePreuve);
+	// getline(fichierResAnalyseur, string chainePreuve);
+	PreuveLineaire *preuve = new PreuveLineaire(chainePreuve);
+	
+	// Initialisation de la pile FILO contenant les WidgetRegle à créer
+	
+	Stack regles<*WidgetRegle>;
+	regles.push(m_racine);
+	
+	// Lecture de la preuve linéaire et ajout des WidgetRegle comme il faut
+	
+	while(!preuve.empty() && !regles.empty())
+	{
+		WidgetRegle *newWidget;
+		
+		if(preuve.commencePar("AFF"))
+			newWidget = new WidgetRegleAff(this);
+		else if(preuve.commencePar("SEQ"))
+			newWidget = new WidgetRegleSeq(this);
+		else if(preuve.commencePar("COND"))
+			newWidget = new WidgetRegleCond(this);
+		else if(preuve.commencePar("CONSEQ"))
+			newWidget = new WidgetRegleConseq(this);
+		else if(preuve.commencePar("WHILE"))
+			newWidget = new WidgetRegleWhile(this);
+		else if(preuve.commencePar("WHILET"))
+			newWidget = new WidgetRegleWhileT(this);
+		
+		// Enlève la règle à la preuve linéaire
+		preuve.tronquerRegle();
+		// Edition du triplet du premier WidgetRegle de la pile
+		regles.top()->modifierTriplet(preuve.triplet());
+		// Enlève le triplet à la preuve linéaire
+		preuve.tronquerTriplet();
+		// Ajout du WidgetRegle créé au premier WidgetRegle de la pile
+		regles.top()->ajouterRegle(newWidget);
+		// Ajout du WidgetRegle créé à la pile
+		regles.push(newWidget);
+		
+		// Nettoyage de la pile : enlève les WidgetRegle pleins
+		
+		// Affichage de la tronche de la pile
+		Stack save<*WidgetRegle> = regles; cout << "Avant nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top() << ">" << endl; save.pop(); }
 
+		while(regles.top()->plein())
+		{
+			regles.pop();
+		}
+		
+		// Affichage de la tronche de la pile
+		Stack save<*WidgetRegle> = regles; cout << "Après nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top() << ">" << endl; save.pop(); }
+	}
+	
+	if(preuve.empty()) cout << "Ligne preuve vide" << endl;
+	if(regles.empty()) cout << "Pile preuves vide" << endl;
+}
+*/
 void Container::verifierPreuve() const
 {
 	// Créé le fichier et l'envoie dans un signal

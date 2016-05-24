@@ -22,12 +22,13 @@ class WidgetRegleDouble : public WidgetRegle
 		WidgetRegleDouble(const std::string &nomRegle, QWidget *parent);
 		~WidgetRegleDouble();
 		
+		void modifierTriplet(const std::string &triplet);
+		void ajouterSousPreuve(WidgetRegle *sousPreuve);
 		std::string toString();
 		
-	public slots:	
+	public slots:
 		void ajouterSousPreuveG(WidgetRegle *sousPreuve);
 		void ajouterSousPreuveD(WidgetRegle *sousPreuve);
-		void supprimerSousPreuve();
 };
 
 #endif

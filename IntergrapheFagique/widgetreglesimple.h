@@ -17,12 +17,11 @@ class WidgetRegleSimple : public WidgetRegle
 		WidgetRegleSimple(const std::string &nomRegle, QWidget *parent);
 		~WidgetRegleSimple();
 		
+		void modifierTriplet(const std::string &triplet);
 		std::string toString();
 		
-	public slots:	
+	public slots:
 		void ajouterSousPreuve(WidgetRegle *sousPreuve);
-		void supprimerSousPreuve();
-	   	
 };
 
 #endif

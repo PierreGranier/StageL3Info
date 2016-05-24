@@ -12,7 +12,7 @@ WidgetRegle::WidgetRegle(const string &nomRegle, QWidget *parent) : QWidget(pare
 
 		m_grid->addWidget(m_nomRegle, 2, 0, 1, 4, Qt::AlignLeft);
 	}
-
+	
 	m_grid->setSpacing(3);
 	m_grid->setContentsMargins(0, 0, 0, 0);
 }
@@ -25,6 +25,11 @@ WidgetRegle::~WidgetRegle()
 string WidgetRegle::nomRegle() const
 {
 	return m_nomRegle->toString();
+}
+
+void WidgetRegle::supprimerSousPreuve()
+{
+	delete(this);
 }
 
 void WidgetRegle::erreurFermeturePreuve()

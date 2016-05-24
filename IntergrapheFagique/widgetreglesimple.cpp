@@ -14,7 +14,7 @@ WidgetRegleSimple::WidgetRegleSimple(const string &nomRegle, QWidget *parent) : 
 	m_grid->addWidget(m_premisse, 1, 0, 1, 4, Qt::AlignBottom);
 	
 	QObject::connect(m_ajouter, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleSimple::ajouterSousPreuve);
-	QObject::connect(m_supprimer, &QPushButton::clicked, this, &WidgetRegleSimple::supprimerSousPreuve);
+	QObject::connect(m_supprimer, &QPushButton::clicked, this, &WidgetRegle::supprimerSousPreuve);
 	
 	if(nomRegle.compare("") == 0)
 	{
@@ -27,14 +27,9 @@ WidgetRegleSimple::~WidgetRegleSimple()
 	
 }
 
-string WidgetRegleSimple::toString()
+void WidgetRegleSimple::modifierTriplet(const string &triplet)
 {
-	if(m_sousPreuve == NULL)
-	{
-		WidgetRegle::erreurFermeturePreuve();
-		return "";
-	}
-	return m_sousPreuve->nomRegle() + " " + m_premisse->toString() + " " + m_sousPreuve->toString();
+	m_premisse->modifierTexte(triplet);
 }
 
 void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
@@ -52,21 +47,12 @@ void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 	m_grid->addWidget(m_sousPreuve, 0, 0, 1, 4, Qt::AlignBottom);
 }
 
-void WidgetRegleSimple::supprimerSousPreuve()
+string WidgetRegleSimple::toString()
 {
-	/*
-	m_grid->removeWidget(m_nomRegle);
-	m_grid->removeWidget(m_premisse);
-	
-	m_nomRegle->setVisible(false);
-	m_premisse->setVisible(false);
-	
-	m_grid->addWidget(m_ajouter, 0, 0, 1, 2, Qt::AlignBottom);
-	m_grid->addWidget(m_supprimer, 0, 2, 1, 2, Qt::AlignBottom);
-	
-	m_ajouter->setVisible(true);
-	m_supprimer->setVisible(true);
-	*/
-	
-	delete(this);
+	if(m_sousPreuve == NULL)
+	{
+		WidgetRegle::erreurFermeturePreuve();
+		return "";
+	}
+	return m_sousPreuve->nomRegle() + " " + m_premisse->toString() + " " + m_sousPreuve->toString();
 }

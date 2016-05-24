@@ -25,6 +25,7 @@ class WidgetRegle : public QWidget
 		
 		std::string nomRegle() const;
 		virtual void modifierTriplet(const std::string &triplet) =0;
+		virtual bool estPlein() const =0;
 		virtual void ajouterSousPreuve(WidgetRegle *sousPreuve) =0;
 		void supprimerSousPreuve();
 		void erreurFermeturePreuve();

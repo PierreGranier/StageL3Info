@@ -86,8 +86,8 @@ void MainWindow::createActions()
 {
 	m_nouveau = new QAction("Nouveau", this);
 		m_nouveau->setIcon(QIcon("Images/menu_nouveau.png"));
-	// m_ouvrir = new QAction("Ouvrir", this);
-		// m_ouvrir->setIcon(QIcon("Images/menu_ouvrir.png"));
+	m_ouvrir = new QAction("Ouvrir", this);
+		m_ouvrir->setIcon(QIcon("Images/menu_ouvrir.png"));
 	m_quitter = new QAction("Quitter", this);
 		m_quitter->setIcon(QIcon("Images/menu_fermer.png"));
 	m_regles = new QAction("Règles de construction", this);
@@ -118,7 +118,7 @@ void MainWindow::createToolBar()
 	
 	fileToolBar = addToolBar("Fichier");
 		fileToolBar->addAction(m_nouveau);
-		// fileToolBar->addAction(m_ouvrir);
+		fileToolBar->addAction(m_ouvrir);
 	fileToolBar = addToolBar("Preuve");
 		fileToolBar->addAction(m_verifier);	
 }
@@ -129,7 +129,7 @@ void MainWindow::createSignals()
 	
 	connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
 	connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
-	// connect(m_ouvrir, &QAction::triggered, m_conteneur, &Container::ouvrirPreuve("text.txt"));
+	connect(m_ouvrir, &QAction::triggered, m_conteneur, &Container::ouvrirPreuve);
 	connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
 	connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
 	connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);

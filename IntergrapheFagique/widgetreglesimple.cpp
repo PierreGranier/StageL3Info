@@ -20,6 +20,8 @@ WidgetRegleSimple::WidgetRegleSimple(const string &nomRegle, QWidget *parent) : 
 	{
 		m_supprimer->setEnabled(false);
 	}
+	
+	m_sousPreuve = NULL;
 }
 
 WidgetRegleSimple::~WidgetRegleSimple()
@@ -34,15 +36,8 @@ void WidgetRegleSimple::modifierTriplet(const string &triplet)
 
 void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 {
-	// m_ajouter->setCurrentIndex(0);
-	
 	m_sousPreuve = sousPreuve;
-	
-	/*m_grid->removeWidget(m_ajouter);
-	m_grid->removeWidget(m_supprimer);*/
-	
-	/*m_ajouter->setVisible(false);
-	m_supprimer->setVisible(false);*/
+
 	
 	m_grid->addWidget(m_sousPreuve, 0, 0, 1, 4, Qt::AlignBottom);
 }
@@ -51,7 +46,9 @@ string WidgetRegleSimple::toString()
 {
 	if(m_sousPreuve == NULL)
 	{
+		cout << "coucou" << endl;
 		WidgetRegle::erreurFermeturePreuve();
+		
 		return "";
 	}
 	return m_sousPreuve->nomRegle() + " " + m_premisse->toString() + " " + m_sousPreuve->toString();

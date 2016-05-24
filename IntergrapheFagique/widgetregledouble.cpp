@@ -23,6 +23,10 @@ WidgetRegleDouble::WidgetRegleDouble(const string &nomRegle, QWidget *parent) : 
 	QObject::connect(m_ajouterD, &WidgetAjouter::envoyerWidgetRegle, this, &WidgetRegleDouble::ajouterSousPreuveD);
 	QObject::connect(m_supprimerG, &QPushButton::clicked, this, &WidgetRegle::supprimerSousPreuve);
 	QObject::connect(m_supprimerD, &QPushButton::clicked, this, &WidgetRegle::supprimerSousPreuve);
+	
+	//utile pour pas avoir d'erreur de segmentation :*
+	m_sousPreuveD = NULL;
+	m_sousPreuveG = NULL;
 }
 
 WidgetRegleDouble::~WidgetRegleDouble()
@@ -33,39 +37,37 @@ WidgetRegleDouble::~WidgetRegleDouble()
 void WidgetRegleDouble::modifierTriplet(const std::string &triplet)
 {
 	// Si le gauche est pris, mettre à droite
+	if(m_premisseG.estvide() == NULL)
+	{
+		m_premisseG.modifierTexte(triplet);
+	}
+	else {
+		premisseD.modifierTexte(triplet);
+	}
 }
 
 void WidgetRegleDouble::ajouterSousPreuve(WidgetRegle *sousPreuve)
 {
 	// Si le gauche est pris, mettre à droite
+	if(m_sousPreuveG == NULL)
+	{
+		m_sousPreuveG = sousPreuve;
+	}
+	else {
+		m_sousPreuveD = sousPreuve;
+	}
 }
 
 void WidgetRegleDouble::ajouterSousPreuveG(WidgetRegle *sousPreuve)
-{
-	// m_ajouterG->setCurrentIndex(0);
-	
+{	
 	m_sousPreuveG = sousPreuve;
-	
-	/*m_grid->removeWidget(m_ajouterG);
-	m_grid->removeWidget(m_supprimerG);
-	
-	m_ajouterG->setVisible(false);
-	m_supprimerG->setVisible(false);*/
 	
 	m_grid->addWidget(m_sousPreuveG, 0, 0, 1, 2, Qt::AlignBottom);
 }
 
 void WidgetRegleDouble::ajouterSousPreuveD(WidgetRegle *sousPreuve)
-{
-	// m_ajouterD->setCurrentIndex(0);
-	
+{	
 	m_sousPreuveD = sousPreuve;
-	
-	/*m_grid->removeWidget(m_ajouterD);
-	m_grid->removeWidget(m_supprimerD);
-	
-	m_ajouterD->setVisible(false);
-	m_supprimerD->setVisible(false);*/
 	
 	m_grid->addWidget(m_sousPreuveD, 0, 2, 1, 2, Qt::AlignBottom);
 }

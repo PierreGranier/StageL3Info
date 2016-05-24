@@ -13,6 +13,6 @@ int main(int argc, char** argv)
 
 /*
 	TODO tout courre
-		FINI lol
+		FAIT LES CAPTURES DECRAN TARBA POUR LES EXEMPLES MDR
 
 */

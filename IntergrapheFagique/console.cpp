@@ -15,7 +15,6 @@ Console::Console(QWidget *parent) : QWidget(parent)
 	m_ens->addStretch(1);
 
 	m_ens->setSpacing(0);
-	// m_ens->setContentsMargins(0, 0, 0, 0);
 }
 
 Console::~Console()

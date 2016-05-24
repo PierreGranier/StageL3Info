@@ -23,6 +23,7 @@ class WidgetRegleDouble : public WidgetRegle
 		~WidgetRegleDouble();
 		
 		void modifierTriplet(const std::string &triplet);
+		bool estPlein() const;
 		void ajouterSousPreuve(WidgetRegle *sousPreuve);
 		std::string toString();
 		

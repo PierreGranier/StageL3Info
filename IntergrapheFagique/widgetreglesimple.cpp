@@ -32,6 +32,11 @@ void WidgetRegleSimple::modifierTriplet(const string &triplet)
 	m_premisse->modifierTexte(triplet);
 }
 
+bool WidgetRegleSimple::estPlein() const
+{
+	return m_sousPreuve != NULL;
+}
+
 void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 {
 	// m_ajouter->setCurrentIndex(0);

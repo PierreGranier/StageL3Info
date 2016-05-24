@@ -18,6 +18,7 @@ class WidgetRegleSimple : public WidgetRegle
 		~WidgetRegleSimple();
 		
 		void modifierTriplet(const std::string &triplet);
+		bool estPlein() const;
 		std::string toString();
 		
 	public slots:

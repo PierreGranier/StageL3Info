@@ -71,11 +71,11 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 			newWidget = new WidgetRegleWhileT(this);
 		
 		// Enlève la règle à la preuve linéaire
-		preuve.tronquerRegle();
+		// preuve.tronquerRegle();
 		// Edition du triplet du premier WidgetRegle de la pile
-		regles.top()->modifierTriplet(preuve.triplet());
+		// regles.top()->modifierTriplet(preuve.triplet());
 		// Enlève le triplet à la preuve linéaire
-		preuve.tronquerTriplet();
+		// preuve.tronquerTriplet();
 		// Ajout du WidgetRegle créé au premier WidgetRegle de la pile
 		regles.top()->ajouterSousPreuve(newWidget);
 		// Ajout du WidgetRegle créé à la pile
@@ -84,7 +84,7 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 		// Nettoyage de la pile : enlève les WidgetRegle pleins
 		
 		// Affichage de la tronche de la pile
-		stack<WidgetRegle*> save = regles; cout << "Avant nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top() << ">" << endl; save.pop(); }
+		stack<WidgetRegle*> save = regles; cout << "Avant nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
 
 		while(regles.top()->estPlein())
 		{
@@ -92,7 +92,7 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 		}
 		
 		// Affichage de la tronche de la pile
-		save = regles; cout << "Après nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top() << ">" << endl; save.pop(); }
+		save = regles; cout << "Après nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
 	}
 	
 	if(preuve.empty()) cout << "Ligne preuve vide" << endl;

@@ -13,10 +13,6 @@ int main(int argc, char** argv)
 
 /*
 	TODO tout courre
-<<<<<<< HEAD
 		FINI lol
-		
-=======
-		Aff.cpp : rajouter un WidgetSupprimer
->>>>>>> 86fd54812f895f694551bb9dfc87d7284b8a110d
+
 */

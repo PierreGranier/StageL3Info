@@ -22,7 +22,7 @@ class PreuveLineaire
 			res += tmp.substr(tmp.find('='), tmp.find('}')-tmp.find('=')+1); tmp.erase(tmp.find('='), tmp.find('}')-tmp.find('=')+1);
 			return res; };
 		void tronquerRegle() { m_contenu.erase(0, m_contenu.find('{')); };
-		void tronquerTriplet() { m_contenu.substr(m_contenu.find('{'), m_contenu.find(':')); m_contenu.substr(m_contenu.find('='), m_contenu.find('}')); };
+		void tronquerTriplet() { m_contenu.erase(m_contenu.find('{'), m_contenu.find(':')-m_contenu.find('{')+1); m_contenu.erase(m_contenu.find('='), m_contenu.find('}')-m_contenu.find('=')+1); };
 		std::string toString() { return m_contenu; };
 };
 

@@ -51,7 +51,7 @@ string WidgetRegleSimple::toString()
 {
 	if(m_sousPreuve == NULL)
 	{
-		cout << "coucou" << endl;
+		cout << "la sous preuve est nulle" << endl;
 		WidgetRegle::erreurFermeturePreuve();
 		
 		return "";

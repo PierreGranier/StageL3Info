@@ -45,13 +45,12 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 	getline(fichierPreuve, chainePreuve);
 	// getline(fichierPreuve, string chainePreuve);
 	PreuveLineaire *preuve = new PreuveLineaire(chainePreuve);
-	cout << "PREUVE " << preuve->toString() << endl;
-	cout << "TRIPLET " << preuve->triplet() << endl;
 	
 	// Initialisation de la pile FILO contenant les WidgetRegle à créer
 	
-	/*stack<WidgetRegle*> regles;
+	stack<WidgetRegle*> regles;
 	regles.push(m_racine);
+	cout << regles.top()->toString() << endl;
 	
 	// Lecture de la preuve linéaire et ajout des WidgetRegle comme il faut
 	
@@ -75,30 +74,29 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 		// Enlève la règle à la preuve linéaire
 		preuve->tronquerRegle();
 		// Edition du triplet du premier WidgetRegle de la pile
-		regles.top()->modifierTriplet(preuve->triplet());
+		//regles.top()->modifierTriplet(preuve->triplet());
 		// Enlève le triplet à la preuve linéaire
 		preuve->tronquerTriplet();
 		// Ajout du WidgetRegle créé au premier WidgetRegle de la pile
-		regles.top()->ajouterSousPreuve(newWidget);
+		//regles.top()->ajouterSousPreuve(newWidget);
 		// Ajout du WidgetRegle créé à la pile
 		regles.push(newWidget);
 		
+		// Affichage de la tronche de la pile
+		stack<WidgetRegle*> save = regles; cout << "Pile de taille " << save.size() << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
+		
 		// Nettoyage de la pile : enlève les WidgetRegle pleins
 		
-		// Affichage de la tronche de la pile
-		stack<WidgetRegle*> save = regles; cout << "Avant nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
-
+		//stack<WidgetRegle*> save = regles; cout << "Avant nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
 		while(regles.top()->estPlein())
 		{
 			regles.pop();
 		}
-		
-		// Affichage de la tronche de la pile
-		save = regles; cout << "Après nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
+		//save = regles; cout << "Après nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
 	}
 	
 	if(preuve->vide()) cout << "Ligne preuve vide" << endl;
-	if(regles.empty()) cout << "Pile preuves vide" << endl;*/
+	if(regles.empty()) cout << "Pile preuves vide" << endl;
 }
 
 void Container::verifierPreuve() const

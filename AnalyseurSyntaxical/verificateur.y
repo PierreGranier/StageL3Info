@@ -57,6 +57,7 @@ Entree:
 	| FIN						{ /*cout << "Fin du programme" << endl; */ return 0; }
 	| FINFINALE					{ /*cout << "Fin du programme" << endl; */ return 0; }
 	| Regle FIN Entree			{ /*cout << "Fin du programme" << endl; */ return 0; }
+	| Conditions FIN Entree
 	;
 	
 Regle:
@@ -284,7 +285,8 @@ Conditions:
 		{
 			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
 			$$.negation = $1.negation + "^" + $3.negation;
-			$$.valeur = $1.valeur && $3.valeur;
+			bool res = ($1.valeur && $3.valeur);
+			$$.valeur = res;
 			
 			// Une formule qui contient une condition et sa négation est fausse
 			int pos = ($$.affirmation.find($1.negation));
@@ -295,10 +297,15 @@ Conditions:
 			if($$.affirmation.find("faux")) {
 				$$.valeur = false;
 			}
+			
+			cout << $1.valeur << " && " << $3.valeur << " = " << ($1.valeur && $3.valeur) << endl;
+
+			cout << "Valeur totale = " << $$.valeur << endl;
 		}
 	| Condition
 		{
 			$$ = $1;
+			cout << "Valeur d'une cond = " << $$.valeur << endl;
 		}
 	;
 	
@@ -307,13 +314,13 @@ Condition:
 		{
 			$$ = $1;
 		}
-	| VRAI // conflits
+	| VRAI
 		{
 			$$.affirmation = "vrai";
 			$$.negation = "faux";
 			$$.valeur = true;
 		}
-	| FAUX // conflits
+	| FAUX
 		{
 			$$.affirmation = "faux";
 			$$.negation = "vrai";
@@ -350,18 +357,18 @@ Condition:
 		{
 			$$.affirmation = $1.chaine + "=" + $3.chaine;
 			$$.negation = $1.chaine + "!=" + $3.chaine;
-			$$.valeur = $1.valeur = $3.valeur;
+			$$.valeur = $1.valeur == $3.valeur;
 		}
-	| ExpressionMot		INF			Expression			{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine; }
-	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine;			$$.negation = $1.chaine + "<=" + $3.chaine; }
-	| ExpressionMot		INF_EGAL	Expression			{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }
-	| ExpressionMot		SUP_EGAL	Expression			{ $$.affirmation = $1.chaine + ">=" + $3.chaine;		$$.negation = $1.chaine + "<" + $3.chaine;  }    
-	| ExpressionMot		EGAL		Expression			{ $$.affirmation = $1.chaine + "=" + $3.chaine;			$$.negation = $1.chaine + "!=" + $3.chaine; }
-	| ExpressionEntier	INF			ExpressionMot		{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine; }
-	| ExpressionEntier	SUP			ExpressionMot		{ $$.affirmation = $1.chaine + ">" + $3.chaine; 		$$.negation = $1.chaine + "<=" + $3.chaine; }
-	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }
-	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + ">=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine;  }
-	| ExpressionEntier	EGAL		ExpressionMot		{ $$.affirmation = $1.chaine + "=" + $3.chaine; 		$$.negation = $1.chaine + "!=" + $3.chaine; }
+	| ExpressionMot		INF			Expression			{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine;		$$.valeur = true; }
+	| ExpressionMot		SUP			Expression			{ $$.affirmation = $1.chaine + ">" + $3.chaine;			$$.negation = $1.chaine + "<=" + $3.chaine;		$$.valeur = true; }
+	| ExpressionMot		INF_EGAL	Expression			{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine; 		$$.valeur = true; }
+	| ExpressionMot		SUP_EGAL	Expression			{ $$.affirmation = $1.chaine + ">=" + $3.chaine;		$$.negation = $1.chaine + "<" + $3.chaine; 		$$.valeur = true; }    
+	| ExpressionMot		EGAL		Expression			{ $$.affirmation = $1.chaine + "=" + $3.chaine;			$$.negation = $1.chaine + "!=" + $3.chaine;		$$.valeur = true; }
+	| ExpressionEntier	INF			ExpressionMot		{ $$.affirmation = $1.chaine + "<" + $3.chaine; 		$$.negation = $1.chaine + ">=" + $3.chaine;		$$.valeur = true; }
+	| ExpressionEntier	SUP			ExpressionMot		{ $$.affirmation = $1.chaine + ">" + $3.chaine; 		$$.negation = $1.chaine + "<=" + $3.chaine;		$$.valeur = true; }
+	| ExpressionEntier	INF_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + "<=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine; 		$$.valeur = true; }
+	| ExpressionEntier	SUP_EGAL	ExpressionMot		{ $$.affirmation = $1.chaine + ">=" + $3.chaine;		$$.negation = $1.chaine + ">" + $3.chaine; 		$$.valeur = true; }
+	| ExpressionEntier	EGAL		ExpressionMot		{ $$.affirmation = $1.chaine + "=" + $3.chaine; 		$$.negation = $1.chaine + "!=" + $3.chaine;		$$.valeur = true; }
 	;
 	
 Expression:

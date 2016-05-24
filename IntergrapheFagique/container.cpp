@@ -45,10 +45,12 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 	getline(fichierPreuve, chainePreuve);
 	// getline(fichierPreuve, string chainePreuve);
 	PreuveLineaire *preuve = new PreuveLineaire(chainePreuve);
+	cout << "PREUVE " << preuve->toString() << endl;
+	cout << "TRIPLET " << preuve->triplet() << endl;
 	
 	// Initialisation de la pile FILO contenant les WidgetRegle à créer
 	
-	stack<WidgetRegle*> regles;
+	/*stack<WidgetRegle*> regles;
 	regles.push(m_racine);
 	
 	// Lecture de la preuve linéaire et ajout des WidgetRegle comme il faut
@@ -96,7 +98,7 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 	}
 	
 	if(preuve->vide()) cout << "Ligne preuve vide" << endl;
-	if(regles.empty()) cout << "Pile preuves vide" << endl;
+	if(regles.empty()) cout << "Pile preuves vide" << endl;*/
 }
 
 void Container::verifierPreuve() const

@@ -263,7 +263,7 @@ Triplet:
 			{
 				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $$.precondition.affirmation << "} prog {" << $$.postcondition.affirmation << "} n'est pas valide : ";
 				cout << $$.precondition.affirmation << "}->{" << $$.postcondition.affirmation << "=faux : ";
-				cout << $$.postcondition.affirmation " est faux" << endl;
+				cout << $$.postcondition.affirmation << " est faux" << endl;
 			}
 		}
 	;

@@ -43,6 +43,8 @@ void WidgetAjouter::genererWidgetRegle(const QString &nomRegle)
 		newWidget = new WidgetRegleWhile(this);
 	else if(nomRegle == "WHILET")
 		newWidget = new WidgetRegleWhileT(this);
+	else newWidget = NULL;
 	
-	emit envoyerWidgetRegle(newWidget);
+	if(newWidget != NULL)
+		emit envoyerWidgetRegle(newWidget);
 }

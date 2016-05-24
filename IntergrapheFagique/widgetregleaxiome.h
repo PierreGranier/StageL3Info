@@ -12,6 +12,8 @@ class WidgetRegleAxiome : public WidgetRegle
 		WidgetRegleAxiome(const std::string &nomRegle, QWidget *parent);
 		~WidgetRegleAxiome();
 		
+		void modifierTriplet(const std::string &triplet);
+		void ajouterSousPreuve(WidgetRegle *sousPreuve);
 		std::string toString();
 };
 

@@ -34,7 +34,6 @@ class MainWindow : public QMainWindow
 		QAction *m_ouvrir;
 		QAction *m_quitter;
 		QAction *m_regles;
-		QAction *m_syntaxe;
 		QAction *m_verifier;
 		QAction *m_aide;
 		QAction *m_propos;

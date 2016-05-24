@@ -238,7 +238,7 @@ Triplet:
 			if($$.precondition.valeur == true && $$.postcondition.valeur == false)
 			{
 				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $$.precondition.affirmation << "} prog {" << $$.postcondition.affirmation << "} n'est pas valide : ";
-				cout << $$.precondition.affirmation << "}->{" << $$.postcondition.affirmation << "=faux : ";
+				cout << $$.precondition.affirmation << "->" << $$.postcondition.affirmation << "=faux : ";
 				cout << $$.postcondition.affirmation << " est faux" << endl;
 			}
 			
@@ -263,7 +263,7 @@ Triplet:
 			if($$.precondition.valeur == true && $$.postcondition.valeur == false)
 			{
 				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $$.precondition.affirmation << "} prog {" << $$.postcondition.affirmation << "} n'est pas valide : ";
-				cout << $$.precondition.affirmation << "}->{" << $$.postcondition.affirmation << "=faux : ";
+				cout << $$.precondition.affirmation << "->" << $$.postcondition.affirmation << "=faux : ";
 				cout << $$.postcondition.affirmation << " est faux" << endl;
 			}
 		}
@@ -285,27 +285,17 @@ Conditions:
 		{
 			$$.affirmation = $1.affirmation + "^" + $3.affirmation;
 			$$.negation = $1.negation + "^" + $3.negation;
-			bool res = ($1.valeur && $3.valeur);
-			$$.valeur = res;
+			$$.valeur = $1.valeur && $3.valeur;
 			
 			// Une formule qui contient une condition et sa négation est fausse
 			int pos = ($$.affirmation.find($1.negation));
 			if(pos > -1) {
 				$$.valeur = false;
 			}
-			// Une formule qui contient une condition "faux" est fausse
-			if($$.affirmation.find("faux")) {
-				$$.valeur = false;
-			}
-			
-			cout << $1.valeur << " && " << $3.valeur << " = " << ($1.valeur && $3.valeur) << endl;
-
-			cout << "Valeur totale = " << $$.valeur << endl;
 		}
 	| Condition
 		{
 			$$ = $1;
-			cout << "Valeur d'une cond = " << $$.valeur << endl;
 		}
 	;
 	

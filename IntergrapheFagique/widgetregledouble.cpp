@@ -36,8 +36,6 @@ WidgetRegleDouble::~WidgetRegleDouble()
 
 void WidgetRegleDouble::modifierTriplet(const std::string &triplet)
 {
-	// Si le gauche est pris, mettre à droite
-	// estVide() return true si est vide
 	if(m_premisseG->estVide() == true)
 	{
 		m_premisseG->modifierTexte(triplet);
@@ -54,13 +52,12 @@ bool WidgetRegleDouble::estPlein() const
 
 void WidgetRegleDouble::ajouterSousPreuve(WidgetRegle *sousPreuve)
 {
-	// Si le gauche est pris, mettre à droite
 	if(m_sousPreuveG == NULL)
 	{
-		m_sousPreuveG = sousPreuve;
+		WidgetRegleDouble::ajouterSousPreuveG(sousPreuve);
 	}
 	else {
-		m_sousPreuveD = sousPreuve;
+		WidgetRegleDouble::ajouterSousPreuveD(sousPreuve);
 	}
 }
 

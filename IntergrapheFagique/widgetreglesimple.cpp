@@ -42,7 +42,6 @@ bool WidgetRegleSimple::estPlein() const
 void WidgetRegleSimple::ajouterSousPreuve(WidgetRegle *sousPreuve)
 {
 	m_sousPreuve = sousPreuve;
-
 	
 	m_grid->addWidget(m_sousPreuve, 0, 0, 1, 4, Qt::AlignBottom);
 }
@@ -51,9 +50,7 @@ string WidgetRegleSimple::toString()
 {
 	if(m_sousPreuve == NULL)
 	{
-		cout << "la sous preuve est nulle" << endl;
 		WidgetRegle::erreurFermeturePreuve();
-		
 		return "";
 	}
 	return m_sousPreuve->nomRegle() + " " + m_premisse->toString() + " " + m_sousPreuve->toString();

@@ -43,14 +43,13 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 	ifstream fichierPreuve("test.txt", ios::in);
 	string chainePreuve;
 	getline(fichierPreuve, chainePreuve);
-	// getline(fichierPreuve, string chainePreuve);
+	fichierPreuve.close();
 	PreuveLineaire *preuve = new PreuveLineaire(chainePreuve);
 	
 	// Initialisation de la pile FILO contenant les WidgetRegle à créer
 	
 	stack<WidgetRegle*> regles;
 	regles.push(m_racine);
-	cout << regles.top()->toString() << endl;
 	
 	// Lecture de la preuve linéaire et ajout des WidgetRegle comme il faut
 	
@@ -59,36 +58,33 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 		WidgetRegle *newWidget;
 		
 		if(preuve->commencePar("AFF"))
-			newWidget = new WidgetRegleAff(this);
+			newWidget = new WidgetRegleAff(regles.top());
 		else if(preuve->commencePar("SEQ"))
-			newWidget = new WidgetRegleSeq(this);
+			newWidget = new WidgetRegleSeq(regles.top());
 		else if(preuve->commencePar("COND"))
-			newWidget = new WidgetRegleCond(this);
+			newWidget = new WidgetRegleCond(regles.top());
 		else if(preuve->commencePar("CONSEQ"))
-			newWidget = new WidgetRegleConseq(this);
+			newWidget = new WidgetRegleConseq(regles.top());
 		else if(preuve->commencePar("WHILE"))
-			newWidget = new WidgetRegleWhile(this);
+			newWidget = new WidgetRegleWhile(regles.top());
 		else if(preuve->commencePar("WHILET"))
-			newWidget = new WidgetRegleWhileT(this);
+			newWidget = new WidgetRegleWhileT(regles.top());
 		
 		// Enlève la règle à la preuve linéaire
 		preuve->tronquerRegle();
 		// Edition du triplet du premier WidgetRegle de la pile
-		//regles.top()->modifierTriplet(preuve->triplet());
+		regles.top()->modifierTriplet(preuve->triplet());
 		// Enlève le triplet à la preuve linéaire
 		preuve->tronquerTriplet();
 		// Ajout du WidgetRegle créé au premier WidgetRegle de la pile
-		//regles.top()->ajouterSousPreuve(newWidget);
+		regles.top()->ajouterSousPreuve(newWidget);
 		// Ajout du WidgetRegle créé à la pile
 		regles.push(newWidget);
-		
-		// Affichage de la tronche de la pile
-		stack<WidgetRegle*> save = regles; cout << "Pile de taille " << save.size() << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
 		
 		// Nettoyage de la pile : enlève les WidgetRegle pleins
 		
 		//stack<WidgetRegle*> save = regles; cout << "Avant nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
-		while(regles.top()->estPlein())
+		while(!regles.empty() && regles.top()->estPlein())
 		{
 			regles.pop();
 		}
@@ -117,7 +113,7 @@ void Container::verifierPreuve() const
 		cout << "Erreur lors de l'ouverture du fichier" << endl;
 	}
 
-    // cout << m_racine->toString() << endl;
+	// cout << m_racine->toString() << endl;
 	emit verifierFichier("../IntergrapheFagique/fichierRes.txt");
 }
 
@@ -129,10 +125,10 @@ void Container::executerAnalyseur(const string &fichier) const
 	
 	string resAnalyseur = "../IntergrapheFagique/resAnalyseur.txt";
 	
-    string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
-    // string commande= "START ../AnalyseurSyntaxical/verificateur.exe " + fichier + "1>" + resAnalyseur; //#WindowsDaubé
+	string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
+	// string commande= "START ../AnalyseurSyntaxical/verificateur.exe " + fichier + "1>" + resAnalyseur; //#WindowsDaubé
 	
-    system(commande.c_str());
+	system(commande.c_str());
 	
 	// Maintenant on lit le fichier pour écrire le résultat de l'Analyseur dans la console
 	

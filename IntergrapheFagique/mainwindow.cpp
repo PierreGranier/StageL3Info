@@ -63,6 +63,7 @@ MainWindow::MainWindow()
 	
 	m_splitter->addWidget(m_zonePreuve);
 	m_splitter->addWidget(m_zoneSortie);
+	m_splitter->setStretchFactor(0, 1);
 	
 	// Actions, MenuBar, ToolBar, Signaux, StatusBar
 	
@@ -99,10 +100,12 @@ void MainWindow::createActions()
 
 void MainWindow::createMenuBar()
 {
-	// Menu (Fichier -> Nouveau, Fichier -> Quitter, Preuve -> Règles, Preuve -> Vérifier)	
-
+	// Menu (Fichier -> Nouveau, Fichier -> Quitter, Preuve -> Règles, Preuve -> Vérifier)
+	
 	QMenu *fichier = menuBar()->addMenu("Fichier");
 		fichier->addAction(m_nouveau);
+		fichier->addAction(m_ouvrir);
+		fichier->addSeparator();
 		fichier->addAction(m_quitter);
 	QMenu *preuve = menuBar()->addMenu("Preuve");
 		preuve->addAction(m_regles);
@@ -129,7 +132,10 @@ void MainWindow::createSignals()
 	
 	connect(m_nouveau, &QAction::triggered, m_conteneur, &Container::initialiser);
 	connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
+	connect(m_ouvrir, &QAction::triggered, m_conteneur, &Container::initialiser);
+	connect(m_ouvrir, &QAction::triggered, m_console, &Console::vider);
 	connect(m_ouvrir, &QAction::triggered, m_conteneur, &Container::ouvrirPreuve);
+	
 	connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
 	connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
 	connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);

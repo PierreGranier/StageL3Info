@@ -28,7 +28,7 @@ bool WidgetTriplet::estVide() const
 
 void WidgetTriplet::modifierTexte(string const &triplet)
 {
-	m_postcondition->setText(QString::fromStdString(triplet));
+	m_precondition->setText(QString::fromStdString(triplet));
 }
 
 string WidgetTriplet::toString()

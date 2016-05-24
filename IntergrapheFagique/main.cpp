@@ -13,5 +13,6 @@ int main(int argc, char** argv)
 
 /*
 	TODO tout courre
-		Aff.cpp : rajouter un WidgetSupprimer
+		FAIT LES CAPTURES DECRAN TARBA POUR LES EXEMPLES MDR
+
 */

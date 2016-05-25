@@ -226,9 +226,9 @@ void MainWindow::aide()
 	// gridLayout->addWidget(exempleSimple, 0, 0);
 	// gridLayout->addWidget(exemple, 1, 0);
 	gridLayout->addWidget(wid_exemple, 0, 0);
-	gridLayout->addWidget(label_exemple, 1, 0);
-	gridLayout->addWidget(wid_explication, 2, 0);
-	gridLayout->addWidget(wid_aide, 2, 1);
+	gridLayout->addWidget(label_exemple, 1, 1);
+	gridLayout->addWidget(label_explication, 2, 0);
+	gridLayout->addWidget(label_aide, 2, 1);
 	
 	
 	gridLayout->setSpacing(20);

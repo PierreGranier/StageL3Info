@@ -216,10 +216,14 @@ void MainWindow::aide()
 	// QLabel *exempleSimple = new QLabel("Exemple (règle AFF) : {x+1 = 43} y:=x+1 {y = 43}");
 	QLabel *label_exemple = new QLabel(m_popup);
 	QLabel *wid_exemple = new QLabel("<h2>Exemple complexe<h2><hr>");
-	QLabel *label_explication = new QLabel ("<h3>Explication<h3>");
-	QLabel *label_aide = new QLabel ("Contrairement à ce qui est indiqué dans l'onglet \"Règle de construction\" ");
+	QLabel *label_explication = new QLabel("<h3>Explication<h3>");
+	QLabel *label_aide = new QLabel("Contrairement à ce qui est indiqué dans l'onglet \"Règle de construction\" ");
 	
 	QPixmap *pixmap_exemple = new QPixmap("Images/exemple.png");
+	QLabel *p1 = new QLabel(m_popup);
+	p1->setPixmap(QPixmap("Images/3p_v1.png"));
+	QLabel *p2 = new QLabel(m_popup);
+	p2->setPixmap(QPixmap("Images/3p_v2.png"));
 	
 	label_exemple->setPixmap(*pixmap_exemple);
 	
@@ -229,6 +233,8 @@ void MainWindow::aide()
 	gridLayout->addWidget(label_exemple, 1, 1);
 	gridLayout->addWidget(label_explication, 2, 0);
 	gridLayout->addWidget(label_aide, 2, 1);
+	gridLayout->addWidget(p1, 3, 0);
+	gridLayout->addWidget(p2, 3, 1);
 	
 	
 	gridLayout->setSpacing(20);

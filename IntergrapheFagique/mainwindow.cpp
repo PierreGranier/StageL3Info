@@ -124,7 +124,7 @@ void MainWindow::createToolBar()
 		fileToolBar->addAction(m_nouveau);
 		fileToolBar->addAction(m_ouvrir);
 	fileToolBar = addToolBar("Preuve");
-		fileToolBar->addAction(m_verifier);	
+		fileToolBar->addAction(m_verifier);
 }
 
 void MainWindow::createSignals()

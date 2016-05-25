@@ -13,7 +13,6 @@ int main(int argc, char** argv)
 
 /*
 	TODO tout courre
-		FAIS LES CAPTURES DECRAN TARBA POUR LES EXEMPLES MDR - FAIT ! btrd
-		ok now tu faiT l'icone 3P MDR - OUI MAITRE
-		Tester l'exemple du rapport
+		changer les images d'aide
+		Refaire le logo (en vrai il est pas mal. Il est smooth toussa toussa)
 */

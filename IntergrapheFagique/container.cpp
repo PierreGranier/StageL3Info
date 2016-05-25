@@ -40,7 +40,7 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 {
 	// Initialisation de la preuve de type PreuveLineaire (type héritant de string)
 	
-	ifstream fichierPreuve("test.txt", ios::in);
+	ifstream fichierPreuve("fichierRes.txt", ios::in);
 	string chainePreuve;
 	getline(fichierPreuve, chainePreuve);
 	fichierPreuve.close();
@@ -91,8 +91,8 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 		//save = regles; cout << "Après nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
 	}
 	
-	if(preuve->vide()) cout << "Ligne preuve vide" << endl;
-	if(regles.empty()) cout << "Pile preuves vide" << endl;
+	// if(preuve->vide()) cout << "Ligne preuve vide" << endl;
+	// if(regles.empty()) cout << "Pile preuves vide" << endl;
 }
 
 void Container::verifierPreuve() const

@@ -12,7 +12,7 @@ MainWindow::MainWindow()
 	this->setWindowTitle("Analyseur Syntaxical");
 	this->resize(900, 600);
 	this->move(0,0);
-	this->setWindowIcon(QIcon("Images/icone_v2.png"));
+	this->setWindowIcon(QIcon("Images/icone_v3.png"));
 	
 	// Layout appliqué au top
 	

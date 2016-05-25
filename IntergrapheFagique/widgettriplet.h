@@ -13,10 +13,7 @@ class WidgetTriplet : public QWidget
 	private:
 		QHBoxLayout *m_hbox;
 		
-		QLineEdit *m_precondition;
-		QLineEdit *m_programmeVariable;
-		QLineEdit *m_programmeValeur;
-		QLineEdit *m_postcondition;
+		QLineEdit *m_contenu;
 		
 	public:
 		WidgetTriplet(QWidget *parent);

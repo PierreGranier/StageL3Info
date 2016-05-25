@@ -40,7 +40,7 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 {
 	// Initialisation de la preuve de type PreuveLineaire (type héritant de string)
 	
-	ifstream fichierPreuve("test.txt", ios::in);
+	ifstream fichierPreuve("fichierRes.txt", ios::in);
 	string chainePreuve;
 	getline(fichierPreuve, chainePreuve);
 	fichierPreuve.close();

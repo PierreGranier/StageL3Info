@@ -15,4 +15,5 @@ int main(int argc, char** argv)
 	TODO tout courre
 		changer les images d'aide
 		Refaire le logo (en vrai il est pas mal. Il est smooth toussa toussa)
+		Finir rapport :*
 */

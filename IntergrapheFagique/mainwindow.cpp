@@ -213,10 +213,24 @@ void MainWindow::aide()
 	QGridLayout *gridLayout = new QGridLayout;
 	m_popup->setLayout(gridLayout);
 	
-	QLabel *exempleSimple = new QLabel("Exemple (règle AFF) : {x+1 = 43} y:=x+1 {y = 43}");
+	// QLabel *exempleSimple = new QLabel("Exemple (règle AFF) : {x+1 = 43} y:=x+1 {y = 43}");
+	QLabel *label_exemple = new QLabel(m_popup);
+	QLabel *wid_exemple = new QLabel("<h2>Exemple complexe<h2><hr>");
+	QLabel *label_explication = new QLabel ("<h3>Explication<h3>");
+	QLabel *label_aide = new QLabel ("Contrairement à ce qui est indiqué dans l'onglet \"Règle de construction\" ");
 	
-	gridLayout->addWidget(exempleSimple, 0, 0);
-	// gridLayout->addWidget(exempleComplexe, 1, 0);
+	QPixmap *pixmap_exemple = new QPixmap("Images/exemple.png");
+	
+	label_exemple->setPixmap(*pixmap_exemple);
+	
+	// gridLayout->addWidget(exempleSimple, 0, 0);
+	// gridLayout->addWidget(exemple, 1, 0);
+	gridLayout->addWidget(wid_exemple, 0, 0);
+	gridLayout->addWidget(label_exemple, 1, 0);
+	gridLayout->addWidget(wid_explication, 2, 0);
+	gridLayout->addWidget(wid_aide, 2, 1);
+	
+	
 	gridLayout->setSpacing(20);
 	
 	m_popup->exec();

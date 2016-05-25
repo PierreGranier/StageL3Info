@@ -92,6 +92,7 @@ void MainWindow::createActions()
 	m_quitter = new QAction("Quitter", this);
 		m_quitter->setIcon(QIcon("Images/menu_fermer.png"));
 	m_regles = new QAction("Règles de construction", this);
+		m_regles->setIcon(QIcon("Images/3p_v2.png"));
 	m_verifier = new QAction("Vérifier la preuve", this);
 		m_verifier->setIcon(QIcon("Images/menu_verifier.png"));
 	m_aide = new QAction("Aide", this);

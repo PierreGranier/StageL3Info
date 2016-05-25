@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 
 /*
 	TODO tout courre
-		FAIS LES CAPTURES DECRAN TARBA POUR LES EXEMPLES MDR
-		ok now tu faiT l'icone 3P MDR
+		FAIS LES CAPTURES DECRAN TARBA POUR LES EXEMPLES MDR - FAIT ! btrd
+		ok now tu faiT l'icone 3P MDR - OUI MAITRE
 		Tester l'exemple du rapport
 */

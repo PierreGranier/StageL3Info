@@ -238,7 +238,7 @@ Triplet:
 			if($$.precondition.valeur == true && $$.postcondition.valeur == false)
 			{
 				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $$.precondition.affirmation << "} prog {" << $$.postcondition.affirmation << "} n'est peut-être pas valide : ";
-				cout << $$.precondition.affirmation << "->" << $$.postcondition.affirmation << "=faux : ";
+				cout << $$.precondition.affirmation << "->" << $$.postcondition.affirmation << "=faux : " << endl;
 			}
 			
 			// Correction partielle :
@@ -262,7 +262,7 @@ Triplet:
 			if($$.precondition.valeur == true && $$.postcondition.valeur == false)
 			{
 				cout << "[ERREUR][SEMANTIQUE] Le triplet {" << $$.precondition.affirmation << "} prog {" << $$.postcondition.affirmation << "} n'est peut-être pas valide : ";
-				cout << $$.precondition.affirmation << "->" << $$.postcondition.affirmation << "=faux : ";
+				cout << $$.precondition.affirmation << "->" << $$.postcondition.affirmation << "=faux : " << endl;
 			}
 		}
 	;

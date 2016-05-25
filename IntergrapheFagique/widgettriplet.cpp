@@ -19,7 +19,7 @@ WidgetTriplet::~WidgetTriplet()
 
 bool WidgetTriplet::estVide() const
 {
-	if(m_contenu->text().toStdString().compare(""))
+	if(m_contenu->text().toStdString().empty())
 	{
 		return true;
 	}

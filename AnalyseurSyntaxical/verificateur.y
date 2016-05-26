@@ -1,6 +1,6 @@
 %{
 #include "global.h"
-#include "fonctions.c"
+#include "fonctions.cpp"
 
 // Permettre l'utilisation du C++
 extern "C" int yylex(void);

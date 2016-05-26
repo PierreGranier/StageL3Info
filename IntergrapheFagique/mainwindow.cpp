@@ -240,7 +240,7 @@ void MainWindow::propos()
 	QGridLayout *gridLayout = new QGridLayout;
 	m_popup->setLayout(gridLayout);
 		QLabel *icone = new QLabel(m_popup);
-		QPixmap icone_img = QPixmap("Images/icone_v2.png");
+		QPixmap icone_img = QPixmap("Images/icone_v3.png");
 		icone->setPixmap(icone_img);
 		gridLayout->addWidget(icone, 0, 0);
 		gridLayout->addWidget(new QLabel("<h2>À propos</h2><hr><br/>Cet assistant de construction de preuve et analyseur lexical de preuve<br/>a été réalisé dans le cadre du projet de licence informatique (3ème année) à Angers.<br/><br/><i>Pierre GRANNIER--RICHARD<br/>Thibaut ROPERCH</i>"), 0, 1, Qt::AlignTop);

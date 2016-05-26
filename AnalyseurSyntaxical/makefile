@@ -6,14 +6,14 @@ all:
 	clear
 	
 	@echo Yacc
-	bison -d verificateur.y -o verificateur.tab.c
+	bison -d verificateur.y -o verificateur.tab.cpp
 	
 	@echo Lex
 	flex verificateur.lex
 	
 	@echo Compilation
-	$(CXX) -c lex.yy.c -o build/lex.yy.o
-	$(CXX) -c verificateur.tab.c -o build/verificateur.tab.o
+	$(CXX) -c lex.yy.cpp -o build/lex.yy.o
+	$(CXX) -c verificateur.tab.cpp -o build/verificateur.tab.o
 	$(CXX) -o verificateur build/lex.yy.o build/verificateur.tab.o -lfl -ll -lm
 	
 launch:
@@ -25,5 +25,5 @@ clean:
 	rm -rf build/*
 	rm -rf build
 	rm -rf *.tab.*
-	rm -rf *.yy.c
+	rm -rf *.yy.cpp
 	rm verificateur

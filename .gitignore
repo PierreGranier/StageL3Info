@@ -11,7 +11,9 @@
 # Stylé kdevelop 
 .kdev4/
 
-
+# Générés par Lex et Yacc
+*.tab.*
+*.yy.c
 
 # Compiled Object files
 *.slo

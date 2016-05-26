@@ -9,12 +9,12 @@ all:
 	bison -d verificateur.y -o verificateur.tab.cpp
 	
 	@echo Lex
-	flex verificateur.lex
+	flex -o verficateur.yy.cpp verificateur.lex
 	
 	@echo Compilation
-	$(CXX) -c lex.yy.cpp -o build/lex.yy.o
+	$(CXX) -c verficateur.yy.cpp -o build/verficateur.yy.o
 	$(CXX) -c verificateur.tab.cpp -o build/verificateur.tab.o
-	$(CXX) -o verificateur build/lex.yy.o build/verificateur.tab.o -lfl -ll -lm
+	$(CXX) -o verificateur build/verficateur.yy.o build/verificateur.tab.o -lfl -ll -lm
 	
 launch:
 	@echo Execution
@@ -25,5 +25,5 @@ clean:
 	rm -rf build/*
 	rm -rf build
 	rm -rf *.tab.*
-	rm -rf *.yy.cpp
+	rm -rf *.yy.*
 	rm verificateur

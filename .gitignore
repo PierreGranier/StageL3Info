@@ -13,8 +13,7 @@
 
 # Générés par Lex et Yacc
 *.tab.*
-*.yy.c
-*.yy.cpp
+*.yy.*
 
 # Compiled Object files
 *.slo

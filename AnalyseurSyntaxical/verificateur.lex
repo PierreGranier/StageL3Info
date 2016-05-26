@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #include "global.h"
-#include "verificateur.tab.h"
+#include "verificateur.tab.hpp"
 
 extern "C" int yylex(void);
 

@@ -1,4 +1,6 @@
-# Stage L3 Info
+#  [Site du projet Logique de Hoare](https://PierreGranier.github.io/StageL3Info)
+===============
+# Projet de stage L3 Info par [@PierreGranier](https://github.com/PierreGranier) et  [@ThibautRoperch](https://github.com/ThibautRoperch)
 
 Vérificateur de preuves de programme en logique de Hoare
 

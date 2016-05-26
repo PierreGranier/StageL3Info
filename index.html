@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Logique de Hoare by PierreGranier</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Logique de Hoare</h1>
+        <h2>Par Thibaut Roperch et Pierre Granier--Richard</h2>
+        <a href="https://github.com/PierreGranier/StageL3Info" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="stage-l3-info" class="anchor" href="#stage-l3-info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stage L3 Info</h1>
+
+<p>Vérificateur de preuves de programme en logique de Hoare</p>
+
+<h2>
+<a id="fonctionnalités-du-projet" class="anchor" href="#fonctionnalit%C3%A9s-du-projet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fonctionnalités du projet</h2>
+
+<ul>
+<li>Définir le format du fichier contenant une preuve</li>
+<li>Vérificateur de preuve
+
+<ul>
+<li>Système à construire avec Lex et Yacc (.lex et .y, versions Flex et GNU Bison)</li>
+<li>Définir le langage d'une preuve d'après le format d'un fichier</li>
+<li>Vérifier la syntaxe des règles de Hoare d'une preuve</li>
+<li>Vérifier la sémantique des prédicats (pré et post conditions) d'une preuve</li>
+</ul>
+</li>
+<li>Assistant de création de preuve
+
+<ul>
+<li>Interface graphique (IDE) à construire avec QT</li>
+<li>Générer un fichier contenant la preuve en respectant le format défini</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="format-dune-preuve" class="anchor" href="#format-dune-preuve" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Format d'une preuve</h2>
+
+<h3>
+<a id="règles-de-hoare" class="anchor" href="#r%C3%A8gles-de-hoare" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Règles de Hoare</h3>
+
+<p>Les différentes règles de Hoare (<a href="https://fr.wikipedia.org/wiki/Logique_de_Hoare" title="Wiki Hoare">Wiki : Hoare</a>) :</p>
+
+<ul>
+<li>AFF : Affectation<br>
+<img src="https://upload.wikimedia.org/math/0/b/9/0b9a2415175302dce994af21a9218367.png" alt="ADD" title="ADD">
+</li>
+<li>SEQ : Composition (ou séquence)<br>
+<img src="https://upload.wikimedia.org/math/a/6/f/a6f77b176903b2ee21016352ce1094b7.png" alt="SEQ" title="SEQ">
+</li>
+<li>COND : Conditionnelle<br>
+<img src="https://upload.wikimedia.org/math/e/e/4/ee4f74d64cb71775ea181039c1634ac6.png" alt="COND" title="COND">
+</li>
+<li>CONSEQ : Consequence (ou affaiblissement)<br>
+<img src="https://upload.wikimedia.org/math/e/7/4/e74a5e88893d68a24aa51b4f16f711f8.png" alt="CONSEQ" title="CONSEQ">
+</li>
+<li>WHILE : Itération<br>
+<img src="https://upload.wikimedia.org/math/4/7/3/47393cfe477eaf8846db242ee9c818c5.png" alt="WHILE" title="WHILE">
+</li>
+<li>WHILET : Correction totale<br>
+<img src="https://upload.wikimedia.org/math/3/a/5/3a559d4e19483b416de5a6fa94439d66.png" alt="WHILET" title="WHILET">
+</li>
+</ul>
+
+<h3>
+<a id="construction-dune-preuve-dans-un-ide" class="anchor" href="#construction-dune-preuve-dans-un-ide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Construction d'une preuve (dans un IDE)</h3>
+
+<ul>
+<li>Comme dans le <a href="http://cedric.cnam.fr/%7Ecourtiep/downloads/hoare.pdf" title="Outils de preuve et vérification - Courtieu, 2008">cours de Courtieu (2008)</a>
+</li>
+<li>Construction de la preuve de bas en haut</li>
+<li>Les prémisses sont en haut de la règle et la conclusion en bas</li>
+</ul>
+
+<p>triplet1 ... tripletn<br>
+      triplet</p>
+
+<p><strong>{</strong> précondition <strong>}</strong> variable <strong>:=</strong> valeur <strong>{</strong> postcondition <strong>}</strong> ... <strong>{</strong> précondition <strong>}</strong> variable <strong>:=</strong> valeur <strong>{</strong> postcondition <strong>}</strong><br>
+Nom de la règle ... Nom de la règle<br>
+<strong>{</strong> précondition <strong>}</strong> variable <strong>:=</strong> valeur <strong>{</strong> postcondition <strong>}</strong></p>
+
+<h3>
+<a id="génération-dune-preuve-dans-un-fichier" class="anchor" href="#g%C3%A9n%C3%A9ration-dune-preuve-dans-un-fichier" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Génération d'une preuve (dans un fichier)</h3>
+
+<ul>
+<li>Sur une seule ligne</li>
+<li>Les noms de règles utilisés comme des axiomes (ou fonctions)</li>
+<li>Lecture de la preuve de bas en haut</li>
+</ul>
+
+<p>Nom de la règle(<strong>{</strong> précondition <strong>}</strong> variable <strong>:=</strong> valeur <strong>{</strong> postcondition <strong>}</strong>, Nom de la règle( etc... ))<br>
+Le premier paramètre d'une règle étant la conclusion et les suivants les prémisses</p>
+
+<h2>
+<a id="vérificateur-de-preuve" class="anchor" href="#v%C3%A9rificateur-de-preuve" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vérificateur de preuve</h2>
+
+<h3>
+<a id="langage" class="anchor" href="#langage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Langage</h3>
+
+<p>Tokens déjà présents dans les preuves :</p>
+
+<ul>
+<li>
+<code>AFF</code> : une règle de Hoare d’arité 1 (ne contient qu'une conclusion, pas de prémisse)</li>
+<li>
+<code>SEQ/COND/CONSEQ/WHILE/WHILET</code> : les règles de Hoare d'arité 2 (une conclusion puis une prémisse)</li>
+</ul>
+
+<p>Tokens à définir :</p>
+
+<ul>
+<li>
+<code>ACCOLADE_OUVRANTE</code> et <code>ACCOLADE_FERMANTE</code> respectivement <strong>{</strong> et <strong>}</strong> : les caractères encadrant un prédicat</li>
+<li>
+<code>AFFECTATION</code> <strong>:=</strong> : le caractère d'affectation d'une valeur à une variable d'un programme</li>
+<li>
+<code>POINTVIRGULE</code> <strong>;</strong> : le caractère séparant deux instructions d'un programme</li>
+</ul>
+
+<p>Principales règles à définir :</p>
+
+<ul>
+<li>La règle <code>Regle</code> est composée au mois d'un token correspondant au nom d'une règle de Hoare (plus de détails plus loin)</li>
+<li>La règle <code>Triplet</code> est composée d'une règle <code>Prédicat</code>, <code>Programme</code> et <code>Prédicat</code>
+</li>
+<li>La règle <code>Prédicat</code> est composée de la règle <code>Conditions</code> entre les caractères <strong>{</strong> et <strong>}</strong>
+</li>
+<li>La règle <code>Conditions</code> est un ensemble de règles <code>Condition</code> séparées par le caractère <strong>;</strong>
+</li>
+<li>La règle <code>Condition</code> est composé d'une expression, d'un symbole de comparaison et d'une autre expression</li>
+<li>La règle <code>Programme</code> est composée de règles <code>Instruction</code>
+</li>
+<li>La règle <code>Instruction</code> est composée d'une variable, du symbole <strong>:=</strong> et d'une expression</li>
+</ul>
+
+<h3>
+<a id="exemple" class="anchor" href="#exemple" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Exemple</h3>
+
+<p><code>SEQ {...}a:=0;b:=0{...} AFF {...}a:=0{...} AFF {...}b:=0{...}</code>
+Note : les termes "conclusion" et "premisse" d'une règle de Hoare sont implicites : une conclusion est composée d'un triplet, et une premisse est composée d'une ou plusieurs règles de Hoare.</p>
+
+<h3>
+<a id="terminaison-des-règles-de-hoare" class="anchor" href="#terminaison-des-r%C3%A8gles-de-hoare" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terminaison des règles de Hoare</h3>
+
+<p>La règle <code>Regle</code> liste les cas des règles de Hoare à vérifier :</p>
+
+<ul>
+<li>
+<code>AFF Triplet</code>
+
+<ul>
+<li>Chaque prédicat du triplet doit être juste sémantiquement</li>
+<li>Le triplet doit être conforme syntaxiquement à la règle de Hoare <code>AFF</code>
+</li>
+</ul>
+</li>
+<li>
+<code>AFF Triplet AFF Triplet</code>
+
+<ul>
+<li><em>Mêmes choses que précédement</em></li>
+<li>La postcondition (deuxième prédicat) du premier triplet doit être égale à la précondition (premier prédicat) du second triplet</li>
+</ul>
+</li>
+<li>
+<code>SEQ Triplet AFF Triplet AFF Triplet</code>
+
+<ul>
+<li><em>Mêmes choses que précédemment</em></li>
+<li>La concaténation du programme des deux derniers triplets avec un <strong>;</strong> doivent être syntaxiquement équivalents au programme du premier triplet</li>
+</ul>
+</li>
+<li><em>...</em></li>
+</ul>
+
+<h2>
+<a id="assistant-de-création-de-preuve" class="anchor" href="#assistant-de-cr%C3%A9ation-de-preuve" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Assistant de création de preuve</h2>
+
+<p><em>A étudier</em>
+<em>En Qt4 ou 5 ?</em></p>
+
+<h2>
+<a id="liens-utiles" class="anchor" href="#liens-utiles" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Liens utiles</h2>
+
+<ul>
+<li><a href="https://fr.wikipedia.org/wiki/Markdown" title="Wiki Markdown">Markdown</a></li>
+<li><a href="https://fr.wikipedia.org/wiki/Logique_de_Hoare" title="Wiki Hoare">Wiki : Hoare</a></li>
+<li>
+<p><a href="http://cedric.cnam.fr/%7Ecourtiep/downloads/hoare.pdf" title="Outils de preuve et vérification - Courtieu, 2008">cours de Courtieu (2008)</a></p>
+
+<pre><code>                                             **
+                                             /\
+                                            /**\
+                                           /*/\*\
+                                          /*/**\*\
+                                         /*/*/\*\*\
+                                        /*/*/**\*\*\
+                                       /*/*/*/\*\*\*\
+                                      /*/*/*/**\*\*\*\
+                                     /*/*/*/*/\*\*\*\*\
+                                    /*/*/*/*/**\*\*\*\*\
+                                   /*/*/*/*/*/\*\*\*\*\*\
+                                  /*/*/*/*/*/**\*\*\*\*\*\
+                                 /*/*/*/*/*/*/\*\*\*\*\*\*\
+</code></pre>
+</li>
+</ul>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/PierreGranier/StageL3Info/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/PierreGranier/StageL3Info/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/PierreGranier/StageL3Info"></a> is maintained by <a href="https://github.com/PierreGranier">PierreGranier</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>

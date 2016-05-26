@@ -57,7 +57,6 @@ Entree:
 	| FIN						{ /*cout << "Fin du programme" << endl; */ return 0; }
 	| FINFINALE					{ /*cout << "Fin du programme" << endl; */ return 0; }
 	| Regle FIN Entree			{ /*cout << "Fin du programme" << endl; */ return 0; }
-	| Conditions FIN Entree
 	;
 	
 Regle:
@@ -134,16 +133,16 @@ Regle:
 			}
 			// Si les préconditions sont différentes alors on check si elles sont conséquences
 			if($2.precondition.affirmation.compare($3.precondition.affirmation) != 0) 
-			{				
+			{
 				// Valeur booléenne de la précondition de la conclusion comparée à la valeur booléenne de la précondition de la prémisse
 				if($2.precondition.valeur != $3.precondition.valeur)
 				{
 					cout << "[ATTENTION][SEMANTIQUE] La précondition de la conclusion " << $2.precondition.affirmation << " n'implique peut-être pas la précondition de la prémisse " << $3.precondition.affirmation << endl;
 				}
 			}
-			// Si les postcondition sont différentes alors on check si elles sont conséquences
+			// Si les postconditions sont différentes alors on check si elles sont conséquences
 			if($2.postcondition.affirmation.compare($3.postcondition.affirmation) != 0)
-			{				
+			{
 				// Valeur booléenne du programme et de la postcondition de la prémisse comparée à la valeur booléenne de la postcondition de la conclusion
 				if($3.postcondition.valeur != $2.postcondition.valeur)
 				{
@@ -158,7 +157,6 @@ Regle:
 			x>=y^x<=z => false si y>z (y et z entiers)
 			x>y^x<z => false si y>=z (y et z entiers)
 			x=y^x=z => false si y!=z
-			Nous n'avons automatisé que les cas où une formule contient une condition et sa négation et où une formule contient le token faux.
 			*/
 		}
 	| WHILE Triplet Regle

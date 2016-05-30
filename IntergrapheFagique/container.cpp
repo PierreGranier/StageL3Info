@@ -24,7 +24,7 @@ void Container::paintEvent(QPaintEvent *event)
 	m_bufferPainter = new QPainter(m_buffer);
 	m_bufferPainter->setPen(Qt::black);
 	m_bufferPainter->setRenderHint(QPainter::Antialiasing, true);
-		
+	
 	QPainter p(this);
 	p.drawImage(0, 0, *m_buffer);
 }
@@ -36,15 +36,29 @@ void Container::initialiser()
 	m_ens->addWidget(m_racine);
 }
 
-void Container::ouvrirPreuve(/*const std::string &fichier*/)
+void Container::ouvrirPreuve(/*const string &fichier*/)
 {
-	// Initialisation de la preuve de type PreuveLineaire (type héritant de string)
-	
 	ifstream fichierPreuve("fichierRes.txt", ios::in);
 	string chainePreuve;
 	getline(fichierPreuve, chainePreuve);
 	fichierPreuve.close();
-	PreuveLineaire *preuve = new PreuveLineaire(chainePreuve);
+	
+	Container::creerPreuve(chainePreuve);
+}
+
+void Container::lirePreuve()
+{
+	bool ok;
+	QString preuve = QInputDialog::getText(this, "QInputDialog::getText()", "Preuve linéaire", QLineEdit::Normal, QDir::home().dirName(), &ok);
+	if(ok && !preuve.isEmpty())
+		Container::creerPreuve(preuve.toStdString());
+}
+
+void Container::creerPreuve(const string &chaine)
+{
+	// Initialisation de la preuve de type PreuveLineaire
+	
+	PreuveLineaire *preuve = new PreuveLineaire(chaine);
 	
 	// Initialisation de la pile FILO contenant les WidgetRegle à créer
 	
@@ -69,7 +83,7 @@ void Container::ouvrirPreuve(/*const std::string &fichier*/)
 			newWidget = new WidgetRegleWhile(regles.top());
 		else if(preuve->commencePar("WHILET"))
 			newWidget = new WidgetRegleWhileT(regles.top());
-		
+			
 		// Enlève la règle à la preuve linéaire
 		preuve->tronquerRegle();
 		// Edition du triplet du premier WidgetRegle de la pile
@@ -112,7 +126,7 @@ void Container::verifierPreuve() const
 	{
 		cout << "Erreur lors de l'ouverture du fichier" << endl;
 	}
-
+	
 	// cout << m_racine->toString() << endl;
 	emit verifierFichier("../IntergrapheFagique/fichierRes.txt");
 }
@@ -120,7 +134,7 @@ void Container::verifierPreuve() const
 void Container::executerAnalyseur(const string &fichier) const
 {
 	// Execute le programme avec le fichier créé et envoie le résultat dans un signal
-
+	
 	QString prog = "verificateur";
 	
 	string resAnalyseur = "../IntergrapheFagique/resAnalyseur.txt";

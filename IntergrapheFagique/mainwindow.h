@@ -56,6 +56,7 @@ class MainWindow : public QMainWindow
 		void regles();
 		void aide();
 		void propos();
+		void ouvrir();
 };
 
 #endif

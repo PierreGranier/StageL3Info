@@ -12,12 +12,11 @@ MainWindow::MainWindow()
 	this->setWindowTitle("Analyseur Syntaxical");
 	this->resize(900, 600);
 	this->move(0,0);
-	this->setWindowIcon(QIcon("Images/icone_v3.png"));
+	this->setWindowIcon(QIcon("Images/icone_v4.png"));
 	
 	// Layout appliqué au top
 	
 	m_box = new QVBoxLayout(m_top);
-	//m_top->setLayout(m_box);
 	
 	// Splitter
 	
@@ -135,8 +134,10 @@ void MainWindow::createSignals()
 	connect(m_nouveau, &QAction::triggered, m_console, &Console::vider);
 	connect(m_ouvrir, &QAction::triggered, m_conteneur, &Container::initialiser);
 	connect(m_ouvrir, &QAction::triggered, m_console, &Console::vider);
-	connect(m_ouvrir, &QAction::triggered, m_conteneur, &Container::ouvrirPreuve);
-	
+	connect(m_ouvrir, &QAction::triggered, this, &MainWindow::ouvrir);
+	//connect(m_ouvrirFichier, &QPushButton::triggered, m_conteneur, &Container::ouvrirPreuve);
+	//connect(m_ouvrirTexte, &QPushButton::triggered, m_conteneur, &Container::lirePreuve);
+
 	connect(m_verifier, &QAction::triggered, m_console, &Console::vider);
 	connect(m_verifier, &QAction::triggered, m_conteneur, &Container::verifierPreuve);
 	connect(m_conteneur, &Container::verifierFichier, m_conteneur, &Container::executerAnalyseur);
@@ -240,11 +241,33 @@ void MainWindow::propos()
 	QGridLayout *gridLayout = new QGridLayout;
 	m_popup->setLayout(gridLayout);
 		QLabel *icone = new QLabel(m_popup);
-		QPixmap icone_img = QPixmap("Images/icone_v3.png");
+		QPixmap icone_img = QPixmap("Images/icone_v4.png");
 		icone->setPixmap(icone_img);
 		gridLayout->addWidget(icone, 0, 0);
-		gridLayout->addWidget(new QLabel("<h2>À propos</h2><hr><br/>Cet assistant de construction de preuve et analyseur lexical de preuve<br/>a été réalisé dans le cadre du projet de licence informatique (3ème année) à Angers.<br/><br/><i>Pierre GRANNIER--RICHARD<br/>Thibaut ROPERCH</i>"), 0, 1, Qt::AlignTop);
-	gridLayout->setSpacing(30);
+		gridLayout->addWidget(new QLabel("<h2>À propos</h2><hr><br/>Cet assistant de construction de preuve et analyseur lexical de preuve<br/>a été réalisé dans le cadre d'un projet de troisième année de licence informatique<br/>à l'Université d'Angers.<br/><br/><b>Auteurs :</b><br/><br/>Pierre GRANNIER--RICHARD<br/>Thibaut ROPERCH<br/><br/><b>Projet :</b><br/><br/><a href=\"https://PierreGranier.github.io/StageL3Info\">https://PierreGranier.github.io/StageL3Info</a><br/><br/>© 2016"), 0, 1, Qt::AlignTop);
+		gridLayout->setSpacing(30);
+	m_popup->exec();
+}
+
+void MainWindow::ouvrir()
+{
+	m_popup = new QDialog(this);
+	m_popup->setWindowTitle("Ouvrir une preuve");
 	
+	QGridLayout *gridLayout = new QGridLayout;
+	m_popup->setLayout(gridLayout);
+		QLabel *phrase = new QLabel("Veuillez choisir le format de preuve à ouvrir", m_popup);
+		QPushButton *ouvrirFichier = new QPushButton("Ouvrir le fichier", m_popup);
+			ouvrirFichier->setMinimumWidth(90);
+			connect(ouvrirFichier, &QPushButton::clicked, m_conteneur, &Container::ouvrirPreuve);
+			connect(ouvrirFichier, &QPushButton::clicked, m_popup, &QDialog::close);
+		QPushButton *ouvrirTexte = new QPushButton("Entrer une preuve", m_popup);
+			ouvrirTexte->setMinimumWidth(90);
+			connect(ouvrirTexte, &QPushButton::clicked, m_conteneur, &Container::lirePreuve);
+			connect(ouvrirTexte, &QPushButton::clicked, m_popup, &QDialog::close);
+		gridLayout->addWidget(phrase, 0, 0, 1, 2);
+		gridLayout->addWidget(ouvrirFichier, 1, 0);
+		gridLayout->addWidget(ouvrirTexte, 1, 1);
+		gridLayout->setSpacing(10);
 	m_popup->exec();
 }

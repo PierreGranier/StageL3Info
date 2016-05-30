@@ -237,14 +237,25 @@ void MainWindow::propos()
 {
 	m_popup = new QDialog(this);
 	m_popup->setWindowTitle("À propos");
+
+	QLabel *icone = new QLabel(m_popup);
+
+	QLabel* texte= new QLabel("<h2>À propos</h2><hr><br/>Cet assistant de construction de preuve et analyseur lexical de preuve<br/>"
+		"a été réalisé dans le cadre d'un projet de troisième année de licence informatique<br/>"
+		"à l'Université d'Angers.<br/><br/><b>Auteurs :</b><br/>"
+		"<br/>Pierre GRANNIER--RICHARD<br/>Thibaut ROPERCH<br/><br/>"
+		"<b>Projet :</b><br/><br/>"
+		"<a href='https://PierreGranier.github.io/StageL3Info'>https://PierreGranier.github.io/StageL3Info</a><br/><br/>"
+		"© 2016");
+		texte->setOpenExternalLinks(true);
+		
+	QPixmap icone_img = QPixmap("Images/icone_v4.png");
+	icone->setPixmap(icone_img);
 	
 	QGridLayout *gridLayout = new QGridLayout;
 	m_popup->setLayout(gridLayout);
-		QLabel *icone = new QLabel(m_popup);
-		QPixmap icone_img = QPixmap("Images/icone_v4.png");
-		icone->setPixmap(icone_img);
 		gridLayout->addWidget(icone, 0, 0);
-		gridLayout->addWidget(new QLabel("<h2>À propos</h2><hr><br/>Cet assistant de construction de preuve et analyseur lexical de preuve<br/>a été réalisé dans le cadre d'un projet de troisième année de licence informatique<br/>à l'Université d'Angers.<br/><br/><b>Auteurs :</b><br/><br/>Pierre GRANNIER--RICHARD<br/>Thibaut ROPERCH<br/><br/><b>Projet :</b><br/><br/><a href=\"https://PierreGranier.github.io/StageL3Info\">https://PierreGranier.github.io/StageL3Info</a><br/><br/>© 2016"), 0, 1, Qt::AlignTop);
+		gridLayout->addWidget(texte, 0, 1, Qt::AlignTop);
 		gridLayout->setSpacing(30);
 	m_popup->exec();
 }

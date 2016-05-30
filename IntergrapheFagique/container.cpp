@@ -49,7 +49,7 @@ void Container::ouvrirPreuve(/*const string &fichier*/)
 void Container::lirePreuve()
 {
 	bool ok;
-	QString preuve = QInputDialog::getText(this, "QInputDialog::getText()", "Preuve linéaire", QLineEdit::Normal, QDir::home().dirName(), &ok);
+	QString preuve = QInputDialog::getText(this, "QInputDialog::getText()", "Preuve linéaire", QLineEdit::Normal, "AFF {} a:=0 {}", &ok);
 	if(ok && !preuve.isEmpty())
 		Container::creerPreuve(preuve.toStdString());
 }

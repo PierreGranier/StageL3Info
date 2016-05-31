@@ -83,7 +83,9 @@ void Container::creerPreuve(const string &chaine)
 			newWidget = new WidgetRegleWhile(regles.top());
 		else if(preuve->commencePar("WHILET"))
 			newWidget = new WidgetRegleWhileT(regles.top());
-			
+		else
+			newWidget = NULL;
+		
 		// Enlève la règle à la preuve linéaire
 		preuve->tronquerRegle();
 		// Edition du triplet du premier WidgetRegle de la pile
@@ -91,14 +93,17 @@ void Container::creerPreuve(const string &chaine)
 		// Enlève le triplet à la preuve linéaire
 		preuve->tronquerTriplet();
 		// Ajout du WidgetRegle créé au premier WidgetRegle de la pile
-		regles.top()->ajouterSousPreuve(newWidget);
+		if(newWidget != NULL)
+		{
+			regles.top()->ajouterSousPreuve(newWidget);
+		}
 		// Ajout du WidgetRegle créé à la pile
 		regles.push(newWidget);
 		
 		// Nettoyage de la pile : enlève les WidgetRegle pleins
 		
 		//stack<WidgetRegle*> save = regles; cout << "Avant nettoyage : " << endl; while(!save.empty()) { cout << "|" << save.top()->toString() << ">" << endl; save.pop(); }
-		while(!regles.empty() && regles.top()->estPlein())
+		while(!regles.empty() && regles.top() != NULL && regles.top()->estPlein())
 		{
 			regles.pop();
 		}

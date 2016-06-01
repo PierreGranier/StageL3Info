@@ -139,7 +139,7 @@ void Container::verifierPreuve() const
 	}
 	else // si le toString est vide (à cause d'une non fermeture de branche)
 	{
-		emit resultatAnalyseur("Veuillez corriger la preuve\n");
+		emit resultatAnalyseur("Veuillez corriger la preuve.\n");
 	}
 }
 

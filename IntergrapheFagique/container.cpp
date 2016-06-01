@@ -119,21 +119,28 @@ void Container::verifierPreuve() const
 	// Créé le fichier et l'envoie dans un signal
 	
 	string res = m_racine->toString();
-	ofstream fichierRes("fichierRes.txt", ios::out);
-	if(fichierRes)
-	{
-		//cout << m_racine->toString() << endl;
-		fichierRes << res << endl;
-		fichierRes << endl;
-		fichierRes.close();
-	}
-	else
-	{
-		cout << "Erreur lors de l'ouverture du fichier" << endl;
-	}
-	
 	// cout << m_racine->toString() << endl;
-	emit verifierFichier("../IntergrapheFagique/fichierRes.txt");
+	
+	// Pour conserver le dernier fichier correct qui a été analysé
+	if(!res.empty()) // si le toString est non vide
+	{
+		ofstream fichierRes("fichierRes.txt", ios::out);
+		if(fichierRes)
+		{
+			fichierRes << res << endl;
+			fichierRes << endl;
+			fichierRes.close();
+			emit verifierFichier("../IntergrapheFagique/fichierRes.txt");
+		}
+		else
+		{
+			cout << "Erreur lors de l'ouverture du fichier" << endl;
+		}
+	}
+	else // si le toString est vide (à cause d'une non fermeture de branche)
+	{
+		emit resultatAnalyseur("Veuillez corriger la preuve\n");
+	}
 }
 
 void Container::executerAnalyseur(const string &fichier) const

@@ -1,9 +1,9 @@
 #! /bin/bash
 
-cd AnalyseurSyntaxical
+cd AnalyseurSyntaxique
 make all
 
-cd ../IntergrapheFagique
+cd ../InterfaceGraphique
 cmake CMakeLists.txt
 make --file=Makefile -j2
 

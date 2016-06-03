@@ -130,7 +130,7 @@ void Container::verifierPreuve() const
 			fichierRes << res << endl;
 			fichierRes << endl;
 			fichierRes.close();
-			emit verifierFichier("../IntergrapheFagique/fichierRes.txt");
+			emit verifierFichier("../InterfaceGraphique/fichierRes.txt");
 		}
 		else
 		{
@@ -149,10 +149,10 @@ void Container::executerAnalyseur(const string &fichier) const
 	
 	QString prog = "verificateur";
 	
-	string resAnalyseur = "../IntergrapheFagique/resAnalyseur.txt";
+	string resAnalyseur = "../InterfaceGraphique/resAnalyseur.txt";
 	
-	string commande= "cd ../AnalyseurSyntaxical/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
-	// string commande= "START ../AnalyseurSyntaxical/verificateur.exe " + fichier + "1>" + resAnalyseur; //#WindowsDaubé
+	string commande= "cd ../AnalyseurSyntaxique/ ; ./verificateur " + fichier + ">" + resAnalyseur; //#CoursD'Unix 4Ever
+	// string commande= "START ../AnalyseurSyntaxique/verificateur.exe " + fichier + "1>" + resAnalyseur; //#WindowsDaubé
 	
 	system(commande.c_str());
 	

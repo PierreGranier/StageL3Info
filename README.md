@@ -4,7 +4,7 @@
 
 Vérificateur de preuves de programme en logique de Hoare
 
-## Fonctionnalités du projet
+## Fonctionnalités du projet !
 
 * Définir le format du fichier contenant une preuve
 * Vérificateur de preuve
